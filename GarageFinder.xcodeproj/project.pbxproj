@@ -9,25 +9,59 @@
 /* Begin PBXBuildFile section */
 		3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */; };
 		3C10C8D5230AE450001BDDB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D4230AE450001BDDB6 /* ViewController.swift */; };
-		3C10C8D8230AE450001BDDB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C8D6230AE450001BDDB6 /* Main.storyboard */; };
-		3C10C8DB230AE450001BDDB6 /* GarageFinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D9230AE450001BDDB6 /* GarageFinder.xcdatamodeld */; };
 		3C10C8DD230AE453001BDDB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C8DC230AE453001BDDB6 /* Assets.xcassets */; };
 		3C10C8E0230AE453001BDDB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */; };
+		3C10C8F5230AE7D2001BDDB6 /* GarageFinderFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C10C8F8230AE7D2001BDDB6 /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
+		3C10C8F9230AE7D2001BDDB6 /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3C10C8F6230AE7D2001BDDB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C10C8C7230AE450001BDDB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C10C8F0230AE7D2001BDDB6;
+			remoteInfo = GarageFinderFramework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3C10C8FD230AE7D2001BDDB6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3C10C8F9230AE7D2001BDDB6 /* GarageFinderFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3C10C8CF230AE450001BDDB6 /* GarageFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GarageFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C10C8D4230AE450001BDDB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3C10C8D7230AE450001BDDB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3C10C8DA230AE450001BDDB6 /* GarageFinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GarageFinder.xcdatamodel; sourceTree = "<group>"; };
 		3C10C8DC230AE453001BDDB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C10C8DF230AE453001BDDB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C10C8E1230AE453001BDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GarageFinderFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GarageFinderFramework.h; sourceTree = "<group>"; };
+		3C10C8F4230AE7D2001BDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3C10C8CC230AE450001BDDB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C10C8F8230AE7D2001BDDB6 /* GarageFinderFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C10C8EE230AE7D2001BDDB6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C8D1230AE450001BDDB6 /* GarageFinder */,
+				3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */,
 				3C10C8D0230AE450001BDDB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C8CF230AE450001BDDB6 /* GarageFinder.app */,
+				3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,18 +92,60 @@
 		3C10C8D1230AE450001BDDB6 /* GarageFinder */ = {
 			isa = PBXGroup;
 			children = (
-				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
-				3C10C8D4230AE450001BDDB6 /* ViewController.swift */,
-				3C10C8D6230AE450001BDDB6 /* Main.storyboard */,
-				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
-				3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */,
 				3C10C8E1230AE453001BDDB6 /* Info.plist */,
-				3C10C8D9230AE450001BDDB6 /* GarageFinder.xcdatamodeld */,
+				3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */,
+				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
+				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
+				3C10C8E9230AE634001BDDB6 /* View */,
+				3C10C8E8230AE62A001BDDB6 /* Controller */,
+				3C10C8E7230AE55A001BDDB6 /* Protocol */,
 			);
 			path = GarageFinder;
 			sourceTree = "<group>";
 		};
+		3C10C8E7230AE55A001BDDB6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3C10C8E8230AE62A001BDDB6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C8D4230AE450001BDDB6 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3C10C8E9230AE634001BDDB6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */,
+				3C10C8F4230AE7D2001BDDB6 /* Info.plist */,
+			);
+			path = GarageFinderFramework;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3C10C8EC230AE7D2001BDDB6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C10C8F5230AE7D2001BDDB6 /* GarageFinderFramework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		3C10C8CE230AE450001BDDB6 /* GarageFinder */ = {
@@ -77,15 +155,35 @@
 				3C10C8CB230AE450001BDDB6 /* Sources */,
 				3C10C8CC230AE450001BDDB6 /* Frameworks */,
 				3C10C8CD230AE450001BDDB6 /* Resources */,
+				3C10C8FD230AE7D2001BDDB6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3C10C8F7230AE7D2001BDDB6 /* PBXTargetDependency */,
 			);
 			name = GarageFinder;
 			productName = GarageFinder;
 			productReference = 3C10C8CF230AE450001BDDB6 /* GarageFinder.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3C10C8F0230AE7D2001BDDB6 /* GarageFinderFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C10C8FA230AE7D2001BDDB6 /* Build configuration list for PBXNativeTarget "GarageFinderFramework" */;
+			buildPhases = (
+				3C10C8EC230AE7D2001BDDB6 /* Headers */,
+				3C10C8ED230AE7D2001BDDB6 /* Sources */,
+				3C10C8EE230AE7D2001BDDB6 /* Frameworks */,
+				3C10C8EF230AE7D2001BDDB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GarageFinderFramework;
+			productName = GarageFinderFramework;
+			productReference = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -98,6 +196,9 @@
 				ORGANIZATIONNAME = "João Pedro Aragão";
 				TargetAttributes = {
 					3C10C8CE230AE450001BDDB6 = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					3C10C8F0230AE7D2001BDDB6 = {
 						CreatedOnToolsVersion = 10.3;
 					};
 				};
@@ -116,6 +217,7 @@
 			projectRoot = "";
 			targets = (
 				3C10C8CE230AE450001BDDB6 /* GarageFinder */,
+				3C10C8F0230AE7D2001BDDB6 /* GarageFinderFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -127,7 +229,13 @@
 			files = (
 				3C10C8E0230AE453001BDDB6 /* LaunchScreen.storyboard in Resources */,
 				3C10C8DD230AE453001BDDB6 /* Assets.xcassets in Resources */,
-				3C10C8D8230AE450001BDDB6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C10C8EF230AE7D2001BDDB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,21 +248,27 @@
 			files = (
 				3C10C8D5230AE450001BDDB6 /* ViewController.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
-				3C10C8DB230AE450001BDDB6 /* GarageFinder.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C10C8ED230AE7D2001BDDB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		3C10C8D6230AE450001BDDB6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3C10C8D7230AE450001BDDB6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		3C10C8F7230AE7D2001BDDB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C10C8F0230AE7D2001BDDB6 /* GarageFinderFramework */;
+			targetProxy = 3C10C8F6230AE7D2001BDDB6 /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -318,6 +432,62 @@
 			};
 			name = Release;
 		};
+		3C10C8FB230AE7D2001BDDB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = GarageFinderFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpedroarag.GarageFinderFramework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3C10C8FC230AE7D2001BDDB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = GarageFinderFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpedroarag.GarageFinderFramework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -339,20 +509,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		3C10C8D9230AE450001BDDB6 /* GarageFinder.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3C10C8DA230AE450001BDDB6 /* GarageFinder.xcdatamodel */,
+		3C10C8FA230AE7D2001BDDB6 /* Build configuration list for PBXNativeTarget "GarageFinderFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C10C8FB230AE7D2001BDDB6 /* Debug */,
+				3C10C8FC230AE7D2001BDDB6 /* Release */,
 			);
-			currentVersion = 3C10C8DA230AE450001BDDB6 /* GarageFinder.xcdatamodel */;
-			path = GarageFinder.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-/* End XCVersionGroup section */
+/* End XCConfigurationList section */
 	};
 	rootObject = 3C10C8C7230AE450001BDDB6 /* Project object */;
 }
