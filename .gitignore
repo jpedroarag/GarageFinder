@@ -29,21 +29,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.gitignore.io/api/macos
-
-# Created by http://www.gitignore.io
-
-### Xcode ###
-build
-#*.xcodeproj/*
-#!*.xcodeproj/project.pbxproj
-#!*.xcworkspace/contents.xcworkspacedata
-*.xcworkspace
-
-### Objective-C ###
-# OS X
-.DS_Store
-
 # Xcode
 build/
 *.pbxuser
