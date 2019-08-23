@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */; };
-		3C10C8D5230AE450001BDDB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D4230AE450001BDDB6 /* ViewController.swift */; };
+		3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C8D4230AE450001BDDB6 /* MapViewController.swift */; };
 		3C10C8DD230AE453001BDDB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C8DC230AE453001BDDB6 /* Assets.xcassets */; };
 		3C10C8E0230AE453001BDDB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */; };
 		3C10C8F5230AE7D2001BDDB6 /* GarageFinderFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C10C8F8230AE7D2001BDDB6 /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
 		3C10C8F9230AE7D2001BDDB6 /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3C10C909231016DE001BDDB6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C908231016DE001BDDB6 /* MapView.swift */; };
+		3C10C90C231017EA001BDDB6 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C90B231017EA001BDDB6 /* MapDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,13 +45,15 @@
 /* Begin PBXFileReference section */
 		3C10C8CF230AE450001BDDB6 /* GarageFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GarageFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3C10C8D4230AE450001BDDB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3C10C8D4230AE450001BDDB6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3C10C8DC230AE453001BDDB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C10C8DF230AE453001BDDB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C10C8E1230AE453001BDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GarageFinderFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GarageFinderFramework.h; sourceTree = "<group>"; };
 		3C10C8F4230AE7D2001BDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C10C908231016DE001BDDB6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		3C10C90B231017EA001BDDB6 /* MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,22 +102,15 @@
 				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
 				3C10C8E9230AE634001BDDB6 /* View */,
 				3C10C8E8230AE62A001BDDB6 /* Controller */,
-				3C10C8E7230AE55A001BDDB6 /* Protocol */,
+				3C10C90723100B42001BDDB6 /* Protocol */,
 			);
 			path = GarageFinder;
-			sourceTree = "<group>";
-		};
-		3C10C8E7230AE55A001BDDB6 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		3C10C8E8230AE62A001BDDB6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3C10C8D4230AE450001BDDB6 /* ViewController.swift */,
+				3C10C8D4230AE450001BDDB6 /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -121,6 +118,7 @@
 		3C10C8E9230AE634001BDDB6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3C10C90A231017DD001BDDB6 /* MapView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -132,6 +130,22 @@
 				3C10C8F4230AE7D2001BDDB6 /* Info.plist */,
 			);
 			path = GarageFinderFramework;
+			sourceTree = "<group>";
+		};
+		3C10C90723100B42001BDDB6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3C10C90A231017DD001BDDB6 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C908231016DE001BDDB6 /* MapView.swift */,
+				3C10C90B231017EA001BDDB6 /* MapDelegate.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,7 +301,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C10C8D5230AE450001BDDB6 /* ViewController.swift in Sources */,
+				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
+				3C10C90C231017EA001BDDB6 /* MapDelegate.swift in Sources */,
+				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
