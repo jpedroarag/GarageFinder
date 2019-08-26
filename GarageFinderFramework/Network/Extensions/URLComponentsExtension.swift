@@ -10,9 +10,9 @@ import Foundation
 
 extension URLComponents {
     
-    init(service: Service) {
+    init?(service: Service) {
         let url = service.baseURL.appendingPathComponent(service.path)
-        self.init(url: url, resolvingAgainstBaseURL: false)!
+        self.init(url: url, resolvingAgainstBaseURL: false)
         
         guard case let .requestParameters(parameters) = service.task,
             service.parametersEncoding == .url else {

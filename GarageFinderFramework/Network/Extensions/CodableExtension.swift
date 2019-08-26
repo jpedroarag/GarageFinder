@@ -17,4 +17,8 @@ extension Encodable {
         }).compactMap { $0 })
         return dict
     }
+    
+    var data: Data? {
+        return try? JSONEncoder().encode(self)
+    }
 }

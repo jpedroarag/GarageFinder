@@ -13,16 +13,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .blue
         
-        _ = MockPost(id: 1, title: "foo", body: "bar")
-        let service: GarageService = .comment(id: 3)
+        //let post = MockPost(userId: 1, title: "foo", body: "bar")
+        let comment = MockComment(name: "comentario")
+        let service: GarageService = .postComment(comment: comment)
         let session = URLSessionProvider()
         session.request(type: MockComment.self, service: service) { (result) in
             switch result {
             case .success(let response):
                 print("response \(response)")
             case .failure(let error):
-                print(error)
+                print("Failure: \(error)")
             }
         }
     }

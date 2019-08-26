@@ -12,6 +12,7 @@ public enum GarageService: Service {
     
     case comment(id: Int)
     case posts(post: MockPost)
+    case postComment(comment: MockComment)
     
     public var baseURL: URL {
         return URL(string: "https://jsonplaceholder.typicode.com") ?? URL(fileURLWithPath: "")
@@ -23,6 +24,8 @@ public enum GarageService: Service {
             return "/comments/\(id)"
         case .posts:
             return "/posts"
+        case .postComment:
+            return "/comments"
         }
     }
     
@@ -30,7 +33,7 @@ public enum GarageService: Service {
         switch self {
         case .comment:
             return .get
-        case .posts:
+        case .posts, .postComment:
             return .post
         }
     }
@@ -41,6 +44,8 @@ public enum GarageService: Service {
             return .requestPlain
         case .posts(let post):
             return .requestParameters(post)
+        case .postComment(let comment):
+            return .requestParameters(comment)
         }
     }
     
@@ -48,7 +53,7 @@ public enum GarageService: Service {
         switch self {
         case .comment:
             return nil
-        case .posts:
+        case .posts, .postComment:
             return ["Content-type": "application/json; charset=UTF-8"]
         }
     }
@@ -57,14 +62,14 @@ public enum GarageService: Service {
         switch self {
         case .comment:
             return .url
-        case .posts:
+        case .posts, .postComment:
             return .json
         }
     }
     
 }
 
-public struct MockComment: Decodable {
+public struct MockComment: Codable {
     public var name: String
     
     public init(name: String) {
@@ -73,12 +78,12 @@ public struct MockComment: Decodable {
 }
 
 public struct MockPost: Codable {
-    public let id: Int
+    public let userId: Int
     public let title: String
     public let body: String
     
-    public init(id: Int, title: String, body: String) {
-        self.id = id
+    public init(userId: Int, title: String, body: String) {
+        self.userId = userId
         self.title = title
         self.body = body
     }

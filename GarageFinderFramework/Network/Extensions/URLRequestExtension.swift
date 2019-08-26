@@ -11,21 +11,24 @@ import Foundation
 extension URLRequest {
     
     init(service: Service) {
-        let urlComponents = URLComponents(service: service)
-        
-        self.init(url: urlComponents.url!)
-        
-        self.httpMethod = service.method.rawValue
-        
-        service.headers?.forEach { key, value in
-            addValue(value, forHTTPHeaderField: key)
+        if let urlComponents = URLComponents(service: service),
+            let url = urlComponents.url {
+            self.init(url: url)
+            
+            self.httpMethod = service.method.rawValue
+            
+            service.headers?.forEach { key, value in
+                addValue(value, forHTTPHeaderField: key)
+            }
+            
+            guard case let .requestParameters(payload) = service.task,
+                service.parametersEncoding == .json else {
+                    return
+            }
+            
+            self.httpBody = payload.data
+        } else {
+            self.init(url: URL(fileURLWithPath: ""))
         }
-        
-        guard case let .requestParameters(payload) = service.task,
-            service.parametersEncoding == .json else {
-                return
-        }
-        
-        self.httpBody = try? JSONSerialization.data(withJSONObject: payload.asDictionary)
     }
 }
