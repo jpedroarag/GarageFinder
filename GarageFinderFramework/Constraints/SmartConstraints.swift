@@ -21,7 +21,7 @@ import UIKit
 
 public class SmartConstraint {
     /// Item to be anchored, can be a UIView or a UILayoutGuide
-    unowned var item: AnyObject
+    unowned var view: AnyObject
     
     /// All constraints setted to item
     var constraints: [NSLayoutConstraint] = []
@@ -29,18 +29,18 @@ public class SmartConstraint {
     /// Init with View
     init(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
-        self.item = view
+        self.view = view
     }
     
     /// Init with Layout Guide
     init(layoutGuide: UILayoutGuide) {
-        self.item = layoutGuide
+        self.view = layoutGuide
     }
     
     /// Activate all constraints setted in constraints array
     static public func activate(_ constraints: SmartConstraint ...) {
         constraints.forEach {
-            if let view = $0.item as? UIView {
+            if let view = $0.view as? UIView {
                 view.translatesAutoresizingMaskIntoConstraints = false
             }
             NSLayoutConstraint.activate($0.constraints)
@@ -62,7 +62,7 @@ extension SmartConstraint {
     public func top(_ anchor: NSLayoutYAxisAnchor,
                     padding: CGFloat = 0,
                     relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.topAnchor, toAnchor: anchor, relation: relation, padding: padding)
+        layoutAnchor(view.topAnchor, toAnchor: anchor, relation: relation, padding: padding)
         return self
     }
     
@@ -70,7 +70,7 @@ extension SmartConstraint {
     public func bottom(_ anchor: NSLayoutYAxisAnchor,
                        padding: CGFloat = 0,
                        relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.bottomAnchor, toAnchor: anchor, relation: relation, padding: -padding)
+        layoutAnchor(view.bottomAnchor, toAnchor: anchor, relation: relation, padding: -padding)
         return self
     }
     
@@ -78,7 +78,7 @@ extension SmartConstraint {
     public func left(_ anchor: NSLayoutXAxisAnchor,
                      padding: CGFloat = 0,
                      relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.leftAnchor, toAnchor: anchor, relation: relation, padding: padding)
+        layoutAnchor(view.leftAnchor, toAnchor: anchor, relation: relation, padding: padding)
         return self
     }
     
@@ -86,7 +86,7 @@ extension SmartConstraint {
     public func right(_ anchor: NSLayoutXAxisAnchor,
                       padding: CGFloat = 0,
                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.rightAnchor, toAnchor: anchor, relation: relation, padding: -padding)
+        layoutAnchor(view.rightAnchor, toAnchor: anchor, relation: relation, padding: -padding)
         return self
     }
     
@@ -95,14 +95,14 @@ extension SmartConstraint {
                       constant: CGFloat = 0,
                       multiplier: CGFloat = 1,
                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(item.widthAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
+        layoutDimension(view.widthAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
         return self
     }
     
     @discardableResult
     public func width(constant: CGFloat,
                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(item.widthAnchor, relation: relation, constant: constant)
+        layoutDimension(view.widthAnchor, relation: relation, constant: constant)
         return self
     }
     
@@ -111,14 +111,14 @@ extension SmartConstraint {
                        constant: CGFloat = 0,
                        multiplier: CGFloat = 1,
                        relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(item.heightAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
+        layoutDimension(view.heightAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
         return self
     }
     
     @discardableResult
     public func height(constant: CGFloat,
                        relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(item.heightAnchor, relation: relation, constant: constant)
+        layoutDimension(view.heightAnchor, relation: relation, constant: constant)
         return self
     }
     
@@ -126,7 +126,7 @@ extension SmartConstraint {
     public func centerX(_ anchor: NSLayoutXAxisAnchor,
                         padding: CGFloat = 0,
                         relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.centerXAnchor, toAnchor: anchor, relation: relation, padding: padding)
+        layoutAnchor(view.centerXAnchor, toAnchor: anchor, relation: relation, padding: padding)
         return self
     }
     
@@ -134,7 +134,7 @@ extension SmartConstraint {
     public func centerY(_ anchor: NSLayoutYAxisAnchor,
                         padding: CGFloat = 0,
                         relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(item.centerYAnchor, toAnchor: anchor, relation: relation, padding: padding)
+        layoutAnchor(view.centerYAnchor, toAnchor: anchor, relation: relation, padding: padding)
         return self
     }
     
