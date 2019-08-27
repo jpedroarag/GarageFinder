@@ -20,6 +20,22 @@ class MapViewController: UIViewController {
         mapView = MapView(region: region)
         mapView.frame = view.frame
         view.addSubview(mapView)
+        title = "Home"
+        
+        setupSearchController()
+    }
+    
+    func setupSearchController() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let searchResult = SearchResultViewController()
+        let searchController = UISearchController(searchResultsController: searchResult)
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = searchResult
+        searchController.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        searchResult.mapView = mapView
     }
     
     func getRegion(forLocation location: CLLocation) -> MKCoordinateRegion {
