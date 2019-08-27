@@ -16,6 +16,7 @@
 		3C10C8F9230AE7D2001BDDB6 /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3C10C909231016DE001BDDB6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C908231016DE001BDDB6 /* MapView.swift */; };
 		3C10C90C231017EA001BDDB6 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C90B231017EA001BDDB6 /* MapDelegate.swift */; };
+		6C820CFC231550A9006F3203 /* MapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C820CFB231550A9006F3203 /* MapNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		3C10C8F4230AE7D2001BDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C10C908231016DE001BDDB6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		3C10C90B231017EA001BDDB6 /* MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDelegate.swift; sourceTree = "<group>"; };
+		6C820CFB231550A9006F3203 /* MapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C8D4230AE450001BDDB6 /* MapViewController.swift */,
+				6C820CFB231550A9006F3203 /* MapNavigationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				3C10C90C231017EA001BDDB6 /* MapDelegate.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
+				6C820CFC231550A9006F3203 /* MapNavigationController.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
