@@ -15,24 +15,24 @@ class MapDelegate: NSObject, CLLocationManagerDelegate, MKMapViewDelegate {
 //        updateLocal(location: locations.last!)
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if !(annotation is MKPointAnnotation) {
-            return nil
-        }
-        
-        let id = "annotationID"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
-            annotationView?.canShowCallout = true
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        let image = UIImage(named: "ifce.jpg")
-        annotationView?.image = image
-        
-        return annotationView
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if !(annotation is MKPointAnnotation) {
+//            return nil
+//        }
+//
+//        let id = "annotationID"
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
+//
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
+//            annotationView?.canShowCallout = true
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//        let image = UIImage(named: "ifce.jpg")
+//        annotationView?.image = image
+//
+//        return annotationView
+//    }
 }
