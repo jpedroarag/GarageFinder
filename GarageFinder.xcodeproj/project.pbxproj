@@ -18,6 +18,7 @@
 		3C10C944231579D2001BDDB6 /* IfceLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C942231579D1001BDDB6 /* IfceLocation.gpx */; };
 		3C10C945231579D2001BDDB6 /* NearGarages.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C943231579D2001BDDB6 /* NearGarages.json */; };
 		3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */; };
+		3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9492316A7BC001BDDB6 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		3C10C942231579D1001BDDB6 /* IfceLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IfceLocation.gpx; sourceTree = "<group>"; };
 		3C10C943231579D2001BDDB6 /* NearGarages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearGarages.json; sourceTree = "<group>"; };
 		3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
+		3C10C9492316A7BC001BDDB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C8D4230AE450001BDDB6 /* MapViewController.swift */,
+				3C10C9492316A7BC001BDDB6 /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
