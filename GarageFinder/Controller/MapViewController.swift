@@ -28,6 +28,7 @@ class MapViewController: UIViewController {
     func setupSearchController() {
         navigationController?.navigationBar.prefersLargeTitles = true
         let searchResult = SearchResultViewController()
+        searchResult.searchDelegate = self
         let searchController = UISearchController(searchResultsController: searchResult)
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
@@ -63,4 +64,10 @@ class MapViewController: UIViewController {
         return point
     }
     
+}
+
+extension MapViewController: SearchDelegate {
+    func didSearch(item: MKMapItem) {
+        print("LOCAL FOUND")
+    }
 }
