@@ -67,7 +67,6 @@ extension SearchResultViewController: UISearchResultsUpdating {
             guard let response = response else { return }
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
-            print("response: \(response.mapItems)")
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             }

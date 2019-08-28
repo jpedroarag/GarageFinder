@@ -106,6 +106,7 @@ extension MapViewController: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
         mapView.updateRangeCircle(location: lastLocation, meters: 500)
         updateNearGarages()
+        //TODO: Users should choice if maps will follow user location
         mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
     }
@@ -113,6 +114,9 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: SearchDelegate {
     func didSearch(item: MKMapItem) {
-        print("LOCAL FOUND")
+        if let itemLocation = item.placemark.location {
+            mapShouldFollowUserLocation = false
+            mapView.updateRegion(itemLocation)
+        }
     }
 }
