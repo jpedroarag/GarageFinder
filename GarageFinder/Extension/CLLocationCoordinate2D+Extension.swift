@@ -13,11 +13,11 @@ extension CLLocationCoordinate2D {
         self.init(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
     }
     
-    static func ==(left: CLLocationCoordinate2D, right: CLLocationCoordinate2D) -> Bool {
+    static func == (left: CLLocationCoordinate2D, right: CLLocationCoordinate2D) -> Bool {
         return left.latitude == right.latitude && left.longitude == right.longitude
     }
     
-    static func !=(left: CLLocationCoordinate2D, right: CLLocationCoordinate2D) -> Bool {
+    static func != (left: CLLocationCoordinate2D, right: CLLocationCoordinate2D) -> Bool {
         return left.latitude != right.latitude || left.longitude != right.longitude
     }
 }

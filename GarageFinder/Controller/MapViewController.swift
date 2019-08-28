@@ -23,12 +23,31 @@ class MapViewController: UIViewController {
         
         mapView.frame = view.frame
         view.addSubview(mapView)
+
+        title = "Home"
+        
+        setupSearchController()
         
         locationManager.delegate = self
         startUsingDeviceLocation()
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         setConstraints()
+
+    }
+    
+    func setupSearchController() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let searchResult = SearchResultViewController()
+        searchResult.searchDelegate = self
+        let searchController = UISearchController(searchResultsController: searchResult)
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = searchResult
+        searchController.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        searchResult.mapView = mapView
     }
     
     func setConstraints() {
@@ -55,16 +74,16 @@ class MapViewController: UIViewController {
     
     func findGarages() -> [CLLocation] {
         let bundle = Bundle.main
-        let path = bundle.url(forResource: "NearGarages", withExtension: "json")!
+        guard let path = bundle.url(forResource: "NearGarages", withExtension: "json") else { return [] }
         let data = try? Data(contentsOf: path, options: .mappedIfSafe)
         if let data = data {
             var locations = [CLLocation]()
             let locationsDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Double]]
             locationsDict?.forEach { locationDict in
-                let latitude = locationDict["latitude"]!
-                let longitude = locationDict["longitude"]!
-                let location = CLLocation(latitude: latitude, longitude: longitude)
-                locations.append(location)
+                if let latitude = locationDict["latitude"], let longitude = locationDict["longitude"] {
+                    let location = CLLocation(latitude: latitude, longitude: longitude)
+                    locations.append(location)
+                }
             }
             return locations
         }
@@ -84,9 +103,16 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mapView.updateRangeCircle(location: locations.last!, meters: 500)
+        guard let lastLocation = locations.last else { return }
+        mapView.updateRangeCircle(location: lastLocation, meters: 500)
         updateNearGarages()
-        mapView.updateRegion(locations.last!, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
+        mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
+    }
+}
+
+extension MapViewController: SearchDelegate {
+    func didSearch(item: MKMapItem) {
+        print("LOCAL FOUND")
     }
 }
