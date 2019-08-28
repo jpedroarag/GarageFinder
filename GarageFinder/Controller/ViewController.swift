@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  GarageFinder
 //
-//  Created by João Pedro Aragão on 19/08/19.
+//  Created by João Pedro Aragão on 28/08/19.
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
@@ -28,5 +28,5 @@ class ViewController: UIViewController {
             }
         }
     }
-
+    
 }

@@ -8,21 +8,32 @@
 
 import UIKit
 import MapKit
+import GarageFinderFramework
 
 class MapViewController: UIViewController {
     
-    var mapView: MapView!
+    lazy var locationManager = CLLocationManager()
+    lazy var locationSet = false
+    lazy var mapShouldFollowUserLocation = true
+    
+    lazy var mapView = MapView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let location = CLLocation(latitude: -3.743993, longitude: -38.535674)
-        let region = getRegion(forLocation: location)
-        mapView = MapView(region: region)
+        
         mapView.frame = view.frame
         view.addSubview(mapView)
+
         title = "Home"
         
         setupSearchController()
+        
+        locationManager.delegate = self
+        startUsingDeviceLocation()
+        
+        mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        setConstraints()
+
     }
     
     func setupSearchController() {
@@ -39,31 +50,65 @@ class MapViewController: UIViewController {
         searchResult.mapView = mapView
     }
     
-    func getRegion(forLocation location: CLLocation) -> MKCoordinateRegion {
-        let centerCoordinate = CLLocationCoordinate2D(location: location)
-        let zoom = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        return MKCoordinateRegion(center: centerCoordinate, span: zoom)
-    }
-    
-    func updateCenter(_ location: CLLocation) {
-        let centerCoordinate = CLLocationCoordinate2D(location: location)
-        mapView.mapView.setCenter(centerCoordinate, animated: true)
+    func setConstraints() {
+        mapView.anchor
+        .top(view.topAnchor)
+        .right(view.rightAnchor)
+        .bottom(view.bottomAnchor)
+        .left(view.leftAnchor)
     }
     
     func startUsingDeviceLocation() {
-        mapView.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        mapView.locationManager.requestWhenInUseAuthorization()
-        mapView.locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
-    func newMarkAnnotation(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) -> MKPointAnnotation {
+    func newPin(coordinate: CLLocation, title: String, subtitle: String) -> MKPointAnnotation {
         let point = MKPointAnnotation()
-        point.coordinate = coordinate
+        point.coordinate = CLLocationCoordinate2D(location: coordinate)
         point.title = title
         point.subtitle = subtitle
         return point
     }
     
+    func findGarages() -> [CLLocation] {
+        let bundle = Bundle.main
+        guard let path = bundle.url(forResource: "NearGarages", withExtension: "json") else { return [] }
+        let data = try? Data(contentsOf: path, options: .mappedIfSafe)
+        if let data = data {
+            var locations = [CLLocation]()
+            let locationsDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Double]]
+            locationsDict?.forEach { locationDict in
+                if let latitude = locationDict["latitude"], let longitude = locationDict["longitude"] {
+                    let location = CLLocation(latitude: latitude, longitude: longitude)
+                    locations.append(location)
+                }
+            }
+            return locations
+        }
+        return []
+    }
+    
+    func updateNearGarages() {
+        mapView.removePinsOutsideRadius()
+        let nearGaragesPins = mapView.pins.filter { pin in
+            let mapPoint = MKMapPoint(pin.coordinate)
+            return mapView.rangeCircle.boundingMapRect.contains(mapPoint)
+        }
+        mapView.addPins(nearGaragesPins)
+    }
+    
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let lastLocation = locations.last else { return }
+        mapView.updateRangeCircle(location: lastLocation, meters: 500)
+        updateNearGarages()
+        mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
+        if !locationSet { locationSet = true }
+    }
 }
 
 extension MapViewController: SearchDelegate {
