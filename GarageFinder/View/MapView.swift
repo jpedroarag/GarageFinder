@@ -65,8 +65,8 @@ class MapView: MKMapView {
         }
     }
     
-    func addRangeCircle(location: CLLocation, kilometers: Int) {
-        rangeCircle = MKCircle(center: location.coordinate, radius: CLLocationDistance(kilometers))
+    func addRangeCircle(location: CLLocation, meters: Int) {
+        rangeCircle = MKCircle(center: location.coordinate, radius: CLLocationDistance(meters))
         addOverlay(rangeCircle)
     }
     
@@ -75,9 +75,9 @@ class MapView: MKMapView {
         removeOverlay(circle)
     }
     
-    func updateRangeCircle(location: CLLocation, kilometers: Int) {
+    func updateRangeCircle(location: CLLocation, meters: Int) {
         removeRangeCircle()
-        addRangeCircle(location: location, kilometers: kilometers)
+        addRangeCircle(location: location, meters: meters)
     }
     
 }

@@ -84,7 +84,7 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mapView.updateRangeCircle(location: locations.last!, kilometers: 500)
+        mapView.updateRangeCircle(location: locations.last!, meters: 500)
         updateNearGarages()
         mapView.updateRegion(locations.last!, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
