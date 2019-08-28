@@ -7,12 +7,26 @@
 //
 
 import UIKit
+import GarageFinderFramework
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .blue
+        
+        //let post = MockPost(userId: 1, title: "foo", body: "bar")
+        let comment = MockComment(name: "comentario")
+        let service: GarageService = .postComment(comment: comment)
+        let session = URLSessionProvider()
+        session.request(type: MockComment.self, service: service) { (result) in
+            switch result {
+            case .success(let response):
+                print("response \(response)")
+            case .failure(let error):
+                print("Failure: \(error)")
+            }
+        }
     }
     
 }
