@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import GarageFinderFramework
 
 class MapViewController: UIViewController {
     
@@ -27,6 +28,15 @@ class MapViewController: UIViewController {
         startUsingDeviceLocation()
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        setConstraints()
+    }
+    
+    func setConstraints() {
+        mapView.anchor
+        .top(view.topAnchor)
+        .right(view.rightAnchor)
+        .bottom(view.bottomAnchor)
+        .left(view.leftAnchor)
     }
     
     func startUsingDeviceLocation() {
