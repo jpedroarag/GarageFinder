@@ -9,10 +9,22 @@
 import UIKit
 import MapKit
 
+struct Range {
+    
+    var userLocation: MKCircle!
+    var searchLocation: MKCircle!
+    
+    init() {
+        userLocation = nil
+        searchLocation = nil
+    }
+    
+}
+
 class MapView: MKMapView {
     
     lazy var pins = [MKPointAnnotation]()
-    var rangeCircle: MKCircle!
+    lazy var range = Range()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,28 +68,44 @@ class MapView: MKMapView {
         addAnnotations(filtered)
     }
     
-    func removePinsOutsideRadius() {
+    func removePinsOutsideRadius(userLocation: Bool) {
         annotations.forEach { pin in
             let mapPoint = MKMapPoint(pin.coordinate)
-            if !rangeCircle.boundingMapRect.contains(mapPoint) {
+            let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
+            if !circle.boundingMapRect.contains(mapPoint) {
                 removeAnnotation(pin)
             }
         }
     }
     
-    func addRangeCircle(location: CLLocation, meters: Int) {
-        rangeCircle = MKCircle(center: location.coordinate, radius: CLLocationDistance(meters))
-        addOverlay(rangeCircle)
+    func addRangeCircle(location: CLLocation, meters: Int, userLocation: Bool) {
+        let circle = MKCircle(center: location.coordinate, radius: CLLocationDistance(meters))
+        if userLocation {
+            range.userLocation = circle
+        } else {
+            range.searchLocation = circle
+        }
+        addOverlay(circle)
     }
     
-    func removeRangeCircle() {
-        guard let circle = rangeCircle else { return }
+    func removeRangeCircle(userLocation: Bool) {
+        guard let circle = userLocation ? range.userLocation : range.searchLocation else { return }
         removeOverlay(circle)
     }
     
-    func updateRangeCircle(location: CLLocation, meters: Int) {
-        removeRangeCircle()
-        addRangeCircle(location: location, meters: meters)
+    func updateRangeCircle(location: CLLocation, meters: Int, userLocation: Bool) {
+        removeRangeCircle(userLocation: userLocation)
+        addRangeCircle(location: location, meters: meters, userLocation: userLocation)
+    }
+    
+    func updateNearGarages(aroundUserLocation userLocation: Bool) {
+        removePinsOutsideRadius(userLocation: userLocation)
+        let nearGaragesPins = pins.filter { pin in
+            let mapPoint = MKMapPoint(pin.coordinate)
+            let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
+            return circle.boundingMapRect.contains(mapPoint)
+        }
+        addPins(nearGaragesPins)
     }
     
 }
