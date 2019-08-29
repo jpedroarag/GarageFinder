@@ -89,22 +89,13 @@ class MapViewController: UIViewController {
         return []
     }
     
-    func updateNearGarages() {
-        mapView.removePinsOutsideRadius()
-        let nearGaragesPins = mapView.pins.filter { pin in
-            let mapPoint = MKMapPoint(pin.coordinate)
-            return mapView.rangeCircle.boundingMapRect.contains(mapPoint)
-        }
-        mapView.addPins(nearGaragesPins)
-    }
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
-        mapView.updateRangeCircle(location: lastLocation, meters: 500)
-        updateNearGarages()
+        mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
+        mapView.updateNearGarages(aroundUserLocation: true)
         //TODO: Users should choice if maps will follow user location
         //mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
