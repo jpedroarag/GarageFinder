@@ -96,6 +96,45 @@ class MapView: MKMapView {
         addPins(nearGaragesPins)
     }
     
+    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+//        let sourceAnnotation = MKPointAnnotation()
+//
+//        if let location = sourcePlacemark.location {
+//            sourceAnnotation.coordinate = location.coordinate
+//        }
+//
+//        let destinationAnnotation = MKPointAnnotation()
+//
+//        if let location = destinationPlacemark.location {
+//            destinationAnnotation.coordinate = location.coordinate
+//        }
+//
+//        showAnnotations([sourceAnnotation,destinationAnnotation], animated: true)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        MKDirections(request: directionRequest).calculate { (response, error) -> Void in
+            guard let response = response else {
+                if let error = error { print("Error: \(error)") }
+                return
+            }
+            
+            if let route = response.routes.first {
+                self.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
+                self.setRegion(MKCoordinateRegion(route.polyline.boundingMapRect), animated: true)
+            }
+        }
+    }
+    
 }
 
 extension MapView: MKMapViewDelegate {
@@ -106,6 +145,11 @@ extension MapView: MKMapViewDelegate {
             circle.fillColor = UIColor.red.withAlphaComponent(0.1)
             circle.lineWidth = 1
             return circle
+        } else if overlay is MKPolyline {
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
+            renderer.lineWidth = 5.0
+            return renderer
         } else {
             return MKPolylineRenderer()
         }

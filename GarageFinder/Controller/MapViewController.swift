@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
     lazy var mapShouldFollowUserLocation = true
     
     lazy var mapView = MapView(frame: .zero)
+    let location = CLLocation(latitude: -3.738394, longitude: -38.551311)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,8 @@ class MapViewController: UIViewController {
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         setConstraints()
 
+        let pin = newPin(coordinate: location, title: "Garagem", subtitle: "Uma garagem qualquer")
+        mapView.addAnnotation(pin)
     }
     
     func setupSearchController() {
@@ -87,6 +90,22 @@ class MapViewController: UIViewController {
             return locations
         }
         return []
+    }
+    
+    func openRouteInMaps(sourcePlaceName sourceName: String, destinationPlaceName destinationName: String) {
+        if let location = locationManager.location {
+            let srcCoord = CLLocationCoordinate2D(location: location)
+            let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+            let source = MKMapItem(placemark: srcPlacemark)
+            source.name = sourceName
+            
+            let destCoord = CLLocationCoordinate2D(location: self.location)
+            let destPlacemark = MKPlacemark(coordinate: destCoord)
+            let destination = MKMapItem(placemark: destPlacemark)
+            destination.name = destinationName
+            
+            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        }
     }
     
 }
