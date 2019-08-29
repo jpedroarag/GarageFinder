@@ -44,7 +44,6 @@ class MapViewController: UIViewController {
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = searchResult
-        searchController.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         
         searchResult.mapView = mapView
@@ -107,16 +106,16 @@ extension MapViewController: CLLocationManagerDelegate {
         mapView.updateRangeCircle(location: lastLocation, meters: 500)
         updateNearGarages()
         //TODO: Users should choice if maps will follow user location
-        mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
+        //mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
     }
 }
 
 extension MapViewController: SearchDelegate {
     func didSearch(item: MKMapItem) {
-        if let itemLocation = item.placemark.location {
-            mapShouldFollowUserLocation = false
-            mapView.updateRegion(itemLocation)
-        }
+        mapShouldFollowUserLocation = false
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: item.placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
