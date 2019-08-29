@@ -26,7 +26,8 @@ class MapViewController: UIViewController {
 
         title = "Home"
         
-        setupSearchController()
+        //setupSearchController()
+        addFloatingVC()
         
         locationManager.delegate = self
         startUsingDeviceLocation()
@@ -34,6 +35,17 @@ class MapViewController: UIViewController {
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         setConstraints()
 
+    }
+    
+    func addFloatingVC() {
+        let floatingVC = FloatingViewController()
+        self.addChild(floatingVC)
+        self.view.addSubview(floatingVC.view)
+        floatingVC.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func setupSearchController() {
