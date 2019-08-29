@@ -9,18 +9,6 @@
 import UIKit
 import MapKit
 
-struct Range {
-    
-    var userLocation: MKCircle!
-    var searchLocation: MKCircle!
-    
-    init() {
-        userLocation = nil
-        searchLocation = nil
-    }
-    
-}
-
 class MapView: MKMapView {
     
     lazy var pins = [MKPointAnnotation]()
