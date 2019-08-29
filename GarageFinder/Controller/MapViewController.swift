@@ -92,6 +92,22 @@ class MapViewController: UIViewController {
         return []
     }
     
+    func openRouteInMaps(sourcePlaceName sourceName: String, destinationPlaceName destinationName: String) {
+        if let location = locationManager.location {
+            let srcCoord = CLLocationCoordinate2D(location: location)
+            let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+            let source = MKMapItem(placemark: srcPlacemark)
+            source.name = sourceName
+            
+            let destCoord = CLLocationCoordinate2D(location: self.location)
+            let destPlacemark = MKPlacemark(coordinate: destCoord)
+            let destination = MKMapItem(placemark: destPlacemark)
+            destination.name = destinationName
+            
+            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        }
+    }
+    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
