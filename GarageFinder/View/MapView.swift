@@ -37,8 +37,8 @@ class MapView: MKMapView {
         setCenter(centerCoordinate, animated: true)
     }
     
-    func updateRegion(_ location: CLLocation, shouldChangeZoomToDefault: Bool = true, shouldFollowUser: Bool = true) {
-        if !shouldFollowUser && shouldChangeZoomToDefault { return }
+    func updateRegion(_ location: CLLocation, shouldChangeZoomToDefault: Bool = true) {
+        if !shouldChangeZoomToDefault { return }
         let newRegion = region(forLocation: location, shouldChangeZoomToDefault: shouldChangeZoomToDefault)
         region = newRegion
     }
@@ -59,9 +59,16 @@ class MapView: MKMapView {
     func removePinsOutsideRadius(userLocation: Bool) {
         annotations.forEach { pin in
             let mapPoint = MKMapPoint(pin.coordinate)
-            let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
-            if !circle.boundingMapRect.contains(mapPoint) {
-                removeAnnotation(pin)
+            let bothRangesAreBeingDisplayed = range.userLocation != nil && range.searchLocation != nil
+            if bothRangesAreBeingDisplayed {
+                if !range.userLocation.boundingMapRect.contains(mapPoint) && !range.searchLocation.boundingMapRect.contains(mapPoint) {
+                    removeAnnotation(pin)
+                }
+            } else {
+                let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
+                if !circle.boundingMapRect.contains(mapPoint) {
+                    removeAnnotation(pin)
+                }
             }
         }
     }
@@ -77,8 +84,17 @@ class MapView: MKMapView {
     }
     
     func removeRangeCircle(userLocation: Bool) {
-        guard let circle = userLocation ? range.userLocation : range.searchLocation else { return }
-        removeOverlay(circle)
+        if userLocation {
+            if let userRange = range.userLocation {
+                removeOverlay(userRange)
+                range.userLocation = nil
+            }
+        } else {
+            if let searchRange = range.searchLocation {
+                removeOverlay(searchRange)
+                range.searchLocation = nil
+            }
+        }
     }
     
     func updateRangeCircle(location: CLLocation, meters: Int, userLocation: Bool) {

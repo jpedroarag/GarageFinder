@@ -18,6 +18,7 @@ class SearchResultViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -53,7 +54,7 @@ class SearchResultViewController: UITableViewController {
     }
     
 }
-extension SearchResultViewController: UISearchResultsUpdating {
+extension SearchResultViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let mapView = mapView,
             let searchBarText = searchController.searchBar.text else { return }
@@ -97,4 +98,9 @@ extension SearchResultViewController: UISearchResultsUpdating {
         )
         return addressLine
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        mapView?.removeRangeCircle(userLocation: false)
+    }
+    
 }

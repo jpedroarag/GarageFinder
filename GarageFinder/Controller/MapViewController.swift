@@ -14,11 +14,8 @@ class MapViewController: UIViewController {
     
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
-    lazy var mapShouldFollowUserLocation = true
     
     lazy var mapView = MapView(frame: .zero)
-    let location = CLLocation(latitude: -3.738394, longitude: -38.551311)
-    
     var toolboxView: ToolboxView!
     
     override func viewDidLoad() {
@@ -42,9 +39,6 @@ class MapViewController: UIViewController {
         view.addSubview(toolboxView)
         
         setConstraints()
-
-        let pin = newPin(coordinate: location, title: "Garagem", subtitle: "Uma garagem qualquer")
-        mapView.addAnnotation(pin)
     }
     
     func setupSearchController() {
@@ -55,8 +49,8 @@ class MapViewController: UIViewController {
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = searchResult
+        searchController.searchBar.delegate = searchResult
         definesPresentationContext = true
-        
         searchResult.mapView = mapView
     }
     
@@ -105,20 +99,21 @@ class MapViewController: UIViewController {
         return []
     }
     
-    func openRouteInMaps(sourcePlaceName sourceName: String, destinationPlaceName destinationName: String) {
-        if let location = locationManager.location {
-            let srcCoord = CLLocationCoordinate2D(location: location)
-            let srcPlacemark = MKPlacemark(coordinate: srcCoord)
-            let source = MKMapItem(placemark: srcPlacemark)
-            source.name = sourceName
-            
-            let destCoord = CLLocationCoordinate2D(location: self.location)
-            let destPlacemark = MKPlacemark(coordinate: destCoord)
-            let destination = MKMapItem(placemark: destPlacemark)
-            destination.name = destinationName
-            
-            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-        }
+    func openRouteInMaps(sourcePlaceName sourceName: String,
+                         sourcePlaceLocation sourceLocation: CLLocation,
+                         destinationPlaceName destinationName: String,
+                         destinationPlaceLocation destinationLocation: CLLocation) {
+        let srcCoord = CLLocationCoordinate2D(location: sourceLocation)
+        let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+        let source = MKMapItem(placemark: srcPlacemark)
+        source.name = sourceName
+        
+        let destCoord = CLLocationCoordinate2D(location: destinationLocation)
+        let destPlacemark = MKPlacemark(coordinate: destCoord)
+        let destination = MKMapItem(placemark: destPlacemark)
+        destination.name = destinationName
+        
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
 }
@@ -128,17 +123,20 @@ extension MapViewController: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
         mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
         mapView.updateNearGarages(aroundUserLocation: true)
-        //TODO: Users should choice if maps will follow user location
-        //mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
-        if !locationSet { locationSet = true }
+        if !locationSet {
+            mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
+            locationSet = true
+        }
     }
 }
 
 extension MapViewController: SearchDelegate {
     func didSearch(item: MKMapItem) {
-        mapShouldFollowUserLocation = false
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: item.placemark.coordinate, span: span)
+        guard let location = item.placemark.location else { return }
+        mapView.removeRangeCircle(userLocation: false)
+        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
+        mapView.updateNearGarages(aroundUserLocation: false)
+        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
         mapView.setRegion(region, animated: true)
     }
 }
