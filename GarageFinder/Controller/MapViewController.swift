@@ -19,6 +19,8 @@ class MapViewController: UIViewController {
     lazy var mapView = MapView(frame: .zero)
     let location = CLLocation(latitude: -3.738394, longitude: -38.551311)
     
+    var toolboxView: ToolboxView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +35,12 @@ class MapViewController: UIViewController {
         startUsingDeviceLocation()
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        
+        let backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
+        let separatorColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor.withAlphaComponent(0.9), separatorColor: separatorColor)
+        view.addSubview(toolboxView)
+        
         setConstraints()
 
         let pin = newPin(coordinate: location, title: "Garagem", subtitle: "Uma garagem qualquer")
@@ -54,10 +62,15 @@ class MapViewController: UIViewController {
     
     func setConstraints() {
         mapView.anchor
-        .top(view.topAnchor)
-        .right(view.rightAnchor)
-        .bottom(view.bottomAnchor)
-        .left(view.leftAnchor)
+            .top(view.topAnchor)
+            .right(view.rightAnchor)
+            .bottom(view.bottomAnchor)
+            .left(view.leftAnchor)
+        toolboxView.anchor
+            .right(view.rightAnchor, padding: 16)
+            .bottom(view.bottomAnchor, padding: 16)
+            .width(view.widthAnchor, multiplier: 0.15)
+            .height(constant: toolboxView.totalHeight)
     }
     
     func startUsingDeviceLocation() {
