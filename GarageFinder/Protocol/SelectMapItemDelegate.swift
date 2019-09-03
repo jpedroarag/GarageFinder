@@ -8,6 +8,14 @@
 
 import MapKit
 
+protocol SelectMapItemDelegate: class {
+    func didSelect(item: MKMapItem) 
+}
+
+protocol FinishSearch: class {
+    func didFinishSearch()
+}
+
 protocol SearchDelegate: class {
-    func didSearch(item: MKMapItem)
+    func didUpdateSearch(text: String)
 }

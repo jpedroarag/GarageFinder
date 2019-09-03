@@ -13,16 +13,12 @@ class SearchResultViewController: UITableViewController {
 
     var matchingItems: [MKMapItem] = []
     var mapView: MapView?
-    weak var searchDelegate: SearchDelegate?
-    
+    weak var searchDelegate: SelectMapItemDelegate?
+    weak var finishSearchDelegate: FinishSearch?
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.bounces = false
     }
 
     // MARK: - Table view data source
@@ -48,12 +44,31 @@ class SearchResultViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchDelegate?.didSearch(item: matchingItems[indexPath.row])
+        searchDelegate?.didSelect(item: matchingItems[indexPath.row])
+        finishSearchDelegate?.didFinishSearch()
         self.dismiss(animated: true, completion: nil)
     }
     
 }
-extension SearchResultViewController: UISearchResultsUpdating {
+extension SearchResultViewController: SearchDelegate {
+    func didUpdateSearch(text: String) {
+        guard let mapView = mapView else { return }
+        
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = text
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            guard let response = response else { return }
+            self.matchingItems = response.mapItems
+            self.tableView.reloadData()
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+
     func updateSearchResults(for searchController: UISearchController) {
         guard let mapView = mapView,
             let searchBarText = searchController.searchBar.text else { return }

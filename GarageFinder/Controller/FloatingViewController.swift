@@ -9,44 +9,71 @@
 import UIKit
 
 class FloatingViewController: UIViewController {
-    var fullView: CGFloat {
+    lazy var fullView: CGFloat = {
         return UIScreen.main.bounds.height * 0.15
-    }
-    var middleView: CGFloat {
+    }()
+    lazy var middleView: CGFloat = {
         return UIScreen.main.bounds.height * 0.55
-    }
-    var partialView: CGFloat {
-        //TODO: Este valor deve ser de acordo com a Search bar
-        return UIScreen.main.bounds.height  * 0.9
-    }
-    var allPos: [CGFloat]!
+    }()
+    lazy var partialView: CGFloat = {
+        return UIScreen.main.bounds.height - searchBar.frame.height * 2
+    }()
+    lazy var allPos: [CGFloat] = {
+        return [partialView, middleView, fullView]
+    }()
+
+    weak var searchDelegate: SearchDelegate?
+    lazy var searchVC = SearchResultViewController()
+    var mapView: MapView?
+    
+    lazy var searchBar: UISearchBar = {
+        let sb = UISearchBar()
+        sb.placeholder = "Onde deseja estacionar?"
+        sb.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        return sb
+    }()
+
     var currentPos: CGFloat = 0
     var currentIndexPos = 0 {
         didSet {
             currentPos = allPos[currentIndexPos]
+            if currentIndexPos == 1 || currentIndexPos == 0 {
+                cancellSearch()
+            }
         }
     }
-    
+    var lastTable: UITableView!
     var touchLocationY: CGFloat = 0
     lazy var tableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .init(white: 0.9, alpha: 1)
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
 
-        allPos = [partialView, middleView, fullView]
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
+        view.addSubview(searchBar)
         tableView.bounces = false
+        searchBar.delegate = self
+        
+        searchBar.anchor
+            .top(view.layoutMarginsGuide.topAnchor)
+            .left(view.leftAnchor, padding: 8)
+            .right(view.rightAnchor, padding: 8)
+            .height(constant: 50)
         tableView.anchor
-            .top(view.topAnchor, padding: 64)
+            .top(searchBar.bottomAnchor)
             .bottom(view.bottomAnchor)
             .left(view.leftAnchor)
             .right(view.rightAnchor)
+        
+        searchVC.mapView = mapView
+        searchVC.finishSearchDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,23 +85,26 @@ class FloatingViewController: UIViewController {
                 self?.view.frame = CGRect(x: 0, y: yComponent, width: frame.width, height: frame.height)
             }
         })
-
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        guard let tbv = view.subviews.filter ({ $0 is UITableView }).last as? UITableView else { return }
+        lastTable = tbv
+    }
+    
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
-        
         if recognizer.state == .began {
             touchLocationY = recognizer.location(in: view).y
         }
         
-        if tableView.contentOffset.y <= 0 || touchLocationY <= view.frame.height - partialView {
+        if lastTable.contentOffset.y <= 0 || touchLocationY <= view.frame.height - partialView {
             scroll(recognizer)
         } else {
             recognizer.setTranslation(.zero, in: view)
         }
 
         let fullOrMiddleView = allPos[currentIndexPos] == fullView
-        tableView.isScrollEnabled = fullOrMiddleView ? true : false
+        lastTable.isScrollEnabled = fullOrMiddleView ? true : false
         endScroll(recognizer)
     }
     
@@ -94,7 +124,7 @@ class FloatingViewController: UIViewController {
     /// Perform animation when stop scrolling
     func endScroll(_ recognizer: UIPanGestureRecognizer) {
         if recognizer.state == .ended {
-            tableView.isScrollEnabled = true
+            lastTable.isScrollEnabled = true
             let minY = view.frame.minY
             
             let top = abs(minY - self.fullView)
@@ -111,7 +141,9 @@ class FloatingViewController: UIViewController {
             let isDown = velocity > 0
             let limit = minY + recognizer.translation(in: view).y
             
-            UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [.curveEaseOut, .allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0,
+                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                           options: [.curveEaseOut, .allowUserInteraction], animations: {
                 
                 //var currentPos = minY
                 let canMoveUp = isDown && self.currentIndexPos != 0
@@ -134,15 +166,20 @@ class FloatingViewController: UIViewController {
                     let contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: 0)
                     self.tableView.setContentOffset(contentOffset, animated: true)
                 }
+                            print("currentPos: \(self.currentPos) --- \(self.searchBar.frame.height)")
                 self.view.frame = CGRect(x: 0, y: self.currentPos, width: self.view.frame.width, height: self.view.frame.height)
             })
         }
     }
     
-    func nukeAllAnimations() {
-        self.view.subviews.forEach({$0.layer.removeAllAnimations()})
-        self.view.layer.removeAllAnimations()
-        self.view.layoutIfNeeded()
+    func animTo(index: Int) {
+        UIView.animate(withDuration: 0.4, delay: 0.0,
+                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                       options: [.curveEaseOut, .allowUserInteraction], animations: {
+                        
+            self.view.frame = CGRect(x: 0, y: self.allPos[index], width: self.view.frame.width, height: self.view.frame.height)
+            self.currentIndexPos = index
+        })
     }
 }
 
@@ -154,7 +191,7 @@ extension FloatingViewController: UIGestureRecognizerDelegate {
 
 extension FloatingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return 30
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,4 +200,47 @@ extension FloatingViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+extension FloatingViewController: UISearchBarDelegate {
+    func addFloatingVC() {
+        if searchVC.parent == nil {
+            self.addChild(searchVC)
+            self.view.addSubview(searchVC.view)
+            searchVC.didMove(toParent: self)
+            
+            let height = view.frame.height
+            let width  = view.frame.width
+            searchVC.view.frame = CGRect(x: 0, y: searchBar.frame.height, width: width, height: height)
+        }
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        animTo(index: 2)
+        searchBar.showsCancelButton = true
+        addFloatingVC()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchVC.didUpdateSearch(text: searchBar.text ?? "")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        animTo(index: 1)
+        cancellSearch()
+    }
+    
+    func cancellSearch() {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        searchVC.removeFromParent()
+        searchVC.view.removeFromSuperview()
+    }
+}
+
+extension FloatingViewController: FinishSearch {
+    func didFinishSearch() {
+        animTo(index: 1)
+        cancellSearch()
+    }
 }

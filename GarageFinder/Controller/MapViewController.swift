@@ -39,6 +39,8 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
+        floatingVC.searchVC.searchDelegate = self
+        floatingVC.mapView = mapView
         self.addChild(floatingVC)
         self.view.addSubview(floatingVC.view)
         floatingVC.didMove(toParent: self)
@@ -55,7 +57,7 @@ class MapViewController: UIViewController {
         let searchController = UISearchController(searchResultsController: searchResult)
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchResultsUpdater = searchResult
+        //searchController.searchResultsUpdater = searchResult
         definesPresentationContext = true
         
         searchResult.mapView = mapView
@@ -123,8 +125,8 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController: SearchDelegate {
-    func didSearch(item: MKMapItem) {
+extension MapViewController: SelectMapItemDelegate {
+    func didSelect(item: MKMapItem) {
         mapShouldFollowUserLocation = false
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: item.placemark.coordinate, span: span)
