@@ -9,5 +9,5 @@
 import MapKit
 
 protocol SearchDelegate: class {
-    func didSearch(item: MKMapItem)
+    func didUpdateSearch(text: String)
 }

@@ -9,63 +9,73 @@
 import UIKit
 import MapKit
 
-class SearchResultViewController: UITableViewController {
+class SearchResultViewController: UIViewController {
 
     var matchingItems: [MKMapItem] = []
     var mapView: MapView?
-    weak var searchDelegate: SearchDelegate?
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
+
+        tableView.bounces = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+    
+    lazy var emptyView: UIView = {
+        let emptyView = UIView()
+        emptyView.backgroundColor = .white
+        return emptyView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    // MARK: - Table view data source
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
-    }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingItems.count
+        view.addSubview(tableView)
+        tableView.anchor
+            .top(view.topAnchor)
+            .right(view.rightAnchor)
+            .bottom(view.bottomAnchor)
+            .left(view.leftAnchor)
+        
+        addEmptyView()
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultCell", for: indexPath) as? SearchResultCell else {
-                return UITableViewCell()
-        }
-        let selectedItem = matchingItems[indexPath.row].placemark
-        cell.loadData(name: selectedItem.name, address: parseAddress(selectedItem: selectedItem))
-        return cell
+    func addEmptyView() {
+        view.addSubview(emptyView)
+        emptyView.anchor
+            .top(view.topAnchor)
+            .right(view.rightAnchor)
+            .bottom(view.bottomAnchor)
+            .left(view.leftAnchor)
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchDelegate?.didSearch(item: matchingItems[indexPath.row])
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
 }
-extension SearchResultViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let mapView = mapView,
-            let searchBarText = searchController.searchBar.text else { return }
+
+extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
+    func didUpdateSearch(text: String) {
+        guard let mapView = mapView else { return }
         
+        if text == "" {
+            addEmptyView()
+            return
+        } else {
+            emptyView.removeFromSuperview()
+        }
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchBarText
+        request.naturalLanguageQuery = text
         request.region = mapView.region
         
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
-            guard let response = response else { return }
+            guard let response = response else {
+                self.matchingItems = []
+                self.tableView.reloadData()
+                return
+            }
+            
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
             if let error = error {
@@ -103,4 +113,36 @@ extension SearchResultViewController: UISearchResultsUpdating, UISearchBarDelega
         mapView?.removeRangeCircle(userLocation: false)
     }
     
+}
+
+// MARK: - Table view data source
+extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64.0
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return matchingItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultCell", for: indexPath) as? SearchResultCell else {
+            return UITableViewCell()
+        }
+        let selectedItem = matchingItems[indexPath.row].placemark
+        cell.loadData(name: selectedItem.name, address: parseAddress(selectedItem: selectedItem))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        NotificationCenter.default.post(name: .finishSearch, object: matchingItems[indexPath.row])
+        
+        //selectMapItemDelegate?.didSelect(item: matchingItems[indexPath.row])
+        //finishSearchDelegate?.didFinishSearch()
+        self.dismiss(animated: true, completion: nil)
+    }
 }

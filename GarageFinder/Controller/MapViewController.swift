@@ -26,7 +26,8 @@ class MapViewController: UIViewController {
 
         title = "Home"
         
-        setupSearchController()
+        //setupSearchController()
+        addFloatingVC()
         
         locationManager.delegate = self
         startUsingDeviceLocation()
@@ -39,19 +40,22 @@ class MapViewController: UIViewController {
         view.addSubview(toolboxView)
         
         setConstraints()
+        setupObserver()
     }
     
-    func setupSearchController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let searchResult = SearchResultViewController()
-        searchResult.searchDelegate = self
-        let searchController = UISearchController(searchResultsController: searchResult)
-        navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchResultsUpdater = searchResult
-        searchController.searchBar.delegate = searchResult
-        definesPresentationContext = true
-        searchResult.mapView = mapView
+    func setupObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+    }
+    
+    func addFloatingVC() {
+        let floatingVC = FloatingViewController()
+        self.addChild(floatingVC)
+        self.view.addSubview(floatingVC.view)
+        floatingVC.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func setConstraints() {
@@ -116,6 +120,18 @@ class MapViewController: UIViewController {
         MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
+    @objc func finishSearch(_ notification: Notification) {
+        guard let mapItem = notification.object as? MKMapItem,
+            let location = mapItem.placemark.location else {
+            return
+        }
+ 
+        mapView.removeRangeCircle(userLocation: false)
+        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
+        mapView.updateNearGarages(aroundUserLocation: false)
+        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
+        mapView.setRegion(region, animated: true)
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -127,16 +143,5 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
             locationSet = true
         }
-    }
-}
-
-extension MapViewController: SearchDelegate {
-    func didSearch(item: MKMapItem) {
-        guard let location = item.placemark.location else { return }
-        mapView.removeRangeCircle(userLocation: false)
-        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
-        mapView.updateNearGarages(aroundUserLocation: false)
-        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
-        mapView.setRegion(region, animated: true)
     }
 }
