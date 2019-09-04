@@ -17,6 +17,7 @@ class SearchResultViewController: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
+
         tableView.bounces = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -28,6 +29,7 @@ class SearchResultViewController: UIViewController {
         emptyView.backgroundColor = .white
         return emptyView
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,7 +53,8 @@ class SearchResultViewController: UIViewController {
     }
 
 }
-extension SearchResultViewController: SearchDelegate {
+
+extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
     func didUpdateSearch(text: String) {
         guard let mapView = mapView else { return }
         
@@ -61,7 +64,6 @@ extension SearchResultViewController: SearchDelegate {
         } else {
             emptyView.removeFromSuperview()
         }
-        
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = text
         request.region = mapView.region
@@ -81,7 +83,7 @@ extension SearchResultViewController: SearchDelegate {
             }
         }
     }
-
+    
     func parseAddress(selectedItem: MKPlacemark) -> String {
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? ". " : ""
         
@@ -106,10 +108,15 @@ extension SearchResultViewController: SearchDelegate {
         )
         return addressLine
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        mapView?.removeRangeCircle(userLocation: false)
+    }
+    
 }
 
+// MARK: - Table view data source
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
-    // MARK: - Table view data source
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64.0
     }

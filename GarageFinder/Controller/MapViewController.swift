@@ -14,11 +14,8 @@ class MapViewController: UIViewController {
     
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
-    lazy var mapShouldFollowUserLocation = true
     
     lazy var mapView = MapView(frame: .zero)
-    let location = CLLocation(latitude: -3.738394, longitude: -38.551311)
-    
     var toolboxView: ToolboxView!
     
     override func viewDidLoad() {
@@ -37,13 +34,10 @@ class MapViewController: UIViewController {
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         
-        let backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
-        let separatorColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
-        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor.withAlphaComponent(0.9), separatorColor: separatorColor)
+        let backgroundColor = UIColor(rgb: 0x606060, alpha: 90)
+        let separatorColor = UIColor(rgb: 0xBBBBBB, alpha: 100)
+        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
         view.addSubview(toolboxView)
-        
-        let pin = newPin(coordinate: location, title: "Garagem", subtitle: "Uma garagem qualquer")
-        mapView.addAnnotation(pin)
         
         setConstraints()
         setupObserver()
@@ -51,8 +45,6 @@ class MapViewController: UIViewController {
     
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
-
-
     }
     
     func addFloatingVC() {
@@ -75,7 +67,7 @@ class MapViewController: UIViewController {
         toolboxView.anchor
             .right(view.rightAnchor, padding: 16)
             .bottom(view.bottomAnchor, padding: 16)
-            .width(view.widthAnchor, multiplier: 0.15)
+            .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }
     
@@ -111,29 +103,33 @@ class MapViewController: UIViewController {
         return []
     }
     
-    func openRouteInMaps(sourcePlaceName sourceName: String, destinationPlaceName destinationName: String) {
-        if let location = locationManager.location {
-            let srcCoord = CLLocationCoordinate2D(location: location)
-            let srcPlacemark = MKPlacemark(coordinate: srcCoord)
-            let source = MKMapItem(placemark: srcPlacemark)
-            source.name = sourceName
-            
-            let destCoord = CLLocationCoordinate2D(location: self.location)
-            let destPlacemark = MKPlacemark(coordinate: destCoord)
-            let destination = MKMapItem(placemark: destPlacemark)
-            destination.name = destinationName
-            
-            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-        }
+    func openRouteInMaps(sourcePlaceName sourceName: String,
+                         sourcePlaceLocation sourceLocation: CLLocation,
+                         destinationPlaceName destinationName: String,
+                         destinationPlaceLocation destinationLocation: CLLocation) {
+        let srcCoord = CLLocationCoordinate2D(location: sourceLocation)
+        let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+        let source = MKMapItem(placemark: srcPlacemark)
+        source.name = sourceName
+        
+        let destCoord = CLLocationCoordinate2D(location: destinationLocation)
+        let destPlacemark = MKPlacemark(coordinate: destCoord)
+        let destination = MKMapItem(placemark: destPlacemark)
+        destination.name = destinationName
+        
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        guard let mapItem = notification.object as? MKMapItem else {
+        guard let mapItem = notification.object as? MKMapItem,
+            let location = mapItem.placemark.location else {
             return
         }
-        mapShouldFollowUserLocation = false
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: mapItem.placemark.coordinate, span: span)
+ 
+        mapView.removeRangeCircle(userLocation: false)
+        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
+        mapView.updateNearGarages(aroundUserLocation: false)
+        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -143,9 +139,9 @@ extension MapViewController: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
         mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
         mapView.updateNearGarages(aroundUserLocation: true)
-        //TODO: Users should choice if maps will follow user location
-        //mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
-        if !locationSet { locationSet = true }
+        if !locationSet {
+            mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
+            locationSet = true
+        }
     }
 }
-
