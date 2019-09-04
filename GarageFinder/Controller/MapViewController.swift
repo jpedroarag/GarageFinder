@@ -33,9 +33,9 @@ class MapViewController: UIViewController {
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         
-        let backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
-        let separatorColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
-        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor.withAlphaComponent(0.9), separatorColor: separatorColor)
+        let backgroundColor = UIColor(rgb: 0x606060, alpha: 90)
+        let separatorColor = UIColor(rgb: 0xBBBBBB, alpha: 100)
+        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
         view.addSubview(toolboxView)
         
         setConstraints()
@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
         toolboxView.anchor
             .right(view.rightAnchor, padding: 16)
             .bottom(view.bottomAnchor, padding: 16)
-            .width(view.widthAnchor, multiplier: 0.15)
+            .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }
     
