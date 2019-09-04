@@ -17,6 +17,9 @@ class MapViewController: UIViewController {
     lazy var mapShouldFollowUserLocation = true
     
     lazy var mapView = MapView(frame: .zero)
+    let location = CLLocation(latitude: -3.738394, longitude: -38.551311)
+    
+    var toolboxView: ToolboxView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +36,23 @@ class MapViewController: UIViewController {
         startUsingDeviceLocation()
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        
+        let backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
+        let separatorColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor.withAlphaComponent(0.9), separatorColor: separatorColor)
+        view.addSubview(toolboxView)
+        
+        let pin = newPin(coordinate: location, title: "Garagem", subtitle: "Uma garagem qualquer")
+        mapView.addAnnotation(pin)
+        
         setConstraints()
         setupObserver()
     }
     
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+
+
     }
     
     func addFloatingVC() {
@@ -54,10 +68,15 @@ class MapViewController: UIViewController {
     
     func setConstraints() {
         mapView.anchor
-        .top(view.topAnchor)
-        .right(view.rightAnchor)
-        .bottom(view.bottomAnchor)
-        .left(view.leftAnchor)
+            .top(view.topAnchor)
+            .right(view.rightAnchor)
+            .bottom(view.bottomAnchor)
+            .left(view.leftAnchor)
+        toolboxView.anchor
+            .right(view.rightAnchor, padding: 16)
+            .bottom(view.bottomAnchor, padding: 16)
+            .width(view.widthAnchor, multiplier: 0.15)
+            .height(constant: toolboxView.totalHeight)
     }
     
     func startUsingDeviceLocation() {
@@ -92,13 +111,20 @@ class MapViewController: UIViewController {
         return []
     }
     
-    func updateNearGarages() {
-        mapView.removePinsOutsideRadius()
-        let nearGaragesPins = mapView.pins.filter { pin in
-            let mapPoint = MKMapPoint(pin.coordinate)
-            return mapView.rangeCircle.boundingMapRect.contains(mapPoint)
+    func openRouteInMaps(sourcePlaceName sourceName: String, destinationPlaceName destinationName: String) {
+        if let location = locationManager.location {
+            let srcCoord = CLLocationCoordinate2D(location: location)
+            let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+            let source = MKMapItem(placemark: srcPlacemark)
+            source.name = sourceName
+            
+            let destCoord = CLLocationCoordinate2D(location: self.location)
+            let destPlacemark = MKPlacemark(coordinate: destCoord)
+            let destination = MKMapItem(placemark: destPlacemark)
+            destination.name = destinationName
+            
+            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
         }
-        mapView.addPins(nearGaragesPins)
     }
     
     @objc func finishSearch(_ notification: Notification) {
@@ -115,8 +141,8 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
-        mapView.updateRangeCircle(location: lastLocation, meters: 500)
-        updateNearGarages()
+        mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
+        mapView.updateNearGarages(aroundUserLocation: true)
         //TODO: Users should choice if maps will follow user location
         //mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: !locationSet, shouldFollowUser: mapShouldFollowUserLocation)
         if !locationSet { locationSet = true }
