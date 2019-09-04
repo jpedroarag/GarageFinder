@@ -23,7 +23,10 @@ class FloatingViewController: UIViewController {
     }()
 
     weak var searchDelegate: SearchDelegate?
-    lazy var searchVC = SearchResultViewController()
+    var searchVC: SearchResultViewController? {
+        let searchVC = self.children.filter({ $0 is SearchResultViewController}).first as? SearchResultViewController
+        return searchVC
+    }
     var mapView: MapView?
     
     lazy var searchBar: UISearchBar = {
@@ -72,8 +75,8 @@ class FloatingViewController: UIViewController {
             .left(view.leftAnchor)
             .right(view.rightAnchor)
         
-        searchVC.mapView = mapView
-        searchVC.finishSearchDelegate = self
+        setupObserver()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,6 +93,15 @@ class FloatingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         guard let tbv = view.subviews.filter ({ $0 is UITableView }).last as? UITableView else { return }
         lastTable = tbv
+    }
+    
+    func setupObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+    }
+    
+    @objc func finishSearch(_ notification: Notification) {
+        animTo(index: 1)
+        cancellSearch()
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
@@ -166,7 +178,6 @@ class FloatingViewController: UIViewController {
                     let contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: 0)
                     self.tableView.setContentOffset(contentOffset, animated: true)
                 }
-                            print("currentPos: \(self.currentPos) --- \(self.searchBar.frame.height)")
                 self.view.frame = CGRect(x: 0, y: self.currentPos, width: self.view.frame.width, height: self.view.frame.height)
             })
         }
@@ -203,25 +214,30 @@ extension FloatingViewController: UITableViewDataSource {
 }
 
 extension FloatingViewController: UISearchBarDelegate {
-    func addFloatingVC() {
-        if searchVC.parent == nil {
-            self.addChild(searchVC)
-            self.view.addSubview(searchVC.view)
-            searchVC.didMove(toParent: self)
-            
-            let height = view.frame.height
-            let width  = view.frame.width
-            searchVC.view.frame = CGRect(x: 0, y: searchBar.frame.height, width: width, height: height)
-        }
+    func showSearchVC() {
+        
+        guard let mapVC = self.parent as? MapViewController else { return }
+        let searchVC = SearchResultViewController()
+        searchVC.mapView = mapVC.mapView
+        searchDelegate = searchVC
+
+        addChild(searchVC)
+        view.addSubview(searchVC.view)
+        searchVC.didMove(toParent: self)
+
+        searchVC.view.frame = CGRect(x: 0, y: searchBar.frame.height,
+                                     width: view.frame.width,
+                                     height: view.frame.height)
+    
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animTo(index: 2)
         searchBar.showsCancelButton = true
-        addFloatingVC()
+        showSearchVC()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchVC.didUpdateSearch(text: searchBar.text ?? "")
+        searchVC?.didUpdateSearch(text: searchBar.text ?? "")
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -233,14 +249,8 @@ extension FloatingViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
-        searchVC.removeFromParent()
-        searchVC.view.removeFromSuperview()
-    }
-}
 
-extension FloatingViewController: FinishSearch {
-    func didFinishSearch() {
-        animTo(index: 1)
-        cancellSearch()
+        searchVC?.removeFromParent()
+        searchVC?.view.removeFromSuperview()
     }
 }

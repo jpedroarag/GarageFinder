@@ -34,13 +34,15 @@ class MapViewController: UIViewController {
         
         mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
         setConstraints()
-
+        setupObserver()
+    }
+    
+    func setupObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
     }
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
-        floatingVC.searchVC.searchDelegate = self
-        floatingVC.mapView = mapView
         self.addChild(floatingVC)
         self.view.addSubview(floatingVC.view)
         floatingVC.didMove(toParent: self)
@@ -48,19 +50,6 @@ class MapViewController: UIViewController {
         let height = view.frame.height
         let width  = view.frame.width
         floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-    }
-    
-    func setupSearchController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let searchResult = SearchResultViewController()
-        searchResult.searchDelegate = self
-        let searchController = UISearchController(searchResultsController: searchResult)
-        navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        //searchController.searchResultsUpdater = searchResult
-        definesPresentationContext = true
-        
-        searchResult.mapView = mapView
     }
     
     func setConstraints() {
@@ -112,6 +101,15 @@ class MapViewController: UIViewController {
         mapView.addPins(nearGaragesPins)
     }
     
+    @objc func finishSearch(_ notification: Notification) {
+        guard let mapItem = notification.object as? MKMapItem else {
+            return
+        }
+        mapShouldFollowUserLocation = false
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: mapItem.placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -125,11 +123,3 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController: SelectMapItemDelegate {
-    func didSelect(item: MKMapItem) {
-        mapShouldFollowUserLocation = false
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: item.placemark.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-    }
-}
