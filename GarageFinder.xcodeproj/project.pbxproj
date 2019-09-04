@@ -34,6 +34,7 @@
 		3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95E2316A828001BDDB6 /* Provider.swift */; };
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
+		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
@@ -93,6 +94,7 @@
 		3C10C95E2316A828001BDDB6 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
+		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */,
+				3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
+				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
