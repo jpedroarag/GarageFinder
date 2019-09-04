@@ -154,20 +154,30 @@ class MapView: MKMapView {
 }
 
 extension MapView: MKMapViewDelegate {
+    
+    func rendererForRangeOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
+        let circle = MKCircleRenderer(overlay: overlay)
+        circle.strokeColor = UIColor.red
+        circle.fillColor = UIColor.red.withAlphaComponent(0.1)
+        circle.lineWidth = 1
+        return circle
+    }
+    
+    func rendererForRouteOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor(red: 17, green: 147, blue: 255, alpha: 100)
+        renderer.lineWidth = 5.0
+        return renderer
+    }
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKCircle {
-            let circle = MKCircleRenderer(overlay: overlay)
-            circle.strokeColor = UIColor.red
-            circle.fillColor = UIColor.red.withAlphaComponent(0.1)
-            circle.lineWidth = 1
-            return circle
+            return rendererForRangeOverlay(overlay)
         } else if overlay is MKPolyline {
-            let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
-            renderer.lineWidth = 5.0
-            return renderer
+            return rendererForRouteOverlay(overlay)
         } else {
             return MKPolylineRenderer()
         }
     }
+    
 }
