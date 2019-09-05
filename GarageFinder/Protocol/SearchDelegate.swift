@@ -11,3 +11,7 @@ import MapKit
 protocol SearchDelegate: class {
     func didUpdateSearch(text: String)
 }
+
+protocol SelectGarageDelegate: class {
+    func didSelectGarage()
+}

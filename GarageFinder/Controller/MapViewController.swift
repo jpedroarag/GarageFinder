@@ -17,13 +17,14 @@ class MapViewController: UIViewController {
     
     lazy var mapView = MapView(frame: .zero)
     var toolboxView: ToolboxView!
-    
+    weak var selectGarageDelegate: SelectGarageDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.frame = view.frame
         view.addSubview(mapView)
-
+        mapView.delegate = self
         title = "Home"
         
         //setupSearchController()
@@ -52,7 +53,7 @@ class MapViewController: UIViewController {
         self.addChild(floatingVC)
         self.view.addSubview(floatingVC.view)
         floatingVC.didMove(toParent: self)
-        
+        selectGarageDelegate = floatingVC
         let height = view.frame.height
         let width  = view.frame.width
         floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
@@ -143,5 +144,14 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
             locationSet = true
         }
+    }
+
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else { return }
+        print("annotation: \(annotation.coordinate)")
+        selectGarageDelegate?.didSelectGarage()
     }
 }

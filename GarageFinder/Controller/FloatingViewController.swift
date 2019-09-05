@@ -62,7 +62,7 @@ class FloatingViewController: UIViewController {
         searchBar.delegate = self
         
         searchBar.anchor
-            .top(view.layoutMarginsGuide.topAnchor)
+            .top(view.topAnchor)
             .left(view.leftAnchor, padding: 8)
             .right(view.rightAnchor, padding: 8)
             .height(constant: 50)
@@ -73,6 +73,8 @@ class FloatingViewController: UIViewController {
             .right(view.rightAnchor)
         
         setupObserver()
+        
+        lastTable = tableView
         
     }
     
@@ -87,17 +89,12 @@ class FloatingViewController: UIViewController {
         })
     }
     
-    override func viewDidLayoutSubviews() {
-        guard let tbv = view.subviews.filter ({ $0 is UITableView }).last as? UITableView else { return }
-        lastTable = tbv
-    }
-    
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        animTo(index: 1)
+        animTo(positionY: partialView)
         cancellSearch()
     }
     
@@ -106,7 +103,8 @@ class FloatingViewController: UIViewController {
             touchLocationY = recognizer.location(in: view).y
         }
         
-        if lastTable.contentOffset.y <= 0 || touchLocationY <= view.frame.height - partialView {
+        let iSTouchingSearchBar = touchLocationY <= searchBar.frame.height * 0.9
+        if lastTable.contentOffset.y <= 0 || iSTouchingSearchBar {
             scroll(recognizer)
         } else {
             recognizer.setTranslation(.zero, in: view)
@@ -136,25 +134,24 @@ class FloatingViewController: UIViewController {
             lastTable.isScrollEnabled = true
             let minY = view.frame.minY
             
-            let top = abs(minY - self.fullView)
-            let middle = abs(minY - self.middleView)
-            let bottom = abs(minY - self.partialView)
+            let top = abs(minY - fullView)
+            let middle = abs(minY - middleView)
+            let bottom = abs(minY - partialView)
             
-            let screenPositionValues: [CGFloat: CGFloat] = [top: self.fullView, middle: self.middleView, bottom: self.partialView]
+            let screenPositionValues: [CGFloat: CGFloat] = [top: fullView, middle: middleView, bottom: partialView]
             guard let min = screenPositionValues.min(by: { itemA, itemB in
                 itemA.key < itemB.key
             }) else { return }
             
             let velocity = recognizer.velocity(in: view).y
-            let isUp = velocity < 0
-            let isDown = velocity > 0
+            let isUp = velocity < -400
+            let isDown = velocity > 400
             let limit = minY + recognizer.translation(in: view).y
             
             let canMoveUp = isDown && currentIndexPos != 0
             let canMoveDown = isUp && currentIndexPos != 2
-            
-            let didTouchedTop = tableView.contentOffset.y <= 0 || touchLocationY <= self.view.frame.height - partialView
-            if (canMoveUp || canMoveDown) && didTouchedTop {
+            print("vel: \(velocity)")
+            if canMoveUp || canMoveDown {
                 if currentPos == partialView && velocity < -1500 {
                     currentIndexPos += 2
                 } else if currentPos == fullView && velocity > 1500 {
@@ -162,11 +159,11 @@ class FloatingViewController: UIViewController {
                 } else {
                     currentIndexPos += canMoveUp ? -1 : 1
                 }
-            } else if velocity == 0 || limit <= self.fullView {
+            } else if limit <= fullView {
                 currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
             }
             
-            if self.currentPos == self.middleView || currentPos == partialView {
+            if currentPos == middleView || currentPos == partialView {
                 let contentOffset = CGPoint(x: lastTable.contentOffset.x, y: 0)
                 lastTable.setContentOffset(contentOffset, animated: true)
             }
@@ -180,13 +177,14 @@ class FloatingViewController: UIViewController {
         }
     }
     
-    func animTo(index: Int) {
+    func animTo(positionY: CGFloat) {
         UIView.animate(withDuration: 0.5, delay: 0.0,
                        usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
                        options: [.curveEaseOut, .allowUserInteraction], animations: {
                         
-            self.view.frame = CGRect(x: 0, y: self.allPos[index], width: self.view.frame.width, height: self.view.frame.height)
-            self.currentIndexPos = index
+            self.view.frame = CGRect(x: 0, y: positionY, width: self.view.frame.width, height: self.view.frame.height)
+
+            self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
         })
     }
 }
@@ -204,7 +202,6 @@ extension FloatingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        print("CELL: \(cell)")
         cell.textLabel?.text = "Cell: \(indexPath.row)"
         return cell
     }
@@ -218,7 +215,7 @@ extension FloatingViewController: UISearchBarDelegate {
         let searchVC = SearchResultViewController()
         searchVC.mapView = mapVC.mapView
         searchDelegate = searchVC
-
+        lastTable = searchVC.tableView
         addChild(searchVC)
         view.addSubview(searchVC.view)
         searchVC.didMove(toParent: self)
@@ -229,7 +226,7 @@ extension FloatingViewController: UISearchBarDelegate {
     
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        animTo(index: 2)
+        animTo(positionY: fullView)
         searchBar.showsCancelButton = true
         showSearchVC()
     }
@@ -241,7 +238,7 @@ extension FloatingViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        animTo(index: 1)
+        animTo(positionY: middleView)
         cancellSearch()
     }
     
@@ -253,7 +250,22 @@ extension FloatingViewController: UISearchBarDelegate {
         if let searchVC = self.children.filter({ $0 is SearchResultViewController}).first {
             searchVC.removeFromParent()
             searchVC.view.removeFromSuperview()
+            lastTable = tableView
             
         }
+    }
+}
+
+extension FloatingViewController: SelectGarageDelegate {
+    func showGarageDetailVC() {
+        let garageDetailVC = GarageDetailViewController()
+        addChild(garageDetailVC)
+        view.addSubview(garageDetailVC.view)
+        garageDetailVC.didMove(toParent: self)
+        animTo(positionY: middleView)
+    }
+    func didSelectGarage() {
+        print("GARAGE SELECTED")
+        showGarageDetailVC()
     }
 }
