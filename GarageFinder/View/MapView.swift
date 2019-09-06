@@ -17,7 +17,6 @@ class MapView: MKMapView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsUserLocation = true
-        delegate = self
         mapType = .standard
         showsScale = true
         showsCompass = true
@@ -119,20 +118,6 @@ class MapView: MKMapView {
         let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         
-//        let sourceAnnotation = MKPointAnnotation()
-//
-//        if let location = sourcePlacemark.location {
-//            sourceAnnotation.coordinate = location.coordinate
-//        }
-//
-//        let destinationAnnotation = MKPointAnnotation()
-//
-//        if let location = destinationPlacemark.location {
-//            destinationAnnotation.coordinate = location.coordinate
-//        }
-//
-//        showAnnotations([sourceAnnotation,destinationAnnotation], animated: true)
-        
         let directionRequest = MKDirections.Request()
         directionRequest.source = sourceMapItem
         directionRequest.destination = destinationMapItem
@@ -151,10 +136,7 @@ class MapView: MKMapView {
         }
     }
     
-}
-
-extension MapView: MKMapViewDelegate {
-    
+    // MARK: - Render Circle
     func rendererForRangeOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
         let circle = MKCircleRenderer(overlay: overlay)
         circle.strokeColor = UIColor.red
@@ -168,16 +150,6 @@ extension MapView: MKMapViewDelegate {
         renderer.strokeColor = UIColor(red: 17, green: 147, blue: 255, alpha: 100)
         renderer.lineWidth = 5.0
         return renderer
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKCircle {
-            return rendererForRangeOverlay(overlay)
-        } else if overlay is MKPolyline {
-            return rendererForRouteOverlay(overlay)
-        } else {
-            return MKPolylineRenderer()
-        }
     }
     
 }

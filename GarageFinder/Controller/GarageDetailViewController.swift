@@ -44,7 +44,6 @@ class GarageDetailViewController: UIViewController {
         
     }
     @objc func closeButtonTapped() {
-        print("closebuttonTapped")
         removeFromParent()
         view.removeFromSuperview()
     }

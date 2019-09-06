@@ -153,7 +153,18 @@ extension MapViewController: MKMapViewDelegate {
         //guard let annotation = view.annotation else { return }
         selectGarageDelegate?.didSelectGarage()
     }
+    
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         selectGarageDelegate?.didDeselectGarage()
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKCircle {
+            return self.mapView.rendererForRangeOverlay(overlay)
+        } else if overlay is MKPolyline {
+            return self.mapView.rendererForRouteOverlay(overlay)
+        } else {
+            return MKPolylineRenderer()
+        }
     }
 }

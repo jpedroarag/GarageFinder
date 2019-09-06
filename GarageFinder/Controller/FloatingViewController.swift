@@ -278,12 +278,12 @@ extension FloatingViewController: SelectGarageDelegate {
         garageDetailVC?.view.removeFromSuperview()
         garageDetailVC = nil
     }
+    
     func didSelectGarage() {
-        print("GARAGE SELECTED")
         showGarageDetailVC()
     }
+    
     func didDeselectGarage() {
-        print("deselect garage")
-        
+    
     }
 }
