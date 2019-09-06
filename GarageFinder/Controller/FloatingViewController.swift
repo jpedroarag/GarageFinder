@@ -23,7 +23,7 @@ class FloatingViewController: UIViewController {
     }()
 
     weak var searchDelegate: SearchDelegate?
-
+    var garageDetailVC: GarageDetailViewController?
     var mapView: MapView?
     
     lazy var searchBar: UISearchBar = {
@@ -178,14 +178,16 @@ class FloatingViewController: UIViewController {
     }
     
     func animTo(positionY: CGFloat) {
-        UIView.animate(withDuration: 0.5, delay: 0.0,
-                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
-                       options: [.curveEaseOut, .allowUserInteraction], animations: {
-                        
-            self.view.frame = CGRect(x: 0, y: positionY, width: self.view.frame.width, height: self.view.frame.height)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0.0,
+                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                           options: [.curveEaseOut, .allowUserInteraction], animations: {
+                            
+                self.view.frame = CGRect(x: 0, y: positionY, width: self.view.frame.width, height: self.view.frame.height)
 
-            self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
-        })
+                self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
+            })
+        }
     }
 }
 
@@ -258,14 +260,30 @@ extension FloatingViewController: UISearchBarDelegate {
 
 extension FloatingViewController: SelectGarageDelegate {
     func showGarageDetailVC() {
-        let garageDetailVC = GarageDetailViewController()
-        addChild(garageDetailVC)
-        view.addSubview(garageDetailVC.view)
-        garageDetailVC.didMove(toParent: self)
-        animTo(positionY: middleView)
+        if garageDetailVC == nil {
+            garageDetailVC = GarageDetailViewController()
+            guard let garageVC = garageDetailVC else { return }
+            addChild(garageVC)
+            view.addSubview(garageVC.view)
+            garageVC.didMove(toParent: self)
+            animTo(positionY: middleView)
+        } else {
+            removeGarageVC()
+            showGarageDetailVC()
+        }
+    }
+    
+    func removeGarageVC() {
+        garageDetailVC?.removeFromParent()
+        garageDetailVC?.view.removeFromSuperview()
+        garageDetailVC = nil
     }
     func didSelectGarage() {
         print("GARAGE SELECTED")
         showGarageDetailVC()
+    }
+    func didDeselectGarage() {
+        print("deselect garage")
+        
     }
 }

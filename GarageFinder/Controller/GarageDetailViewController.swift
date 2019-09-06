@@ -12,8 +12,8 @@ class GarageDetailViewController: UIViewController {
 
     let closeButton: UIButton = {
        let button = UIButton()
-        button.titleLabel?.text = "X"
-        button.backgroundColor = .green
+        button.setTitle("X", for: .normal)
+        button.backgroundColor = .gray
         return button
     }()
     override func viewDidLoad() {
@@ -24,14 +24,25 @@ class GarageDetailViewController: UIViewController {
         view.addSubview(closeButton)
         
         closeButton.anchor
-        .top(view.topAnchor)
-        .right(view.rightAnchor)
+        .top(view.topAnchor, padding: 16)
+        .right(view.rightAnchor, padding: 16)
         .width(constant: 25)
         .height(constant: 25)
         
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        
+        view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: 0, y: 0,
+                                         width: self.view.frame.width,
+                                         height: self.view.frame.height)
+            })
+        }
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
     @objc func closeButtonTapped() {
         print("closebuttonTapped")
         removeFromParent()

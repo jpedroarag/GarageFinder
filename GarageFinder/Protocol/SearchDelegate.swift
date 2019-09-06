@@ -14,4 +14,5 @@ protocol SearchDelegate: class {
 
 protocol SelectGarageDelegate: class {
     func didSelectGarage()
+    func didDeselectGarage()
 }

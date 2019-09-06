@@ -150,8 +150,10 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotation = view.annotation else { return }
-        print("annotation: \(annotation.coordinate)")
+        //guard let annotation = view.annotation else { return }
         selectGarageDelegate?.didSelectGarage()
+    }
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        selectGarageDelegate?.didDeselectGarage()
     }
 }
