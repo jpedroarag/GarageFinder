@@ -8,7 +8,7 @@
 
 import MapKit
 
-struct Range {
+class Range {
     
     var userLocation: MKCircle!
     var searchLocation: MKCircle!

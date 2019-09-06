@@ -60,7 +60,8 @@ class MapView: MKMapView {
             let mapPoint = MKMapPoint(pin.coordinate)
             let bothRangesAreBeingDisplayed = range.userLocation != nil && range.searchLocation != nil
             if bothRangesAreBeingDisplayed {
-                if !range.userLocation.boundingMapRect.contains(mapPoint) && !range.searchLocation.boundingMapRect.contains(mapPoint) {
+                if !range.userLocation.boundingMapRect.contains(mapPoint)
+                && !range.searchLocation.boundingMapRect.contains(mapPoint) {
                     removeAnnotation(pin)
                 }
             } else {
@@ -83,16 +84,10 @@ class MapView: MKMapView {
     }
     
     func removeRangeCircle(userLocation: Bool) {
-        if userLocation {
-            if let userRange = range.userLocation {
-                removeOverlay(userRange)
-                range.userLocation = nil
-            }
-        } else {
-            if let searchRange = range.searchLocation {
-                removeOverlay(searchRange)
-                range.searchLocation = nil
-            }
+        var rangeToRemove = userLocation ? range.userLocation : range.searchLocation
+        if let range = rangeToRemove {
+            removeOverlay(range)
+            rangeToRemove = nil
         }
     }
     
@@ -105,8 +100,10 @@ class MapView: MKMapView {
         removePinsOutsideRadius(userLocation: userLocation)
         let nearGaragesPins = pins.filter { pin in
             let mapPoint = MKMapPoint(pin.coordinate)
-            let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
-            return circle.boundingMapRect.contains(mapPoint)
+            if let circle = (userLocation ? range.userLocation : range.searchLocation) {
+                return circle.boundingMapRect.contains(mapPoint)
+            }
+            return false
         }
         addPins(nearGaragesPins)
     }
@@ -123,7 +120,7 @@ class MapView: MKMapView {
         directionRequest.destination = destinationMapItem
         directionRequest.transportType = .automobile
         
-        MKDirections(request: directionRequest).calculate { (response, error) -> Void in
+        MKDirections(request: directionRequest).calculate { response, error in
             guard let response = response else {
                 if let error = error { print("Error: \(error)") }
                 return
