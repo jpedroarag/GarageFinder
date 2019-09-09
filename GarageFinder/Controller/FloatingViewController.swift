@@ -23,7 +23,7 @@ class FloatingViewController: UIViewController {
     }()
 
     weak var searchDelegate: SearchDelegate?
-    var garageDetailVC: GarageDetailsViewController?
+    var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
     
     lazy var searchBar: UISearchBar = {
@@ -259,28 +259,28 @@ extension FloatingViewController: UISearchBarDelegate {
 }
 
 extension FloatingViewController: SelectGarageDelegate {
-    func showGarageDetailVC() {
-        if garageDetailVC == nil {
-            garageDetailVC = GarageDetailsViewController()
-            guard let garageVC = garageDetailVC else { return }
+    func showGarageDetailsVC() {
+        if garageDetailsVC == nil {
+            garageDetailsVC = GarageDetailsViewController()
+            guard let garageVC = garageDetailsVC else { return }
             addChild(garageVC)
             view.addSubview(garageVC.view)
             garageVC.didMove(toParent: self)
             animTo(positionY: middleView)
         } else {
-            removeGarageVC()
-            showGarageDetailVC()
+            removeGarageDetailsVC()
+            showGarageDetailsVC()
         }
     }
     
-    func removeGarageVC() {
-        garageDetailVC?.removeFromParent()
-        garageDetailVC?.view.removeFromSuperview()
-        garageDetailVC = nil
+    func removeGarageDetailsVC() {
+        garageDetailsVC?.removeFromParent()
+        garageDetailsVC?.view.removeFromSuperview()
+        garageDetailsVC = nil
     }
     
     func didSelectGarage() {
-        showGarageDetailVC()
+        showGarageDetailsVC()
     }
     
     func didDeselectGarage() {
