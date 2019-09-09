@@ -18,13 +18,27 @@ class GarageDetailsViewController: UIViewController {
         return button
     }()
     
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.rowHeight = UITableView.automaticDimension
+        table.backgroundColor = .clear
+        table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
+        return table
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
-        view.addSubview(closeButton)
+        view.backgroundColor = .white
         view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        
+        view.addSubview(tableView)
+        view.addSubview(closeButton)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+
         setConstraints()
         
         DispatchQueue.main.async {
@@ -42,7 +56,11 @@ class GarageDetailsViewController: UIViewController {
         .right(view.rightAnchor, padding: 16)
         .width(constant: 30)
         .height(constant: 30)
-//
+        tableView.anchor
+        .top(view.topAnchor, padding: 16)
+        .left(view.leftAnchor)
+        .right(view.rightAnchor)
+        .bottom(view.bottomAnchor)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,5 +74,34 @@ class GarageDetailsViewController: UIViewController {
             self.removeFromParent()
             self.view.removeFromSuperview()
         })
+    }
+}
+
+extension GarageDetailsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1: return "Fotos"
+        case 2: return "Comentários"
+        default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailsCell", for: indexPath) as? DetailsTableViewCell else {
+            return UITableViewCell()
+        }
+        let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.row)
+        cell.sectionHeaderLabel.text = sectionHeaderTitle
+        return cell
+    }
+}
+
+extension GarageDetailsViewController: UIScrollViewDelegate, UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.isScrollEnabled = false
     }
 }

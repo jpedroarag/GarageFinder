@@ -32,6 +32,7 @@
 		3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95E2316A828001BDDB6 /* Provider.swift */; };
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
+		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
@@ -105,6 +106,7 @@
 		3C10C95E2316A828001BDDB6 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
+		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		3C10C8E9230AE634001BDDB6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3C811E41232692970075AD49 /* Component */,
 				6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */,
 				3C10C908231016DE001BDDB6 /* MapView.swift */,
 				3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */,
@@ -279,6 +282,14 @@
 				3C10C95E2316A828001BDDB6 /* Provider.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3C811E41232692970075AD49 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		6C7C05AB2316BB4900FB8974 /* Protocol */ = {
@@ -458,6 +469,7 @@
 				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
+				3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
