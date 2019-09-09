@@ -23,7 +23,7 @@ class FloatingViewController: UIViewController {
     }()
 
     weak var searchDelegate: SearchDelegate?
-    var garageDetailVC: GarageDetailViewController?
+    var garageDetailVC: GarageDetailsViewController?
     var mapView: MapView?
     
     lazy var searchBar: UISearchBar = {
@@ -261,7 +261,7 @@ extension FloatingViewController: UISearchBarDelegate {
 extension FloatingViewController: SelectGarageDelegate {
     func showGarageDetailVC() {
         if garageDetailVC == nil {
-            garageDetailVC = GarageDetailViewController()
+            garageDetailVC = GarageDetailsViewController()
             guard let garageVC = garageDetailVC else { return }
             addChild(garageVC)
             view.addSubview(garageVC.view)

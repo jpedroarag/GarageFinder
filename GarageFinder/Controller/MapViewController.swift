@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     
     lazy var mapView = MapView(frame: .zero)
     var toolboxView: ToolboxView!
+    var floatingView: UIView!
+    
     weak var selectGarageDelegate: SelectGarageDelegate?
 
     override func viewDidLoad() {
@@ -50,8 +52,9 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
+        self.floatingView = floatingVC.view
         self.addChild(floatingVC)
-        self.view.addSubview(floatingVC.view)
+        self.view.addSubview(floatingView)
         floatingVC.didMove(toParent: self)
         selectGarageDelegate = floatingVC
         let height = view.frame.height
@@ -67,7 +70,7 @@ class MapViewController: UIViewController {
             .left(view.leftAnchor)
         toolboxView.anchor
             .right(view.rightAnchor, padding: 16)
-            .bottom(view.bottomAnchor, padding: 16)
+            .bottom(floatingView.topAnchor, padding: 16)
             .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }

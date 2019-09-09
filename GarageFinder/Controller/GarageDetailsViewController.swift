@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GarageDetailViewController: UIViewController {
+class GarageDetailsViewController: UIViewController {
 
     let closeButton: UIButton = {
        let button = UIButton()
