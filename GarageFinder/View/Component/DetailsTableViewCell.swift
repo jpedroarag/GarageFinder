@@ -12,7 +12,7 @@ class DetailsTableViewCell: UITableViewCell {
     
     let sectionHeaderLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .thin)
         label.textColor = .darkGray
         return label
     }()

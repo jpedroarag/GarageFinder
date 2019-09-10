@@ -78,8 +78,12 @@ class GarageDetailsViewController: UIViewController {
 }
 
 extension GarageDetailsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -90,11 +94,32 @@ extension GarageDetailsViewController: UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.25
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .clear
+        
+        let separator = UIView()
+        separator.backgroundColor = section != 0 ? UIColor.black.withAlphaComponent(0.65) : .clear
+        view.addSubview(separator)
+        
+        separator.anchor
+        .top(view.topAnchor)
+        .bottom(view.bottomAnchor)
+        .width(view.widthAnchor, multiplier: 0.8)
+        .centerX(view.centerXAnchor)
+        
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailsCell", for: indexPath) as? DetailsTableViewCell else {
             return UITableViewCell()
         }
-        let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.row)
+        let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.section)
         cell.sectionHeaderLabel.text = sectionHeaderTitle
         return cell
     }
