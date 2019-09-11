@@ -20,7 +20,8 @@ class GarageDetailsViewController: UIViewController {
     
     let tableView: UITableView = {
         let table = UITableView()
-        table.rowHeight = UITableView.automaticDimension
+        table.rowHeight = 192
+//        table.estimatedRowHeight = 128
         table.backgroundColor = .clear
         table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
         return table
@@ -37,6 +38,7 @@ class GarageDetailsViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
 
         setConstraints()
@@ -95,7 +97,7 @@ extension GarageDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.25
+        return 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -103,7 +105,7 @@ extension GarageDetailsViewController: UITableViewDataSource {
         view.backgroundColor = .clear
         
         let separator = UIView()
-        separator.backgroundColor = section != 0 ? UIColor.black.withAlphaComponent(0.65) : .clear
+        separator.backgroundColor = section != 0 ? UIColor.black.withAlphaComponent(0.15) : .clear
         view.addSubview(separator)
         
         separator.anchor
@@ -119,14 +121,48 @@ extension GarageDetailsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailsCell", for: indexPath) as? DetailsTableViewCell else {
             return UITableViewCell()
         }
+        
         let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.section)
         cell.sectionHeaderLabel.text = sectionHeaderTitle
+        
+        if let contentView = sectionContent(forIndexPath: indexPath) {
+            cell.addContentView(contentView)
+        }
+        
         return cell
+    }
+    
+    func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
+        switch indexPath.section {
+        case 0:
+            return GarageInfoView(frame: .zero)
+//        case 1:
+//        case 2:
+        default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            let screenBounds = UIScreen.main.bounds
+            let headerLabelHeight: CGFloat = 17.0
+            let titleLabelHeight: CGFloat = 21.5
+            let subtitleLabelHeight: CGFloat = 16.0
+            let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
+
+            return 16.0 + headerLabelHeight
+                 + 16.0 + titleLabelHeight
+                 +  4.0 + subtitleLabelHeight
+                 +  8.0 + buttonHeight
+                 +  16.0
+        default: return 100
+        }
     }
 }
 
 extension GarageDetailsViewController: UIScrollViewDelegate, UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.isScrollEnabled = false
+        if scrollView.isScrollEnabled { scrollView.isScrollEnabled = false }
     }
 }

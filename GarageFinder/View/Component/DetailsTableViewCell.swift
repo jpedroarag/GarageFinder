@@ -37,8 +37,12 @@ class DetailsTableViewCell: UITableViewCell {
         .top(topAnchor, padding: 16)
         .left(leftAnchor, padding: 16)
         .right(rightAnchor, padding: 16)
-        cellContent.anchor
-        .top(sectionHeaderLabel.bottomAnchor, padding: 8)
+    }
+    
+    func addContentView(_ view: UIView) {
+        addSubview(view)
+        view.anchor
+        .top(sectionHeaderLabel.bottomAnchor, padding: 16)
         .left(leftAnchor, padding: 16)
         .right(rightAnchor, padding: 16)
         .bottom(bottomAnchor, padding: 16)

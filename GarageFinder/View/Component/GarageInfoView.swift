@@ -9,13 +9,81 @@
 import UIKit
 
 class GarageInfoView: UIView {
+    
+    lazy var parkButton: GFButton = {
+        let button = GFButton(frame: .zero)
+        button.setTitle("Estacionar", for: .normal)
+        return button
+    }()
+    
+//    lazy var starImageView: UIImageView = {
+//        let imageView = UIImageView(frame: .zero)
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.image = UIImage(named: "rating")
+//        return imageView
+//    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .black
+        label.text = "Garagem de Marcus"
+        return label
+    }()
+    
+    lazy var subtitleLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
+        label.textColor = .darkGray
+        label.text = "St. John Rush, 79"
+        return label
+    }()
+    
+    lazy var ratingLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .yellow
+        label.text = "4.3"
+        return label
+    }()
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
+//        addSubview(starImageView)
+        addSubview(ratingLabel)
+        addSubview(parkButton)
+        setConstraints()
     }
-    */
+    
+    private func setConstraints() {
+        titleLabel.anchor
+        .top(topAnchor)
+        .left(leftAnchor)
+        
+        subtitleLabel.anchor
+        .top(titleLabel.bottomAnchor, padding: 4)
+        .left(titleLabel.leftAnchor)
+        
+//        starImageView.anchor
+//        .left(titleLabel.rightAnchor)
+//        .height(titleLabel.heightAnchor)
+//        .width(starImageView.heightAnchor)
+        
+        ratingLabel.anchor
+//        .left(starImageView.rightAnchor, padding: 16)
+        .left(titleLabel.rightAnchor, padding: 8)
+        .top(titleLabel.topAnchor)
+        .height(titleLabel.heightAnchor)
+        
+        parkButton.anchor
+        .top(subtitleLabel.bottomAnchor, padding: 16)
+        .left(leftAnchor)
+        .right(rightAnchor)
+        .height(parkButton.widthAnchor, multiplier: 0.16)
+    }
+    
+    required init?(coder aDecoder: NSCoder) { return nil }
 
 }
