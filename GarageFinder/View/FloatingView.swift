@@ -16,12 +16,12 @@ class FloatingView: UIView {
         return headerView
     }()
     
-    lazy var pinView: UIView = {
-        let pinView = UIView()
-        pinView.rounded(cornerRadius: 2)
-        pinView.backgroundColor = .lightGray
+    lazy var pinView: CircleView = {
+        let pinView = CircleView()
+        pinView.backgroundColor = .init(white: 0.80, alpha: 1)
         return pinView
     }()
+
     lazy var searchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.shadowed()
@@ -35,7 +35,6 @@ class FloatingView: UIView {
             textfield.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
             textfield.layer.cornerRadius = 5
             textfield.clipsToBounds = true
-
         }
         return sb
     }()
@@ -69,7 +68,7 @@ class FloatingView: UIView {
         pinView.anchor
         .top(parentView.topAnchor, padding: 8)
         .centerX(parentView.centerXAnchor)
-        .width(constant: 30)
+        .width(constant: 35)
         .height(constant: 5)
     }
     
@@ -77,8 +76,8 @@ class FloatingView: UIView {
         parentView.addSubview(searchBar)
         searchBar.anchor
             .top(pinView.bottomAnchor)
-            .left(parentView.leftAnchor, padding: 14)
-            .right(parentView.rightAnchor, padding: 14)
+            .left(parentView.leftAnchor, padding: 8)
+            .right(parentView.rightAnchor, padding: 8)
             .height(constant: 50)
     }
     
