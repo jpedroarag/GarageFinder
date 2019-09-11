@@ -16,7 +16,7 @@ class FloatingViewController: UIViewController {
         return UIScreen.main.bounds.height * 0.65
     }()
     lazy var partialView: CGFloat = {
-        return UIScreen.main.bounds.height - searchBar.frame.height * 2
+        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2
     }()
     lazy var allPos: [CGFloat] = {
         return [partialView, middleView, fullView]
@@ -26,13 +26,8 @@ class FloatingViewController: UIViewController {
     var garageDetailVC: GarageDetailViewController?
     var mapView: MapView?
     
-    lazy var searchBar: UISearchBar = {
-        let sb = UISearchBar()
-        sb.placeholder = "Onde deseja estacionar?"
-        sb.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        return sb
-    }()
-
+    var floatingView = FloatingView(frame: CGRect.zero)
+    
     var currentPos: CGFloat = 0
     var currentIndexPos = 0 {
         didSet {
@@ -44,7 +39,6 @@ class FloatingViewController: UIViewController {
     }
     var lastTable: UITableView!
     var touchLocationY: CGFloat = 0
-    lazy var tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,39 +47,31 @@ class FloatingViewController: UIViewController {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
-
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        view.addSubview(tableView)
-        view.addSubview(searchBar)
-        tableView.bounces = false
-        searchBar.delegate = self
         
-        searchBar.anchor
-            .top(view.topAnchor)
-            .left(view.leftAnchor, padding: 8)
-            .right(view.rightAnchor, padding: 8)
-            .height(constant: 50)
-        tableView.anchor
-            .top(searchBar.bottomAnchor)
-            .bottom(view.bottomAnchor)
-            .left(view.leftAnchor)
-            .right(view.rightAnchor)
+        view.backgroundColor = .clear
         
+        setupFloatingView()
         setupObserver()
-        
-        lastTable = tableView
-        
     }
     
+    func setupFloatingView() {
+        view.addSubview(floatingView)
+        floatingView.searchBar.delegate = self
+        floatingView.tableView.dataSource = self
+        lastTable = floatingView.tableView
+        
+        floatingView.anchor
+        .top(view.topAnchor)
+        .left(view.leftAnchor)
+        .right(view.rightAnchor)
+        .bottom(view.bottomAnchor)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            if let frame = self?.view.frame,
-                let yComponent = self?.partialView {
-                self?.view.frame = CGRect(x: 0, y: yComponent, width: frame.width, height: frame.height)
-            }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
         })
     }
     
@@ -103,7 +89,7 @@ class FloatingViewController: UIViewController {
             touchLocationY = recognizer.location(in: view).y
         }
         
-        let iSTouchingSearchBar = touchLocationY <= searchBar.frame.height * 0.9
+        let iSTouchingSearchBar = touchLocationY <= floatingView.searchBar.frame.height * 0.9
         if lastTable.contentOffset.y <= 0 || iSTouchingSearchBar {
             scroll(recognizer)
         } else {
@@ -150,7 +136,7 @@ class FloatingViewController: UIViewController {
             
             let canMoveUp = isDown && currentIndexPos != 0
             let canMoveDown = isUp && currentIndexPos != 2
-            print("vel: \(velocity)")
+            
             if canMoveUp || canMoveDown {
                 if currentPos == partialView && velocity < -1500 {
                     currentIndexPos += 2
@@ -168,10 +154,10 @@ class FloatingViewController: UIViewController {
                 lastTable.setContentOffset(contentOffset, animated: true)
             }
             
+            if currentPos == 0 { return }
             UIView.animate(withDuration: 0.5, delay: 0.0,
                            usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
                            options: [.curveEaseOut, .allowUserInteraction], animations: {
-                
                 self.view.frame = CGRect(x: 0, y: self.currentPos, width: self.view.frame.width, height: self.view.frame.height)
             })
         }
@@ -207,7 +193,6 @@ extension FloatingViewController: UITableViewDataSource {
         cell.textLabel?.text = "Cell: \(indexPath.row)"
         return cell
     }
-    
 }
 
 extension FloatingViewController: UISearchBarDelegate {
@@ -222,7 +207,7 @@ extension FloatingViewController: UISearchBarDelegate {
         view.addSubview(searchVC.view)
         searchVC.didMove(toParent: self)
 
-        searchVC.view.frame = CGRect(x: 0, y: searchBar.frame.height,
+        searchVC.view.frame = CGRect(x: 0, y: floatingView.searchBar.frame.height * 2,
                                      width: view.frame.width,
                                      height: view.frame.height)
     
@@ -245,14 +230,14 @@ extension FloatingViewController: UISearchBarDelegate {
     }
     
     func cancellSearch() {
-        searchBar.text = ""
-        searchBar.showsCancelButton = false
-        searchBar.endEditing(true)
+        floatingView.searchBar.text = ""
+        floatingView.searchBar.showsCancelButton = false
+        floatingView.searchBar.endEditing(true)
 
         if let searchVC = self.children.filter({ $0 is SearchResultViewController}).first {
             searchVC.removeFromParent()
             searchVC.view.removeFromSuperview()
-            lastTable = tableView
+            lastTable = floatingView.tableView
             
         }
     }

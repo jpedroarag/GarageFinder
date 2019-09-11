@@ -17,7 +17,6 @@ class SearchResultViewController: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
-
         tableView.bounces = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,25 +32,29 @@ class SearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .clear
+        addTableView()
+        addEmptyView()
+    }
+    
+    func addTableView() {
         view.addSubview(tableView)
         tableView.anchor
             .top(view.topAnchor)
-            .right(view.rightAnchor)
+            .right(view.rightAnchor, padding: 8)
             .bottom(view.bottomAnchor)
-            .left(view.leftAnchor)
-        
-        addEmptyView()
+            .left(view.leftAnchor, padding: 8)
     }
     
     func addEmptyView() {
         view.addSubview(emptyView)
         emptyView.anchor
             .top(view.topAnchor)
-            .right(view.rightAnchor)
+            .right(view.rightAnchor, padding: 8)
             .bottom(view.bottomAnchor)
-            .left(view.leftAnchor)
+            .left(view.leftAnchor, padding: 8)
     }
-
+    
 }
 
 extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
