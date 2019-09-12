@@ -134,19 +134,24 @@ extension GarageDetailsViewController: UITableViewDataSource {
     
     func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
-        case 0:
-            return GarageInfoView(frame: .zero)
-//        case 1:
-//        case 2:
+        case 0: return GarageInfoView(frame: .zero)
+        case 1:
+            var pictures = [UIImage]()
+            (0...5).forEach { _ in
+                guard let image = UIImage(named: "mock") else { return }
+                pictures.append(image)
+            }
+            return GarageGalleryView(images: pictures)
+        case 2: return UITableView()
         default: return nil
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let screenBounds = UIScreen.main.bounds
+        let headerLabelHeight: CGFloat = 17.0
         switch indexPath.section {
         case 0:
-            let screenBounds = UIScreen.main.bounds
-            let headerLabelHeight: CGFloat = 17.0
             let titleLabelHeight: CGFloat = 21.5
             let subtitleLabelHeight: CGFloat = 16.0
             let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
@@ -156,6 +161,13 @@ extension GarageDetailsViewController: UITableViewDataSource {
                  +  4.0 + subtitleLabelHeight
                  +  8.0 + buttonHeight
                  +  16.0
+        case 1:
+            return 16.0 + headerLabelHeight
+                 + 16.0
+                 +  5.0
+                 + UIScreen.main.bounds.height * 0.2
+                 +  5.0
+                 +  16.0
         default: return 100
         }
     }
@@ -163,6 +175,6 @@ extension GarageDetailsViewController: UITableViewDataSource {
 
 extension GarageDetailsViewController: UIScrollViewDelegate, UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.isScrollEnabled { scrollView.isScrollEnabled = false }
+        if scrollView === tableView && scrollView.isScrollEnabled { scrollView.isScrollEnabled = false }
     }
 }
