@@ -10,31 +10,58 @@ import UIKit
 import GarageFinderFramework
 
 class SearchResultCell: UITableViewCell {
+    lazy var roundedView: UIView = {
+        let roundedView = UIView()
+        roundedView.layer.masksToBounds = true
+        roundedView.shadowed()
+        
+        //roundedView.rounded(cornerRadius: 5)
+        //roundedView.layer.masksToBounds = false
+        //roundedView.clipsToBounds = false
+        roundedView.layer.borderWidth = 1
+        return roundedView
+    }()
 
+    lazy var centerView = UIView()
+    
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         return label
     }()
     
     lazy var addressLabel: UILabel = {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.font = .systemFont(ofSize: 10, weight: .light)
+        label.textColor = .darkGray
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
+        //addSubview(roundedView)
+        //addSubview(centerView)
         addSubview(nameLabel)
         addSubview(addressLabel)
         setConstraints()
+        
+        // add shadow on cell and make rounded
+        backgroundColor = .clear
+        shadowed()
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 8
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8))
     }
     func loadData(name: String?, address: String?) {
         nameLabel.text = name
@@ -42,16 +69,23 @@ class SearchResultCell: UITableViewCell {
     }
     
     func setConstraints() {
+//        centerView.backgroundColor = .blue
+//        centerView.anchor
+//            .height(heightAnchor, multiplier: 0.5)
+//            .left(leftAnchor)
+//            .right(rightAnchor)
+//            .centerY(centerYAnchor)
+        
         nameLabel.anchor
-            .top(topAnchor, padding: 16)
-            .left(leftAnchor, padding: 8)
-            .right(rightAnchor, padding: 8)
+            .top(topAnchor, padding: 21)
+            .left(leftAnchor, padding: 24)
+            .right(rightAnchor, padding: 24)
         
         addressLabel.anchor
-            .left(leftAnchor, padding: 8)
-            .right(rightAnchor, padding: 8)
-            .bottom(bottomAnchor, padding: 16)
-        
+            .top(nameLabel.bottomAnchor, padding: 5)
+            .left(leftAnchor, padding: 24)
+            .right(rightAnchor, padding: 24)
+            .bottom(bottomAnchor, padding: 21)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

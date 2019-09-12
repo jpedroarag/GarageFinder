@@ -61,32 +61,36 @@ extension SmartConstraint {
     @discardableResult
     public func top(_ anchor: NSLayoutYAxisAnchor,
                     padding: CGFloat = 0,
-                    relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.topAnchor, toAnchor: anchor, relation: relation, padding: padding)
+                    relation: NSLayoutConstraint.Relation = .equal,
+                    priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.topAnchor, toAnchor: anchor, relation: relation, padding: padding, priority: priority)
         return self
     }
     
     @discardableResult
     public func bottom(_ anchor: NSLayoutYAxisAnchor,
                        padding: CGFloat = 0,
-                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.bottomAnchor, toAnchor: anchor, relation: relation, padding: -padding)
+                       relation: NSLayoutConstraint.Relation = .equal,
+                       priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.bottomAnchor, toAnchor: anchor, relation: relation, padding: -padding, priority: priority)
         return self
     }
     
     @discardableResult
     public func left(_ anchor: NSLayoutXAxisAnchor,
                      padding: CGFloat = 0,
-                     relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.leftAnchor, toAnchor: anchor, relation: relation, padding: padding)
+                     relation: NSLayoutConstraint.Relation = .equal,
+                     priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.leftAnchor, toAnchor: anchor, relation: relation, padding: padding, priority: priority)
         return self
     }
     
     @discardableResult
     public func right(_ anchor: NSLayoutXAxisAnchor,
                       padding: CGFloat = 0,
-                      relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.rightAnchor, toAnchor: anchor, relation: relation, padding: -padding)
+                      relation: NSLayoutConstraint.Relation = .equal,
+                      priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.rightAnchor, toAnchor: anchor, relation: relation, padding: -padding, priority: priority)
         return self
     }
     
@@ -94,15 +98,17 @@ extension SmartConstraint {
     public func width(_ anchor: NSLayoutDimension,
                       constant: CGFloat = 0,
                       multiplier: CGFloat = 1,
-                      relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(view.widthAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
+                      relation: NSLayoutConstraint.Relation = .equal,
+                      priority: Float = 1000) -> SmartConstraint {
+        layoutDimension(view.widthAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier, priority: priority)
         return self
     }
     
     @discardableResult
     public func width(constant: CGFloat,
-                      relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(view.widthAnchor, relation: relation, constant: constant)
+                      relation: NSLayoutConstraint.Relation = .equal,
+                      priority: Float = 1000) -> SmartConstraint {
+        layoutDimension(view.widthAnchor, relation: relation, constant: constant, priority: priority)
         return self
     }
     
@@ -110,41 +116,67 @@ extension SmartConstraint {
     public func height(_ anchor: NSLayoutDimension,
                        constant: CGFloat = 0,
                        multiplier: CGFloat = 1,
-                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(view.heightAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier)
+                       relation: NSLayoutConstraint.Relation = .equal,
+                       priority: Float = 1000) -> SmartConstraint {
+        layoutDimension(view.heightAnchor, toDimension: anchor, relation: relation, constant: constant, multiplier: multiplier, priority: priority)
         return self
     }
     
     @discardableResult
     public func height(constant: CGFloat,
-                       relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutDimension(view.heightAnchor, relation: relation, constant: constant)
+                       relation: NSLayoutConstraint.Relation = .equal,
+                       priority: Float = 1000) -> SmartConstraint {
+        layoutDimension(view.heightAnchor, relation: relation, constant: constant, priority: priority)
         return self
     }
     
     @discardableResult
     public func centerX(_ anchor: NSLayoutXAxisAnchor,
                         padding: CGFloat = 0,
-                        relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.centerXAnchor, toAnchor: anchor, relation: relation, padding: padding)
+                        relation: NSLayoutConstraint.Relation = .equal,
+                        priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.centerXAnchor, toAnchor: anchor, relation: relation, padding: padding, priority: priority)
         return self
     }
     
     @discardableResult
     public func centerY(_ anchor: NSLayoutYAxisAnchor,
                         padding: CGFloat = 0,
-                        relation: NSLayoutConstraint.Relation = .equal) -> SmartConstraint {
-        layoutAnchor(view.centerYAnchor, toAnchor: anchor, relation: relation, padding: padding)
+                        relation: NSLayoutConstraint.Relation = .equal, priority: Float = 1000) -> SmartConstraint {
+        layoutAnchor(view.centerYAnchor, toAnchor: anchor, relation: relation, padding: padding, priority: priority)
         return self
     }
     
     @discardableResult
-    public func attatch() -> SmartConstraint {
+    public func attatch(to view: UIView, paddings: Paddings? = nil) -> SmartConstraint {
         
+//        if case let .paddings(let top, let right) = paddings {
+//
+//        }
+        
+        if case .paddings(let topPadding, let rightPadding, let bottomPadding, let leftPadding) = paddings {
+            top(view.topAnchor, padding: topPadding ?? 0)
+            bottom(view.bottomAnchor, padding: bottomPadding ?? 0)
+            left(view.leftAnchor, padding: leftPadding ?? 0)
+            right(view.rightAnchor, padding: rightPadding ?? 0)
+        } else {
+            top(view.topAnchor)
+            bottom(view.bottomAnchor)
+            left(view.leftAnchor)
+            right(view.rightAnchor)
+        }
+
+        //let b = paddings?.filter({ $0 == Paddings.top(10) })
+        
+//
         return self
     }
     
-    func layoutAnchor<T: AnyObject>(_ anchor: NSLayoutAnchor<T>, toAnchor: NSLayoutAnchor<T>, relation: NSLayoutConstraint.Relation, padding: CGFloat) {
+    func layoutAnchor<T: AnyObject>(_ anchor: NSLayoutAnchor<T>,
+                                    toAnchor: NSLayoutAnchor<T>,
+                                    relation: NSLayoutConstraint.Relation,
+                                    padding: CGFloat,
+                                    priority: Float) {
         var constraint: NSLayoutConstraint!
         
         switch relation {
@@ -157,7 +189,7 @@ extension SmartConstraint {
         default:
             fatalError()
         }
-        
+        constraint.priority = UILayoutPriority(priority)
         constraint.isActive = true
         constraints.append(constraint)
     }
@@ -166,7 +198,8 @@ extension SmartConstraint {
                          toDimension: NSLayoutDimension? = nil,
                          relation: NSLayoutConstraint.Relation,
                          constant: CGFloat,
-                         multiplier: CGFloat = 1) {
+                         multiplier: CGFloat = 1,
+                         priority: Float = 1000) {
         
         var constraint: NSLayoutConstraint!
         
@@ -192,8 +225,12 @@ extension SmartConstraint {
         default:
             fatalError()
         }
-        
+        constraint.priority = UILayoutPriority(priority)
         constraint.isActive = true
         constraints.append(constraint)
     }
+}
+
+public enum Paddings: Equatable {
+    case paddings(top: CGFloat? = nil, right: CGFloat? = nil, bottom: CGFloat? = nil, left: CGFloat? = nil)
 }

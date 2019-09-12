@@ -18,7 +18,7 @@ class FloatingView: UIView {
     
     lazy var pinView: CircleView = {
         let pinView = CircleView()
-        pinView.backgroundColor = .init(white: 0.80, alpha: 1)
+        pinView.backgroundColor = .customGray
         return pinView
     }()
 
@@ -32,7 +32,7 @@ class FloatingView: UIView {
             textfield.borderStyle = .none
             textfield.backgroundColor = .white
             textfield.layer.borderWidth = 1
-            textfield.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
+            textfield.layer.borderColor = UIColor.customGray.cgColor
             textfield.layer.cornerRadius = 5
             textfield.clipsToBounds = true
         }
@@ -43,7 +43,7 @@ class FloatingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        tableView.rowHeight = UITableView.automaticDimension
         setupParentView()
         setupPinView()
         setupSearchBar()

@@ -17,6 +17,7 @@ class SearchResultViewController: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
+        tableView.separatorStyle = .none
         tableView.bounces = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -120,9 +121,6 @@ extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
 
 // MARK: - Table view data source
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
-    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

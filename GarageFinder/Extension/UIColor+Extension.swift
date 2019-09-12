@@ -40,4 +40,8 @@ extension UIColor {
         )
     }
     
+    class var customGray: UIColor {
+        return .init(white: 0.9, alpha: 1)
+    }
+    
 }

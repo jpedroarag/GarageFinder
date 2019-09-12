@@ -40,16 +40,19 @@ class FloatingViewController: UIViewController {
     var lastTable: UITableView!
     var touchLocationY: CGFloat = 0
     
+    var favoriteGarages: [String] = ["Garagem1", "Garagem2", "Garagem3"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .init(white: 0.9, alpha: 1)
+        view.backgroundColor = .customGray
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
         
         view.backgroundColor = .clear
-        
+        floatingView.tableView.register(FavAddressTableViewCell.self, forCellReuseIdentifier: "FavAddress")
+        floatingView.tableView.register(FavGaragesTableViewCell.self, forCellReuseIdentifier: "FavGarages")
         setupFloatingView()
         setupObserver()
     }
@@ -58,6 +61,7 @@ class FloatingViewController: UIViewController {
         view.addSubview(floatingView)
         floatingView.searchBar.delegate = self
         floatingView.tableView.dataSource = self
+        floatingView.tableView.delegate = self
         lastTable = floatingView.tableView
         
         floatingView.anchor
@@ -90,6 +94,11 @@ class FloatingViewController: UIViewController {
         }
         
         let iSTouchingSearchBar = touchLocationY <= floatingView.searchBar.frame.height * 0.9
+        
+//        let cell = floatingView.tableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FavAddressTableViewCell
+//        let cellFrame = cell?.collectionView.frame
+//        guard let touchInCell = cellFrame?.contains(recognizer.location(in: floatingView.tableView)) else { return }
+        
         if lastTable.contentOffset.y <= 0 || iSTouchingSearchBar {
             scroll(recognizer)
         } else {
@@ -107,6 +116,7 @@ class FloatingViewController: UIViewController {
         
         let limit = minY + translation.y
         let bypassLimit = (limit >= 0) && (limit <= partialView)
+        
         if bypassLimit {
             view.layer.removeAllAnimations()
             view.frame = CGRect(x: 0, y: limit, width: view.frame.width, height: view.frame.height)
@@ -179,19 +189,57 @@ class FloatingViewController: UIViewController {
 
 extension FloatingViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //If the other gesture recognizer is CollectionView, dont recognize simultaneously
+        if otherGestureRecognizer.view as? UICollectionView != nil {
+            return false
+        }
         return true
     }
 }
 
+// MARK: TableViewDataSource
 extension FloatingViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Endereços"
+        default:
+            return "Garagens"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        switch section {
+        case 0:
+            return 1
+        default:
+            return favoriteGarages.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Cell: \(indexPath.row)"
-        return cell
+        
+        let cell: UITableViewCell?
+        switch indexPath.section {
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "FavAddress", for: indexPath) as? FavAddressTableViewCell
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell
+            cell?.textLabel?.text = favoriteGarages[indexPath.row]
+        }
+
+        return cell ?? UITableViewCell()
+    }
+    
+}
+
+extension FloatingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        print("focused")
     }
 }
 
