@@ -27,7 +27,6 @@ class GarageInfoView: UIView {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textColor = .black
-        label.text = "Garagem de Marcus"
         return label
     }()
     
@@ -35,7 +34,6 @@ class GarageInfoView: UIView {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
         label.textColor = .darkGray
-        label.text = "St. John Rush, 79"
         return label
     }()
     
@@ -43,7 +41,6 @@ class GarageInfoView: UIView {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textColor = .yellow
-        label.text = "4.3"
         return label
     }()
 

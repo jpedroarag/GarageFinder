@@ -15,10 +15,14 @@ class GarageGalleryView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
+        
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .white
-        view.layer.cornerRadius = 5
+        view.rounded(cornerRadius: 5)
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
         view.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: "galleryCell")
+        
         return view
     }()
     
@@ -28,18 +32,29 @@ class GarageGalleryView: UIView {
         }
     }
     
+    var dataSource: GarageGalleryDataSourceDelegate!
+    weak var delegate: GarageGalleryDataSourceDelegate!
+    
     convenience init(images: [UIImage]) {
         self.init(frame: .zero)
+        setDataSourceDelegate(images)
         photos = images
-        collectionView.reloadData()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collectionView.dataSource = self
-        collectionView.delegate = self
         addSubview(collectionView)
+        setDataSourceDelegate(photos)
         setConstraints()
+        setLayer()
+    }
+    
+    private func setDataSourceDelegate(_ photos: [UIImage]) {
+        let dataSourceDelegate = GarageGalleryDataSourceDelegate(photos)
+        collectionView.dataSource = dataSourceDelegate
+        collectionView.delegate = dataSourceDelegate
+        dataSource = dataSourceDelegate
+        delegate = dataSourceDelegate
     }
     
     private func setConstraints() {
@@ -49,39 +64,12 @@ class GarageGalleryView: UIView {
         .right(rightAnchor)
         .bottom(bottomAnchor)
     }
+    
+    private func setLayer() {
+        rounded(cornerRadius: 5)
+        shadowed()
+    }
 
     required init?(coder aDecoder: NSCoder) { return nil }
-    
-}
-
-extension GarageGalleryView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryCell", for: indexPath) as? GalleryCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        cell.imageView.image = photos[indexPath.item]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let width = photos[indexPath.item].cgImage?.width else {
-            return .zero
-        }
-        if width > 300 {
-            return CGSize(width: CGFloat(300), height: UIScreen.main.bounds.height * 0.2 - 10)
-        } else {
-            return CGSize(width: CGFloat(width), height: UIScreen.main.bounds.height * 0.2 - 10)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-    }
     
 }

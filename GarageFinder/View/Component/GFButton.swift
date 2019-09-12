@@ -15,8 +15,7 @@ class GFButton: UIButton {
         backgroundColor = UIColor(rgb: 0x23D25B, alpha: 100)
         titleLabel?.textColor = .white
         titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        layer.cornerRadius = 5
-        layer.masksToBounds = true
+        rounded(cornerRadius: 5)
     }
 
     required init?(coder aDecoder: NSCoder) { return nil }

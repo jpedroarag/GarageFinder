@@ -13,6 +13,8 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
+        view.rounded(cornerRadius: 5)
         return view
     }()
     

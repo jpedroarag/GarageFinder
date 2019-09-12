@@ -132,9 +132,15 @@ extension GarageDetailsViewController: UITableViewDataSource {
         return cell
     }
     
+    // TODO: Get real data, instead of mocked data
     func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
-        case 0: return GarageInfoView(frame: .zero)
+        case 0:
+            let garageInfoView = GarageInfoView(frame: .zero)
+            garageInfoView.titleLabel.text = "Garagem de Marcus"
+            garageInfoView.subtitleLabel.text = "St. John Rush, 79"
+            garageInfoView.ratingLabel.text = "4.3"
+            return garageInfoView
         case 1:
             var pictures = [UIImage]()
             (0...5).forEach { _ in
@@ -142,7 +148,10 @@ extension GarageDetailsViewController: UITableViewDataSource {
                 pictures.append(image)
             }
             return GarageGalleryView(images: pictures)
-        case 2: return UITableView()
+        case 2:
+            let table = UITableView()
+            table.backgroundColor = .red
+            return table
         default: return nil
         }
     }
@@ -168,7 +177,7 @@ extension GarageDetailsViewController: UITableViewDataSource {
                  + UIScreen.main.bounds.height * 0.2
                  +  5.0
                  +  16.0
-        default: return 100
+        default: return UITableView.automaticDimension
         }
     }
 }
