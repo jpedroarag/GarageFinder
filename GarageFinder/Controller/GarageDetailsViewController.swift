@@ -54,15 +54,15 @@ class GarageDetailsViewController: UIViewController {
     
     private func setConstraints() {
         closeButton.anchor
-        .top(view.topAnchor, padding: 16)
-        .right(view.rightAnchor, padding: 16)
-        .width(constant: 30)
-        .height(constant: 30)
+            .top(view.topAnchor, padding: 16)
+            .right(view.rightAnchor, padding: 16)
+            .width(constant: 30)
+            .height(constant: 30)
         tableView.anchor
-        .top(view.topAnchor, padding: 16)
-        .left(view.leftAnchor)
-        .right(view.rightAnchor)
-        .bottom(view.bottomAnchor)
+            .top(view.topAnchor, padding: 16)
+            .left(view.leftAnchor)
+            .right(view.rightAnchor)
+            .bottom(view.bottomAnchor)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +81,7 @@ class GarageDetailsViewController: UIViewController {
 
 extension GarageDetailsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,8 +90,8 @@ extension GarageDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 1: return "Fotos"
-        case 2: return "Comentários"
+        case 2: return "Fotos"
+        case 3: return "Comentários"
         default: return nil
         }
     }
@@ -105,13 +105,13 @@ extension GarageDetailsViewController: UITableViewDataSource {
         view.backgroundColor = .clear
         
         let separator = UIView()
-        separator.backgroundColor = section != 0 ? UIColor.black.withAlphaComponent(0.15) : .clear
+        separator.backgroundColor = section > 1 ? UIColor(rgb: 0xBEBEBE, alpha: 100) : .clear
         view.addSubview(separator)
         
         separator.anchor
         .top(view.topAnchor)
         .bottom(view.bottomAnchor)
-        .width(view.widthAnchor, multiplier: 0.8)
+        .width(view.widthAnchor, multiplier: 0.712)
         .centerX(view.centerXAnchor)
         
         return view
@@ -142,13 +142,15 @@ extension GarageDetailsViewController: UITableViewDataSource {
             garageInfoView.ratingLabel.text = "4.3"
             return garageInfoView
         case 1:
+            return GarageActionsView(frame: .zero)
+        case 2:
             var pictures = [UIImage]()
             (0...5).forEach { _ in
                 guard let image = UIImage(named: "mock") else { return }
                 pictures.append(image)
             }
             return GarageGalleryView(images: pictures)
-        case 2:
+        case 3:
             let table = UITableView()
             table.backgroundColor = .red
             return table
@@ -165,12 +167,17 @@ extension GarageDetailsViewController: UITableViewDataSource {
             let subtitleLabelHeight: CGFloat = 16.0
             let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
 
-            return 16.0 + headerLabelHeight
-                 + 16.0 + titleLabelHeight
+            return 16.0 + titleLabelHeight
                  +  4.0 + subtitleLabelHeight
                  +  8.0 + buttonHeight
                  +  16.0
         case 1:
+            let ratio: CGFloat = 0.128
+            let screenWidth: CGFloat = screenBounds.width
+            return 16.0
+                 + ratio * screenWidth
+                 + 16.0
+        case 2:
             return 16.0 + headerLabelHeight
                  + 16.0
                  +  5.0

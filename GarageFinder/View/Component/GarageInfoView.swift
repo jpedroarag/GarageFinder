@@ -16,31 +16,31 @@ class GarageInfoView: UIView {
         return button
     }()
     
-//    lazy var starImageView: UIImageView = {
-//        let imageView = UIImageView(frame: .zero)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.image = UIImage(named: "rating")
-//        return imageView
-//    }()
+    lazy var starImageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "rate")
+        return imageView
+    }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
         return label
     }()
     
     lazy var subtitleLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
-        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.textColor = UIColor(rgb: 0x000000, alpha: 60)
         return label
     }()
     
     lazy var ratingLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = .yellow
+        label.textColor = UIColor(rgb: 0xFFCC22, alpha: 100)
         return label
     }()
 
@@ -48,7 +48,7 @@ class GarageInfoView: UIView {
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-//        addSubview(starImageView)
+        addSubview(starImageView)
         addSubview(ratingLabel)
         addSubview(parkButton)
         setConstraints()
@@ -63,14 +63,13 @@ class GarageInfoView: UIView {
         .top(titleLabel.bottomAnchor, padding: 4)
         .left(titleLabel.leftAnchor)
         
-//        starImageView.anchor
-//        .left(titleLabel.rightAnchor)
-//        .height(titleLabel.heightAnchor)
-//        .width(starImageView.heightAnchor)
+        starImageView.anchor
+        .left(titleLabel.rightAnchor, padding: 8)
+        .height(titleLabel.heightAnchor)
+        .width(starImageView.heightAnchor)
         
         ratingLabel.anchor
-//        .left(starImageView.rightAnchor, padding: 16)
-        .left(titleLabel.rightAnchor, padding: 8)
+        .left(starImageView.rightAnchor, padding: 8)
         .top(titleLabel.topAnchor)
         .height(titleLabel.heightAnchor)
         
