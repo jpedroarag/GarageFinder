@@ -148,27 +148,27 @@ extension SmartConstraint {
     }
     
     @discardableResult
-    public func attatch(to view: UIView, paddings: Paddings? = nil) -> SmartConstraint {
+    public func attatch(to view: UIView, paddings: [Paddings]? = nil) -> SmartConstraint {
+        var anchors: [CGFloat] = [0, 0, 0, 0]
         
-//        if case let .paddings(let top, let right) = paddings {
-//
-//        }
+        paddings?.forEach({ (padding) in
+            switch padding {
+            case .top(let anchor):
+                anchors[0] = anchor
+            case .right(let anchor):
+                anchors[1] = anchor
+            case .bottom(let anchor):
+                anchors[2] = anchor
+            case .left(let anchor):
+                anchors[3] = anchor
+            }
+            
+        })
         
-        if case .paddings(let topPadding, let rightPadding, let bottomPadding, let leftPadding) = paddings {
-            top(view.topAnchor, padding: topPadding ?? 0)
-            bottom(view.bottomAnchor, padding: bottomPadding ?? 0)
-            left(view.leftAnchor, padding: leftPadding ?? 0)
-            right(view.rightAnchor, padding: rightPadding ?? 0)
-        } else {
-            top(view.topAnchor)
-            bottom(view.bottomAnchor)
-            left(view.leftAnchor)
-            right(view.rightAnchor)
-        }
-
-        //let b = paddings?.filter({ $0 == Paddings.top(10) })
-        
-//
+        top(view.topAnchor, padding: anchors[0])
+        bottom(view.bottomAnchor, padding: anchors[1])
+        left(view.leftAnchor, padding: anchors[2])
+        right(view.rightAnchor, padding: anchors[3])
         return self
     }
     
@@ -232,5 +232,8 @@ extension SmartConstraint {
 }
 
 public enum Paddings: Equatable {
-    case paddings(top: CGFloat? = nil, right: CGFloat? = nil, bottom: CGFloat? = nil, left: CGFloat? = nil)
+    case top(CGFloat)
+    case right(CGFloat)
+    case bottom(CGFloat)
+    case left(CGFloat)
 }

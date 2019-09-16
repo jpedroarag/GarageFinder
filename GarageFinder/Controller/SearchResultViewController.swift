@@ -119,7 +119,7 @@ extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
     
 }
 
-// MARK: - Table view data source
+// MARK: - TableViewDataSource
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

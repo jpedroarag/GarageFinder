@@ -61,7 +61,6 @@ class FloatingViewController: UIViewController {
         view.addSubview(floatingView)
         floatingView.searchBar.delegate = self
         floatingView.tableView.dataSource = self
-        floatingView.tableView.delegate = self
         lastTable = floatingView.tableView
         
         floatingView.anchor
@@ -223,24 +222,22 @@ extension FloatingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: UITableViewCell?
+        var cell: UITableViewCell?
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "FavAddress", for: indexPath) as? FavAddressTableViewCell
+            if let favAddressCell = tableView.dequeueReusableCell(withIdentifier: "FavAddress", for: indexPath) as? FavAddressTableViewCell {
+                cell = favAddressCell
+            }
         default:
-            cell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell
-            cell?.textLabel?.text = favoriteGarages[indexPath.row]
+            if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
+                favGaragesCell.loadData(titleLabel: "Garagem de Marcus", address: "Av 13 de Maio, 152")
+                cell = favGaragesCell
+            }
         }
 
         return cell ?? UITableViewCell()
     }
     
-}
-
-extension FloatingViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        print("focused")
-    }
 }
 
 extension FloatingViewController: UISearchBarDelegate {

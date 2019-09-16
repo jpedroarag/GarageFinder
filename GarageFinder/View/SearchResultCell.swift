@@ -10,19 +10,6 @@ import UIKit
 import GarageFinderFramework
 
 class SearchResultCell: UITableViewCell {
-    lazy var roundedView: UIView = {
-        let roundedView = UIView()
-        roundedView.layer.masksToBounds = true
-        roundedView.shadowed()
-        
-        //roundedView.rounded(cornerRadius: 5)
-        //roundedView.layer.masksToBounds = false
-        //roundedView.clipsToBounds = false
-        roundedView.layer.borderWidth = 1
-        return roundedView
-    }()
-
-    lazy var centerView = UIView()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -42,8 +29,6 @@ class SearchResultCell: UITableViewCell {
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //addSubview(roundedView)
-        //addSubview(centerView)
         addSubview(nameLabel)
         addSubview(addressLabel)
         setConstraints()
@@ -69,12 +54,6 @@ class SearchResultCell: UITableViewCell {
     }
     
     func setConstraints() {
-//        centerView.backgroundColor = .blue
-//        centerView.anchor
-//            .height(heightAnchor, multiplier: 0.5)
-//            .left(leftAnchor)
-//            .right(rightAnchor)
-//            .centerY(centerYAnchor)
         
         nameLabel.anchor
             .top(topAnchor, padding: 21)

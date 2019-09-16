@@ -44,6 +44,7 @@ class FloatingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
         setupParentView()
         setupPinView()
         setupSearchBar()
