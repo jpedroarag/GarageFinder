@@ -16,6 +16,8 @@ class DetailsTableViewCell: UITableViewCell {
         label.textColor = UIColor(rgb: 0x000000, alpha: 60)
         return label
     }()
+    
+    var content: UIView?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,11 +30,12 @@ class DetailsTableViewCell: UITableViewCell {
     private func setConstraints() {
         sectionHeaderLabel.anchor
             .top(topAnchor, padding: 16)
-            .left(leftAnchor, padding: 16)
-            .right(rightAnchor, padding: 16)
+            .left(leftAnchor, padding: 20)
+            .right(rightAnchor, padding: 20)
     }
     
     func addContentView(_ view: UIView) {
+        content = view
         addSubview(view)
         
         var anchor: NSLayoutYAxisAnchor
@@ -41,12 +44,28 @@ class DetailsTableViewCell: UITableViewCell {
         } else {
             anchor = sectionHeaderLabel.bottomAnchor
         }
+        
+        var topPadding: CGFloat
+        var bottomPadding: CGFloat
+        if view is GarageInfoView {
+            topPadding = 16
+            bottomPadding = 16
+        } else if view is GarageActionsView {
+            topPadding = 0
+            bottomPadding = 4
+        } else if view is GarageGalleryView {
+            topPadding = 4
+            bottomPadding = 16
+        } else {
+            topPadding = 4
+            bottomPadding = 16
+        }
 
         view.anchor
-            .top(anchor, padding: 16)
-            .left(leftAnchor, padding: 16)
-            .right(rightAnchor, padding: 16)
-            .bottom(bottomAnchor, padding: 16)
+            .top(anchor, padding: topPadding)
+            .left(leftAnchor)
+            .right(rightAnchor)
+            .bottom(bottomAnchor, padding: bottomPadding)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

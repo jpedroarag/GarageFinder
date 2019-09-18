@@ -49,52 +49,29 @@ class GarageActionsView: UIView {
         let screenWidth: CGFloat = UIScreen.main.bounds.width
         let buttonsWidth = ratio * screenWidth
         let contentWidth = 4 * buttonsWidth
-        let width = UIScreen.main.bounds.width - 64
+        let width = UIScreen.main.bounds.width - (64 + 16)
         let emptySpace = width - contentWidth
-        
-//        likeButton.anchor
-//            .top(topAnchor)
-//            .left(leftAnchor, padding: 16)
-//            .width(constant: buttonsWidth)
-//            .height(likeButton.widthAnchor)
-//        rateButton.anchor
-//            .top(topAnchor)
-//            .left(likeButton.rightAnchor, padding: emptySpace/3)
-//            .width(constant: buttonsWidth)
-//            .height(rateButton.widthAnchor)
-//        shareButton.anchor
-//            .top(topAnchor)
-//            .right(reportButton.leftAnchor, padding: emptySpace/3)
-//            .width(constant: buttonsWidth)
-//            .height(shareButton.widthAnchor)
-//        reportButton.anchor
-//            .top(topAnchor)
-//            .right(rightAnchor, padding: 16)
-//            .width(constant: buttonsWidth)
-//            .height(reportButton.widthAnchor)
         
         likeButton.anchor
             .top(topAnchor)
-            .right(rateButton.leftAnchor, padding: emptySpace/3)
+            .left(leftAnchor, padding: 32)
             .width(constant: buttonsWidth)
             .height(likeButton.widthAnchor)
         rateButton.anchor
             .top(topAnchor)
-            .right(centerXAnchor, padding: (emptySpace/3)/2)
+            .left(likeButton.rightAnchor, padding: emptySpace/3)
             .width(constant: buttonsWidth)
             .height(rateButton.widthAnchor)
         shareButton.anchor
             .top(topAnchor)
-            .left(centerXAnchor, padding: (emptySpace/3)/2)
+            .right(reportButton.leftAnchor, padding: emptySpace/3)
             .width(constant: buttonsWidth)
             .height(shareButton.widthAnchor)
         reportButton.anchor
             .top(topAnchor)
-            .left(shareButton.rightAnchor, padding: emptySpace/3)
+            .right(rightAnchor, padding: 32)
             .width(constant: buttonsWidth)
             .height(reportButton.widthAnchor)
-
-
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

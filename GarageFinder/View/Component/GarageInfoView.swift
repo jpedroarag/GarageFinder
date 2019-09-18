@@ -39,7 +39,7 @@ class GarageInfoView: UIView {
     
     lazy var ratingLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         label.textColor = UIColor(rgb: 0xFFCC22, alpha: 100)
         return label
     }()
@@ -56,28 +56,27 @@ class GarageInfoView: UIView {
     
     private func setConstraints() {
         titleLabel.anchor
-        .top(topAnchor)
-        .left(leftAnchor)
+            .top(topAnchor)
+            .left(leftAnchor, padding: 20)
         
         subtitleLabel.anchor
-        .top(titleLabel.bottomAnchor, padding: 4)
-        .left(titleLabel.leftAnchor)
+            .top(titleLabel.bottomAnchor, padding: 4)
+            .left(titleLabel.leftAnchor)
         
         starImageView.anchor
-        .left(titleLabel.rightAnchor, padding: 8)
-        .height(titleLabel.heightAnchor)
-        .width(starImageView.heightAnchor)
+            .left(titleLabel.rightAnchor, padding: 8)
+            .height(ratingLabel.heightAnchor)
+            .width(starImageView.heightAnchor)
         
         ratingLabel.anchor
-        .left(starImageView.rightAnchor, padding: 8)
-        .top(titleLabel.topAnchor)
-        .height(titleLabel.heightAnchor)
+            .left(starImageView.rightAnchor, padding: 8)
+            .top(titleLabel.topAnchor)
         
         parkButton.anchor
-        .top(subtitleLabel.bottomAnchor, padding: 16)
-        .left(leftAnchor)
-        .right(rightAnchor)
-        .height(parkButton.widthAnchor, multiplier: 0.16)
+            .top(subtitleLabel.bottomAnchor, padding: 16)
+            .left(leftAnchor, padding: 16)
+            .right(rightAnchor, padding: 16)
+            .height(parkButton.widthAnchor, multiplier: 0.16)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

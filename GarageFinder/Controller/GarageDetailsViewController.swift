@@ -21,16 +21,21 @@ class GarageDetailsViewController: UIViewController {
     let tableView: UITableView = {
         let table = UITableView()
         table.rowHeight = 192
-//        table.estimatedRowHeight = 128
-        table.backgroundColor = .clear
+        table.backgroundColor = .white
+        table.separatorStyle = .none
+        table.isScrollEnabled = false
+        table.showsVerticalScrollIndicator = false
         table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
         return table
     }()
     
+    var floatingViewShouldStopListeningToPanGesture = false
+    var ratingsDataSourceDelegate: GarageRatingsDataSourceDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
         
         view.addSubview(tableView)
@@ -38,7 +43,6 @@ class GarageDetailsViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
 
         setConstraints()
@@ -60,8 +64,8 @@ class GarageDetailsViewController: UIViewController {
             .height(constant: 30)
         tableView.anchor
             .top(view.topAnchor, padding: 16)
-            .left(view.leftAnchor)
-            .right(view.rightAnchor)
+            .left(view.leftAnchor, padding: 8)
+            .right(view.rightAnchor, padding: 8)
             .bottom(view.bottomAnchor)
     }
     
@@ -70,16 +74,21 @@ class GarageDetailsViewController: UIViewController {
     }
     
     @objc func closeButtonTapped() {
+        floatingViewShouldStopListeningToPanGesture = false
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
+            let floatingController = self.parent as? FloatingViewController
+            floatingController?.floatingViewPositioningDelegate = nil
             self.removeFromParent()
             self.view.removeFromSuperview()
         })
     }
+
 }
 
-extension GarageDetailsViewController: UITableViewDataSource {
+// MARK: UITableViewDataSource, UITableViewDelegate implement
+extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -125,8 +134,10 @@ extension GarageDetailsViewController: UITableViewDataSource {
         let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.section)
         cell.sectionHeaderLabel.text = sectionHeaderTitle
         
-        if let contentView = sectionContent(forIndexPath: indexPath) {
-            cell.addContentView(contentView)
+        if cell.content == nil {
+            if let contentView = sectionContent(forIndexPath: indexPath) {
+                cell.addContentView(contentView)
+            }
         }
         
         return cell
@@ -151,8 +162,18 @@ extension GarageDetailsViewController: UITableViewDataSource {
             }
             return GarageGalleryView(images: pictures)
         case 3:
+            var ratings: [Rating] = []
+            (0...5).forEach { _ in
+                ratings.append(Rating(title: "Good host", subtitle: "Very friendly and a very good garage", rating: "4.3"))
+            }
+            ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)
             let table = UITableView()
-            table.backgroundColor = .red
+            table.backgroundColor = .clear
+            table.separatorStyle = .none
+            table.isScrollEnabled = false
+            table.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
+            table.dataSource = ratingsDataSourceDelegate
+            table.delegate = ratingsDataSourceDelegate
             return table
         default: return nil
         }
@@ -174,23 +195,58 @@ extension GarageDetailsViewController: UITableViewDataSource {
         case 1:
             let ratio: CGFloat = 0.128
             let screenWidth: CGFloat = screenBounds.width
-            return 16.0
+            return 8.0
                  + ratio * screenWidth
-                 + 16.0
+                 + 8.0
         case 2:
             return 16.0 + headerLabelHeight
-                 + 16.0
+                 +  4.0
                  +  5.0
                  + UIScreen.main.bounds.height * 0.2
                  +  5.0
                  +  16.0
-        default: return UITableView.automaticDimension
+        default:
+            let ratingsCount: CGFloat = 6
+            let rowHeight: CGFloat = 64 + 4
+            let height: CGFloat = rowHeight * ratingsCount
+            let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
+            return height + bottomInset
         }
     }
 }
 
-extension GarageDetailsViewController: UIScrollViewDelegate, UITableViewDelegate {
+// MARK: UIScrollViewDelegate implement
+extension GarageDetailsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView === tableView && scrollView.isScrollEnabled { scrollView.isScrollEnabled = false }
+        if scrollView === tableView {
+            if scrollView.contentOffset.y <= 0 {
+                floatingViewShouldStopListeningToPanGesture = false
+                scrollView.isScrollEnabled = false
+            }
+        }
+    }
+}
+
+// MARK: FloatingViewPositioningDelegate implement
+extension GarageDetailsViewController: FloatingViewPositioningDelegate {
+    func enteredFullView() {
+        floatingViewShouldStopListeningToPanGesture = true
+        tableView.isScrollEnabled = true
+    }
+    
+    func enteredMiddleView() {
+        floatingViewShouldStopListeningToPanGesture = false
+        tableView.scrollRectToVisible(.zero, animated: true)
+        tableView.isScrollEnabled = false
+    }
+    
+    func enteredPartialView() {
+        floatingViewShouldStopListeningToPanGesture = false
+        tableView.scrollRectToVisible(.zero, animated: true)
+        tableView.isScrollEnabled = false
+    }
+    
+    func shouldStopListeningToPanGesture() -> Bool {
+        return floatingViewShouldStopListeningToPanGesture
     }
 }

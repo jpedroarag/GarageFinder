@@ -60,8 +60,8 @@ class GarageGalleryView: UIView {
     private func setConstraints() {
         collectionView.anchor
         .top(topAnchor)
-        .left(leftAnchor)
-        .right(rightAnchor)
+        .left(leftAnchor, padding: 16)
+        .right(rightAnchor, padding: -5)
         .bottom(bottomAnchor)
     }
     

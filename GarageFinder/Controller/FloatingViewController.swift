@@ -23,6 +23,8 @@ class FloatingViewController: UIViewController {
     }()
 
     weak var searchDelegate: SearchDelegate?
+    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
+    
     var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
     
@@ -85,6 +87,11 @@ class FloatingViewController: UIViewController {
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
+        if let delegate = floatingViewPositioningDelegate {
+            if delegate.shouldStopListeningToPanGesture() {
+                return
+            }
+        }
         if recognizer.state == .began {
             touchLocationY = recognizer.location(in: view).y
         }
@@ -147,6 +154,12 @@ class FloatingViewController: UIViewController {
                 }
             } else if limit <= fullView {
                 currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
+            }
+            
+            switch currentIndexPos {
+            case 1: floatingViewPositioningDelegate?.enteredMiddleView()
+            case 2: floatingViewPositioningDelegate?.enteredFullView()
+            default: floatingViewPositioningDelegate?.enteredPartialView()
             }
             
             if currentPos == middleView || currentPos == partialView {
@@ -248,6 +261,7 @@ extension FloatingViewController: SelectGarageDelegate {
         if garageDetailsVC == nil {
             garageDetailsVC = GarageDetailsViewController()
             guard let garageVC = garageDetailsVC else { return }
+            floatingViewPositioningDelegate = garageVC
             addChild(garageVC)
             view.addSubview(garageVC.view)
             garageVC.didMove(toParent: self)
