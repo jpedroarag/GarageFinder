@@ -23,9 +23,7 @@ public class SmartConstraint {
     /// Item to be anchored, can be a UIView or a UILayoutGuide
     unowned var view: AnyObject
     
-    /// All constraints setted to item
-    var constraints: [NSLayoutConstraint] = []
-    
+    public var lastConstraint: NSLayoutConstraint?
     /// Init with View
     init(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,17 +33,6 @@ public class SmartConstraint {
     /// Init with Layout Guide
     init(layoutGuide: UILayoutGuide) {
         self.view = layoutGuide
-    }
-    
-    /// Activate all constraints setted in constraints array
-    static public func activate(_ constraints: SmartConstraint ...) {
-        constraints.forEach {
-            if let view = $0.view as? UIView {
-                view.translatesAutoresizingMaskIntoConstraints = false
-            }
-            NSLayoutConstraint.activate($0.constraints)
-        }
-        
     }
 }
 
@@ -191,7 +178,7 @@ extension SmartConstraint {
         }
         constraint.priority = UILayoutPriority(priority)
         constraint.isActive = true
-        constraints.append(constraint)
+        lastConstraint = constraint
     }
     
     func layoutDimension(_ dimension: NSLayoutDimension,
@@ -227,7 +214,7 @@ extension SmartConstraint {
         }
         constraint.priority = UILayoutPriority(priority)
         constraint.isActive = true
-        constraints.append(constraint)
+        lastConstraint = constraint
     }
 }
 

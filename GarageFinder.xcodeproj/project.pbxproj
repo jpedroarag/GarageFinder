@@ -33,10 +33,12 @@
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
+		6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */; };
 		6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
+		6C52C1332330087600233617 /* PlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52C1322330087600233617 /* PlaceCategory.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
@@ -47,6 +49,8 @@
 		6CD2A81A231D3F8300A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
 		6CD2A81B231D3F8300A4782D /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CD2A81E231D3F9200A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
+		6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE31B052330FBF9002AFF85 /* SearchResultView.swift */; };
+		6CE31B08233112C2002AFF85 /* FloatingViewPositionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE31B07233112C2002AFF85 /* FloatingViewPositionDelegate.swift */; };
 		6CF43F21231FE1A800206150 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
 		6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */; };
 /* End PBXBuildFile section */
@@ -113,10 +117,12 @@
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
 		6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageDetailViewController.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		6C52C1322330087600233617 /* PlaceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategory.swift; sourceTree = "<group>"; };
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,8 @@
 		6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavGaragesTableViewCell.swift; sourceTree = "<group>"; };
 		6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressTableViewCell.swift; sourceTree = "<group>"; };
+		6CE31B052330FBF9002AFF85 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		6CE31B07233112C2002AFF85 /* FloatingViewPositionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewPositionDelegate.swift; sourceTree = "<group>"; };
 		6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +184,7 @@
 				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
 				3C10C942231579D1001BDDB6 /* IfceLocation.gpx */,
 				3C10C943231579D2001BDDB6 /* NearGarages.json */,
+				6C52C1312330084800233617 /* Enum */,
 				3C10C9462316A38C001BDDB6 /* Extension */,
 				3C10C8E9230AE634001BDDB6 /* View */,
 				3C10C8E8230AE62A001BDDB6 /* Controller */,
@@ -199,6 +208,7 @@
 		3C10C8E9230AE634001BDDB6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6CE31B052330FBF9002AFF85 /* SearchResultView.swift */,
 				6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */,
 				3C10C908231016DE001BDDB6 /* MapView.swift */,
 				3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */,
@@ -302,10 +312,20 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		6C52C1312330084800233617 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				6C52C1322330087600233617 /* PlaceCategory.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		6C7C05AB2316BB4900FB8974 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */,
+				6CE31B07233112C2002AFF85 /* FloatingViewPositionDelegate.swift */,
+				6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -480,10 +500,14 @@
 				6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */,
 				6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */,
 				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
+				6C52C1332330087600233617 /* PlaceCategory.swift in Sources */,
+				6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
+				6CE31B08233112C2002AFF85 /* FloatingViewPositionDelegate.swift in Sources */,
 				6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */,
+				6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,

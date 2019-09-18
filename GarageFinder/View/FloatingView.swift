@@ -39,16 +39,40 @@ class FloatingView: UIView {
         return sb
     }()
     
-    lazy var tableView = UITableView()
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        lastScrollView = tableView
+        tableView.register(FavAddressTableViewCell.self, forCellReuseIdentifier: "FavAddress")
+        tableView.register(FavGaragesTableViewCell.self, forCellReuseIdentifier: "FavGarages")
+        tableView.bounces = false
+        return tableView
+    }()
     
+    var lastScrollView: UIScrollView!
+    var lastTouchY: CGFloat = 0
+    var currentPos: CGFloat = 0
+    var currentIndexPos = 0 {
+        didSet {
+            currentPos = allPos[currentIndexPos]
+            if currentIndexPos == 1 || currentIndexPos == 0 {
+                floatingViewPositionDelegate?.didChangeFloatingViewPosition()
+            }
+        }
+    }
+    
+    weak var floatingViewPositionDelegate: FloatingViewPositionDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
         setupParentView()
         setupPinView()
         setupSearchBar()
         setupTableView()
+
+        let posX = frame.minX
+        let width = frame.width
+        let height = frame.height
+        self.frame = CGRect(x: posX, y: partialView, width: width, height: height)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -58,19 +82,20 @@ class FloatingView: UIView {
     func setupParentView() {
         addSubview(parentView)
         parentView.anchor
-            .top(topAnchor)
             .left(leftAnchor, padding: 8)
             .right(rightAnchor, padding: 8)
             .bottom(bottomAnchor)
+            .top(topAnchor)        
     }
     
     func setupPinView() {
         parentView.addSubview(pinView)
         pinView.anchor
-        .top(parentView.topAnchor, padding: 8)
-        .centerX(parentView.centerXAnchor)
-        .width(constant: 35)
-        .height(constant: 5)
+            .top(parentView.topAnchor, padding: 8)
+            .centerX(parentView.centerXAnchor)
+            .width(constant: 35)
+            .height(constant: 5)
+        
     }
     
     func setupSearchBar() {
@@ -83,15 +108,128 @@ class FloatingView: UIView {
     }
     
     func setupTableView() {
-        addSubview(tableView)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.bounces = false
+        parentView.addSubview(tableView)
         
         tableView.anchor
-            .top(topAnchor, padding: 100)
-            .bottom(bottomAnchor)
-            .left(leftAnchor, padding: 8)
-            .right(rightAnchor, padding: 8)
+            .top(searchBar.bottomAnchor, padding: 50)
+            .bottom(parentView.bottomAnchor)
+            .left(parentView.leftAnchor)
+            .right(parentView.rightAnchor)
     }
     
+    func clearSearch() {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        lastScrollView = tableView
+    }
+    
+}
+
+// MARK: Floating View Animations
+extension FloatingView {
+    var fullView: CGFloat {
+        return UIScreen.main.bounds.height * 0.15
+    }
+    var middleView: CGFloat {
+        return UIScreen.main.bounds.height * 0.65
+    }
+    var partialView: CGFloat {
+        return UIScreen.main.bounds.height - 100 
+    }
+    var allPos: [CGFloat] {
+        return [partialView, middleView, fullView]
+    }
+    
+    func startGesture(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .began {
+            lastTouchY = recognizer.location(in: self).y
+        }
+        
+        let iSTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
+        
+        if lastScrollView.contentOffset.y <= 0 || iSTouchingSearchBar {
+            scroll(recognizer)
+        } else {
+            recognizer.setTranslation(.zero, in: self)
+        }
+        
+        let fullOrMiddleView = allPos[currentIndexPos] == fullView
+        lastScrollView.isScrollEnabled = fullOrMiddleView ? true : false
+        endScroll(recognizer)
+    }
+    
+    func scroll(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+        let minY = frame.minY
+        
+        let limit = minY + translation.y
+        let bypassLimit = (limit >= 0) && (limit <= partialView)
+        
+        if bypassLimit {
+            frame = CGRect(x: frame.minX, y: limit, width: frame.width, height: frame.height)
+            recognizer.setTranslation(.zero, in: self)
+        }
+    }
+    
+    /// Perform animation when stop scrolling
+    func endScroll(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .ended {
+            lastScrollView.isScrollEnabled = true
+            let minY = frame.minY
+            
+            let top = abs(minY - fullView)
+            let middle = abs(minY - middleView)
+            let bottom = abs(minY - partialView)
+            
+            //Return the min value to get the closest position
+            let screenPositionValues: [CGFloat: CGFloat] = [top: fullView, middle: middleView, bottom: partialView]
+            guard let min = screenPositionValues.min(by: { itemA, itemB in
+                itemA.key < itemB.key
+            }) else { return }
+            
+            let velocity = recognizer.velocity(in: self).y
+            let isUp = velocity < -400
+            let isDown = velocity > 400
+            let canMoveUp = isDown && currentIndexPos != 0
+            let canMoveDown = isUp && currentIndexPos != 2
+            
+            if canMoveUp || canMoveDown {
+                
+                if currentPos == partialView && velocity < -1500 {
+                    currentIndexPos += 2
+                } else if currentPos == fullView && velocity > 1500 {
+                    currentIndexPos -= 2
+                } else {
+                    currentIndexPos += canMoveUp ? -1 : 1
+                }
+            } else {
+                currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
+            }
+            
+            if currentPos == middleView || currentPos == partialView {
+                lastScrollView.setContentOffset(CGPoint(x: lastScrollView.contentOffset.x, y: 0), animated: true)
+            }
+            
+            if currentPos == 0 { return }
+            UIView.animate(withDuration: 0.5, delay: 0.0,
+                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                           options: [.curveEaseOut, .allowUserInteraction], animations: {
+                            
+                            self.frame = CGRect(x: 0, y: self.currentPos,
+                                                width: self.frame.width, height: self.frame.height)
+            })
+        }
+    }
+    func animTo(positionY: CGFloat) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0,
+                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                       options: [.curveEaseOut, .allowUserInteraction], animations: {
+                        
+                        self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
+                        
+                        self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
+        })
+    }
 }

@@ -50,13 +50,10 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
-        self.addChild(floatingVC)
-        self.view.addSubview(floatingVC.view)
+        addChild(floatingVC)
+        view.addSubview(floatingVC.view)
         floatingVC.didMove(toParent: self)
         selectGarageDelegate = floatingVC
-        let height = view.frame.height
-        let width  = view.frame.width
-        floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func setConstraints() {

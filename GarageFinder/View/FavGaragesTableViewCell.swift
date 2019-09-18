@@ -38,7 +38,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "4.3"
         label.font = .systemFont(ofSize: 36, weight: .semibold)
-        label.textColor = .systemYellow
+        label.textColor = .yellow
         return label
     }()
     
@@ -101,7 +101,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         ratingLabel.anchor
             .right(starImage.leftAnchor)
             .bottom(bottomAnchor, padding: 16)
-        ratingLabel.sizeToFit()
+        
         starImage.anchor
             .centerY(centerYAnchor, padding: 7)
             .right(rightAnchor, padding: 16)

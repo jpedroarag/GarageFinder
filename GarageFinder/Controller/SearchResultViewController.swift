@@ -14,46 +14,17 @@ class SearchResultViewController: UIViewController {
     var matchingItems: [MKMapItem] = []
     var mapView: MapView?
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResultCell")
-        tableView.separatorStyle = .none
-        tableView.bounces = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        return tableView
-    }()
-    
-    lazy var emptyView: UIView = {
-        let emptyView = UIView()
-        emptyView.backgroundColor = .white
-        return emptyView
+    weak var changeScrollViewDelegate: ChangeScrollViewDelegate?
+    lazy var searchResultView: SearchResultView = {
+        let searchView = SearchResultView(frame: view.frame)
+        searchView.tableView.delegate = self
+        searchView.tableView.dataSource = self
+        return searchView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .clear
-        addTableView()
-        addEmptyView()
-    }
-    
-    func addTableView() {
-        view.addSubview(tableView)
-        tableView.anchor
-            .top(view.topAnchor)
-            .right(view.rightAnchor, padding: 8)
-            .bottom(view.bottomAnchor)
-            .left(view.leftAnchor, padding: 8)
-    }
-    
-    func addEmptyView() {
-        view.addSubview(emptyView)
-        emptyView.anchor
-            .top(view.topAnchor)
-            .right(view.rightAnchor, padding: 8)
-            .bottom(view.bottomAnchor)
-            .left(view.leftAnchor, padding: 8)
+        view = searchResultView
     }
     
 }
@@ -63,10 +34,10 @@ extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
         guard let mapView = mapView else { return }
         
         if text == "" {
-            addEmptyView()
+            //addEmptyView()
             return
         } else {
-            emptyView.removeFromSuperview()
+            //emptyView.removeFromSuperview()
         }
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = text
@@ -76,12 +47,12 @@ extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
         search.start { (response, error) in
             guard let response = response else {
                 self.matchingItems = []
-                self.tableView.reloadData()
+                self.searchResultView.tableView.reloadData()
                 return
             }
             
             self.matchingItems = response.mapItems
-            self.tableView.reloadData()
+            self.searchResultView.tableView.reloadData()
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             }
@@ -125,6 +96,9 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         return 1
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        changeScrollViewDelegate?.didChange(scrollView: scrollView)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
@@ -142,6 +116,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         
         NotificationCenter.default.post(name: .finishSearch, object: matchingItems[indexPath.row])
         
+        print("category: ", matchingItems[indexPath.row].retriveCategory())
         //selectMapItemDelegate?.didSelect(item: matchingItems[indexPath.row])
         //finishSearchDelegate?.didFinishSearch()
         self.dismiss(animated: true, completion: nil)
