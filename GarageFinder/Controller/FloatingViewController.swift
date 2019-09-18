@@ -34,6 +34,7 @@ class FloatingViewController: UIViewController {
     func setupFloatingView() {
         view = floatingView
         floatingView.searchBar.delegate = self
+        floatingView.tableView.delegate = self
         floatingView.tableView.dataSource = self
         floatingView.floatingViewPositionDelegate = self
     }
@@ -68,19 +69,28 @@ extension FloatingViewController: UIGestureRecognizerDelegate {
 extension FloatingViewController: UITableViewDataSource, UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("SCROLLV 1: \(scrollView.contentOffset.y)")
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var headerTitle = ""
+        
         switch section {
         case 0:
-            return "Endereços"
+            headerTitle = "Endereços"
         default:
-            return "Garagens"
+            headerTitle = "Garagens"
         }
+        
+        let headerView = HeaderFavTableView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50),
+                                            title: headerTitle,
+                                            image: UIImage(named: "star"))
+        print("HEADER ADDED")
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,7 +112,7 @@ extension FloatingViewController: UITableViewDataSource, UITableViewDelegate {
             }
         default:
             if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
-                favGaragesCell.loadData(titleLabel: "Garagem de Marcus", address: "Av 13 de Maio, 152")
+                favGaragesCell.loadData(titleLabel: "Garagem de Marcus", address: "Av 13 de Maio, 152", ownerImage: UIImage(named: "mockPerson"))
                 cell = favGaragesCell
             }
         }

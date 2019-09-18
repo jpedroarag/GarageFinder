@@ -40,8 +40,20 @@ extension UIColor {
         )
     }
     
-    class var customGray: UIColor {
-        return .init(white: 0.9, alpha: 1)
+    static var customDarkGray: UIColor {
+        return UIColor(rgb: 0x666666, alpha: 100)
+    }
+    
+    static var textFieldBorderGray: UIColor {
+        return UIColor(rgb: 0xEEEEEE, alpha: 100)
+    }
+    
+    static var customLightGray: UIColor {
+        return UIColor(rgb: 0xBEBEBE, alpha: 100)
+    }
+    
+    static var customYellow: UIColor {
+        return UIColor(rgb: 0xFFCE00, alpha: 100)
     }
     
 }

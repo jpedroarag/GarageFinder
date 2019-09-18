@@ -14,8 +14,9 @@ class FavGaragesTableViewCell: UITableViewCell {
     
     lazy var garageOwnerImage: CircleImageView = {
         let image = CircleImageView()
-        image.shadowed()
-        image.backgroundColor = .red
+        let shadowImage = CircleView()
+        shadowImage.shadowed()
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -38,7 +39,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "4.3"
         label.font = .systemFont(ofSize: 36, weight: .semibold)
-        label.textColor = .yellow
+        label.textColor = .customYellow
         return label
     }()
     
@@ -66,9 +67,10 @@ class FavGaragesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadData(titleLabel: String?, address: String?) {
+    func loadData(titleLabel: String?, address: String?, ownerImage: UIImage? = nil) {
         garageTitleLabel.text = titleLabel
         addressLabel.text = address
+        garageOwnerImage.image = ownerImage
     }
     
     override func layoutSubviews() {

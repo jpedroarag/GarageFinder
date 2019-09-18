@@ -18,7 +18,7 @@ class FloatingView: UIView {
     
     lazy var pinView: CircleView = {
         let pinView = CircleView()
-        pinView.backgroundColor = .customGray
+        pinView.backgroundColor = .customLightGray
         return pinView
     }()
 
@@ -32,7 +32,7 @@ class FloatingView: UIView {
             textfield.borderStyle = .none
             textfield.backgroundColor = .white
             textfield.layer.borderWidth = 1
-            textfield.layer.borderColor = UIColor.customGray.cgColor
+            textfield.layer.borderColor = UIColor.textFieldBorderGray.cgColor
             textfield.layer.cornerRadius = 5
             textfield.clipsToBounds = true
         }
@@ -45,6 +45,7 @@ class FloatingView: UIView {
         tableView.register(FavAddressTableViewCell.self, forCellReuseIdentifier: "FavAddress")
         tableView.register(FavGaragesTableViewCell.self, forCellReuseIdentifier: "FavGarages")
         tableView.bounces = false
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -194,7 +195,7 @@ extension FloatingView {
             let canMoveUp = isDown && currentIndexPos != 0
             let canMoveDown = isUp && currentIndexPos != 2
             
-            if canMoveUp || canMoveDown {
+            if (canMoveUp || canMoveDown) && lastScrollView.contentOffset.y <= 0 {
                 
                 if currentPos == partialView && velocity < -1500 {
                     currentIndexPos += 2
