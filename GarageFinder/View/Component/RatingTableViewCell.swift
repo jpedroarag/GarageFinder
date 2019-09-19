@@ -32,6 +32,11 @@ class RatingTableViewCell: UITableViewCell {
             .height(constant: 64)
     }
     
+    // TODO: Load data from object
+    func loadData() {
+        
+    }
+    
     func loadData(title: String?, subtitle: String?, leftImage: UIImage?, rightText: String?) {
         component.titleLabel.text = title
         component.subtitleLabel.text = subtitle

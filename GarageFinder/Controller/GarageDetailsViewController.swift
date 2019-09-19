@@ -168,7 +168,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             return GarageGalleryView(images: pictures)
         case 3:
             var ratings: [Rating] = []
-            (0...5).forEach { _ in
+            (0...21).forEach { _ in
                 ratings.append(Rating(title: "Good host", subtitle: "Very friendly and a very good garage", rating: "4.3"))
             }
             ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)

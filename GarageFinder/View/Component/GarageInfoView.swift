@@ -84,6 +84,11 @@ class GarageInfoView: UIView {
         parkButton.action?(sender)
     }
     
+    // TODO: Load data from object
+    func loadData() {
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) { return nil }
 
 }
