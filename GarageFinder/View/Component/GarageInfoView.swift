@@ -51,6 +51,7 @@ class GarageInfoView: UIView {
         addSubview(starImageView)
         addSubview(ratingLabel)
         addSubview(parkButton)
+        parkButton.addTarget(self, action: #selector(parkButtonTapped(_:)), for: .touchUpInside)
         setConstraints()
     }
     
@@ -77,6 +78,10 @@ class GarageInfoView: UIView {
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
             .height(parkButton.widthAnchor, multiplier: 0.16)
+    }
+    
+    @objc private func parkButtonTapped(_ sender: GFButton) {
+        parkButton.action?(sender)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

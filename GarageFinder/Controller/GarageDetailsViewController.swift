@@ -150,6 +150,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             garageInfoView.titleLabel.text = "Garagem de Marcus"
             garageInfoView.subtitleLabel.text = "St. John Rush, 79"
             garageInfoView.ratingLabel.text = "4.3"
+            garageInfoView.parkButton.action = { _ in print("park") }
             return garageInfoView
         case 1:
             let garageActionsView = GarageActionsView(frame: .zero)
