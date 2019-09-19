@@ -10,11 +10,12 @@ import UIKit
 
 class FavAddressTableViewCell: UITableViewCell {
     
+    let favAddressCollectionDataSource = FavAddressColectionDataSource()
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        layout.itemSize = CGSize(width: 50, height: 50)
+        layout.itemSize = CGSize(width: 50, height: 70)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 16
         
@@ -33,8 +34,8 @@ class FavAddressTableViewCell: UITableViewCell {
     
     func setupCollectionView() {
         collectionView.register(FavAddressCollectionViewCell.self, forCellWithReuseIdentifier: "FavAddress")
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        
+        collectionView.dataSource = favAddressCollectionDataSource
         addSubview(collectionView)
         
         collectionView.anchor
@@ -42,7 +43,7 @@ class FavAddressTableViewCell: UITableViewCell {
             .left(leftAnchor, padding: 8)
             .right(rightAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 16)
-            .height(constant: 70, priority: 999)
+            .height(constant: 100, priority: 999)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,26 +55,4 @@ class FavAddressTableViewCell: UITableViewCell {
 
     }
 
-}
-
-extension FavAddressTableViewCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count + 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavAddress", for: indexPath) as? FavAddressCollectionViewCell
-        
-        var imageName = "home"
-        
-        if indexPath.row == items.count {
-            imageName = "plus"
-        }
-        cell?.loadData(icon: UIImage(named: imageName))
-        return cell ?? UICollectionViewCell()
-    }
-}
-
-extension FavAddressTableViewCell: UICollectionViewDelegate {
-    
 }

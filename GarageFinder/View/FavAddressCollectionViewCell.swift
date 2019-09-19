@@ -16,17 +16,37 @@ class FavAddressCollectionViewCell: UICollectionViewCell {
         iconImageView.contentMode = .scaleToFill
         return iconImageView
     }()
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .medium)
+        label.textColor = .customDarkGray
+        label.text = "Home"
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         addSubview(circleView)
+        addSubview(label)
         circleView.addSubview(iconImageView)
         circleView.backgroundColor = .white
         circleView.shadowed()
-        
-        //Constraints
-        circleView.anchor.attatch(to: self)
+
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        circleView.anchor
+            .top(topAnchor)
+            .left(leftAnchor)
+            .right(rightAnchor)
+            .height(constant: 50)
         iconImageView.anchor.attatch(to: circleView, paddings: [.top(14), .left(14), .bottom(14), .right(14)])
+        
+        label.anchor
+            .bottom(bottomAnchor)
+            .centerX(centerXAnchor)
     }
     
     func loadData(icon: UIImage?) {

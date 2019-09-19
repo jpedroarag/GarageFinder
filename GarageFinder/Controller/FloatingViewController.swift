@@ -16,7 +16,7 @@ class FloatingViewController: UIViewController {
     
     lazy var floatingView = FloatingView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     
-    var favoriteGarages: [String] = ["Garagem1", "Garagem2", "Garagem3"]
+    let floatingTableViewDataSource = FloatingTableViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class FloatingViewController: UIViewController {
         view = floatingView
         floatingView.searchBar.delegate = self
         floatingView.tableView.delegate = self
-        floatingView.tableView.dataSource = self
+        floatingView.tableView.dataSource = floatingTableViewDataSource
         floatingView.floatingViewPositionDelegate = self
     }
 
@@ -66,60 +66,15 @@ extension FloatingViewController: UIGestureRecognizerDelegate {
 }
 
 // MARK: TableViewDataSource
-extension FloatingViewController: UITableViewDataSource, UITableViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
+extension FloatingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerTitle = ""
-        
-        switch section {
-        case 0:
-            headerTitle = "Endereços"
-        default:
-            headerTitle = "Garagens"
-        }
-        
-        let headerView = HeaderFavTableView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50),
+        let headerTitle = section == 0 ? "Endereços" : "Garagens"
+        let headerView = HeaderFavTableView(frame: CGRect(x: 0, y: 0,
+                                                          width: tableView.frame.width, height: 50),
                                             title: headerTitle,
-                                            image: UIImage(named: "star"))
-        print("HEADER ADDED")
+                                            image: UIImage(named: "HeartIcon"))
         return headerView
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        default:
-            return 20
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell: UITableViewCell?
-        switch indexPath.section {
-        case 0:
-            if let favAddressCell = tableView.dequeueReusableCell(withIdentifier: "FavAddress", for: indexPath) as? FavAddressTableViewCell {
-                cell = favAddressCell
-            }
-        default:
-            if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
-                favGaragesCell.loadData(titleLabel: "Garagem de Marcus", address: "Av 13 de Maio, 152", ownerImage: UIImage(named: "mockPerson"))
-                cell = favGaragesCell
-            }
-        }
-
-        return cell ?? UITableViewCell()
-    }
-    
 }
 
 extension FloatingViewController: UISearchBarDelegate {

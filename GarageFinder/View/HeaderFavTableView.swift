@@ -17,7 +17,11 @@ class HeaderFavTableView: UIView {
         return title
     }()
     
-    var heartImageView: UIImageView
+    lazy var iconImageView: UIImageView = {
+        let iconImageView = UIImageView()
+        iconImageView.contentMode = .scaleToFill
+        return iconImageView
+    }()
     
     lazy var separatorView: UIView = {
         let separatorView = UIView()
@@ -25,13 +29,13 @@ class HeaderFavTableView: UIView {
         return separatorView
     }()
     init(frame: CGRect, title: String, image: UIImage? = nil) {
-        heartImageView = UIImageView(image: image)
         super.init(frame: frame)
+
         backgroundColor = .white
         setupHeaderTitle(text: title)
         setupSeparatorView()
-        if image != nil {
-            setupImageView()
+        if let image = image {
+            setupImageView(image: image)
         }
     }
     
@@ -39,11 +43,14 @@ class HeaderFavTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupImageView() {
-        addSubview(heartImageView)
-        heartImageView.anchor
+    func setupImageView(image: UIImage) {
+        iconImageView.image = image
+        addSubview(iconImageView)
+        iconImageView.anchor
             .centerY(centerYAnchor)
-            .left(headerTitle.rightAnchor)
+            .left(headerTitle.rightAnchor, padding: 8)
+            .height(constant: 14)
+            .width(iconImageView.heightAnchor, multiplier: 1.1)
     }
     func setupHeaderTitle(text: String) {
         headerTitle.text = text

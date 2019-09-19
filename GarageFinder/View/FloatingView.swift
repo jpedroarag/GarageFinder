@@ -113,7 +113,7 @@ class FloatingView: UIView {
         
         tableView.anchor
             .top(searchBar.bottomAnchor, padding: 50)
-            .bottom(parentView.bottomAnchor)
+            .bottom(parentView.bottomAnchor, padding: fullView)
             .left(parentView.leftAnchor)
             .right(parentView.rightAnchor)
     }
