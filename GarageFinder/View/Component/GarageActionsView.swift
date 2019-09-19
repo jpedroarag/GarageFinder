@@ -37,10 +37,19 @@ class GarageActionsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
+        
+        likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
         addSubview(likeButton)
+        
+        rateButton.addTarget(self, action: #selector(rateButtonTapped(_:)), for: .touchUpInside)
         addSubview(rateButton)
+        
+        shareButton.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
         addSubview(shareButton)
+        
+        reportButton.addTarget(self, action: #selector(reportButtonTapped(_:)), for: .touchUpInside)
         addSubview(reportButton)
+        
         setConstraints()
     }
     
@@ -72,6 +81,22 @@ class GarageActionsView: UIView {
             .right(rightAnchor, padding: 32)
             .width(constant: buttonsWidth)
             .height(reportButton.widthAnchor)
+    }
+    
+    @objc private func likeButtonTapped(_ sender: CircularButton) {
+        likeButton.action?(sender)
+    }
+    
+    @objc private func rateButtonTapped(_ sender: CircularButton) {
+        rateButton.action?(sender)
+    }
+    
+    @objc private func shareButtonTapped(_ sender: CircularButton) {
+        shareButton.action?(sender)
+    }
+    
+    @objc private func reportButtonTapped(_ sender: CircularButton) {
+        reportButton.action?(sender)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

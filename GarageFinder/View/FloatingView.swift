@@ -18,7 +18,7 @@ class FloatingView: UIView {
     
     lazy var pinView: CircleView = {
         let pinView = CircleView()
-        pinView.backgroundColor = .init(white: 0.80, alpha: 1)
+        pinView.backgroundColor = .init(rgb: 0xBEBEBE, alpha: 85)
         return pinView
     }()
 
@@ -66,16 +66,16 @@ class FloatingView: UIView {
     func setupPinView() {
         parentView.addSubview(pinView)
         pinView.anchor
-        .top(parentView.topAnchor, padding: 8)
+        .top(parentView.topAnchor, padding: 16)
         .centerX(parentView.centerXAnchor)
-        .width(constant: 35)
+        .width(constant: 24)
         .height(constant: 5)
     }
     
     func setupSearchBar() {
         parentView.addSubview(searchBar)
         searchBar.anchor
-            .top(pinView.bottomAnchor)
+            .top(pinView.bottomAnchor, padding: 8)
             .left(parentView.leftAnchor, padding: 8)
             .right(parentView.rightAnchor, padding: 8)
             .height(constant: 50)

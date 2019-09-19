@@ -15,8 +15,18 @@ class MapViewController: UIViewController {
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
     
-    lazy var mapView = MapView(frame: .zero)
-    var toolboxView: ToolboxView!
+    lazy var mapView: MapView = {
+        let view = MapView(frame: .zero)
+        view.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        return view
+    }()
+    
+    lazy var toolboxView: ToolboxView = {
+        let backgroundColor = UIColor(rgb: 0xFFFFFF, alpha: 90)
+        let separatorColor = UIColor(rgb: 0xBEBEBE, alpha: 100)
+        return ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
+    }()
+    
     var floatingView: UIView!
     
     weak var selectGarageDelegate: SelectGarageDelegate?
@@ -25,8 +35,9 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         mapView.frame = view.frame
-        view.addSubview(mapView)
         mapView.delegate = self
+        view.addSubview(mapView)
+        view.addSubview(toolboxView)
         title = "Home"
         
         //setupSearchController()
@@ -34,13 +45,6 @@ class MapViewController: UIViewController {
         
         locationManager.delegate = self
         startUsingDeviceLocation()
-        
-        mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
-        
-        let backgroundColor = UIColor(rgb: 0x606060, alpha: 90)
-        let separatorColor = UIColor(rgb: 0xBBBBBB, alpha: 100)
-        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
-        view.addSubview(toolboxView)
         
         setConstraints()
         setupObserver()

@@ -10,6 +10,8 @@ import UIKit
 
 class CircularButton: UIButton {
     
+    var action: ((CircularButton) -> Void)?
+    
     init(icon: UIImage?, size: CGFloat) {
         let frame = CGRect(x: 0, y: 0, width: size, height: size)
         super.init(frame: frame)

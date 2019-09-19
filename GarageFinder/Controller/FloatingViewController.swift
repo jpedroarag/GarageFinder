@@ -10,7 +10,7 @@ import UIKit
 
 class FloatingViewController: UIViewController {
     lazy var fullView: CGFloat = {
-        return UIScreen.main.bounds.height * 0.15
+        return UIScreen.main.bounds.height * 0.2
     }()
     lazy var middleView: CGFloat = {
         return UIScreen.main.bounds.height * 0.65

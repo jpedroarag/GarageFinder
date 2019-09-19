@@ -11,10 +11,9 @@ import UIKit
 class GarageDetailsViewController: UIViewController {
 
     let closeButton: UIButton = {
-       let button = UIButton()
-        button.setTitle("X", for: .normal)
-        button.backgroundColor = .gray
-        button.layer.cornerRadius = 15
+        let button = UIButton()
+        let image = UIImage(named: "close")
+        button.setImage(image, for: .normal)
         return button
     }()
     
@@ -58,12 +57,12 @@ class GarageDetailsViewController: UIViewController {
     
     private func setConstraints() {
         closeButton.anchor
-            .top(view.topAnchor, padding: 16)
-            .right(view.rightAnchor, padding: 16)
-            .width(constant: 30)
-            .height(constant: 30)
+            .top(view.topAnchor, padding: 8)
+            .right(view.rightAnchor, padding: 8 + 8)
+            .width(constant: 16)
+            .height(constant: 16)
         tableView.anchor
-            .top(view.topAnchor, padding: 16)
+            .top(view.topAnchor, padding: 16 + 5 + 8)
             .left(view.leftAnchor, padding: 8)
             .right(view.rightAnchor, padding: 8)
             .bottom(view.bottomAnchor)
@@ -153,7 +152,12 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             garageInfoView.ratingLabel.text = "4.3"
             return garageInfoView
         case 1:
-            return GarageActionsView(frame: .zero)
+            let garageActionsView = GarageActionsView(frame: .zero)
+            garageActionsView.likeButton.action = { _ in print("like") }
+            garageActionsView.rateButton.action = { _ in print("rate") }
+            garageActionsView.shareButton.action = { _ in print("share") }
+            garageActionsView.reportButton.action = { _ in print("report") }
+            return garageActionsView
         case 2:
             var pictures = [UIImage]()
             (0...5).forEach { _ in
@@ -206,9 +210,9 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
                  +  5.0
                  +  16.0
         default:
-            let ratingsCount: CGFloat = 6
+            guard let ratingsCount = ratingsDataSourceDelegate?.ratings.count else { return .zero }
             let rowHeight: CGFloat = 64 + 4
-            let height: CGFloat = rowHeight * ratingsCount
+            let height: CGFloat = rowHeight * CGFloat(ratingsCount)
             let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
             return height + bottomInset
         }
