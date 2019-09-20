@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class FloatingViewController: UIViewController {
 
@@ -14,29 +15,30 @@ class FloatingViewController: UIViewController {
     var garageDetailVC: GarageDetailViewController?
     var mapView: MapView?
     
-    lazy var floatingView = FloatingView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    lazy var floatingView: FloatingView = {
+        let floatingView = FloatingView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        floatingView.searchBar.delegate = self
+        floatingView.tableView.delegate = self
+        floatingView.tableView.dataSource = floatingTableViewDataSource
+        floatingView.floatingViewPositionDelegate = self
+        return floatingView
+    }()
     
     let floatingTableViewDataSource = FloatingTableViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGesture()
-        setupFloatingView()
+        
         setupObserver()
     }
-    
+    override func loadView() {
+        view = floatingView
+    }
     func setupGesture() {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         gesture.delegate = self
         floatingView.addGestureRecognizer(gesture)
-    }
-    
-    func setupFloatingView() {
-        view = floatingView
-        floatingView.searchBar.delegate = self
-        floatingView.tableView.delegate = self
-        floatingView.tableView.dataSource = floatingTableViewDataSource
-        floatingView.floatingViewPositionDelegate = self
     }
 
     func setupObserver() {
@@ -74,6 +76,35 @@ extension FloatingViewController: UITableViewDelegate {
                                             title: headerTitle,
                                             image: UIImage(named: "HeartIcon"))
         return headerView
+    }
+    
+    /// MARK: Set the collection view delegate of Addresses
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let favAddressTableViewCell = cell as? FavAddressTableViewCell {
+            favAddressTableViewCell.setCollectionViewDelegate(self)
+        }
+    }
+    
+    /// MARK: Select a garage
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section != 0 { //if the current section is not the address cell
+            if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
+                print("garage selected name: \(garage.name)")
+            }
+        }
+    }
+}
+
+extension FloatingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 {
+            //Button add address action
+        } else if let cell = collectionView.cellForItem(at: indexPath) as? FavAddressCollectionViewCell, let address = cell.favoriteAddress {
+            let location = CLLocation(latitude: address.latitude, longitude: address.longitude)
+            NotificationCenter.default.post(name: .finishSearch, object: location)
+            print("address name: \(address.name), latitude: \(address.latitude), longitude: \(address.longitude)")
+        }
     }
 }
 

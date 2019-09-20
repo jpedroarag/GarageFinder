@@ -10,9 +10,11 @@ import UIKit
 
 class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
     
-    var favoriteGarages: [String] = ["Garagem de Marcus", "Garagem de Pedro", "Garagem de Joaquim",
-                                     "Garagem de Marcus", "Garagem de Pedro", "Garagem de Joaquim"]
-    
+    var favoriteGarages: [Favorite] = [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                                      Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                                      Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                                      Favorite(name: "Garagem de Joaquim", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                                      Favorite(name: "Garagem de Dano;p", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage)]
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -35,7 +37,7 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
             }
         } else {
             if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
-                favGaragesCell.loadData(titleLabel: favoriteGarages[indexPath.row], address: "Av 13 de Maio, 152", ownerImage: UIImage(named: "mockPerson"))
+                favGaragesCell.loadData(favoriteGarages[indexPath.row])
                 cell = favGaragesCell
             }
         }

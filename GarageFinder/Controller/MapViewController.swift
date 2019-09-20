@@ -119,10 +119,7 @@ class MapViewController: UIViewController {
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        guard let mapItem = notification.object as? MKMapItem,
-            let location = mapItem.placemark.location else {
-            return
-        }
+        guard let location = notification.object as? CLLocation else { return }
  
         mapView.removeRangeCircle(userLocation: false)
         mapView.addRangeCircle(location: location, meters: 500, userLocation: false)

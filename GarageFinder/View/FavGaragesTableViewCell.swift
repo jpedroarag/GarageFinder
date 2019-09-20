@@ -45,6 +45,7 @@ class FavGaragesTableViewCell: UITableViewCell {
     
     lazy var starImage = UIImageView(image: UIImage(named: "star"))
     
+    var favoriteGarage: Favorite?
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -72,7 +73,12 @@ class FavGaragesTableViewCell: UITableViewCell {
         addressLabel.text = address
         garageOwnerImage.image = ownerImage
     }
-    
+    func loadData(_ favoriteGarage: Favorite) {
+        self.favoriteGarage = favoriteGarage
+        garageTitleLabel.text = favoriteGarage.name
+        addressLabel.text = favoriteGarage.address
+        garageOwnerImage.image = UIImage(named: "mockPerson")
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8))

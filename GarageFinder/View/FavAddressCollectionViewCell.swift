@@ -19,11 +19,13 @@ class FavAddressCollectionViewCell: UICollectionViewCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 10, weight: .medium)
+        label.lineBreakMode = .byTruncatingTail
+        label.textAlignment = .center
         label.textColor = .customDarkGray
-        label.text = "Home"
         return label
     }()
     
+    var favoriteAddress: Favorite?
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -47,10 +49,13 @@ class FavAddressCollectionViewCell: UICollectionViewCell {
         label.anchor
             .bottom(bottomAnchor)
             .centerX(centerXAnchor)
+            .width(widthAnchor)
     }
     
-    func loadData(icon: UIImage?) {
-        iconImageView.image = icon
+    func loadData(favoriteAddress: Favorite) {
+        self.favoriteAddress = favoriteAddress
+        label.text = favoriteAddress.name
+        iconImageView.image = favoriteAddress.category.icon
     }
     
     required init?(coder: NSCoder) {

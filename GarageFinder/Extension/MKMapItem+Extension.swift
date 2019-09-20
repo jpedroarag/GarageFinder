@@ -8,8 +8,51 @@
 
 import MapKit
 
+/** This function(~=) Match array of strings with string
+Examples:
+ 1.
+ ["One", "Two", "Three"] ~= "Tree"
+ 
+ 2.
+switch ["One", "Two", "Three"] {
+case "One":
+    print("contains one")
+case "Four":
+    print("contains four")
+case "Six":
+   print("contains six")
+default:
+    break
+}
+ */
+func ~=<T: Equatable>(pattern: T, value: [T]) -> Bool {
+    return value.contains(pattern)
+}
 extension MKMapItem {
-    func retriveCategory() -> [String] {
+    
+    var category: PlaceCategory {
+        print("all Caregories: ", retrieveCategory)
+        
+        switch retrieveCategory {
+        case "Restaurant":
+            return .restaurant
+        case "Gym":
+            return .gym
+        case "Grocery":
+            return .grocery
+        case "Hospital":
+            return .hospital
+        case "Education":
+            return .education
+        case "Hotels & Travel":
+            return .hotel
+        case "Arts & Entertainment":
+            return .entertainanment
+        default:
+            return .other
+        }
+    }
+    private var retrieveCategory: [String] {
         var categoriesList: [String] = []
         if let geoPlace = self.value(forKey: "place") as? NSObject,
             let geoBusiness = geoPlace.value(forKey: "business") as? NSObject,

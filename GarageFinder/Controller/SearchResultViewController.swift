@@ -113,10 +113,9 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        NotificationCenter.default.post(name: .finishSearch, object: matchingItems[indexPath.row])
-        
-        print("category: ", matchingItems[indexPath.row].retriveCategory())
+        let location = matchingItems[indexPath.row].placemark.location
+        NotificationCenter.default.post(name: .finishSearch, object: location)
+        print("category: ", matchingItems[indexPath.row].category)
         //selectMapItemDelegate?.didSelect(item: matchingItems[indexPath.row])
         //finishSearchDelegate?.didFinishSearch()
         self.dismiss(animated: true, completion: nil)

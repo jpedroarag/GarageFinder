@@ -8,21 +8,19 @@
 import UIKit
 
 class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
-    var items: [String] = ["Home", "Gym", "Market", "Home", "Gym", "Market"]
-    
+    var items: [Favorite] = [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address),
+                             Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address),
+                                    Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                                    Favorite(name: "Academia da Maria", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                                    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address)]
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count + 1
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavAddress", for: indexPath) as? FavAddressCollectionViewCell
         
-        var imageName = "home"
-        
-        if indexPath.row == 0 {
-            imageName = "plus"
-        }
-        cell?.loadData(icon: UIImage(named: imageName))
+        cell?.loadData(favoriteAddress: items[indexPath.row])
         return cell ?? UICollectionViewCell()
     }
 }

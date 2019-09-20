@@ -11,7 +11,7 @@ import UIKit
 class FavAddressTableViewCell: UITableViewCell {
     
     let favAddressCollectionDataSource = FavAddressColectionDataSource()
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
@@ -44,6 +44,10 @@ class FavAddressTableViewCell: UITableViewCell {
             .right(rightAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 16)
             .height(constant: 100, priority: 999)
+    }
+    
+    func setCollectionViewDelegate(_ delegate: UICollectionViewDelegate) {
+        collectionView.delegate = delegate
     }
     
     required init?(coder aDecoder: NSCoder) {
