@@ -30,6 +30,7 @@ class GarageDetailsViewController: UIViewController {
     
     var floatingViewShouldStopListeningToPanGesture = false
     var ratingsDataSourceDelegate: GarageRatingsDataSourceDelegate!
+    var garageInfoView: GarageInfoView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,10 +147,10 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
     func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
         case 0:
-            let garageInfoView = GarageInfoView(frame: .zero)
-            garageInfoView.titleLabel.text = "Garagem de Marcus"
-            garageInfoView.subtitleLabel.text = "St. John Rush, 79"
-            garageInfoView.ratingLabel.text = "4.3"
+            garageInfoView = GarageInfoView(frame: .zero)
+            garageInfoView.component.titleLabel.text = "Garagem de Marcus"
+            garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
+            garageInfoView.component.ratingLabel.text = "4.3"
             garageInfoView.parkButton.action = { _ in print("park") }
             return garageInfoView
         case 1:
@@ -195,7 +196,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
 
             return 16.0 + titleLabelHeight
                  +  4.0 + subtitleLabelHeight
-                 +  8.0 + buttonHeight
+                 +  24.0 + buttonHeight
                  +  16.0
         case 1:
             let ratio: CGFloat = 0.128
@@ -235,17 +236,20 @@ extension GarageDetailsViewController: UIScrollViewDelegate {
 // MARK: FloatingViewPositioningDelegate implement
 extension GarageDetailsViewController: FloatingViewPositioningDelegate {
     func enteredFullView() {
+        if let infoView = garageInfoView { infoView.component.isCollapsed = true }
         floatingViewShouldStopListeningToPanGesture = true
         tableView.isScrollEnabled = true
     }
     
     func enteredMiddleView() {
+        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
         floatingViewShouldStopListeningToPanGesture = false
         tableView.scrollRectToVisible(.zero, animated: true)
         tableView.isScrollEnabled = false
     }
     
     func enteredPartialView() {
+        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
         floatingViewShouldStopListeningToPanGesture = false
         tableView.scrollRectToVisible(.zero, animated: true)
         tableView.isScrollEnabled = false

@@ -16,65 +16,29 @@ class GarageInfoView: UIView {
         return button
     }()
     
-    lazy var starImageView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "rate")
-        return imageView
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .black
-        return label
-    }()
-    
-    lazy var subtitleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(rgb: 0x000000, alpha: 60)
-        return label
-    }()
-    
-    lazy var ratingLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        label.textColor = UIColor(rgb: 0xFFCC22, alpha: 100)
-        return label
+    lazy var component: GFTableViewComponent = {
+        let view = GFTableViewComponent(type: .garageInfo)
+        return view
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(titleLabel)
-        addSubview(subtitleLabel)
-        addSubview(starImageView)
-        addSubview(ratingLabel)
+        addSubview(component)
+        component.leftImageView.image = UIImage(named: "mock")
         addSubview(parkButton)
         parkButton.addTarget(self, action: #selector(parkButtonTapped(_:)), for: .touchUpInside)
         setConstraints()
     }
     
     private func setConstraints() {
-        titleLabel.anchor
-            .top(topAnchor)
-            .left(leftAnchor, padding: 20)
-        
-        subtitleLabel.anchor
-            .top(titleLabel.bottomAnchor, padding: 4)
-            .left(titleLabel.leftAnchor)
-        
-        starImageView.anchor
-            .left(titleLabel.rightAnchor, padding: 8)
-            .height(ratingLabel.heightAnchor)
-            .width(starImageView.heightAnchor)
-        
-        ratingLabel.anchor
-            .left(starImageView.rightAnchor, padding: 8)
-            .top(titleLabel.topAnchor)
+        component.anchor
+        .top(topAnchor)
+        .left(leftAnchor, padding: 20)
+        .right(rightAnchor, padding: 20)
+        .height(constant: 21+4+16)
         
         parkButton.anchor
-            .top(subtitleLabel.bottomAnchor, padding: 16)
+            .top(component.bottomAnchor, padding: 24)
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
             .height(parkButton.widthAnchor, multiplier: 0.16)

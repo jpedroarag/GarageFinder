@@ -16,7 +16,7 @@ class FloatingViewController: UIViewController {
         return UIScreen.main.bounds.height * 0.65
     }()
     lazy var partialView: CGFloat = {
-        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2
+        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2.5
     }()
     lazy var allPos: [CGFloat] = {
         return [partialView, middleView, fullView]

@@ -47,6 +47,12 @@ public class SmartConstraint {
         }
         
     }
+    
+    /// Deactivate all constraints
+    public func deactivateAll() {
+        constraints.forEach { $0.isActive = false }
+        constraints.removeAll()
+    }
 }
 
 public extension UIView {

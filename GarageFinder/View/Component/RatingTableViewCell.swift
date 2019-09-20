@@ -11,7 +11,7 @@ import UIKit
 class RatingTableViewCell: UITableViewCell {
     
     lazy var component: GFTableViewComponent = {
-        let component = GFTableViewComponent(frame: .zero)
+        let component = GFTableViewComponent(type: .rating)
         component.rounded(cornerRadius: 5)
         component.shadowed()
         return component
@@ -41,7 +41,7 @@ class RatingTableViewCell: UITableViewCell {
         component.titleLabel.text = title
         component.subtitleLabel.text = subtitle
         component.leftImageView.image = leftImage
-        component.rightLabel.text = rightText
+        component.ratingLabel.text = rightText
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
