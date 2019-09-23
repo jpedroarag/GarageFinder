@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct User {
-    let userId: Int
-    let name: String
-    let email: String
-    let documentType: DocumentType
-    let documentNumber: String
-    let password: String
-    let addresses: [Address]
-    let garages: [Garage]
-    let role: String
+public struct User {
+    public let userId: Int
+    public let name: String
+    public let email: String
+    public let documentType: DocumentType
+    public let documentNumber: String
+    public let password: String
+    public let addresses: [Address]
+    public let garages: [Garage]
+    public let role: String
 }

@@ -11,8 +11,9 @@ import MapKit
 
 class ToolboxView: UIView {
     
-    lazy var totalButtons = CGFloat(1)
+    let totalButtons = CGFloat(1)
     let minimumButtonSize = CGSize(width: 48, height: 48)
+    
     var totalHeight: CGFloat {
         return totalButtons * minimumButtonSize.height + (totalButtons - 1)
     }
@@ -24,8 +25,8 @@ class ToolboxView: UIView {
         super.init(frame: .zero)
         
         self.backgroundColor = backgroundColor
-        layer.cornerRadius = 5
-        layer.masksToBounds = false
+        rounded(cornerRadius: 5)
+        shadowed()
         
         configureButtons(mapView)
         setConstraints()
@@ -34,13 +35,13 @@ class ToolboxView: UIView {
     
     private func configureButtons(_ mapView: MKMapView) {
         locationTrackerButton = MKUserTrackingButton(mapView: mapView)
-        locationTrackerButton.tintColor = .white
+        locationTrackerButton.tintColor = .black
         addSubview(locationTrackerButton)
     }
     
     func setConstraints() {
         locationTrackerButton.anchor
-            .top(topAnchor)
+            .bottom(bottomAnchor)
             .left(leftAnchor)
             .right(rightAnchor)
             .height(constant: minimumButtonSize.height)

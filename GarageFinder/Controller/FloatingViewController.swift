@@ -7,191 +7,106 @@
 //
 
 import UIKit
+import MapKit
 
 class FloatingViewController: UIViewController {
-    lazy var fullView: CGFloat = {
-        return UIScreen.main.bounds.height * 0.15
-    }()
-    lazy var middleView: CGFloat = {
-        return UIScreen.main.bounds.height * 0.65
-    }()
-    lazy var partialView: CGFloat = {
-        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2
-    }()
-    lazy var allPos: [CGFloat] = {
-        return [partialView, middleView, fullView]
-    }()
 
     weak var searchDelegate: SearchDelegate?
-    var garageDetailVC: GarageDetailViewController?
+    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
+    
+    var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
     
-    var floatingView = FloatingView(frame: CGRect.zero)
+    lazy var floatingView: FloatingView = {
+        let floatingView = FloatingView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        floatingView.searchBar.delegate = self
+        floatingView.tableView.delegate = self
+        floatingView.tableView.dataSource = floatingTableViewDataSource
+        floatingView.floatingViewPositionDelegate = self
+        return floatingView
+    }()
     
-    var currentPos: CGFloat = 0
-    var currentIndexPos = 0 {
-        didSet {
-            currentPos = allPos[currentIndexPos]
-            if currentIndexPos == 1 || currentIndexPos == 0 {
-                cancellSearch()
-            }
-        }
-    }
-    var lastTable: UITableView!
-    var touchLocationY: CGFloat = 0
+    let floatingTableViewDataSource = FloatingTableViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .init(white: 0.9, alpha: 1)
+        setupGesture()
         
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
-        gesture.delegate = self
-        view.addGestureRecognizer(gesture)
-        
-        view.backgroundColor = .clear
-        
-        setupFloatingView()
         setupObserver()
     }
-    
-    func setupFloatingView() {
-        view.addSubview(floatingView)
-        floatingView.searchBar.delegate = self
-        floatingView.tableView.dataSource = self
-        lastTable = floatingView.tableView
-        
-        floatingView.anchor
-        .top(view.topAnchor)
-        .left(view.leftAnchor)
-        .right(view.rightAnchor)
-        .bottom(view.bottomAnchor)
+    override func loadView() {
+        view = floatingView
+    }
+    func setupGesture() {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
+        gesture.delegate = self
+        floatingView.addGestureRecognizer(gesture)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
-        })
-    }
-    
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        animTo(positionY: partialView)
+        floatingView.animTo(positionY: floatingView.partialView)
         cancellSearch()
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began {
-            touchLocationY = recognizer.location(in: view).y
-        }
-        
-        let iSTouchingSearchBar = touchLocationY <= floatingView.searchBar.frame.height * 0.9
-        if lastTable.contentOffset.y <= 0 || iSTouchingSearchBar {
-            scroll(recognizer)
-        } else {
-            recognizer.setTranslation(.zero, in: view)
-        }
+        floatingView.startGesture(recognizer)
+    }
 
-        let fullOrMiddleView = allPos[currentIndexPos] == fullView
-        lastTable.isScrollEnabled = fullOrMiddleView ? true : false
-        endScroll(recognizer)
-    }
-    
-    func scroll(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: view)
-        let minY = view.frame.minY
-        
-        let limit = minY + translation.y
-        let bypassLimit = (limit >= 0) && (limit <= partialView)
-        if bypassLimit {
-            view.layer.removeAllAnimations()
-            view.frame = CGRect(x: 0, y: limit, width: view.frame.width, height: view.frame.height)
-            recognizer.setTranslation(.zero, in: view)
-        }
-    }
-    
-    /// Perform animation when stop scrolling
-    func endScroll(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .ended {
-            lastTable.isScrollEnabled = true
-            let minY = view.frame.minY
-            
-            let top = abs(minY - fullView)
-            let middle = abs(minY - middleView)
-            let bottom = abs(minY - partialView)
-            
-            let screenPositionValues: [CGFloat: CGFloat] = [top: fullView, middle: middleView, bottom: partialView]
-            guard let min = screenPositionValues.min(by: { itemA, itemB in
-                itemA.key < itemB.key
-            }) else { return }
-            
-            let velocity = recognizer.velocity(in: view).y
-            let isUp = velocity < -400
-            let isDown = velocity > 400
-            let limit = minY + recognizer.translation(in: view).y
-            
-            let canMoveUp = isDown && currentIndexPos != 0
-            let canMoveDown = isUp && currentIndexPos != 2
-            
-            if canMoveUp || canMoveDown {
-                if currentPos == partialView && velocity < -1500 {
-                    currentIndexPos += 2
-                } else if currentPos == fullView && velocity > 1500 {
-                    currentIndexPos -= 2
-                } else {
-                    currentIndexPos += canMoveUp ? -1 : 1
-                }
-            } else if limit <= fullView {
-                currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
-            }
-            
-            if currentPos == middleView || currentPos == partialView {
-                let contentOffset = CGPoint(x: lastTable.contentOffset.x, y: 0)
-                lastTable.setContentOffset(contentOffset, animated: true)
-            }
-            
-            if currentPos == 0 { return }
-            UIView.animate(withDuration: 0.5, delay: 0.0,
-                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
-                           options: [.curveEaseOut, .allowUserInteraction], animations: {
-                self.view.frame = CGRect(x: 0, y: self.currentPos, width: self.view.frame.width, height: self.view.frame.height)
-            })
-        }
-    }
-    
-    func animTo(positionY: CGFloat) {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5, delay: 0.0,
-                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
-                           options: [.curveEaseOut, .allowUserInteraction], animations: {
-                            
-                self.view.frame = CGRect(x: 0, y: positionY, width: self.view.frame.width, height: self.view.frame.height)
-
-                self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
-            })
-        }
-    }
 }
 
 extension FloatingViewController: UIGestureRecognizerDelegate {
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //If the other gesture recognizer is CollectionView, dont recognize simultaneously
+        if otherGestureRecognizer.view as? UICollectionView != nil {
+            return false
+        }
         return true
     }
 }
 
-extension FloatingViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+// MARK: TableViewDataSource
+extension FloatingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerTitle = section == 0 ? "Endereços" : "Garagens"
+        let headerView = HeaderFavTableView(frame: CGRect(x: 0, y: 0,
+                                                          width: tableView.frame.width, height: 50),
+                                            title: headerTitle,
+                                            image: UIImage(named: "HeartIcon"))
+        return headerView
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Cell: \(indexPath.row)"
-        return cell
+    /// MARK: Set the collection view delegate of Addresses
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let favAddressTableViewCell = cell as? FavAddressTableViewCell {
+            favAddressTableViewCell.setCollectionViewDelegate(self)
+        }
+    }
+    
+    /// MARK: Select a garage
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section != 0 { //if the current section is not the address cell
+            if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
+                print("garage selected name: \(garage.name)")
+            }
+        }
+    }
+}
+
+extension FloatingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 {
+            //Button add address action
+        } else if let cell = collectionView.cellForItem(at: indexPath) as? FavAddressCollectionViewCell, let address = cell.favoriteAddress {
+            let location = CLLocation(latitude: address.latitude, longitude: address.longitude)
+            NotificationCenter.default.post(name: .finishSearch, object: location)
+            print("address name: \(address.name), latitude: \(address.latitude), longitude: \(address.longitude)")
+        }
     }
 }
 
@@ -202,18 +117,14 @@ extension FloatingViewController: UISearchBarDelegate {
         let searchVC = SearchResultViewController()
         searchVC.mapView = mapVC.mapView
         searchDelegate = searchVC
-        lastTable = searchVC.tableView
+        searchVC.changeScrollViewDelegate = self
         addChild(searchVC)
-        view.addSubview(searchVC.view)
+        floatingView.addSubview(searchVC.view)
         searchVC.didMove(toParent: self)
 
-        searchVC.view.frame = CGRect(x: 0, y: floatingView.searchBar.frame.height * 2,
-                                     width: view.frame.width,
-                                     height: view.frame.height)
-    
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        animTo(positionY: fullView)
+        floatingView.animTo(positionY: floatingView.fullView)
         searchBar.showsCancelButton = true
         showSearchVC()
     }
@@ -225,50 +136,61 @@ extension FloatingViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        animTo(positionY: middleView)
+        floatingView.animTo(positionY: floatingView.middleView)
         cancellSearch()
     }
     
     func cancellSearch() {
-        floatingView.searchBar.text = ""
-        floatingView.searchBar.showsCancelButton = false
-        floatingView.searchBar.endEditing(true)
-
+        floatingView.clearSearch()
         if let searchVC = self.children.filter({ $0 is SearchResultViewController}).first {
             searchVC.removeFromParent()
             searchVC.view.removeFromSuperview()
-            lastTable = floatingView.tableView
-            
         }
     }
 }
 
 extension FloatingViewController: SelectGarageDelegate {
-    func showGarageDetailVC() {
-        if garageDetailVC == nil {
-            garageDetailVC = GarageDetailViewController()
-            guard let garageVC = garageDetailVC else { return }
+    func showGarageDetailsVC() {
+        if garageDetailsVC == nil {
+            garageDetailsVC = GarageDetailsViewController()
+            guard let garageVC = garageDetailsVC else { return }
+            floatingView.floatingViewPositioningDelegate = garageVC
             addChild(garageVC)
             view.addSubview(garageVC.view)
             garageVC.didMove(toParent: self)
-            animTo(positionY: middleView)
+            floatingView.animTo(positionY: floatingView.middleView)
         } else {
-            removeGarageVC()
-            showGarageDetailVC()
+            removeGarageDetailsVC()
+            showGarageDetailsVC()
         }
     }
     
-    func removeGarageVC() {
-        garageDetailVC?.removeFromParent()
-        garageDetailVC?.view.removeFromSuperview()
-        garageDetailVC = nil
+    func removeGarageDetailsVC() {
+        garageDetailsVC?.removeFromParent()
+        garageDetailsVC?.view.removeFromSuperview()
+        garageDetailsVC = nil
     }
     
     func didSelectGarage() {
-        showGarageDetailVC()
+        showGarageDetailsVC()
     }
     
     func didDeselectGarage() {
     
+    }
+}
+
+// MARK: FloatingViewPositionDelegate
+extension FloatingViewController: FloatingViewPositionDelegate {
+    func didChangeFloatingViewPosition() {
+        cancellSearch()
+    }
+    
+}
+
+extension FloatingViewController: ChangeScrollViewDelegate {
+    func didChange(scrollView: UIScrollView) {
+        if floatingView.lastScrollView == scrollView { return }
+        floatingView.lastScrollView = scrollView
     }
 }

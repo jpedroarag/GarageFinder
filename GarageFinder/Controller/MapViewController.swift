@@ -15,16 +15,29 @@ class MapViewController: UIViewController {
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
     
-    lazy var mapView = MapView(frame: .zero)
-    var toolboxView: ToolboxView!
+    lazy var mapView: MapView = {
+        let view = MapView(frame: .zero)
+        view.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        return view
+    }()
+    
+    lazy var toolboxView: ToolboxView = {
+        let backgroundColor = UIColor(rgb: 0xFFFFFF, alpha: 90)
+        let separatorColor = UIColor(rgb: 0xBEBEBE, alpha: 100)
+        return ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
+    }()
+    
+    var floatingView: UIView!
+    
     weak var selectGarageDelegate: SelectGarageDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.frame = view.frame
-        view.addSubview(mapView)
         mapView.delegate = self
+        view.addSubview(mapView)
+        view.addSubview(toolboxView)
         title = "Home"
         
         //setupSearchController()
@@ -32,13 +45,6 @@ class MapViewController: UIViewController {
         
         locationManager.delegate = self
         startUsingDeviceLocation()
-        
-        mapView.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
-        
-        let backgroundColor = UIColor(rgb: 0x606060, alpha: 90)
-        let separatorColor = UIColor(rgb: 0xBBBBBB, alpha: 100)
-        toolboxView = ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
-        view.addSubview(toolboxView)
         
         setConstraints()
         setupObserver()
@@ -50,13 +56,14 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
+
+        addChild(floatingVC)
+        view.addSubview(floatingVC.view)
+        self.floatingView = floatingVC.view
         self.addChild(floatingVC)
-        self.view.addSubview(floatingVC.view)
+        self.view.addSubview(floatingView)
         floatingVC.didMove(toParent: self)
         selectGarageDelegate = floatingVC
-        let height = view.frame.height
-        let width  = view.frame.width
-        floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func setConstraints() {
@@ -67,7 +74,7 @@ class MapViewController: UIViewController {
             .left(view.leftAnchor)
         toolboxView.anchor
             .right(view.rightAnchor, padding: 16)
-            .bottom(view.bottomAnchor, padding: 16)
+            .bottom(floatingView.topAnchor, padding: 16)
             .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }
@@ -122,10 +129,7 @@ class MapViewController: UIViewController {
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        guard let mapItem = notification.object as? MKMapItem,
-            let location = mapItem.placemark.location else {
-            return
-        }
+        guard let location = notification.object as? CLLocation else { return }
  
         mapView.removeRangeCircle(userLocation: false)
         mapView.addRangeCircle(location: location, meters: 500, userLocation: false)

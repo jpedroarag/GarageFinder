@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Vehicle {
-    let vehicleId: Int
-    let model: String
-    let chassi: String
-    let licensePlate: String
-    let year: String
-    let driverLicense: String
-    let userId: Int
+public struct Vehicle {
+    public let vehicleId: Int
+    public let model: String
+    public let chassi: String
+    public let licensePlate: String
+    public let year: String
+    public let driverLicense: String
+    public let userId: Int
 }

@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Address {
-    let addressId: Int
-    let zip: String
-    let street: String
-    let number: String
-    let complement: String
-    let city: String
-    let uf: String
-    let userId: Int
-    let garageId: Int
+public struct Address {
+    public let addressId: Int
+    public let zip: String
+    public let street: String
+    public let number: String
+    public let complement: String
+    public let city: String
+    public let uf: String
+    public let userId: Int
+    public let garageId: Int
 }

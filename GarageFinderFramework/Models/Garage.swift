@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct Garage {
-    let garageId: Int
-    let description: String
-    let parkingSpaces: Int
-    let price: Double
-    let photo1: String
-    let photo2: String
-    let photo3: String
-    let userId: Int
-    let addressId: Int
-    let comments: [Comment]
+public struct Garage {
+    public let garageId: Int
+    public let description: String
+    public let parkingSpaces: Int
+    public let price: Double
+    public let photo1: String
+    public let photo2: String
+    public let photo3: String
+    public let userId: Int
+    public let addressId: Int
+    public let comments: [Comment]
 }

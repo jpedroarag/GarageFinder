@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Comment {
-    let commentId: Int
-    let fromUserId: Int
-    let toUserId: Int
-    let garageId: Int
-    let title: String
-    let message: String
-    let rating: Float
+public struct Comment {
+    public let commentId: Int
+    public let fromUserId: Int
+    public let toUserId: Int
+    public let garageId: Int
+    public let title: String
+    public let message: String
+    public let rating: Float
 }
