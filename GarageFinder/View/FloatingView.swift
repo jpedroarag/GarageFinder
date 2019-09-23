@@ -60,7 +60,7 @@ class FloatingView: UIView {
             }
         }
     }
-    
+    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
     weak var floatingViewPositionDelegate: FloatingViewPositionDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,13 +96,12 @@ class FloatingView: UIView {
             .centerX(parentView.centerXAnchor)
             .width(constant: 35)
             .height(constant: 5)
-        
     }
     
     func setupSearchBar() {
         parentView.addSubview(searchBar)
         searchBar.anchor
-            .top(pinView.bottomAnchor)
+            .top(pinView.bottomAnchor, padding: 8)
             .left(parentView.leftAnchor, padding: 8)
             .right(parentView.rightAnchor, padding: 8)
             .height(constant: 50)
@@ -161,6 +160,11 @@ extension FloatingView {
     }
     
     func scroll(_ recognizer: UIPanGestureRecognizer) {
+        if let delegate = floatingViewPositioningDelegate {
+            if delegate.shouldStopListeningToPanGesture() {
+                return
+            }
+        }
         let translation = recognizer.translation(in: self)
         let minY = frame.minY
         
@@ -206,6 +210,12 @@ extension FloatingView {
                 }
             } else {
                 currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
+            }
+            
+            switch currentIndexPos {
+            case 1: floatingViewPositioningDelegate?.enteredMiddleView()
+            case 2: floatingViewPositioningDelegate?.enteredFullView()
+            default: floatingViewPositioningDelegate?.enteredPartialView()
             }
             
             if currentPos == middleView || currentPos == partialView {

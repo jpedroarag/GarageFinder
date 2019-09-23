@@ -23,6 +23,7 @@ public class SmartConstraint {
     /// Item to be anchored, can be a UIView or a UILayoutGuide
     unowned var view: AnyObject
     
+    public var constraints: [NSLayoutConstraint] = []
     public var lastConstraint: NSLayoutConstraint?
     /// Init with View
     init(view: UIView) {
@@ -34,6 +35,24 @@ public class SmartConstraint {
     init(layoutGuide: UILayoutGuide) {
         self.view = layoutGuide
     }
+    
+    /// Activate all constraints setted in constraints array
+    static public func activate(_ constraints: SmartConstraint ...) {
+        constraints.forEach {
+            if let view = $0.view as? UIView {
+                view.translatesAutoresizingMaskIntoConstraints = false
+            }
+            NSLayoutConstraint.activate($0.constraints)
+        }
+        
+    }
+    
+    /// Deactivate all constraints
+    public func deactivateAll() {
+        constraints.forEach { $0.isActive = false }
+        constraints.removeAll()
+    }
+
 }
 
 public extension UIView {
