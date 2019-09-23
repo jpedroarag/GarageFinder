@@ -12,8 +12,10 @@ struct User {
     let userId: Int
     let name: String
     let email: String
-    let documentType: String
+    let documentType: DocumentType
     let documentNumber: String
     let password: String
+    let addresses: [Address]
+    let garages: [Garage]
     let role: String
 }

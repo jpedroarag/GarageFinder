@@ -14,4 +14,6 @@ struct Vehicle {
     let chassi: String
     let licensePlate: String
     let year: String
+    let driverLicense: String
+    let userId: Int
 }

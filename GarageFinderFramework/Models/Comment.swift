@@ -12,6 +12,7 @@ struct Comment {
     let commentId: Int
     let fromUserId: Int
     let toUserId: Int
+    let garageId: Int
     let title: String
     let message: String
     let rating: Float

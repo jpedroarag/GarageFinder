@@ -37,6 +37,7 @@
 		3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
 		3C20C38523351DD100182CB3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38423351DD100182CB3 /* Address.swift */; };
 		3C20C38723351DE800182CB3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
+		3C20C3892339047500182CB3 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
@@ -118,6 +119,7 @@
 		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		3C20C3882339047500182CB3 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageDetailViewController.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				3C20C37E23351B7500182CB3 /* User.swift */,
+				3C20C3882339047500182CB3 /* DocumentType.swift */,
 				3C20C38023351DB200182CB3 /* Garage.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C20C38423351DD100182CB3 /* Address.swift */,
@@ -526,6 +529,7 @@
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,
 				3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */,
+				3C20C3892339047500182CB3 /* DocumentType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,7 @@ struct Garage {
     let photo1: String
     let photo2: String
     let photo3: String
-    let addressId: String
+    let userId: Int
+    let addressId: Int
     let comments: [Comment]
 }
