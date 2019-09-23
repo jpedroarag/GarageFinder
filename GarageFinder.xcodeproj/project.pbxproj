@@ -32,6 +32,11 @@
 		3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95E2316A828001BDDB6 /* Provider.swift */; };
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
+		3C20C37F23351B7500182CB3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
+		3C20C38123351DB200182CB3 /* Garage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38023351DB200182CB3 /* Garage.swift */; };
+		3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
+		3C20C38523351DD100182CB3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38423351DD100182CB3 /* Address.swift */; };
+		3C20C38723351DE800182CB3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
@@ -108,6 +113,11 @@
 		3C10C95E2316A828001BDDB6 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
+		3C20C37E23351B7500182CB3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3C20C38023351DB200182CB3 /* Garage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
+		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageDetailViewController.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 		3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */ = {
 			isa = PBXGroup;
 			children = (
+				3C20C37D23351B5C00182CB3 /* Models */,
 				3C10C94B2316A826001BDDB6 /* Constraints */,
 				3C10C94D2316A828001BDDB6 /* Network */,
 				3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */,
@@ -288,6 +299,18 @@
 				3C10C95E2316A828001BDDB6 /* Provider.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3C20C37D23351B5C00182CB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C20C37E23351B7500182CB3 /* User.swift */,
+				3C20C38023351DB200182CB3 /* Garage.swift */,
+				3C20C38223351DC000182CB3 /* Vehicle.swift */,
+				3C20C38423351DD100182CB3 /* Address.swift */,
+				3C20C38623351DE800182CB3 /* Comment.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		6C7C05AB2316BB4900FB8974 /* Protocol */ = {
@@ -487,13 +510,18 @@
 			files = (
 				3C10C9662316A828001BDDB6 /* URLSessionExtension.swift in Sources */,
 				3C10C9682316A828001BDDB6 /* URLRequestExtension.swift in Sources */,
+				3C20C38123351DB200182CB3 /* Garage.swift in Sources */,
 				3C10C9612316A828001BDDB6 /* URLSessionProvider.swift in Sources */,
 				3C10C9672316A828001BDDB6 /* URLComponentsExtension.swift in Sources */,
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
+				3C20C38723351DE800182CB3 /* Comment.swift in Sources */,
+				3C20C37F23351B7500182CB3 /* User.swift in Sources */,
+				3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
 				3C10C9602316A828001BDDB6 /* GarageService.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
+				3C20C38523351DD100182CB3 /* Address.swift in Sources */,
 				3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,
