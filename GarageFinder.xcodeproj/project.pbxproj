@@ -34,6 +34,12 @@
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
 		3C20C37A233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C379233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift */; };
 		3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */; };
+		3C20C37F23351B7500182CB3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
+		3C20C38123351DB200182CB3 /* Garage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38023351DB200182CB3 /* Garage.swift */; };
+		3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
+		3C20C38523351DD100182CB3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38423351DD100182CB3 /* Address.swift */; };
+		3C20C38723351DE800182CB3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
+		3C20C3892339047500182CB3 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
 		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
 		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
@@ -137,6 +143,12 @@
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
 		3C20C379233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		3C20C37E23351B7500182CB3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3C20C38023351DB200182CB3 /* Garage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
+		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		3C20C3882339047500182CB3 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
 		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
 		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
@@ -267,6 +279,7 @@
 		3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */ = {
 			isa = PBXGroup;
 			children = (
+				3C20C37D23351B5C00182CB3 /* Models */,
 				3C10C94B2316A826001BDDB6 /* Constraints */,
 				3C10C94D2316A828001BDDB6 /* Network */,
 				3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */,
@@ -355,6 +368,19 @@
 				3C10C95E2316A828001BDDB6 /* Provider.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3C20C37D23351B5C00182CB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C20C37E23351B7500182CB3 /* User.swift */,
+				3C20C3882339047500182CB3 /* DocumentType.swift */,
+				3C20C38023351DB200182CB3 /* Garage.swift */,
+				3C20C38223351DC000182CB3 /* Vehicle.swift */,
+				3C20C38423351DD100182CB3 /* Address.swift */,
+				3C20C38623351DE800182CB3 /* Comment.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3C811E41232692970075AD49 /* Component */ = {
@@ -628,17 +654,23 @@
 			files = (
 				3C10C9662316A828001BDDB6 /* URLSessionExtension.swift in Sources */,
 				3C10C9682316A828001BDDB6 /* URLRequestExtension.swift in Sources */,
+				3C20C38123351DB200182CB3 /* Garage.swift in Sources */,
 				3C10C9612316A828001BDDB6 /* URLSessionProvider.swift in Sources */,
 				3C10C9672316A828001BDDB6 /* URLComponentsExtension.swift in Sources */,
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
+				3C20C38723351DE800182CB3 /* Comment.swift in Sources */,
+				3C20C37F23351B7500182CB3 /* User.swift in Sources */,
+				3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
 				3C10C9602316A828001BDDB6 /* GarageService.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
+				3C20C38523351DD100182CB3 /* Address.swift in Sources */,
 				3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,
 				3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */,
+				3C20C3892339047500182CB3 /* DocumentType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
