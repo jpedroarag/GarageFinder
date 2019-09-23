@@ -9,10 +9,17 @@
 import UIKit
 
 class CircleView: UIView {
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = frame.height / 2.0
     }
+}
+
+class CircleImageView: UIImageView {
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.height / 2.0
+        clipsToBounds = true
+    }
 }

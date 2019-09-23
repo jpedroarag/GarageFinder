@@ -56,14 +56,14 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
+
+        addChild(floatingVC)
+        view.addSubview(floatingVC.view)
         self.floatingView = floatingVC.view
         self.addChild(floatingVC)
         self.view.addSubview(floatingView)
         floatingVC.didMove(toParent: self)
         selectGarageDelegate = floatingVC
-        let height = view.frame.height
-        let width  = view.frame.width
-        floatingVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func setConstraints() {
@@ -129,10 +129,7 @@ class MapViewController: UIViewController {
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        guard let mapItem = notification.object as? MKMapItem,
-            let location = mapItem.placemark.location else {
-            return
-        }
+        guard let location = notification.object as? CLLocation else { return }
  
         mapView.removeRangeCircle(userLocation: false)
         mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
