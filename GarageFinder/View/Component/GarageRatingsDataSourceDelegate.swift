@@ -7,18 +7,13 @@
 //
 
 import UIKit
-
-struct Rating {
-    var title: String
-    var subtitle: String
-    var rating: String
-}
+import GarageFinderFramework
 
 class GarageRatingsDataSourceDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var ratings: [Rating] = []
+    var ratings: [Comment] = []
     
-    init(ratings: [Rating]) {
+    init(ratings: [Comment]) {
         self.ratings = ratings
     }
     
@@ -29,7 +24,7 @@ class GarageRatingsDataSourceDelegate: NSObject, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell", for: indexPath) as? RatingTableViewCell else { return UITableViewCell() }
         let rating = ratings[indexPath.row]
-        cell.loadData(title: rating.title, subtitle: rating.subtitle, leftImage: UIImage(named: "mock"), rightText: rating.rating)
+        cell.loadData(title: rating.title, subtitle: rating.message, leftImage: UIImage(named: "mockBadge"), rightText: "\(rating.rating)")
         return cell
     }
     

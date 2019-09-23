@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GarageFinderFramework // TODO: get rid of this (using for inserting mocked data)
 
 class GarageDetailsViewController: UIViewController {
 
@@ -148,6 +149,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
         switch indexPath.section {
         case 0:
             garageInfoView = GarageInfoView(frame: .zero)
+            garageInfoView.component.leftImageView.image = UIImage(named: "mockGarage")
             garageInfoView.component.titleLabel.text = "Garagem de Marcus"
             garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
             garageInfoView.component.ratingLabel.text = "4.3"
@@ -163,14 +165,15 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
         case 2:
             var pictures = [UIImage]()
             (0...5).forEach { _ in
-                guard let image = UIImage(named: "mock") else { return }
+                guard let image = UIImage(named: "mockGarage") else { return }
                 pictures.append(image)
             }
             return GarageGalleryView(images: pictures)
         case 3:
-            var ratings: [Rating] = []
-            (0...21).forEach { _ in
-                ratings.append(Rating(title: "Good host", subtitle: "Very friendly and a very good garage", rating: "4.3"))
+            var ratings: [Comment] = []
+            (0...7).forEach { _ in
+                let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
+                ratings.append(comment)
             }
             ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)
             let table = UITableView()
