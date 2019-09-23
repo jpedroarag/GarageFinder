@@ -10,20 +10,22 @@ import UIKit
 
 class FloatingViewController: UIViewController {
     lazy var fullView: CGFloat = {
-        return UIScreen.main.bounds.height * 0.15
+        return UIScreen.main.bounds.height * 0.2
     }()
     lazy var middleView: CGFloat = {
         return UIScreen.main.bounds.height * 0.65
     }()
     lazy var partialView: CGFloat = {
-        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2
+        return UIScreen.main.bounds.height - floatingView.searchBar.frame.height * 2.5
     }()
     lazy var allPos: [CGFloat] = {
         return [partialView, middleView, fullView]
     }()
 
     weak var searchDelegate: SearchDelegate?
-    var garageDetailVC: GarageDetailViewController?
+    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
+    
+    var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
     
     var floatingView = FloatingView(frame: CGRect.zero)
@@ -85,6 +87,11 @@ class FloatingViewController: UIViewController {
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
+        if let delegate = floatingViewPositioningDelegate {
+            if delegate.shouldStopListeningToPanGesture() {
+                return
+            }
+        }
         if recognizer.state == .began {
             touchLocationY = recognizer.location(in: view).y
         }
@@ -147,6 +154,12 @@ class FloatingViewController: UIViewController {
                 }
             } else if limit <= fullView {
                 currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
+            }
+            
+            switch currentIndexPos {
+            case 1: floatingViewPositioningDelegate?.enteredMiddleView()
+            case 2: floatingViewPositioningDelegate?.enteredFullView()
+            default: floatingViewPositioningDelegate?.enteredPartialView()
             }
             
             if currentPos == middleView || currentPos == partialView {
@@ -244,28 +257,29 @@ extension FloatingViewController: UISearchBarDelegate {
 }
 
 extension FloatingViewController: SelectGarageDelegate {
-    func showGarageDetailVC() {
-        if garageDetailVC == nil {
-            garageDetailVC = GarageDetailViewController()
-            guard let garageVC = garageDetailVC else { return }
+    func showGarageDetailsVC() {
+        if garageDetailsVC == nil {
+            garageDetailsVC = GarageDetailsViewController()
+            guard let garageVC = garageDetailsVC else { return }
+            floatingViewPositioningDelegate = garageVC
             addChild(garageVC)
             view.addSubview(garageVC.view)
             garageVC.didMove(toParent: self)
             animTo(positionY: middleView)
         } else {
-            removeGarageVC()
-            showGarageDetailVC()
+            removeGarageDetailsVC()
+            showGarageDetailsVC()
         }
     }
     
-    func removeGarageVC() {
-        garageDetailVC?.removeFromParent()
-        garageDetailVC?.view.removeFromSuperview()
-        garageDetailVC = nil
+    func removeGarageDetailsVC() {
+        garageDetailsVC?.removeFromParent()
+        garageDetailsVC?.view.removeFromSuperview()
+        garageDetailsVC = nil
     }
     
     func didSelectGarage() {
-        showGarageDetailVC()
+        showGarageDetailsVC()
     }
     
     func didDeselectGarage() {

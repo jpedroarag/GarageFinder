@@ -32,8 +32,23 @@
 		3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95E2316A828001BDDB6 /* Provider.swift */; };
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
+		3C20C37A233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C379233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift */; };
+		3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */; };
+		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
+		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
+		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
+		3C811E492327BE5B0075AD49 /* GarageGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E482327BE5B0075AD49 /* GarageGalleryView.swift */; };
+		3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E4A2327BE840075AD49 /* GFTableViewComponent.swift */; };
+		3C811E4F2327EA0C0075AD49 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E4E2327EA0C0075AD49 /* String+Extension.swift */; };
+		3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E502327EB970075AD49 /* Double+Extension.swift */; };
+		3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E5223290F680075AD49 /* UILabel+Extension.swift */; };
+		3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E56232930AE0075AD49 /* GalleryCollectionViewCell.swift */; };
+		3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E58232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift */; };
+		3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E5A232A75C90075AD49 /* CircularButton.swift */; };
+		3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E5C232A80460075AD49 /* GarageActionsView.swift */; };
+		3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
-		6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */; };
+		3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
@@ -108,8 +123,23 @@
 		3C10C95E2316A828001BDDB6 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
+		3C20C379233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingsDataSourceDelegate.swift; sourceTree = "<group>"; };
+		3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
+		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
+		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
+		3C811E482327BE5B0075AD49 /* GarageGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageGalleryView.swift; sourceTree = "<group>"; };
+		3C811E4A2327BE840075AD49 /* GFTableViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTableViewComponent.swift; sourceTree = "<group>"; };
+		3C811E4E2327EA0C0075AD49 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		3C811E502327EB970075AD49 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		3C811E5223290F680075AD49 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		3C811E56232930AE0075AD49 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C811E58232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageGalleryDataSourceDelegate.swift; sourceTree = "<group>"; };
+		3C811E5A232A75C90075AD49 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
+		3C811E5C232A80460075AD49 /* GarageActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageActionsView.swift; sourceTree = "<group>"; };
+		3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingViewPositioningDelegate.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageDetailViewController.swift; sourceTree = "<group>"; };
+		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
@@ -183,7 +213,7 @@
 				3C10C8D4230AE450001BDDB6 /* MapViewController.swift */,
 				3C10C9492316A7BC001BDDB6 /* ViewController.swift */,
 				6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */,
-				6C282DD223214EF10036A7EB /* GarageDetailViewController.swift */,
+				3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +221,7 @@
 		3C10C8E9230AE634001BDDB6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3C811E41232692970075AD49 /* Component */,
 				6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */,
 				3C10C908231016DE001BDDB6 /* MapView.swift */,
 				3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */,
@@ -218,6 +249,9 @@
 				3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */,
 				6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */,
 				3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */,
+				3C811E4E2327EA0C0075AD49 /* String+Extension.swift */,
+				3C811E502327EB970075AD49 /* Double+Extension.swift */,
+				3C811E5223290F680075AD49 /* UILabel+Extension.swift */,
 				6C339B262327CEEF00A376ED /* UIView+Extension.swift */,
 			);
 			path = Extension;
@@ -290,10 +324,29 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		3C811E41232692970075AD49 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3C811E462327BE2D0075AD49 /* GFButton.swift */,
+				3C811E4A2327BE840075AD49 /* GFTableViewComponent.swift */,
+				3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */,
+				3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */,
+				3C811E442327BE130075AD49 /* GarageInfoView.swift */,
+				3C811E482327BE5B0075AD49 /* GarageGalleryView.swift */,
+				3C811E56232930AE0075AD49 /* GalleryCollectionViewCell.swift */,
+				3C811E58232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift */,
+				3C20C379233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift */,
+				3C811E5A232A75C90075AD49 /* CircularButton.swift */,
+				3C811E5C232A80460075AD49 /* GarageActionsView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		6C7C05AB2316BB4900FB8974 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */,
+				3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -461,22 +514,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */,
+				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
+				3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */,
 				6CF43F21231FE1A800206150 /* NotificationName+Extension.swift in Sources */,
+				3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */,
+				3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */,
+				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
 				6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */,
 				6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */,
-				6C282DD323214EF10036A7EB /* GarageDetailViewController.swift in Sources */,
 				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
+				3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */,
+				3C811E4F2327EA0C0075AD49 /* String+Extension.swift in Sources */,
+				3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
+				3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
+				3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,
+				3C811E492327BE5B0075AD49 /* GarageGalleryView.swift in Sources */,
+				3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
 				6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
+				3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */,
+				3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */,
 				3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */,
+				3C20C37A233111F200182CB3 /* GarageRatingsDataSourceDelegate.swift in Sources */,
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

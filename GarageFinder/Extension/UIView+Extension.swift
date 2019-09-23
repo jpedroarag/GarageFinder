@@ -13,11 +13,11 @@ extension UIView {
                   opacity: Float = 0.15,
                   offset: CGSize = CGSize(width: 0, height: 2),
                   radius: CGFloat = 3) {
+        layer.masksToBounds = false
         layer.shadowColor = color.cgColor
         layer.shadowOpacity = opacity
         layer.shadowOffset = offset
         layer.shadowRadius = radius
-        
     }
     
     func rounded(cornerRadius: CGFloat) {
