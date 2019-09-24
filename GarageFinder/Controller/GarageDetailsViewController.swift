@@ -22,7 +22,8 @@ class GarageDetailsViewController: UIViewController {
         table.rowHeight = 192
         table.backgroundColor = .white
         table.separatorStyle = .none
-        table.isScrollEnabled = false
+        table.bounces = false
+        //table.isScrollEnabled = false
         table.showsVerticalScrollIndicator = false
         table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
         return table
@@ -31,7 +32,7 @@ class GarageDetailsViewController: UIViewController {
     var floatingViewShouldStopListeningToPanGesture = false
     var ratingsDataSourceDelegate: GarageRatingsDataSourceDelegate!
     var garageInfoView: GarageInfoView!
-    
+    weak var changeScrollViewDelegate: ChangeScrollViewDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +80,6 @@ class GarageDetailsViewController: UIViewController {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
             let floatingController = self.parent as? FloatingViewController
-            floatingController?.floatingViewPositioningDelegate = nil
             self.removeFromParent()
             self.view.removeFromSuperview()
         })
@@ -176,7 +176,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             let table = UITableView()
             table.backgroundColor = .clear
             table.separatorStyle = .none
-            table.isScrollEnabled = false
+            //table.isScrollEnabled = false
             table.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
             table.dataSource = ratingsDataSourceDelegate
             table.delegate = ratingsDataSourceDelegate
@@ -223,39 +223,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
 
 // MARK: UIScrollViewDelegate implement
 extension GarageDetailsViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView === tableView {
-            if scrollView.contentOffset.y <= 0 {
-                floatingViewShouldStopListeningToPanGesture = false
-                scrollView.isScrollEnabled = false
-            }
-        }
-    }
-}
-
-// MARK: FloatingViewPositioningDelegate implement
-extension GarageDetailsViewController: FloatingViewPositioningDelegate {
-    func enteredFullView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = true }
-        floatingViewShouldStopListeningToPanGesture = true
-        tableView.isScrollEnabled = true
-    }
-    
-    func enteredMiddleView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
-        floatingViewShouldStopListeningToPanGesture = false
-        tableView.scrollRectToVisible(.zero, animated: true)
-        tableView.isScrollEnabled = false
-    }
-    
-    func enteredPartialView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
-        floatingViewShouldStopListeningToPanGesture = false
-        tableView.scrollRectToVisible(.zero, animated: true)
-        tableView.isScrollEnabled = false
-    }
-    
-    func shouldStopListeningToPanGesture() -> Bool {
-        return floatingViewShouldStopListeningToPanGesture
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        changeScrollViewDelegate?.didChange(scrollView: scrollView)
     }
 }

@@ -12,7 +12,6 @@ import MapKit
 class FloatingViewController: UIViewController {
 
     weak var searchDelegate: SearchDelegate?
-    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
     
     var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
@@ -22,7 +21,6 @@ class FloatingViewController: UIViewController {
         floatingView.searchBar.delegate = self
         floatingView.tableView.delegate = self
         floatingView.tableView.dataSource = floatingTableViewDataSource
-        floatingView.floatingViewPositionDelegate = self
         return floatingView
     }()
     
@@ -154,7 +152,8 @@ extension FloatingViewController: SelectGarageDelegate {
         if garageDetailsVC == nil {
             garageDetailsVC = GarageDetailsViewController()
             guard let garageVC = garageDetailsVC else { return }
-            floatingView.floatingViewPositioningDelegate = garageVC
+            garageVC.changeScrollViewDelegate = self
+            //floatingView.floatingViewPositioningDelegate = garageVC
             addChild(garageVC)
             view.addSubview(garageVC.view)
             garageVC.didMove(toParent: self)
@@ -180,17 +179,8 @@ extension FloatingViewController: SelectGarageDelegate {
     }
 }
 
-// MARK: FloatingViewPositionDelegate
-extension FloatingViewController: FloatingViewPositionDelegate {
-    func didChangeFloatingViewPosition() {
-        cancellSearch()
-    }
-    
-}
-
 extension FloatingViewController: ChangeScrollViewDelegate {
     func didChange(scrollView: UIScrollView) {
-        if floatingView.lastScrollView == scrollView { return }
-        floatingView.lastScrollView = scrollView
+        floatingView.changeLastScrollView(scrollView)
     }
 }
