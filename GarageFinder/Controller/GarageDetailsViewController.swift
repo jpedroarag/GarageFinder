@@ -7,80 +7,57 @@
 //
 
 import UIKit
-import GarageFinderFramework // TODO: get rid of this (using for inserting mocked data)
+import GarageFinderFramework
 
-class GarageDetailsViewController: UIViewController {
-
-    let closeButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "close")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
-    let tableView: UITableView = {
-        let table = UITableView()
-        table.rowHeight = 192
-        table.backgroundColor = .white
-        table.separatorStyle = .none
-        table.isScrollEnabled = false
-        table.showsVerticalScrollIndicator = false
-        table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
-        return table
-    }()
+class GarageDetailsViewController: AbstractGarageViewController {
     
     var floatingViewShouldStopListeningToPanGesture = false
     var ratingsDataSourceDelegate: GarageRatingsDataSourceDelegate!
     weak var rentingGarageDelegate: RentingGarageDelegate?
     
-    var garageInfoView: GarageInfoView!
-    var garageActionsView: GarageActionsView!
-    var ratingsTable: UITableView!
-    var garageGalleryView: GarageGalleryView!
-    var numberOfSections = 4
+    var garageActionsView: GarageActionsView! {
+        let garageActionsView = GarageActionsView(frame: .zero)
+        garageActionsView.likeButton.action = { _ in print("like") }
+        garageActionsView.rateButton.action = { _ in print("rate") }
+        garageActionsView.shareButton.action = { _ in print("share") }
+        garageActionsView.reportButton.action = { _ in print("report") }
+        return garageActionsView
+    }
+    
+    var garageGalleryView: GarageGalleryView! {
+        var pictures = [UIImage]()
+        (0...5).forEach { _ in
+            guard let image = UIImage(named: "mockGarage") else { return }
+            pictures.append(image)
+        }
+        return GarageGalleryView(images: pictures)
+    }
+    
+    var ratingsTable: UITableView! {
+        var ratings: [Comment] = []
+        (0...7).forEach { _ in
+            let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
+            ratings.append(comment)
+        }
+        ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)
+        let ratingsTable = UITableView()
+        ratingsTable.backgroundColor = .clear
+        ratingsTable.separatorStyle = .none
+        ratingsTable.isScrollEnabled = false
+        ratingsTable.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
+        ratingsTable.dataSource = ratingsDataSourceDelegate
+        ratingsTable.delegate = ratingsDataSourceDelegate
+        return ratingsTable
+    }
     
     override func viewDidLoad() {
+        numberOfSections = 4
+        shouldAppearAnimated = true
+        indexSectionSeparatorsShouldStartAppearing = 2
         super.viewDidLoad()
-        
-        view.backgroundColor = .clear
-        view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
-        
-        view.addSubview(tableView)
-        view.addSubview(closeButton)
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-
-        setConstraints()
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame = CGRect(x: 0, y: 0,
-                                         width: self.view.frame.width,
-                                         height: self.view.frame.height)
-            })
-        }
     }
     
-    private func setConstraints() {
-        closeButton.anchor
-            .top(view.topAnchor, padding: 8)
-            .right(view.rightAnchor, padding: 8 + 8)
-            .width(constant: 16)
-            .height(constant: 16)
-        tableView.anchor
-            .top(view.topAnchor, padding: 16 + 5 + 8)
-            .left(view.leftAnchor, padding: 8)
-            .right(view.rightAnchor, padding: 8)
-            .bottom(view.bottomAnchor)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
-    @objc func closeButtonTapped() {
+    @objc override func closeButtonTapped() {
         floatingViewShouldStopListeningToPanGesture = false
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = self.view.frame.height
@@ -92,23 +69,52 @@ class GarageDetailsViewController: UIViewController {
         })
     }
     
-    func removeLastSection() {
+    private func removeLastSection() {
         numberOfSections -= 1
-        tableView.deleteSections(IndexSet(arrayLiteral: numberOfSections), with: .fade)
+        tableView.deleteSections([numberOfSections], with: .fade)
+    }
+    
+    private func removeAllAdditionalSections() {
+        numberOfSections = 1
+        tableView.deleteSections([1, 2, 3], with: .none)
+    }
+    
+    private func removeAdditionalSections(animated: Bool = true) {
+        if animated {
+            (1...3).forEach { index in
+                DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * Double(index)), execute: {
+                    self.removeLastSection()
+                })
+            }
+        } else {
+            self.removeAllAdditionalSections()
+        }
+    }
+    
+    func startRenting() {
+        let rentingCounterView = RentingCounterView(frame: .zero)
+        rentingCounterView.alpha = 0
+        self.garageInfoView.button.setTitle("Concluir", for: .normal)
+        self.garageInfoView.addSupplementaryView(rentingCounterView) {
+            UIView.animate(withDuration: 0.7, animations: {
+                rentingCounterView.alpha = 1
+            }, completion: { _ in
+                self.rentingGarageDelegate?.startedRenting(self.garageInfoView)
+                self.dismiss()
+            })
+        }
+        self.garageInfoView.component.isCollapsed = true
+    }
+    
+    func dismiss() {
+        self.removeFromParent()
+        self.view.removeFromSuperview()
     }
 
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement
-extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return numberOfSections
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
+extension GarageDetailsViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 2: return "Fotos"
@@ -117,101 +123,21 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .clear
-        
-        let separator = UIView()
-        separator.backgroundColor = section > 1 ? UIColor(rgb: 0xBEBEBE, alpha: 100) : .clear
-        view.addSubview(separator)
-        
-        separator.anchor
-        .top(view.topAnchor)
-        .bottom(view.bottomAnchor)
-        .width(view.widthAnchor, multiplier: 0.712)
-        .centerX(view.centerXAnchor)
-        
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailsCell", for: indexPath) as? DetailsTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        let sectionHeaderTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: indexPath.section)
-        cell.sectionHeaderLabel.text = sectionHeaderTitle
-        
-        if cell.content == nil {
-            if let contentView = sectionContent(forIndexPath: indexPath) {
-                cell.addContentView(contentView)
-            }
-        }
-        
-        return cell
-    }
-    
-    // TODO: Get real data, instead of mocked data
-    func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
+    override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
         case 0:
-            garageInfoView = GarageInfoView(frame: .zero)
-            garageInfoView.component.leftImageView.image = UIImage(named: "mockGarage")
-            garageInfoView.component.titleLabel.text = "Garagem de Marcus"
-            garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
-            garageInfoView.component.ratingLabel.text = "4.3"
-            garageInfoView.button.action = { _ in
+            let garageInfoView = super.sectionContent(forIndexPath: indexPath) as? GarageInfoView
+            garageInfoView?.button.action = { _ in
                 self.garageInfoView.button.action = nil
-                (1...3).forEach { index in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * Double(index)), execute: {
-                        self.removeLastSection()
-                    })
-                }
+                self.removeAdditionalSections(animated: true)
                 DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * 4), execute: {
-                    self.garageInfoView.button.setTitle("Concluir", for: .normal)
-                    self.garageInfoView.addSupplementaryView(RentingCounterView(frame: .zero), completion: {
-                        self.rentingGarageDelegate?.startedRenting(self.garageInfoView)
-                        self.removeFromParent()
-                        self.view.removeFromSuperview()
-                    })
-                    self.garageInfoView.component.isCollapsed = true
+                    self.startRenting()
                 })
             }
             return garageInfoView
-        case 1:
-            garageActionsView = GarageActionsView(frame: .zero)
-            garageActionsView.likeButton.action = { _ in print("like") }
-            garageActionsView.rateButton.action = { _ in print("rate") }
-            garageActionsView.shareButton.action = { _ in print("share") }
-            garageActionsView.reportButton.action = { _ in print("report") }
-            return garageActionsView
-        case 2:
-            var pictures = [UIImage]()
-            (0...5).forEach { _ in
-                guard let image = UIImage(named: "mockGarage") else { return }
-                pictures.append(image)
-            }
-            garageGalleryView = GarageGalleryView(images: pictures)
-            return garageGalleryView
-        case 3:
-            var ratings: [Comment] = []
-            (0...7).forEach { _ in
-                let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
-                ratings.append(comment)
-            }
-            ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)
-            ratingsTable = UITableView()
-            ratingsTable.backgroundColor = .clear
-            ratingsTable.separatorStyle = .none
-            ratingsTable.isScrollEnabled = false
-            ratingsTable.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
-            ratingsTable.dataSource = ratingsDataSourceDelegate
-            ratingsTable.delegate = ratingsDataSourceDelegate
-            return ratingsTable
+        case 1: return garageActionsView
+        case 2: return garageGalleryView
+        case 3: return ratingsTable
         default: return nil
         }
     }
@@ -238,9 +164,7 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
         case 1:
             let ratio: CGFloat = 0.128
             let screenWidth: CGFloat = screenBounds.width
-            return 8.0
-                 + ratio * screenWidth
-                 + 8.0
+            return 8.0 + ratio * screenWidth + 8.0
         case 2:
             return 16.0 + headerLabelHeight
                  +  4.0
@@ -251,16 +175,15 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
         default:
             guard let ratingsCount = ratingsDataSourceDelegate?.ratings.count else { return .zero }
             let rowHeight: CGFloat = 64 + 4
-            let height: CGFloat = rowHeight * CGFloat(ratingsCount)
             let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
-            return height + bottomInset
+            return (rowHeight * CGFloat(ratingsCount)) + bottomInset
         }
     }
 }
 
 // MARK: UIScrollViewDelegate implement
-extension GarageDetailsViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+extension GarageDetailsViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView === tableView {
             if scrollView.contentOffset.y <= 0 {
                 floatingViewShouldStopListeningToPanGesture = false

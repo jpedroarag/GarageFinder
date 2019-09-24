@@ -78,7 +78,7 @@ class GarageInfoView: UIView {
         supplementaryView?.frame = CGRect(origin: position, size: size)
     }
     
-    func addSupplementaryView(_ view: UIView, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func addSupplementaryView(_ view: UIView, animated: Bool = true, _ completion: (() -> Void)? = nil) {
         supplementaryView?.removeFromSuperview()
         supplementaryView = view
         setFrameForSupplementaryView()

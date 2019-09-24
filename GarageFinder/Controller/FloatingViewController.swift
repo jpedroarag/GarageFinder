@@ -187,6 +187,7 @@ extension FloatingViewController: RentingGarageDelegate {
         if garageRentingVC == nil {
             garageRentingVC = GarageRentingViewController()
             garageRentingVC?.garageInfoView = garageInfoView
+            garageRentingVC?.shouldAppearAnimated = false
             guard let rentingVC = garageRentingVC else { return }
             addChild(rentingVC)
             view.addSubview(rentingVC.view)
