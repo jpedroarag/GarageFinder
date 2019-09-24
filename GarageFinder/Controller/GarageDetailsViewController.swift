@@ -31,7 +31,13 @@ class GarageDetailsViewController: UIViewController {
     
     var floatingViewShouldStopListeningToPanGesture = false
     var ratingsDataSourceDelegate: GarageRatingsDataSourceDelegate!
+    weak var rentingGarageDelegate: RentingGarageDelegate?
+    
     var garageInfoView: GarageInfoView!
+    var garageActionsView: GarageActionsView!
+    var ratingsTable: UITableView!
+    var garageGalleryView: GarageGalleryView!
+    var numberOfSections = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +91,18 @@ class GarageDetailsViewController: UIViewController {
             self.view.removeFromSuperview()
         })
     }
+    
+    func removeLastSection() {
+        numberOfSections -= 1
+        tableView.deleteSections(IndexSet(arrayLiteral: numberOfSections), with: .fade)
+    }
 
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement
 extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,10 +164,26 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             garageInfoView.component.titleLabel.text = "Garagem de Marcus"
             garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
             garageInfoView.component.ratingLabel.text = "4.3"
-            garageInfoView.parkButton.action = { _ in print("park") }
+            garageInfoView.button.action = { _ in
+                self.garageInfoView.button.action = nil
+                (1...3).forEach { index in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * Double(index)), execute: {
+                        self.removeLastSection()
+                    })
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * 4), execute: {
+                    self.garageInfoView.button.setTitle("Concluir", for: .normal)
+                    self.garageInfoView.addSupplementaryView(RentingCounterView(frame: .zero), completion: {
+                        self.rentingGarageDelegate?.startedRenting(self.garageInfoView)
+                        self.removeFromParent()
+                        self.view.removeFromSuperview()
+                    })
+                    self.garageInfoView.component.isCollapsed = true
+                })
+            }
             return garageInfoView
         case 1:
-            let garageActionsView = GarageActionsView(frame: .zero)
+            garageActionsView = GarageActionsView(frame: .zero)
             garageActionsView.likeButton.action = { _ in print("like") }
             garageActionsView.rateButton.action = { _ in print("rate") }
             garageActionsView.shareButton.action = { _ in print("share") }
@@ -168,7 +195,8 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
                 guard let image = UIImage(named: "mockGarage") else { return }
                 pictures.append(image)
             }
-            return GarageGalleryView(images: pictures)
+            garageGalleryView = GarageGalleryView(images: pictures)
+            return garageGalleryView
         case 3:
             var ratings: [Comment] = []
             (0...7).forEach { _ in
@@ -176,14 +204,14 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
                 ratings.append(comment)
             }
             ratingsDataSourceDelegate = GarageRatingsDataSourceDelegate(ratings: ratings)
-            let table = UITableView()
-            table.backgroundColor = .clear
-            table.separatorStyle = .none
-            table.isScrollEnabled = false
-            table.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
-            table.dataSource = ratingsDataSourceDelegate
-            table.delegate = ratingsDataSourceDelegate
-            return table
+            ratingsTable = UITableView()
+            ratingsTable.backgroundColor = .clear
+            ratingsTable.separatorStyle = .none
+            ratingsTable.isScrollEnabled = false
+            ratingsTable.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
+            ratingsTable.dataSource = ratingsDataSourceDelegate
+            ratingsTable.delegate = ratingsDataSourceDelegate
+            return ratingsTable
         default: return nil
         }
     }
@@ -196,9 +224,15 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             let titleLabelHeight: CGFloat = 21.5
             let subtitleLabelHeight: CGFloat = 16.0
             let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
+            var supplementaryViewSpace: CGFloat = 0
+            
+            if numberOfSections == 1 {
+                supplementaryViewSpace = 24.0 + 50.0
+            }
 
             return 16.0 + titleLabelHeight
                  +  4.0 + subtitleLabelHeight
+                 +  supplementaryViewSpace
                  +  24.0 + buttonHeight
                  +  16.0
         case 1:

@@ -15,6 +15,7 @@ class FloatingViewController: UIViewController {
     weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
     
     var garageDetailsVC: GarageDetailsViewController?
+    var garageRentingVC: GarageRentingViewController?
     var mapView: MapView?
     
     lazy var floatingView: FloatingView = {
@@ -153,6 +154,7 @@ extension FloatingViewController: SelectGarageDelegate {
     func showGarageDetailsVC() {
         if garageDetailsVC == nil {
             garageDetailsVC = GarageDetailsViewController()
+            garageDetailsVC?.rentingGarageDelegate = self
             guard let garageVC = garageDetailsVC else { return }
             floatingView.floatingViewPositioningDelegate = garageVC
             addChild(garageVC)
@@ -177,6 +179,37 @@ extension FloatingViewController: SelectGarageDelegate {
     
     func didDeselectGarage() {
     
+    }
+}
+
+extension FloatingViewController: RentingGarageDelegate {
+    func showGarageRentingVC(_ garageInfoView: GarageInfoView) {
+        if garageRentingVC == nil {
+            garageRentingVC = GarageRentingViewController()
+            garageRentingVC?.garageInfoView = garageInfoView
+            guard let rentingVC = garageRentingVC else { return }
+            addChild(rentingVC)
+            view.addSubview(rentingVC.view)
+            rentingVC.didMove(toParent: self)
+            floatingView.animTo(positionY: floatingView.middleView)
+        } else {
+            removeGarageRentingVC()
+            showGarageRentingVC(garageInfoView)
+        }
+    }
+    
+    func removeGarageRentingVC() {
+        garageRentingVC?.removeFromParent()
+        garageRentingVC?.view.removeFromSuperview()
+        garageRentingVC = nil
+    }
+    
+    func startedRenting(_ garageInfoView: GarageInfoView) {
+        showGarageRentingVC(garageInfoView)
+    }
+    
+    func stoppedRenting() {
+        
     }
 }
 
