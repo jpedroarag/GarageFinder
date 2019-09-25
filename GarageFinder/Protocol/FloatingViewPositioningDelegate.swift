@@ -8,9 +8,11 @@
 
 import Foundation
 
+enum FloatingViewPosition: Int {
+    case partial = 0
+    case middle = 1
+    case full = 2
+}
 protocol FloatingViewPositioningDelegate: class {
-    func enteredPartialView()
-    func enteredMiddleView()
-    func enteredFullView()
-    func shouldStopListeningToPanGesture() -> Bool
+    func didEntered(in position: FloatingViewPosition)
 }

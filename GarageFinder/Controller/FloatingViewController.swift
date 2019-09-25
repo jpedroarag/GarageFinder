@@ -12,7 +12,6 @@ import MapKit
 class FloatingViewController: UIViewController {
 
     weak var searchDelegate: SearchDelegate?
-    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
     
     var garageDetailsVC: GarageDetailsViewController?
     var mapView: MapView?
@@ -22,7 +21,6 @@ class FloatingViewController: UIViewController {
         floatingView.searchBar.delegate = self
         floatingView.tableView.delegate = self
         floatingView.tableView.dataSource = floatingTableViewDataSource
-        floatingView.floatingViewPositionDelegate = self
         return floatingView
     }()
     
@@ -118,9 +116,7 @@ extension FloatingViewController: UISearchBarDelegate {
         searchVC.mapView = mapVC.mapView
         searchDelegate = searchVC
         searchVC.changeScrollViewDelegate = self
-        addChild(searchVC)
-        floatingView.addSubview(searchVC.view)
-        searchVC.didMove(toParent: self)
+        show(searchVC)
 
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -150,47 +146,38 @@ extension FloatingViewController: UISearchBarDelegate {
 }
 
 extension FloatingViewController: SelectGarageDelegate {
-    func showGarageDetailsVC() {
-        if garageDetailsVC == nil {
-            garageDetailsVC = GarageDetailsViewController()
-            guard let garageVC = garageDetailsVC else { return }
-            floatingView.floatingViewPositioningDelegate = garageVC
-            addChild(garageVC)
-            view.addSubview(garageVC.view)
-            garageVC.didMove(toParent: self)
-            floatingView.animTo(positionY: floatingView.middleView)
-        } else {
-            removeGarageDetailsVC()
-            showGarageDetailsVC()
-        }
+    
+    var garageVC: GarageDetailsViewController? {
+        return children.filter({ $0 is GarageDetailsViewController}).first as? GarageDetailsViewController
     }
     
-    func removeGarageDetailsVC() {
-        garageDetailsVC?.removeFromParent()
-        garageDetailsVC?.view.removeFromSuperview()
-        garageDetailsVC = nil
+    func showGarageDetailsVC() {
+        if let garageVC = garageVC {
+            garageVC.dismissFromParent()
+            showGarageDetailsVC()
+        } else {
+            let garageDetail = GarageDetailsViewController()
+            garageDetail.changeScrollViewDelegate = self
+            floatingView.floatingViewPositioningDelegate = garageDetail
+            floatingView.animTo(positionY: floatingView.middleView)
+            show(garageDetail)
+        }
+        
     }
     
     func didSelectGarage() {
         showGarageDetailsVC()
     }
-    
-    func didDeselectGarage() {
-    
-    }
-}
 
-// MARK: FloatingViewPositionDelegate
-extension FloatingViewController: FloatingViewPositionDelegate {
-    func didChangeFloatingViewPosition() {
-        cancellSearch()
+    func didDeselectGarage() {
+        if let garageVC = garageVC {
+            garageVC.dismissFromParent()
+        }
     }
-    
 }
 
 extension FloatingViewController: ChangeScrollViewDelegate {
     func didChange(scrollView: UIScrollView) {
-        if floatingView.lastScrollView == scrollView { return }
-        floatingView.lastScrollView = scrollView
+        floatingView.changeCurrentScrollView(scrollView)
     }
 }

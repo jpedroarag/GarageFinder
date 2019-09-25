@@ -1,6 +1,7 @@
 disabled_rules:
  - trailing_whitespace
  - large_tuple
+ - weak_delegate
  
 opt_in_rules:
  - force_unwrapping
@@ -11,4 +12,4 @@ line_length:
 
 identifier_name:
   min_length: 2
-  max_lenght: 10
+  max_length: 50
