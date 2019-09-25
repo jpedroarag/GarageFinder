@@ -132,8 +132,7 @@ extension GarageDetailsViewController {
     override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
         case 0:
-            let garageInfoView = super.sectionContent(forIndexPath: indexPath) as? GarageInfoView
-            garageInfoView?.button.action = { button in
+            garageInfoView.button.action = { button in
                 button.action = nil
                 self.removeAdditionalSections(animated: true) {
                     self.startRenting()
