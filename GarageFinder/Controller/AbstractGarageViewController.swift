@@ -29,13 +29,20 @@ class AbstractGarageViewController: UIViewController {
         return table
     }()
     
-    var garageInfoView: GarageInfoView! {
+    var temporaryGarageView: GarageInfoView! = { // TODO: Get rid of this ASAP
         let garageInfoView = GarageInfoView(frame: .zero)
         garageInfoView.component.leftImageView.image = UIImage(named: "mockGarage")
         garageInfoView.component.titleLabel.text = "Garagem de Marcus"
         garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
         garageInfoView.component.ratingLabel.text = "4.3"
         return garageInfoView
+    }()
+    
+    var garageInfoView: GarageInfoView! {
+//        let garageInfoView = GarageInfoView(frame: .zero)
+//        garageInfoView.loadData(presentedGarage)
+//        return garageInfoView
+        return temporaryGarageView
     }
     
     var numberOfSections = 1

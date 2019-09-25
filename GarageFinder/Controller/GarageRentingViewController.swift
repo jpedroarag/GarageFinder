@@ -13,9 +13,17 @@ class GarageRentingViewController: AbstractGarageViewController {
 
     override func viewDidLoad() {
         shouldAppearAnimated = false
-        numberOfSections = 2
+        numberOfSections = 1
         indexSectionSeparatorsShouldStartAppearing = 1
         super.viewDidLoad()
+        garageInfoView.component.isCollapsed = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if numberOfSections == 1 {
+            numberOfSections += 1
+            tableView.insertSections([1], with: .fade)
+        }
     }
 
 }
@@ -32,8 +40,7 @@ extension GarageRentingViewController {
     // TODO: Get real data, instead of mocked data
     override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
-        case 0:
-            return garageInfoView
+        case 0: return garageInfoView
         case 1: return nil
         default: return nil
         }

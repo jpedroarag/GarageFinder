@@ -186,13 +186,13 @@ extension FloatingViewController: RentingGarageDelegate {
     func showGarageRentingVC(_ garageInfoView: GarageInfoView) {
         if garageRentingVC == nil {
             garageRentingVC = GarageRentingViewController()
-            garageRentingVC?.garageInfoView = garageInfoView
+            garageRentingVC?.temporaryGarageView = garageInfoView
             garageRentingVC?.shouldAppearAnimated = false
             guard let rentingVC = garageRentingVC else { return }
             addChild(rentingVC)
             view.addSubview(rentingVC.view)
             rentingVC.didMove(toParent: self)
-            floatingView.animTo(positionY: floatingView.middleView)
+//            floatingView.animTo(positionY: floatingView.middleView)
         } else {
             removeGarageRentingVC()
             showGarageRentingVC(garageInfoView)
