@@ -47,7 +47,7 @@ class AbstractGarageViewController: UIViewController {
     
     var numberOfSections = 1
     var shouldAppearAnimated = false
-    var indexSectionSeparatorsShouldStartAppearing = 0
+    var sectionSeparatorsStartAppearIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,12 +84,12 @@ class AbstractGarageViewController: UIViewController {
     
     private func setConstraints() {
         closeButton.anchor
-            .top(view.topAnchor, padding: 8)
+            .top(view.topAnchor, padding: 4)
             .right(view.rightAnchor, padding: 8 + 8)
             .width(constant: 16)
             .height(constant: 16)
         tableView.anchor
-            .top(view.topAnchor, padding: 16 + 5 + 8)
+            .top(view.topAnchor, padding: 16 + 8)
             .left(view.leftAnchor, padding: 8)
             .right(view.rightAnchor, padding: 8)
             .bottom(view.bottomAnchor)
@@ -125,7 +125,7 @@ extension AbstractGarageViewController: UITableViewDataSource, UITableViewDelega
         view.backgroundColor = .clear
         
         let separator = UIView()
-        separator.backgroundColor = section >= indexSectionSeparatorsShouldStartAppearing ? UIColor(rgb: 0xBEBEBE, alpha: 100) : .clear
+        separator.backgroundColor = section >= sectionSeparatorsStartAppearIndex ? UIColor(rgb: 0xBEBEBE, alpha: 100) : .clear
         view.addSubview(separator)
         
         separator.anchor

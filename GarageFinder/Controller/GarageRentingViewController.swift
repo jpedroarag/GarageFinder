@@ -14,7 +14,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     override func viewDidLoad() {
         shouldAppearAnimated = false
         numberOfSections = 1
-        indexSectionSeparatorsShouldStartAppearing = 1
+        sectionSeparatorsStartAppearIndex = 1
         super.viewDidLoad()
         garageInfoView.component.isCollapsed = true
     }

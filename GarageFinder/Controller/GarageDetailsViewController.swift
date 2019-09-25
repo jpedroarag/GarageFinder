@@ -32,26 +32,30 @@ class GarageDetailsViewController: AbstractGarageViewController {
         return GarageGalleryView(images: pictures)
     }
     
-    lazy var ratingListController = GarageRatingListViewController()
-    
-    var ratingsTable: UIView {
-        if ratingListController.ratings.isEmpty {
-            var ratings: [Comment] = []
-            (0...7).forEach { _ in
-                let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
-                ratings.append(comment)
-            }
-            ratingListController.loadRatings(ratings)
+    lazy var ratingListController: GarageRatingListViewController = {
+        let controller = GarageRatingListViewController()
+        self.addChild(controller)
+        controller.didMove(toParent: self)
+        
+        var ratings: [Comment] = []
+        (0...7).forEach { _ in
+            let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
+            ratings.append(comment)
         }
+        controller.loadRatings(ratings)
+        
+        return controller
+    }()
+    
+    var ratingsView: UIView {
         return ratingListController.view
     }
     
     override func viewDidLoad() {
         numberOfSections = 4
         shouldAppearAnimated = true
-        indexSectionSeparatorsShouldStartAppearing = 2
+        sectionSeparatorsStartAppearIndex = 2
         super.viewDidLoad()
-        addChild(ratingListController)
     }
     
     @objc override func closeButtonTapped() {
@@ -123,12 +127,6 @@ extension GarageDetailsViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        ratingListController.didMove(toParent: self)
-        return cell
-    }
-    
     override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
         case 0:
@@ -141,7 +139,7 @@ extension GarageDetailsViewController {
             return garageInfoView
         case 1: return garageActionsView
         case 2: return garageGalleryView
-        case 3: return ratingsTable
+        case 3: return ratingsView
         default: return nil
         }
     }
