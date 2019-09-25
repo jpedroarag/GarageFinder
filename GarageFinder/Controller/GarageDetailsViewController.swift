@@ -11,7 +11,7 @@ import GarageFinderFramework
 
 class GarageDetailsViewController: AbstractGarageViewController {
     
-    var floatingViewShouldStopListeningToPan = false
+    lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
     
     var garageActionsView: GarageActionsView {
@@ -76,11 +76,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
         tableView.deleteSections([1, 2, 3], with: .none)
     }
     
-    private func removeAdditionalSections(animated: Bool = true) {
+    private func removeAdditionalSections(animated: Bool = true, _ completion: (() -> Void)? = nil) {
         if animated {
-            (1...3).forEach { index in
-                DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * Double(index)), execute: {
-                    self.removeLastSection()
+            (1...4).forEach { index in
+                let sectionsRemovingDeadline = 0.35 * Double(index)
+                let completionDeadline = 0.7
+                let deadline = DispatchTime.now() + (index != 4 ? sectionsRemovingDeadline : completionDeadline)
+                DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                    index != 4 ? self.removeLastSection() : completion?()
                 })
             }
         } else {
@@ -130,12 +133,11 @@ extension GarageDetailsViewController {
         switch indexPath.section {
         case 0:
             let garageInfoView = super.sectionContent(forIndexPath: indexPath) as? GarageInfoView
-            garageInfoView?.button.action = { _ in
-                self.garageInfoView.button.action = nil
-                self.removeAdditionalSections(animated: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + (0.7/4 * 4), execute: {
+            garageInfoView?.button.action = { button in
+                button.action = nil
+                self.removeAdditionalSections(animated: true) {
                     self.startRenting()
-                })
+                }
             }
             return garageInfoView
         case 1: return garageActionsView
