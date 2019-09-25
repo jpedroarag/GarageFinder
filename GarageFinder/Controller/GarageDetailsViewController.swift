@@ -103,13 +103,9 @@ class GarageDetailsViewController: AbstractGarageViewController {
         self.garageInfoView.component.isCollapsed = true
     }
     
-    func dismiss() { // MARK: WTF IS THIS?????????
+    func dismiss() {
         let floatingController = self.parent as? FloatingViewController
-        floatingController?.floatingViewPositioningDelegate = nil
-        floatingController?.floatingView.floatingViewPositioningDelegate = nil
-        self.removeFromParent()
-        self.view.removeFromSuperview()
-        self.dismiss(animated: false, completion: nil)
+        floatingController?.removeGarageDetailsVC()
     }
 
 }

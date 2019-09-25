@@ -37,7 +37,6 @@ extension GarageRentingViewController {
         }
     }
     
-    // TODO: Get real data, instead of mocked data
     override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
         case 0: return garageInfoView
