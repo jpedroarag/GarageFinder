@@ -16,7 +16,9 @@ class GarageRentingViewController: AbstractGarageViewController {
         numberOfSections = 1
         sectionSeparatorsStartAppearIndex = 1
         super.viewDidLoad()
-        garageInfoView.component.isCollapsed = true
+        if !garageInfoView.component.isCollapsed {
+            garageInfoView.component.isCollapsed = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -20,7 +20,7 @@ class GFTableViewComponent: UIView {
         didSet {
             resetConstraints()
             self.ratingLabel.alpha = 0
-            UIView.animate(withDuration: 0.7, animations: {
+            UIView.animate(withDuration: 0.7) {
                 self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
                 self.layoutSubviews()
                 UIView.animate(withDuration: 0.35) {
