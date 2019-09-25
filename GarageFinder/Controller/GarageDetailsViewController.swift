@@ -23,7 +23,6 @@ class GarageDetailsViewController: UIViewController {
         table.backgroundColor = .white
         table.separatorStyle = .none
         table.bounces = false
-        //table.isScrollEnabled = false
         table.showsVerticalScrollIndicator = false
         table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
         return table
@@ -75,12 +74,14 @@ class GarageDetailsViewController: UIViewController {
     }
     
     @objc func closeButtonTapped() {
-        floatingViewShouldStopListeningToPanGesture = false
+        dismissFromParent()
+    }
+    
+    func dismissFromParent() {
+        self.removeFromParent()
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
-            let floatingController = self.parent as? FloatingViewController
-            self.removeFromParent()
             self.view.removeFromSuperview()
         })
     }
@@ -176,7 +177,6 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
             let table = UITableView()
             table.backgroundColor = .clear
             table.separatorStyle = .none
-            //table.isScrollEnabled = false
             table.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
             table.dataSource = ratingsDataSourceDelegate
             table.delegate = ratingsDataSourceDelegate
@@ -225,5 +225,11 @@ extension GarageDetailsViewController: UITableViewDataSource, UITableViewDelegat
 extension GarageDetailsViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         changeScrollViewDelegate?.didChange(scrollView: scrollView)
+    }
+}
+
+extension GarageDetailsViewController: FloatingViewPositioningDelegate {
+    func didEntered(in position: FloatingViewPosition) {
+        garageInfoView?.component.isCollapsed = position == .full ? true : false
     }
 }

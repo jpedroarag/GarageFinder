@@ -59,12 +59,15 @@ class FloatingView: UIView {
     var currentPos: CGFloat = 0
     var currentIndexPos = 0 {
         didSet {
+            guard let pos = FloatingViewPosition(rawValue: currentIndexPos) else { return }
+            floatingViewPositioningDelegate?.didEntered(in: pos)
             currentPos = allPos[currentIndexPos]
             if currentIndexPos == 1 || currentIndexPos == 0 {
                 clearSearch()
             }
         }
     }
+    weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupParentView()
@@ -211,12 +214,6 @@ extension FloatingView {
                 }
             }
             
-//            switch currentIndexPos {
-//            case 1: floatingViewPositioningDelegate?.enteredMiddleView()
-//            case 2: floatingViewPositioningDelegate?.enteredFullView()
-//            default: floatingViewPositioningDelegate?.enteredPartialView()
-//            }
-            
             if currentPos == middleView || currentPos == partialView {
                 lastScrollView.setContentOffset(CGPoint(x: lastScrollView.contentOffset.x, y: 0), animated: true)
             }
@@ -247,7 +244,7 @@ extension FloatingView {
         })
     }
     
-    func changeLastScrollView(_ scrollView: UIScrollView) {
+    func changeCurrentScrollView(_ scrollView: UIScrollView) {
         if lastScrollView == scrollView { return }
         lastScrollView = scrollView
     }
