@@ -24,7 +24,6 @@ class GarageInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(component)
-        component.leftImageView.image = UIImage(named: "mock")
         addSubview(parkButton)
         parkButton.addTarget(self, action: #selector(parkButtonTapped(_:)), for: .touchUpInside)
         setConstraints()
