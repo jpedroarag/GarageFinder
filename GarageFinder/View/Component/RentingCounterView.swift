@@ -13,7 +13,7 @@ class RentingCounterView: UIView {
     lazy var timerLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .systemFont(ofSize: 36.0, weight: .semibold)
-        label.text = "00:40"
+        label.text = "00:00"
         return label
     }()
     
@@ -27,7 +27,7 @@ class RentingCounterView: UIView {
     lazy var priceLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .systemFont(ofSize: 36.0, weight: .semibold)
-        label.text = "1,86"
+        label.text = " 0,00"
         return label
     }()
     
@@ -49,8 +49,8 @@ class RentingCounterView: UIView {
     
     private func setConstraints() {
         timerIcon.anchor
-            .bottom(timerLabel.lastBaselineAnchor)
-            .left(leftAnchor)
+            .centerY(centerYAnchor)
+            .left(leftAnchor, padding: 24, relation: .lessThanOrEqual)
             .width(constant: 16)
             .height(timerIcon.widthAnchor)
         timerLabel.anchor
@@ -58,14 +58,14 @@ class RentingCounterView: UIView {
             .top(topAnchor)
             .left(timerIcon.rightAnchor, padding: 4)
         priceIcon.anchor
-            .bottom(priceLabel.lastBaselineAnchor)
-            .right(priceLabel.leftAnchor, padding: 4)
+            .centerY(centerYAnchor)
+            .right(priceLabel.leftAnchor, padding: -3)
             .width(constant: 16)
             .height(timerIcon.widthAnchor)
         priceLabel.anchor
             .bottom(bottomAnchor)
             .top(topAnchor)
-            .right(rightAnchor)
+            .right(rightAnchor, padding: 24, relation: .lessThanOrEqual)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
