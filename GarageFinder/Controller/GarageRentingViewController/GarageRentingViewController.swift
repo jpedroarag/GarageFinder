@@ -36,10 +36,10 @@ class GarageRentingViewController: AbstractGarageViewController {
             garageInfoView.component.isCollapsed = true
         }
         garageInfoView.button.action = { button in
-            button.action = nil
             UIView.animate(withDuration: 0.175, animations: {
                 button.alpha = 0
             }, completion: { _ in
+                button.action = nil
                 button.setTitle("Pagar", for: .normal)
                 UIView.animate(withDuration: 0.175, animations: {
                     button.alpha = 1
@@ -48,6 +48,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isRunning = false
             self.rentingObject.conclude()
             self.update()
+            self.pay()
         }
         fireRenting()
     }
@@ -75,6 +76,10 @@ class GarageRentingViewController: AbstractGarageViewController {
         let counterView = garageInfoView.supplementaryView as? RentingCounterView
         counterView?.timerLabel.text = rentingObject.permanenceDurationString
         counterView?.priceLabel.text = rentingObject.priceString
+    }
+    
+    func pay() {
+        // TODO: Payment action.
     }
 
 }
