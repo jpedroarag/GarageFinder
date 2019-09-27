@@ -19,4 +19,17 @@ public struct Garage {
     public let userId: Int
     public let addressId: Int
     public let comments: [Comment]
+    
+    public init() {
+        garageId = 0
+        description = ""
+        parkingSpaces = 0
+        price = 0
+        photo1 = ""
+        photo2 = ""
+        photo3 = ""
+        userId = 0
+        addressId = 0
+        comments = []
+    }
 }

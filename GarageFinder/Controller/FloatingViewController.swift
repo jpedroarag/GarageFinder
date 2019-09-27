@@ -8,12 +8,14 @@
 
 import UIKit
 import MapKit
+import GarageFinderFramework
 
 class FloatingViewController: UIViewController {
 
     weak var searchDelegate: SearchDelegate?
     
-    var garageDetailsVC: GarageDetailsViewController?
+//    var garageDetailsVC: GarageDetailsViewController?
+//    var garageRentingVC: GarageRentingViewController?
     var mapView: MapView?
     
     lazy var floatingView: FloatingView = {
@@ -158,6 +160,7 @@ extension FloatingViewController: SelectGarageDelegate {
         } else {
             let garageDetail = GarageDetailsViewController()
             garageDetail.changeScrollViewDelegate = self
+            garageDetail.rentingGarageDelegate = self
             floatingView.floatingViewPositioningDelegate = garageDetail
             floatingView.animTo(positionY: floatingView.middleView)
             show(garageDetail)
@@ -168,11 +171,44 @@ extension FloatingViewController: SelectGarageDelegate {
     func didSelectGarage() {
         showGarageDetailsVC()
     }
-
+    
     func didDeselectGarage() {
         if let garageVC = garageVC {
             garageVC.dismissFromParent()
         }
+    }
+}
+
+extension FloatingViewController: RentingGarageDelegate {
+    
+    var rentingVC: GarageRentingViewController? {
+        return children.filter({ $0 is GarageRentingViewController}).first as? GarageRentingViewController
+    }
+    
+    func showGarageRentingVC(_ garage: Garage) {
+        if let rentingVC = rentingVC {
+            rentingVC.dismissFromParent()
+            showGarageRentingVC(garage)
+        } else {
+            let garageRenting = GarageRentingViewController()
+            garageRenting.garageInfoView.loadData(garage)
+            garageRenting.shouldAppearAnimated = false
+            show(garageRenting)
+            if floatingView.currentPos == floatingView.partialView {
+                floatingView.animTo(positionY: floatingView.middleView)
+            }
+            if let garageVC = garageVC {
+                garageVC.dismissFromParent()
+            }
+        }
+    }
+    
+    func startedRenting(garage: Garage) {
+        showGarageRentingVC(garage)
+    }
+    
+    func stoppedRenting() {
+        
     }
 }
 

@@ -24,7 +24,9 @@ public class SmartConstraint {
     unowned var view: AnyObject
     
     public var constraints: [NSLayoutConstraint] = []
-    public var lastConstraint: NSLayoutConstraint?
+    public var lastConstraint: NSLayoutConstraint? {
+        didSet { if let constraint = lastConstraint { constraints.append(constraint) } }
+    }
     /// Init with View
     init(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +51,7 @@ public class SmartConstraint {
     
     /// Deactivate all constraints
     public func deactivateAll() {
-        constraints.forEach { $0.isActive = false }
+        NSLayoutConstraint.deactivate(constraints)
         constraints.removeAll()
     }
 

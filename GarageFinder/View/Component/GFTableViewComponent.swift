@@ -19,9 +19,13 @@ class GFTableViewComponent: UIView {
     var isCollapsed = false {
         didSet {
             resetConstraints()
+            ratingLabel.alpha = 0
             UIView.animate(withDuration: 0.7) {
                 self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
                 self.layoutSubviews()
+                UIView.animate(withDuration: 0.35) {
+                    self.ratingLabel.alpha = 1
+                }
             }
         }
     }
@@ -99,6 +103,9 @@ class GFTableViewComponent: UIView {
                         + rightImageView.bounds.width
         titleLabelWidthConstraint.constant = -filledSpace
         titleLabelWidthConstraint.isActive = !isCollapsed
+        if isCollapsed {
+            leftImageViewWidthConstraint.constant = -leftImageView.bounds.height
+        }
     }
     
     private func addSubviews() {
