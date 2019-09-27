@@ -12,7 +12,8 @@ class RentingCounterView: UIView {
 
     lazy var timerLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = .systemFont(ofSize: 36.0, weight: .semibold)
+        let screenWidth = UIScreen.main.bounds.width
+        label.font = .systemFont(ofSize: (screenWidth/10 - 5), weight: .semibold)
         label.text = "00:00"
         return label
     }()
@@ -26,7 +27,8 @@ class RentingCounterView: UIView {
     
     lazy var priceLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = .systemFont(ofSize: 36.0, weight: .semibold)
+        let screenWidth = UIScreen.main.bounds.width
+        label.font = .systemFont(ofSize: (screenWidth/10 - 5), weight: .semibold)
         label.text = " 0,00"
         return label
     }()
@@ -50,22 +52,24 @@ class RentingCounterView: UIView {
     private func setConstraints() {
         timerIcon.anchor
             .centerY(centerYAnchor)
-            .left(leftAnchor, padding: 24, relation: .lessThanOrEqual)
+            .left(leftAnchor, padding: 24, relation: .greaterThanOrEqual)
+            .right(timerLabel.leftAnchor, padding: 4)
             .width(constant: 16)
             .height(timerIcon.widthAnchor)
         timerLabel.anchor
             .bottom(bottomAnchor)
             .top(topAnchor)
-            .left(timerIcon.rightAnchor, padding: 4)
+            .right(centerXAnchor, padding: 16)
         priceIcon.anchor
             .centerY(centerYAnchor)
-            .right(priceLabel.leftAnchor, padding: -3)
+            .left(centerXAnchor, padding: 16)
             .width(constant: 16)
             .height(timerIcon.widthAnchor)
         priceLabel.anchor
+            .left(priceIcon.rightAnchor, padding: -3)
             .bottom(bottomAnchor)
             .top(topAnchor)
-            .right(rightAnchor, padding: 24, relation: .lessThanOrEqual)
+            .right(rightAnchor, padding: 24)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
