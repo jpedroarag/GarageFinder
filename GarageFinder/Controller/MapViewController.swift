@@ -56,14 +56,9 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
-
-        addChild(floatingVC)
-        view.addSubview(floatingVC.view)
         self.floatingView = floatingVC.view
-        self.addChild(floatingVC)
-        self.view.addSubview(floatingView)
-        floatingVC.didMove(toParent: self)
         selectGarageDelegate = floatingVC
+        show(floatingVC)
     }
     
     func setConstraints() {
@@ -154,7 +149,6 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        //guard let annotation = view.annotation else { return }
         selectGarageDelegate?.didSelectGarage()
     }
     

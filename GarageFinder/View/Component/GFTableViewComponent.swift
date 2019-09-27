@@ -19,7 +19,7 @@ class GFTableViewComponent: UIView {
     var isCollapsed = false {
         didSet {
             resetConstraints()
-            self.ratingLabel.alpha = 0
+            ratingLabel.alpha = 0
             UIView.animate(withDuration: 0.7) {
                 self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
                 self.layoutSubviews()
@@ -103,6 +103,9 @@ class GFTableViewComponent: UIView {
                         + rightImageView.bounds.width
         titleLabelWidthConstraint.constant = -filledSpace
         titleLabelWidthConstraint.isActive = !isCollapsed
+        if isCollapsed {
+            leftImageViewWidthConstraint.constant = -leftImageView.bounds.height
+        }
     }
     
     private func addSubviews() {

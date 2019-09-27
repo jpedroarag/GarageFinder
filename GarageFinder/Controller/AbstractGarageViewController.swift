@@ -11,6 +11,8 @@ import GarageFinderFramework // TODO: get rid of this (using for inserting mocke
 
 class AbstractGarageViewController: UIViewController {
     
+    weak var changeScrollViewDelegate: ChangeScrollViewDelegate?
+    
     let closeButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "close")
@@ -29,20 +31,13 @@ class AbstractGarageViewController: UIViewController {
         return table
     }()
     
-    var temporaryGarageView: GarageInfoView! = { // TODO: Get rid of this ASAP
+    var garageInfoView: GarageInfoView {
         let garageInfoView = GarageInfoView(frame: .zero)
         garageInfoView.component.leftImageView.image = UIImage(named: "mockGarage")
         garageInfoView.component.titleLabel.text = "Garagem de Marcus"
         garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
         garageInfoView.component.ratingLabel.text = "4.3"
         return garageInfoView
-    }()
-    
-    var garageInfoView: GarageInfoView! {
-//        let garageInfoView = GarageInfoView(frame: .zero)
-//        garageInfoView.loadData(presentedGarage)
-//        return garageInfoView
-        return temporaryGarageView
     }
     
     var numberOfSections = 1
@@ -96,10 +91,14 @@ class AbstractGarageViewController: UIViewController {
     }
     
     @objc func closeButtonTapped() {
+        dismissFromParent()
+    }
+    
+    func dismissFromParent() {
+        self.removeFromParent()
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
-            self.removeFromParent()
             self.view.removeFromSuperview()
         })
     }
@@ -163,8 +162,8 @@ extension AbstractGarageViewController: UITableViewDataSource, UITableViewDelega
 }
 
 // MARK: UIScrollViewDelegate implement
-extension AbstractGarageViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.isScrollEnabled = false
+extension AbstractGarageViewController {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        changeScrollViewDelegate?.didChange(scrollView: scrollView)
     }
 }

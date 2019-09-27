@@ -7,6 +7,11 @@
 //
 
 import UIKit
+enum CurrentViewInFloating {
+    case baseFloating
+    case garageDetail
+    case search
+}
 
 class FloatingView: UIView {
     lazy var parentView: UIView = {
@@ -54,14 +59,15 @@ class FloatingView: UIView {
     var currentPos: CGFloat = 0
     var currentIndexPos = 0 {
         didSet {
+            guard let pos = FloatingViewPosition(rawValue: currentIndexPos) else { return }
+            floatingViewPositioningDelegate?.didEntered(in: pos)
             currentPos = allPos[currentIndexPos]
             if currentIndexPos == 1 || currentIndexPos == 0 {
-                floatingViewPositionDelegate?.didChangeFloatingViewPosition()
+                clearSearch()
             }
         }
     }
     weak var floatingViewPositioningDelegate: FloatingViewPositioningDelegate?
-    weak var floatingViewPositionDelegate: FloatingViewPositionDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupParentView()
@@ -145,26 +151,19 @@ extension FloatingView {
         if recognizer.state == .began {
             lastTouchY = recognizer.location(in: self).y
         }
-        
+        lastScrollView.isScrollEnabled = allPos[currentIndexPos] == fullView
         let iSTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
-        
+    
         if lastScrollView.contentOffset.y <= 0 || iSTouchingSearchBar {
             scroll(recognizer)
         } else {
             recognizer.setTranslation(.zero, in: self)
         }
         
-        let fullOrMiddleView = allPos[currentIndexPos] == fullView
-        lastScrollView.isScrollEnabled = fullOrMiddleView ? true : false
         endScroll(recognizer)
     }
     
     func scroll(_ recognizer: UIPanGestureRecognizer) {
-        if let delegate = floatingViewPositioningDelegate {
-            if delegate.shouldStopListeningToPanGesture() {
-                return
-            }
-        }
         let translation = recognizer.translation(in: self)
         let minY = frame.minY
         
@@ -209,13 +208,10 @@ extension FloatingView {
                     currentIndexPos += canMoveUp ? -1 : 1
                 }
             } else {
-                currentIndexPos = allPos.firstIndex(of: min.value) ?? 0
-            }
-            
-            switch currentIndexPos {
-            case 1: floatingViewPositioningDelegate?.enteredMiddleView()
-            case 2: floatingViewPositioningDelegate?.enteredFullView()
-            default: floatingViewPositioningDelegate?.enteredPartialView()
+                let minPosition = allPos.firstIndex(of: min.value) ?? 0
+                if currentIndexPos != minPosition {
+                    currentIndexPos = minPosition
+                }
             }
             
             if currentPos == middleView || currentPos == partialView {
@@ -240,7 +236,16 @@ extension FloatingView {
                         
                         self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
                         
-                        self.currentIndexPos = self.allPos.firstIndex(of: positionY) ?? 0
+                        let minPosition = self.allPos.firstIndex(of: positionY) ?? 0
+                        if self.currentIndexPos != minPosition {
+                            self.currentIndexPos = minPosition
+                        }
+                        
         })
+    }
+    
+    func changeCurrentScrollView(_ scrollView: UIScrollView) {
+        if lastScrollView == scrollView { return }
+        lastScrollView = scrollView
     }
 }

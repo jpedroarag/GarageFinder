@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GarageFinderFramework
 
 class GarageInfoView: UIView {
     
@@ -29,6 +30,11 @@ class GarageInfoView: UIView {
         addSubview(button)
         button.addTarget(self, action: #selector(parkButtonTapped(_:)), for: .touchUpInside)
         setConstraints()
+    }
+    
+    convenience init(collapsed: Bool) {
+        self.init(frame: .zero)
+        component.isCollapsed = collapsed
     }
     
     private func setConstraints() {
@@ -100,9 +106,11 @@ class GarageInfoView: UIView {
         button.action?(sender)
     }
     
-    // TODO: Load data from object
-    func loadData() {
-        
+    func loadData(_ garage: Garage) {
+        component.leftImageView.image = UIImage(named: "mockGarage")
+        component.titleLabel.text = "Garagem de Marcus"
+        component.subtitleLabel.text = "St. John Rush, 79"
+        component.ratingLabel.text = "4.3"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

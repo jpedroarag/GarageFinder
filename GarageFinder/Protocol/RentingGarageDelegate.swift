@@ -6,10 +6,9 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import GarageFinderFramework
 
 protocol RentingGarageDelegate: class {
-    func startedRenting(_ garageInfoView: GarageInfoView)
-//    func startedRenting(garage: Garage) // This one is the correct one.
+    func startedRenting(garage: Garage)
     func stoppedRenting()
 }

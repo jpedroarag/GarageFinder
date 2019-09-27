@@ -14,7 +14,38 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     lazy var rentingObject = Renting()
     lazy var isRunning = true
+    var rentedGarage = Garage()
     
+    private var mutableGarageInfoView: GarageInfoView!
+    override var garageInfoView: GarageInfoView {
+        if let view = mutableGarageInfoView {
+            return view
+        } else {
+            let view = GarageInfoView(collapsed: true)
+            view.loadData(rentedGarage)
+            view.button.setTitle("Concluir", for: .normal)
+            view.button.action = { button in
+                UIView.animate(withDuration: 0.175, animations: {
+                    button.alpha = 0
+                }, completion: { _ in
+                    button.action = nil
+                    button.setTitle("Pagar", for: .normal)
+                    UIView.animate(withDuration: 0.175, animations: {
+                        button.alpha = 1
+                    })
+                })
+                self.isRunning = false
+                self.rentingObject.conclude()
+                self.update()
+                self.pay()
+            }
+            view.addSupplementaryView(rentingCounterView, animated: false, nil)
+            return view
+        }
+    }
+    
+    lazy var rentingCounterView = RentingCounterView()
+
     lazy var rentingDetailsController: RentingDetailsViewController = {
         let controller = RentingDetailsViewController()
         addChild(controller)
@@ -32,24 +63,6 @@ class GarageRentingViewController: AbstractGarageViewController {
         numberOfSections = 1
         sectionSeparatorsStartAppearIndex = 1
         super.viewDidLoad()
-        if !garageInfoView.component.isCollapsed {
-            garageInfoView.component.isCollapsed = true
-        }
-        garageInfoView.button.action = { button in
-            UIView.animate(withDuration: 0.175, animations: {
-                button.alpha = 0
-            }, completion: { _ in
-                button.action = nil
-                button.setTitle("Pagar", for: .normal)
-                UIView.animate(withDuration: 0.175, animations: {
-                    button.alpha = 1
-                })
-            })
-            self.isRunning = false
-            self.rentingObject.conclude()
-            self.update()
-            self.pay()
-        }
         fireRenting()
     }
     
@@ -73,13 +86,12 @@ class GarageRentingViewController: AbstractGarageViewController {
     func update() {
         rentingObject.update()
         rentingDetailsController.loadData(self.rentingObject)
-        let counterView = garageInfoView.supplementaryView as? RentingCounterView
-        counterView?.timerLabel.text = rentingObject.permanenceDurationString
-        counterView?.priceLabel.text = rentingObject.priceString
+        rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString
+        rentingCounterView.priceLabel.text = rentingObject.priceString
     }
     
     func pay() {
-        // TODO: Payment action.
+        // TODO: Payment action
     }
 
 }

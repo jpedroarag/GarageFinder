@@ -13,6 +13,26 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
+    lazy var presentedGarage = Garage()
+    
+    private var mutableGarageInfoView: GarageInfoView!
+    override var garageInfoView: GarageInfoView {
+        if let view = mutableGarageInfoView {
+            return view
+        } else {
+            let view = GarageInfoView(frame: .zero)
+            view.loadData(self.presentedGarage)
+            view.button.action = { button in
+                button.action = nil
+                self.removeAdditionalSections(animated: true) {
+                    button.setTitle("Concluir", for: .normal)
+                    self.startRenting()
+                }
+            }
+            self.mutableGarageInfoView = view
+            return view
+        }
+    }
     
     var garageActionsView: GarageActionsView {
         let garageActionsView = GarageActionsView(frame: .zero)
@@ -58,18 +78,6 @@ class GarageDetailsViewController: AbstractGarageViewController {
         super.viewDidLoad()
     }
     
-    @objc override func closeButtonTapped() {
-        floatingViewShouldStopListeningToPan = false
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.frame.origin.y = self.view.frame.height
-        }, completion: { _ in
-            let floatingController = self.parent as? FloatingViewController
-            floatingController?.floatingViewPositioningDelegate = nil
-            self.removeFromParent()
-            self.view.removeFromSuperview()
-        })
-    }
-    
     private func removeLastSection() {
         numberOfSections -= 1
         tableView.deleteSections([numberOfSections], with: .fade)
@@ -98,21 +106,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
     func startRenting() {
         let rentingCounterView = RentingCounterView(frame: .zero)
         rentingCounterView.alpha = 0
-        self.garageInfoView.button.setTitle("Concluir", for: .normal)
         self.garageInfoView.addSupplementaryView(rentingCounterView) {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(self.garageInfoView)
-                self.dismiss()
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage)
             })
         }
         self.garageInfoView.component.isCollapsed = true
-    }
-    
-    func dismiss() {
-        let floatingController = self.parent as? FloatingViewController
-        floatingController?.removeGarageDetailsVC()
     }
 
 }
@@ -129,14 +130,7 @@ extension GarageDetailsViewController {
     
     override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
         switch indexPath.section {
-        case 0:
-            garageInfoView.button.action = { button in
-                button.action = nil
-                self.removeAdditionalSections(animated: true) {
-                    self.startRenting()
-                }
-            }
-            return garageInfoView
+        case 0: return garageInfoView
         case 1: return garageActionsView
         case 2: return garageGalleryView
         case 3: return ratingsView
@@ -183,41 +177,8 @@ extension GarageDetailsViewController {
     }
 }
 
-// MARK: UIScrollViewDelegate implement
-extension GarageDetailsViewController {
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView === tableView {
-            if scrollView.contentOffset.y <= 0 {
-                floatingViewShouldStopListeningToPan = false
-                scrollView.isScrollEnabled = false
-            }
-        }
-    }
-}
-
-// MARK: FloatingViewPositioningDelegate implement
 extension GarageDetailsViewController: FloatingViewPositioningDelegate {
-    func enteredFullView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = true }
-        floatingViewShouldStopListeningToPan = true
-        tableView.isScrollEnabled = true
-    }
-    
-    func enteredMiddleView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
-        floatingViewShouldStopListeningToPan = false
-        tableView.scrollRectToVisible(.zero, animated: true)
-        tableView.isScrollEnabled = false
-    }
-    
-    func enteredPartialView() {
-        if let infoView = garageInfoView { infoView.component.isCollapsed = false }
-        floatingViewShouldStopListeningToPan = false
-        tableView.scrollRectToVisible(.zero, animated: true)
-        tableView.isScrollEnabled = false
-    }
-    
-    func shouldStopListeningToPanGesture() -> Bool {
-        return floatingViewShouldStopListeningToPan
+    func didEntered(in position: FloatingViewPosition) {
+        garageInfoView.component.isCollapsed = position == .full ? true : false
     }
 }
