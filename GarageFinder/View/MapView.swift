@@ -11,7 +11,7 @@ import MapKit
 
 class MapView: MKMapView {
     
-    lazy var pins = [MKPointAnnotation]()
+    lazy var pins = [MKAnnotation]()
     lazy var range = Range()
     
     override init(frame: CGRect) {
@@ -42,11 +42,11 @@ class MapView: MKMapView {
         region = newRegion
     }
     
-    func addPin(_ annotation: MKPointAnnotation) {
+    func addPin(_ annotation: MKAnnotation) {
         addPins([annotation])
     }
     
-    func addPins(_ annotations: [MKPointAnnotation]) {
+    func addPins(_ annotations: [MKAnnotation]) {
         let filtered = annotations.filter { annotationToAdd -> Bool in
             !self.annotations.contains { annotationAlreadyAdded -> Bool in
                 annotationToAdd.coordinate == annotationAlreadyAdded.coordinate

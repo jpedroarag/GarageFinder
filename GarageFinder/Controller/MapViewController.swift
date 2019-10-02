@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        view.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        view.pins = findGarages().map { newAnnotation(coordinate: $0, title: "", subtitle: "") }
         return view
     }()
     
@@ -39,6 +39,8 @@ class MapViewController: UIViewController {
         view.addSubview(mapView)
         view.addSubview(toolboxView)
         title = "Home"
+        
+        mapView.register(GarageAnnotationView.self, forAnnotationViewWithReuseIdentifier: "garagePin")
         
         //setupSearchController()
         addFloatingVC()
@@ -80,12 +82,17 @@ class MapViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
-    func newPin(coordinate: CLLocation, title: String, subtitle: String) -> MKPointAnnotation {
-        let point = MKPointAnnotation()
-        point.coordinate = CLLocationCoordinate2D(location: coordinate)
-        point.title = title
-        point.subtitle = subtitle
-        return point
+    func newAnnotation(coordinate: CLLocation, title: String, subtitle: String) -> MKAnnotation {
+        let garage = Garage(location: CLLocationCoordinate2D(location: coordinate))
+        garage.name = "Garagem de Marcus"
+        garage.price = 1.89
+        return garage
+        
+//        let point = MKPointAnnotation()
+//        point.coordinate = CLLocationCoordinate2D(location: coordinate)
+//        point.title = title
+//        point.subtitle = subtitle
+//        return point
     }
     
     func findGarages() -> [CLLocation] {
@@ -134,6 +141,21 @@ class MapViewController: UIViewController {
     }
 }
 
+class GarageAnnotationView: MKMarkerAnnotationView {
+    override var annotation: MKAnnotation? {
+        willSet {
+            // 1
+            guard let garage = newValue as? Garage else { return }
+//            canShowCallout = true
+//            calloutOffset = CGPoint(x: -5, y: 5)
+//            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            // 2
+            markerTintColor = .black
+            glyphText = garage.subtitle ?? ""
+        }
+    }
+}
+
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
@@ -148,8 +170,14 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let pin = mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
+        return pin
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        selectGarageDelegate?.didSelectGarage()
+        guard let garage = view.annotation as? Garage else { return }
+        selectGarageDelegate?.didSelectGarage(garage)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

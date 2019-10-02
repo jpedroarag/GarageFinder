@@ -13,7 +13,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
-    lazy var presentedGarage = Garage()
+    weak var presentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
@@ -21,7 +21,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
             return view
         } else {
             let view = GarageInfoView(frame: .zero)
-            view.loadData(self.presentedGarage)
+            view.loadData(presentedGarage)
             view.button.action = { button in
                 button.action = nil
                 self.removeAdditionalSections(animated: true) {
@@ -47,7 +47,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         var pictures = [UIImage]()
         (0...5).forEach { _ in
             guard let image = UIImage(named: "mockGarage") else { return }
-            pictures.append(image)
+            pictures.append(image) // TODO: insert real data
         }
         return GarageGalleryView(images: pictures)
     }
@@ -56,14 +56,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-        
-        var ratings: [Comment] = []
-        (0...7).forEach { _ in
-            let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
-            ratings.append(comment)
-        }
-        controller.loadRatings(ratings)
-        
+        controller.loadRatings(self.presentedGarage.comments)
         return controller
     }()
     
@@ -90,7 +83,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     private func removeAdditionalSections(animated: Bool = true, _ completion: (() -> Void)? = nil) {
         if animated {
-            (1...4).forEach { index in
+            let upperBound = numberOfSections
+            (1...upperBound).forEach { index in
                 let sectionsRemovingDeadline = 0.35 * Double(index)
                 let completionDeadline = 0.7
                 let deadline = DispatchTime.now() + (index != 4 ? sectionsRemovingDeadline : completionDeadline)
@@ -169,7 +163,7 @@ extension GarageDetailsViewController {
                  +  5.0
                  +  16.0
         default:
-            let ratingsCount = ratingListController.ratings.count
+            let ratingsCount = ratingListController.ratings.isEmpty ? 1 :  ratingListController.ratings.count
             let rowHeight: CGFloat = 64 + 4
             let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
             return (rowHeight * CGFloat(ratingsCount)) + bottomInset

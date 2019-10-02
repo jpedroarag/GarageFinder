@@ -153,12 +153,13 @@ extension FloatingViewController: SelectGarageDelegate {
         return children.filter({ $0 is GarageDetailsViewController}).first as? GarageDetailsViewController
     }
     
-    func showGarageDetailsVC() {
+    func showGarageDetailsVC(_ garage: Garage) {
         if let garageVC = garageVC {
             garageVC.dismissFromParent()
-            showGarageDetailsVC()
+            showGarageDetailsVC(garage)
         } else {
             let garageDetail = GarageDetailsViewController()
+            garageDetail.presentedGarage = garage
             garageDetail.changeScrollViewDelegate = self
             garageDetail.rentingGarageDelegate = self
             floatingView.floatingViewPositioningDelegate = garageDetail
@@ -168,8 +169,8 @@ extension FloatingViewController: SelectGarageDelegate {
         
     }
     
-    func didSelectGarage() {
-        showGarageDetailsVC()
+    func didSelectGarage(_ garage: Garage) {
+        showGarageDetailsVC(garage)
     }
     
     func didDeselectGarage() {
@@ -191,7 +192,7 @@ extension FloatingViewController: RentingGarageDelegate {
             showGarageRentingVC(garage)
         } else {
             let garageRenting = GarageRentingViewController()
-            garageRenting.garageInfoView.loadData(garage)
+            garageRenting.rentedGarage = garage
             garageRenting.shouldAppearAnimated = false
             show(garageRenting)
             if floatingView.currentPos == floatingView.partialView {

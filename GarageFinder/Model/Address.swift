@@ -6,7 +6,7 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import MapKit
 
 public struct Address {
     public let addressId: Int
@@ -16,6 +16,7 @@ public struct Address {
     public let complement: String
     public let city: String
     public let uf: String
-    public let userId: Int
-    public let garageId: Int
+    public let user: User
+    public let coordinate: CLLocationCoordinate2D
+    public let garage: Garage
 }

@@ -19,6 +19,7 @@ class GarageRatingListViewController: UIViewController {
         ratingsTable.separatorStyle = .none
         ratingsTable.isScrollEnabled = false
         ratingsTable.register(RatingTableViewCell.self, forCellReuseIdentifier: "ratingCell")
+        ratingsTable.register(UITableViewCell.self, forCellReuseIdentifier: "noRatings")
         return ratingsTable
     }()
 
@@ -38,17 +39,25 @@ class GarageRatingListViewController: UIViewController {
 
 extension GarageRatingListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ratings.count
+        return ratings.isEmpty ? 1 : ratings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell", for: indexPath) as? RatingTableViewCell else { return UITableViewCell() }
-        cell.loadData(rating: ratings[indexPath.row])
-        return cell
+        if ratings.isEmpty {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noRatings", for: indexPath)
+            cell.textLabel?.text = "Não há avaliações disponíveis para esta garagem ainda"
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell", for: indexPath) as? RatingTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.loadData(rating: ratings[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64 + 4
+        return ratings.isEmpty ? UITableView.automaticDimension : 64 + 4
     }
     
 }

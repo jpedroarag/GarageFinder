@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Comment {
+public struct Comment: Codable {
     public let commentId: Int
     public let fromUserId: Int
     public let toUserId: Int
@@ -27,3 +27,23 @@ public struct Comment {
         self.garageId = 0
     }
 }
+
+//public struct Comment {
+//    public let commentId: Int
+//    public let fromUser: User
+//    public let toUser: User
+//    public let garage: Garage
+//    public let title: String
+//    public let message: String
+//    public let rating: Float
+//
+//    public init(title: String, message: String, rating: Float) {
+//        self.title = title
+//        self.message = message
+//        self.rating = rating
+//        self.commentId = 0
+//        self.fromUserId = 0
+//        self.toUserId = 0
+//        self.garageId = 0
+//    }
+//}

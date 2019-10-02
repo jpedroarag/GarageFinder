@@ -14,7 +14,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     lazy var rentingObject = Renting()
     lazy var isRunning = true
-    var rentedGarage = Garage()
+    weak var rentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
