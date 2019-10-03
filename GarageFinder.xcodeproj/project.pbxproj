@@ -67,6 +67,7 @@
 		6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */; };
 		6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E82332567C00837C04 /* HeaderFavTableView.swift */; };
 		6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */; };
+		6C24E17823461ED9007EE981 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17723461ED9007EE981 /* RatingView.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
@@ -184,6 +185,7 @@
 		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
 		6C1051E82332567C00837C04 /* HeaderFavTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFavTableView.swift; sourceTree = "<group>"; };
 		6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		6C24E17723461ED9007EE981 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				3C20C38B233A622300182CB3 /* RentingCounterView.swift */,
 				3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */,
 				3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */,
+				6C24E17723461ED9007EE981 /* RatingView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -643,7 +646,6 @@
 				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
 				6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
-				6CF43F21231FE1A800206150 /* NotificationName+Extension.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
 				6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
@@ -669,10 +671,10 @@
 				3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */,
+				6C24E17823461ED9007EE981 /* RatingView.swift in Sources */,
 				6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */,
 				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,
 				6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */,
-				6CE31B08233112C2002AFF85 /* FloatingViewPositionDelegate.swift in Sources */,
 				3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */,
 				6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */,
 				6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */,
