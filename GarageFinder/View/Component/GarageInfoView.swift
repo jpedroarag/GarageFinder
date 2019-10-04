@@ -45,37 +45,22 @@ class GarageInfoView: UIView {
             .height(constant: 21+4+16)
         
         button.anchor
-            .top(component.bottomAnchor, padding: 24)
+            .top(component.bottomAnchor, padding: 27, priority: 250)
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
             .height(button.widthAnchor, multiplier: 0.16)
-    }
-    
-    private func deactivateConstraints() {
-        component.anchor.deactivateAll()
-        button.anchor.deactivateAll()
     }
     
     private func setConstraintsForSupplementaryView() {
         guard let supplementary = supplementaryView else { return }
-        deactivateConstraints()
-        component.anchor
-            .top(topAnchor)
-            .left(leftAnchor, padding: 20)
-            .right(rightAnchor, padding: 20)
-            .bottom(supplementary.topAnchor, padding: 24)
         
         supplementary.anchor
-            .bottom(button.topAnchor, padding: 24)
+            .top(component.bottomAnchor, padding: 24)
             .centerX(centerXAnchor)
             .width(widthAnchor)
-            .height(constant: 50)
         
         button.anchor
-            .bottom(bottomAnchor, padding: 16)
-            .left(leftAnchor, padding: 16)
-            .right(rightAnchor, padding: 16)
-            .height(button.widthAnchor, multiplier: 0.16)
+            .top(supplementary.bottomAnchor, padding: 24, priority: 750)
     }
     
     private func setFrameForSupplementaryView() {
@@ -87,11 +72,11 @@ class GarageInfoView: UIView {
     func addSupplementaryView(_ view: UIView, animated: Bool = true, _ completion: (() -> Void)? = nil) {
         supplementaryView?.removeFromSuperview()
         supplementaryView = view
-        setFrameForSupplementaryView()
+        //setFrameForSupplementaryView()
         addSubview(view)
         setConstraintsForSupplementaryView()
         if animated {
-            UIView.animate(withDuration: 0.7, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.layoutSubviews()
             }, completion: { _ in
                 completion?()

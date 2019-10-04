@@ -90,12 +90,12 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     private func removeAdditionalSections(animated: Bool = true, _ completion: (() -> Void)? = nil) {
         if animated {
-            (1...4).forEach { index in
-                let sectionsRemovingDeadline = 0.35 * Double(index)
-                let completionDeadline = 0.7
-                let deadline = DispatchTime.now() + (index != 4 ? sectionsRemovingDeadline : completionDeadline)
+            (0...3).forEach { index in
+                let sectionsRemovingDeadline = 0.1 * Double(index)
+                let completionDeadline = 0.2
+                let deadline = DispatchTime.now() + (index != 3 ? sectionsRemovingDeadline : completionDeadline)
                 DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
-                    index != 4 ? self.removeLastSection() : completion?()
+                    index != 3 ? self.removeLastSection() : completion?()
                 })
             }
         } else {
@@ -115,7 +115,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         }
         self.garageInfoView.component.isCollapsed = true
     }
-
+    
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement

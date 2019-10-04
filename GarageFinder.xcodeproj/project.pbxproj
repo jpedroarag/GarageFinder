@@ -71,6 +71,7 @@
 		6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17923461F6C007EE981 /* UIButton+Extension.swift */; };
 		6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */; };
 		6C24E17E23461F85007EE981 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17D23461F85007EE981 /* UITextView+Extension.swift */; };
+		6C24E18023461FFF007EE981 /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17F23461FFF007EE981 /* RatingViewController.swift */; };
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
@@ -192,6 +193,7 @@
 		6C24E17923461F6C007EE981 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		6C24E17D23461F85007EE981 /* UITextView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		6C24E17F23461FFF007EE981 /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				3C10C9492316A7BC001BDDB6 /* ViewController.swift */,
 				6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */,
 				3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */,
+				6C24E17F23461FFF007EE981 /* RatingViewController.swift */,
 				3C20C39D233BB79700182CB3 /* GarageDetailsViewController */,
 				3C20C39E233BB7A800182CB3 /* GarageRentingViewController */,
 			);
@@ -667,6 +670,7 @@
 				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
 				6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */,
 				6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */,
+				6C24E18023461FFF007EE981 /* RatingViewController.swift in Sources */,
 				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */,
 				6C52C1332330087600233617 /* PlaceCategory.swift in Sources */,

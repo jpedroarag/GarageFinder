@@ -88,7 +88,8 @@ class RatingView: UIView {
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
             .height(constant: 80)
-
+            .bottom(safeAreaLayoutGuide.bottomAnchor, padding: 24)
+        
         commentTextView.anchor.attatch(to: shadowedView)
     }
 }
