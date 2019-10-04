@@ -129,11 +129,17 @@ public class Garage: NSObject, Decodable {
 
 extension Garage: MKAnnotation {
     public var title: String? {
-        return name
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "pt_BR")
+        formatter.decimalSeparator = ","
+        formatter.currencyDecimalSeparator = ","
+        return formatter.string(from: NSNumber(value: price)) ?? String(format: "%.2f", price)
     }
     
     public var subtitle: String? {
-        return "$\(price.rounded(toPlaces: 2))"
+        return name
     }
     
     public var coordinate: CLLocationCoordinate2D {
