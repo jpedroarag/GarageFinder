@@ -15,6 +15,8 @@ class GarageRentingViewController: AbstractGarageViewController {
     lazy var isRunning = true
     var rentedGarage = Garage()
     
+    weak var garageRatingDelegate: GarageRatingDelegate?
+    
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
         if let view = mutableGarageInfoView {
@@ -74,7 +76,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         self.rentingObject.conclude()
         self.update()
     }
-    
+
     func paymentAction(_ button: GFButton) {
         // TODO: Payment action
         showRatingView(button)
@@ -88,10 +90,11 @@ class GarageRentingViewController: AbstractGarageViewController {
         mutableGarageInfoView.addSupplementaryView(ratingView) {
             UIView.animate(withDuration: 0.2, animations: {
                 ratingView.alpha = 1
-                button.alpha = 0
+                button.alpha = 0.5
             }, completion: { _ in
                 button.alpha = 1
                 button.setTitle("Avaliar", for: .normal)
+                self.garageRatingDelegate?.willStartRating()
             })
         }
         garageInfoView.component.isCollapsed = true

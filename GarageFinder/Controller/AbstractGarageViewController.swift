@@ -25,7 +25,7 @@ class AbstractGarageViewController: UIViewController {
         table.rowHeight = 192
         table.backgroundColor = .white
         table.separatorStyle = .none
-        table.isScrollEnabled = false
+        table.bounces = false
         table.showsVerticalScrollIndicator = false
         table.register(DetailsTableViewCell.self, forCellReuseIdentifier: "detailsCell")
         return table
