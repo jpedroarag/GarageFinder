@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum DocumentType: String {
+public enum DocumentType: String, Codable {
     case cpf
     case rg
 }

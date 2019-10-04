@@ -13,6 +13,7 @@ class MapView: MKMapView {
     
     lazy var pins = [MKAnnotation]()
     lazy var range = Range()
+    var shownRouteOverlay: MKOverlay?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,6 +22,7 @@ class MapView: MKMapView {
         showsScale = true
         showsCompass = true
         showsTraffic = true
+        tintColor = UIColor(rgb: 0x23D25B, alpha: 100)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
@@ -127,6 +129,8 @@ class MapView: MKMapView {
             }
             
             if let route = response.routes.first {
+                if let overlay = self.shownRouteOverlay { self.removeOverlay(overlay) }
+                self.shownRouteOverlay = route.polyline
                 self.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
                 self.setRegion(MKCoordinateRegion(route.polyline.boundingMapRect), animated: true)
             }
@@ -136,9 +140,9 @@ class MapView: MKMapView {
     // MARK: - Render Circle
     func rendererForRangeOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
         let circle = MKCircleRenderer(overlay: overlay)
-        circle.strokeColor = UIColor.red
-        circle.fillColor = UIColor.red.withAlphaComponent(0.1)
-        circle.lineWidth = 1
+        circle.strokeColor = UIColor(rgb: 0x23D25B, alpha: 100)
+        circle.fillColor = UIColor(rgb: 0x23D25B, alpha: 15)
+        circle.lineWidth = 0.1
         return circle
     }
     

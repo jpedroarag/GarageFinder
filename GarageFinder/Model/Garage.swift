@@ -17,7 +17,15 @@ public class Garage: NSObject, Decodable {
     public var user: User!
     public var address: Address!
     public var comments: [Comment]!
-    public var pictures: [UIImage]!
+    public var pictures: [UIImage?]!
+    public var average: Float! {
+        get {
+            var totalRating: Float = 0.0
+            comments.forEach { totalRating += $0.rating }
+            return comments.isEmpty ? 0.0 : totalRating/Float(comments.count)
+        }
+        set {}
+    }
     
     private enum CodingKeys: String, CodingKey {
         case garageId = "garage_id"
@@ -30,34 +38,36 @@ public class Garage: NSObject, Decodable {
         case user = "user_id"
         case address = "address_id"
         case comments
-    }
-    
-    public var averageRating: Float {
-        var totalRating: Float = 0.0
-        comments.forEach { totalRating += $0.rating }
-        return comments.isEmpty ? 0.0 : totalRating/Float(comments.count)
+        case average
     }
     
     public init(location: CLLocationCoordinate2D) {
         super.init()
         garageId = 0
-        name = ""
-        parkingSpaces = 0
-        price = 0
-        pictures = []
+        name = "IFCE"
+        parkingSpaces = 3
+        price = Double.random(in: 5...10)
+        pictures = [UIImage(named: "mockGarage"), UIImage(named: "mockGarage"), UIImage(named: "mockGarage")]
         user = User(userId: 0, name: "", email: "", documentType: .rg, documentNumber: "", password: "", addresses: [], garages: [self], role: "")
-        address = Address(addressId: 0, zip: "", street: "", number: "", complement: "", city: "", uf: "", user: user, coordinate: location, garage: self)
+        address = Address(id: 0, zip: "", street: "Rua Treze de Maio", number: "2081", complement: "", city: "", uf: "", coordinate: location, user: user, garage: self)
         comments = []
+        (0...5).forEach { _ in
+            let random = Double.random(in: 3...5)
+            let comment = Comment(title: "Rating", message: "Rating message", rating: Float(random.rounded(toPlaces: 2)))
+            comments.append(comment)
+        }
     }
     
     public init(id: Int?,
                 description: String?,
                 parkingSpaces: Int?,
                 price: Double?,
+                average: Float?,
                 user: User?,
                 address: Address?,
                 comments: [Comment]?,
                 pictures: [UIImage]? = []) {
+        super.init()
         self.garageId = id
         self.name = description
         self.parkingSpaces = parkingSpaces
@@ -66,30 +76,33 @@ public class Garage: NSObject, Decodable {
         self.address = address
         self.comments = comments
         self.pictures = pictures
+        self.average = average
     }
     
     public required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try? container.decode(Int.self, forKey: .garageId)
-        let name = try? container.decode(String.self, forKey: .name)
-        let parkingSpaces = try? container.decode(Int.self, forKey: .parkingSpaces)
-        let price = try? container.decode(Double.self, forKey: .price)
-        let userId = try? container.decode(Int.self, forKey: .user)
-        let addressId = try? container.decode(Int.self, forKey: .address)
-//        let address = try? container.decode([Address], forKey: .address)
-        let comments = try? container.decode([Comment].self, forKey: .comments)
+        
+        let id = try? container.decodeIfPresent(Int.self, forKey: .garageId)
+        let name = try? container.decodeIfPresent(String.self, forKey: .name)
+        let parkingSpaces = try? container.decodeIfPresent(Int.self, forKey: .parkingSpaces)
+        let price = try? container.decodeIfPresent(Double.self, forKey: .price)
+        let comments = try? container.decodeIfPresent([Comment].self, forKey: .comments)
+        let average = try? container.decodeIfPresent(Float.self, forKey: .average)
         
         var photoUrls = [String]()
         (1...3).forEach { index in
             guard let key = CodingKeys(rawValue: "photo\(index)") else { return }
-            if let url = try? container.decode(String.self, forKey: key) {
+            if let url = try? container.decodeIfPresent(String.self, forKey: key) {
                 photoUrls.append(url)
             }
         }
         
-        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, user: nil, address: nil, comments: comments)
+        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, average: average, user: nil, address: nil, comments: comments)
 //        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, user: nil, address: address, comments: comments)
         
+        let userId = try? container.decodeIfPresent(Int.self, forKey: .user)
+        let addressId = try? container.decodeIfPresent(Int.self, forKey: .address)
+//        let address = try? container.decodeIfPresent([Address], forKey: .address)
         loadPictures(photoUrls)
         loadUser(userId ?? -1)
         loadAddress(addressId ?? -1)
@@ -99,14 +112,18 @@ public class Garage: NSObject, Decodable {
         // TODO: request pictures
     }
     
-    func loadUser(_ id: Int) {
+    func loadUser(_ id: Int, _ completion: (() -> Void)? = nil) {
         if id < 0 { return }
+        if user != nil { return }
         // TODO: request user
+        completion?()
     }
     
-    func loadAddress(_ id: Int) {
+    func loadAddress(_ id: Int, _ completion: (() -> Void)? = nil) {
         if id < 0 { return }
+        if address != nil { return }
         // TODO: request address
+        completion?()
     }
 }
 

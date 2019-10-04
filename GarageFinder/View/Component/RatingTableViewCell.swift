@@ -32,11 +32,11 @@ class RatingTableViewCell: UITableViewCell {
             .height(constant: 64)
     }
     
-    func loadData(title: String?, subtitle: String?, leftImage: UIImage?, rightText: String?) {
-        component.titleLabel.text = title
-        component.subtitleLabel.text = subtitle
-        component.leftImageView.image = leftImage
-        component.ratingLabel.text = rightText
+    func loadData(_ comment: Comment) {
+        component.leftImageView.image = UIImage(named: "mockBadge")
+        component.titleLabel.text = comment.title
+        component.subtitleLabel.text = comment.message
+        component.ratingLabel.text = "\(comment.rating.rounded(toPlaces: 2))"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

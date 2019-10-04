@@ -83,10 +83,7 @@ class MapViewController: UIViewController {
     }
     
     func newAnnotation(coordinate: CLLocation, title: String, subtitle: String) -> MKAnnotation {
-        let garage = Garage(location: CLLocationCoordinate2D(location: coordinate))
-        garage.name = "Garagem de Marcus"
-        garage.price = 1.89
-        return garage
+        return Garage(location: CLLocationCoordinate2D(location: coordinate))
         
 //        let point = MKPointAnnotation()
 //        point.coordinate = CLLocationCoordinate2D(location: coordinate)
@@ -141,21 +138,6 @@ class MapViewController: UIViewController {
     }
 }
 
-class GarageAnnotationView: MKMarkerAnnotationView {
-    override var annotation: MKAnnotation? {
-        willSet {
-            // 1
-            guard let garage = newValue as? Garage else { return }
-//            canShowCallout = true
-//            calloutOffset = CGPoint(x: -5, y: 5)
-//            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            // 2
-            markerTintColor = .black
-            glyphText = garage.subtitle ?? ""
-        }
-    }
-}
-
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
@@ -171,8 +153,11 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let pin = mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
-        return pin
+        if annotation.isKind(of: MKUserLocation.self) {
+            return nil
+        } else {
+            return mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {

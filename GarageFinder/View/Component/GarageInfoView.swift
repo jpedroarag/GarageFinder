@@ -109,8 +109,8 @@ class GarageInfoView: UIView {
     func loadData(_ garage: Garage) {
         component.leftImageView.image = UIImage(named: "mockGarage")
         component.titleLabel.text = garage.name
-        component.subtitleLabel.text = "\(garage.address.street), \(garage.address.number)"
-        component.ratingLabel.text = "\(garage.averageRating)"
+        component.subtitleLabel.text = "\(garage.address.street ?? ""), \(garage.address.number ?? "")"
+        component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

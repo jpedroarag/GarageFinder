@@ -49,6 +49,7 @@
 		3C38307523410F310034F315 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
 		3C38307623410F310034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
 		3C38307723410F310034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
+		3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383078234636BA0034F315 /* GarageAnnotationView.swift */; };
 		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
 		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
@@ -167,6 +168,7 @@
 		3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsCell.swift; sourceTree = "<group>"; };
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
 		3C20C3A1233E588800182CB3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3C383078234636BA0034F315 /* GarageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotationView.swift; sourceTree = "<group>"; };
 		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
 		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				3C20C38B233A622300182CB3 /* RentingCounterView.swift */,
 				3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */,
 				3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */,
+				3C383078234636BA0034F315 /* GarageAnnotationView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -436,9 +439,9 @@
 				3C20C37E23351B7500182CB3 /* User.swift */,
 				3C20C3882339047500182CB3 /* DocumentType.swift */,
 				3C20C38023351DB200182CB3 /* Garage.swift */,
-				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C20C38423351DD100182CB3 /* Address.swift */,
 				3C20C38623351DE800182CB3 /* Comment.swift */,
+				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C20C397233BA5A800182CB3 /* Renting.swift */,
 			);
 			path = Model;
@@ -683,6 +686,7 @@
 				6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */,
 				3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
+				3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
 				3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,

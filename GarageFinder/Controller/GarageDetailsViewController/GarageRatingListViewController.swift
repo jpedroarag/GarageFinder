@@ -51,7 +51,7 @@ extension GarageRatingListViewController: UITableViewDataSource, UITableViewDele
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell", for: indexPath) as? RatingTableViewCell else {
                 return UITableViewCell()
             }
-            cell.loadData(rating: ratings[indexPath.row])
+            cell.loadData(ratings[indexPath.row])
             return cell
         }
     }
@@ -60,13 +60,4 @@ extension GarageRatingListViewController: UITableViewDataSource, UITableViewDele
         return ratings.isEmpty ? UITableView.automaticDimension : 64 + 4
     }
     
-}
-
-extension RatingTableViewCell {
-    func loadData(rating: Comment) {
-        component.titleLabel.text = rating.title
-        component.subtitleLabel.text = rating.message
-        component.leftImageView.image = UIImage(named: "mockBadge")
-        component.ratingLabel.text = "\(rating.rating)"
-    }
 }
