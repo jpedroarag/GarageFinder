@@ -45,11 +45,16 @@ class FloatingViewController: UIViewController {
 
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAdjustsMenu(_:)), name: .adjustsMenu, object: nil)
     }
     
     @objc func finishSearch(_ notification: Notification) {
         floatingView.animTo(positionY: floatingView.partialView)
         cancellSearch()
+    }
+    
+    @objc func presentAdjustsMenu(_ notification: Notification) {
+        print("Will present adjusts menu")
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {

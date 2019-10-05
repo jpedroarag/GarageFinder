@@ -11,7 +11,7 @@ import MapKit
 
 class ToolboxView: UIView {
     
-    let totalButtons = CGFloat(1)
+    let totalButtons = CGFloat(2)
     let minimumButtonSize = CGSize(width: 48, height: 48)
     
     var totalHeight: CGFloat {
@@ -19,6 +19,7 @@ class ToolboxView: UIView {
     }
     
     var locationTrackerButton: MKUserTrackingButton!
+    var adjustsButton: AdjustsButton!
     var separators = [UIView]()
 
     init(mapView: MapView, backgroundColor: UIColor, separatorColor: UIColor) {
@@ -37,9 +38,18 @@ class ToolboxView: UIView {
         locationTrackerButton = MKUserTrackingButton(mapView: mapView)
         locationTrackerButton.tintColor = .black
         addSubview(locationTrackerButton)
+        
+        adjustsButton = AdjustsButton(frame: .zero)
+        addSubview(adjustsButton)
     }
     
     func setConstraints() {
+        adjustsButton.anchor
+            .bottom(locationTrackerButton.topAnchor, padding: 1)
+            .left(leftAnchor)
+            .right(rightAnchor)
+            .height(constant: minimumButtonSize.height)
+        
         locationTrackerButton.anchor
             .bottom(bottomAnchor)
             .left(leftAnchor)
@@ -56,11 +66,11 @@ class ToolboxView: UIView {
     }
     
     func insertSeparators(withColor color: UIColor) {
-        for index in 0..<Int(totalButtons-1) {
+        for index in 0..<Int(totalButtons - 1) {
             let separator = UIView(frame: .zero)
             separator.backgroundColor = color
             addSubview(separator)
-            let topPosition = CGFloat(index+1) * minimumButtonSize.height
+            let topPosition = CGFloat(index + 1) * minimumButtonSize.height
             setSeparatorConstraints(separator, topOffset: topPosition)
         }
     }

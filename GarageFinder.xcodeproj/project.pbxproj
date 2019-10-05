@@ -50,6 +50,7 @@
 		3C38307623410F310034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
 		3C38307723410F310034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
 		3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383078234636BA0034F315 /* GarageAnnotationView.swift */; };
+		3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38307C23478BDF0034F315 /* AdjustsButton.swift */; };
 		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
 		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
@@ -169,6 +170,7 @@
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
 		3C20C3A1233E588800182CB3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3C383078234636BA0034F315 /* GarageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotationView.swift; sourceTree = "<group>"; };
+		3C38307C23478BDF0034F315 /* AdjustsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustsButton.swift; sourceTree = "<group>"; };
 		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
 		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 		3C811E41232692970075AD49 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				3C38307C23478BDF0034F315 /* AdjustsButton.swift */,
 				3C811E462327BE2D0075AD49 /* GFButton.swift */,
 				3C811E4A2327BE840075AD49 /* GFTableViewComponent.swift */,
 				3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */,
@@ -654,6 +657,7 @@
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
 				3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */,
 				3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */,
+				3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */,
 				3C38307623410F310034F315 /* DocumentType.swift in Sources */,
 				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
 				3C38307323410F310034F315 /* Address.swift in Sources */,
