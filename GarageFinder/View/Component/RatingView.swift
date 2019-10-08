@@ -96,8 +96,10 @@ class RatingView: UIView {
 
 extension RatingView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
-        textView.textColor = .black
+        if textView.textColor == .lightGray {
+            textView.text = ""
+            textView.textColor = .black
+        }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {

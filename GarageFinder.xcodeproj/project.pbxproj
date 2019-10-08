@@ -39,7 +39,6 @@
 		3C20C38523351DD100182CB3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38423351DD100182CB3 /* Address.swift */; };
 		3C20C38723351DE800182CB3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
 		3C20C3892339047500182CB3 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
-		3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */; };
 		3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */; };
 		3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
@@ -80,10 +79,11 @@
 		6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
+		6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */; };
+		6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
-		6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */; };
 		6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */; };
 		6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */; };
 		6CD2A81A231D3F8300A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
@@ -666,11 +666,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */,
+				6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */,
 				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
-				6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */,
-				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
-				6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
 				3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */,
 				3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */,
