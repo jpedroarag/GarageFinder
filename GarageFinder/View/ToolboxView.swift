@@ -18,7 +18,7 @@ class ToolboxView: UIView {
         return totalButtons * minimumButtonSize.height + (totalButtons - 1)
     }
     
-    var locationTrackerButton: MKUserTrackingButton!
+    var trackerButton: TrackerButton!
     var adjustsButton: AdjustsButton!
     var separators = [UIView]()
 
@@ -35,22 +35,20 @@ class ToolboxView: UIView {
     }
     
     private func configureButtons(_ mapView: MKMapView) {
-        locationTrackerButton = MKUserTrackingButton(mapView: mapView)
-        locationTrackerButton.tintColor = .black
-        addSubview(locationTrackerButton)
-        
+        trackerButton = TrackerButton(mapView: mapView)
         adjustsButton = AdjustsButton(frame: .zero)
+        addSubview(trackerButton)
         addSubview(adjustsButton)
     }
     
     func setConstraints() {
         adjustsButton.anchor
-            .bottom(locationTrackerButton.topAnchor, padding: 1)
+            .bottom(trackerButton.topAnchor, padding: 1)
             .left(leftAnchor)
             .right(rightAnchor)
             .height(constant: minimumButtonSize.height)
         
-        locationTrackerButton.anchor
+        trackerButton.anchor
             .bottom(bottomAnchor)
             .left(leftAnchor)
             .right(rightAnchor)

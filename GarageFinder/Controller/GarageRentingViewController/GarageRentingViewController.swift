@@ -1,4 +1,3 @@
-
 //
 //  GarageRentingViewController.swift
 //  GarageFinder
