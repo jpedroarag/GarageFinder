@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import GarageFinderFramework
 
 class MapViewController: UIViewController {
     
@@ -17,7 +16,7 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        view.pins = findGarages().map { newAnnotation(coordinate: $0, title: "", subtitle: "") }
+        view.pins = MockedData.loadMockedGarages() ?? [] // TODO: get real data, not mocked
         return view
     }()
     
@@ -82,34 +81,6 @@ class MapViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
-    func newAnnotation(coordinate: CLLocation, title: String, subtitle: String) -> MKAnnotation {
-        return Garage(location: CLLocationCoordinate2D(location: coordinate))
-        
-//        let point = MKPointAnnotation()
-//        point.coordinate = CLLocationCoordinate2D(location: coordinate)
-//        point.title = title
-//        point.subtitle = subtitle
-//        return point
-    }
-    
-    func findGarages() -> [CLLocation] {
-        let bundle = Bundle.main
-        guard let path = bundle.url(forResource: "NearGarages", withExtension: "json") else { return [] }
-        let data = try? Data(contentsOf: path, options: .mappedIfSafe)
-        if let data = data {
-            var locations = [CLLocation]()
-            let locationsDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Double]]
-            locationsDict?.forEach { locationDict in
-                if let latitude = locationDict["latitude"], let longitude = locationDict["longitude"] {
-                    let location = CLLocation(latitude: latitude, longitude: longitude)
-                    locations.append(location)
-                }
-            }
-            return locations
-        }
-        return []
-    }
-    
     func openRouteInMaps(sourcePlaceName sourceName: String,
                          sourcePlaceLocation sourceLocation: CLLocation,
                          destinationPlaceName destinationName: String,
@@ -155,9 +126,8 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
-        } else {
-            return mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
         }
+        return mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {

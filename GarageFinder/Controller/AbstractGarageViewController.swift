@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GarageFinderFramework // TODO: get rid of this (using for inserting mocked data)
 
 class AbstractGarageViewController: UIViewController {
     

@@ -47,14 +47,7 @@ public struct Renting {
     }
     
     public var priceString: String {
-        let formatter = NumberFormatter()
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = ""
-        formatter.locale = Locale(identifier: "pt_BR")
-        formatter.decimalSeparator = ","
-        formatter.currencyDecimalSeparator = ","
-        return formatter.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)
+        return NumberFormatter.getPriceString(currencySymbol: "", value: Double(value))
     }
     
     public var permanenceDurationString: String {

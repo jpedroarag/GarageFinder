@@ -21,3 +21,17 @@ extension CLLocationCoordinate2D {
         return left.latitude != right.latitude || left.longitude != right.longitude
     }
 }
+
+extension CLLocationCoordinate2D: Decodable {
+    private enum Keys: String, CodingKey {
+        case latitude
+        case longitude
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Keys.self)
+        let latitude = try container.decode(Double.self, forKey: .latitude)
+        let longitude = try container.decode(Double.self, forKey: .longitude)
+        self.init(latitude: latitude, longitude: longitude)
+    }
+}

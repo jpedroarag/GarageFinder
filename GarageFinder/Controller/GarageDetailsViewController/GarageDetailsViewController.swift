@@ -22,14 +22,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
         } else {
             let view = GarageInfoView(frame: .zero)
             view.loadData(presentedGarage)
-            view.button.action = { button in
-                button.action = nil
-                self.removeAdditionalSections(animated: true) {
-                    button.setTitle("Concluir", for: .normal)
-                    self.startRenting()
-                }
-            }
-            self.mutableGarageInfoView = view
+            view.button.action = parkButtonTapped(_:)
+            mutableGarageInfoView = view
             return view
         }
     }
@@ -44,12 +38,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     var garageGalleryView: GarageGalleryView {
-        var pictures = [UIImage]()
-        (0...5).forEach { _ in
-            guard let image = UIImage(named: "mockGarage") else { return }
-            pictures.append(image) // TODO: insert real data
-        }
-        return GarageGalleryView(images: pictures)
+        return GarageGalleryView(images: presentedGarage.pictures)
     }
     
     lazy var ratingListController: GarageRatingListViewController = {
@@ -69,6 +58,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
         shouldAppearAnimated = true
         sectionSeparatorsStartAppearIndex = 2
         super.viewDidLoad()
+    }
+    
+    func parkButtonTapped(_ sender: GFButton) {
+        sender.action = nil
+        removeAdditionalSections(animated: true) {
+            sender.setTitle("Concluir", for: .normal)
+            self.startRenting()
+        }
     }
     
     private func removeLastSection() {

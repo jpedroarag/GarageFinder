@@ -50,6 +50,10 @@
 		3C38307623410F310034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
 		3C38307723410F310034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
 		3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383078234636BA0034F315 /* GarageAnnotationView.swift */; };
+		3C38307F23495A3F0034F315 /* GarageMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C38307E23495A3F0034F315 /* GarageMock.json */; };
+		3C38308323495AF80034F315 /* UserMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C38308223495AF80034F315 /* UserMock.json */; };
+		3C383086234964040034F315 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383085234964040034F315 /* MockedData.swift */; };
+		3C38308823497FFD0034F315 /* NumberFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */; };
 		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
 		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
@@ -169,6 +173,10 @@
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
 		3C20C3A1233E588800182CB3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3C383078234636BA0034F315 /* GarageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotationView.swift; sourceTree = "<group>"; };
+		3C38307E23495A3F0034F315 /* GarageMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GarageMock.json; sourceTree = "<group>"; };
+		3C38308223495AF80034F315 /* UserMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserMock.json; sourceTree = "<group>"; };
+		3C383085234964040034F315 /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
+		3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Extension.swift"; sourceTree = "<group>"; };
 		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
 		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
@@ -254,7 +262,7 @@
 				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
 				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
 				3C10C942231579D1001BDDB6 /* IfceLocation.gpx */,
-				3C10C943231579D2001BDDB6 /* NearGarages.json */,
+				3C38308423495D1C0034F315 /* Mock */,
 				6C52C1312330084800233617 /* Enum */,
 				3C10C9462316A38C001BDDB6 /* Extension */,
 				6C1D5F9E2334FBD0005D9B06 /* Model */,
@@ -322,6 +330,7 @@
 				6C339B262327CEEF00A376ED /* UIView+Extension.swift */,
 				6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */,
 				6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */,
+				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -411,6 +420,16 @@
 			path = GarageRentingViewController;
 			sourceTree = "<group>";
 		};
+		3C38308423495D1C0034F315 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C943231579D2001BDDB6 /* NearGarages.json */,
+				3C38307E23495A3F0034F315 /* GarageMock.json */,
+				3C38308223495AF80034F315 /* UserMock.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		3C811E41232692970075AD49 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,11 +457,12 @@
 				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
 				3C20C37E23351B7500182CB3 /* User.swift */,
 				3C20C3882339047500182CB3 /* DocumentType.swift */,
-				3C20C38023351DB200182CB3 /* Garage.swift */,
 				3C20C38423351DD100182CB3 /* Address.swift */,
+				3C20C38023351DB200182CB3 /* Garage.swift */,
 				3C20C38623351DE800182CB3 /* Comment.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C20C397233BA5A800182CB3 /* Renting.swift */,
+				3C383085234964040034F315 /* MockedData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -585,8 +605,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C10C945231579D2001BDDB6 /* NearGarages.json in Resources */,
+				3C38308323495AF80034F315 /* UserMock.json in Resources */,
 				3C10C8E0230AE453001BDDB6 /* LaunchScreen.storyboard in Resources */,
 				3C10C8DD230AE453001BDDB6 /* Assets.xcassets in Resources */,
+				3C38307F23495A3F0034F315 /* GarageMock.json in Resources */,
 				3C10C944231579D2001BDDB6 /* IfceLocation.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C383086234964040034F315 /* MockedData.swift in Sources */,
 				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
 				6CCB1543232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
@@ -704,6 +727,7 @@
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */,
 				6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */,
+				3C38308823497FFD0034F315 /* NumberFormatter+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,14 +18,7 @@ public class Garage: NSObject, Decodable {
     public var address: Address!
     public var comments: [Comment]!
     public var pictures: [UIImage?]!
-    public var average: Float! {
-        get {
-            var totalRating: Float = 0.0
-            comments.forEach { totalRating += $0.rating }
-            return comments.isEmpty ? 0.0 : totalRating/Float(comments.count)
-        }
-        set {}
-    }
+    public var average: Float!
     
     private enum CodingKeys: String, CodingKey {
         case garageId = "garage_id"
@@ -36,26 +29,9 @@ public class Garage: NSObject, Decodable {
         case photo2
         case photo3
         case user = "user_id"
-        case address = "address_id"
+        case address
         case comments
         case average
-    }
-    
-    public init(location: CLLocationCoordinate2D) {
-        super.init()
-        garageId = 0
-        name = "IFCE"
-        parkingSpaces = 3
-        price = Double.random(in: 5...10)
-        pictures = [UIImage(named: "mockGarage"), UIImage(named: "mockGarage"), UIImage(named: "mockGarage")]
-        user = User(userId: 0, name: "", email: "", documentType: .rg, documentNumber: "", password: "", addresses: [], garages: [self], role: "")
-        address = Address(id: 0, zip: "", street: "Rua Treze de Maio", number: "2081", complement: "", city: "", uf: "", coordinate: location, user: user, garage: self)
-        comments = []
-        (0...5).forEach { _ in
-            let random = Double.random(in: 3...5)
-            let comment = Comment(title: "Rating", message: "Rating message", rating: Float(random.rounded(toPlaces: 2)))
-            comments.append(comment)
-        }
     }
     
     public init(id: Int?,
@@ -88,6 +64,8 @@ public class Garage: NSObject, Decodable {
         let price = try? container.decodeIfPresent(Double.self, forKey: .price)
         let comments = try? container.decodeIfPresent([Comment].self, forKey: .comments)
         let average = try? container.decodeIfPresent(Float.self, forKey: .average)
+        let address = try? container.decodeIfPresent(Address.self, forKey: .address)
+        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, average: average, user: nil, address: address, comments: comments)
         
         var photoUrls = [String]()
         (1...3).forEach { index in
@@ -96,46 +74,27 @@ public class Garage: NSObject, Decodable {
                 photoUrls.append(url)
             }
         }
-        
-        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, average: average, user: nil, address: nil, comments: comments)
-//        self.init(id: id, description: name, parkingSpaces: parkingSpaces, price: price, user: nil, address: address, comments: comments)
-        
         let userId = try? container.decodeIfPresent(Int.self, forKey: .user)
-        let addressId = try? container.decodeIfPresent(Int.self, forKey: .address)
-//        let address = try? container.decodeIfPresent([Address], forKey: .address)
         loadPictures(photoUrls)
         loadUser(userId ?? -1)
-        loadAddress(addressId ?? -1)
     }
     
     func loadPictures(_ urls: [String]) {
         // TODO: request pictures
+        pictures = MockedData.loadMockedPictures()
     }
     
-    func loadUser(_ id: Int, _ completion: (() -> Void)? = nil) {
+    func loadUser(_ id: Int) {
         if id < 0 { return }
         if user != nil { return }
         // TODO: request user
-        completion?()
-    }
-    
-    func loadAddress(_ id: Int, _ completion: (() -> Void)? = nil) {
-        if id < 0 { return }
-        if address != nil { return }
-        // TODO: request address
-        completion?()
+        user = MockedData.loadMockedUser(id)
     }
 }
 
 extension Garage: MKAnnotation {
     public var title: String? {
-        let formatter = NumberFormatter()
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "pt_BR")
-        formatter.decimalSeparator = ","
-        formatter.currencyDecimalSeparator = ","
-        return formatter.string(from: NSNumber(value: price)) ?? String(format: "%.2f", price)
+        return NumberFormatter.getPriceString(value: price)
     }
     
     public var subtitle: String? {
