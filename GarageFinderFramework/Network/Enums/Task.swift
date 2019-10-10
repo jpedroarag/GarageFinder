@@ -8,5 +8,6 @@
 
 public enum Task {
     case requestPlain
-    case requestParameters(Codable)
+    case requestParameters([String: Any])
+    case requestWithBody(CustomCodable)
 }

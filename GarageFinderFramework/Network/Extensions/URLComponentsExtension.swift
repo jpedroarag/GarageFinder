@@ -14,7 +14,7 @@ extension URLComponents {
         let url = service.baseURL.appendingPathComponent(service.path)
         self.init(url: url, resolvingAgainstBaseURL: false)
         
-        guard case let .requestParameters(parameters) = service.task,
+        guard case let .requestWithBody(parameters) = service.task,
             service.parametersEncoding == .url else {
                 return
         }

@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct Comment {
+public struct Comment: CustomCodable {
+    public static var path: String = "/comment/"
+    
     public let commentId: Int
     public let fromUserId: Int
     public let toUserId: Int
