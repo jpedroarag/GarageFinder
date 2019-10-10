@@ -21,8 +21,8 @@ class RatingViewController: AbstractGarageViewController {
         } else {
             let view = GarageInfoView(collapsed: true)
             view.button.setTitle("Avaliar", for: .normal)
+            view.addSupplementaryView(ratingView, animated: true, nil)
             view.button.action = ratingAction(_:)
-            view.addSupplementaryView(ratingView, animated: false, nil)
             view.loadData(currentGarage)
             self.mutableGarageInfoView = view
             return view
@@ -30,7 +30,8 @@ class RatingViewController: AbstractGarageViewController {
     }
     
     func ratingAction (_ button: GFButton) {
-        print("Rating comment: \(ratingView.commentTextView.text ?? "")")
+        ratingView.commentTextView.endEditing(true)
+        print("Rating: \(ratingView.ratingValue), Comment: \(ratingView.comment ?? "")")
     }
     
     override func viewDidLoad() {
@@ -42,10 +43,7 @@ class RatingViewController: AbstractGarageViewController {
         view.addGestureRecognizer(view.tap)
     }
     
-    override func sectionContent(forIndexPath indexPath: IndexPath) -> UIView? {
-        switch indexPath.section {
-        case 0: return garageInfoView
-        default: return nil
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

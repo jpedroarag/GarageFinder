@@ -22,7 +22,8 @@ class AbstractGarageViewController: UIViewController {
     
     let tableView: UITableView = {
         let table = UITableView()
-        table.rowHeight = 192
+        table.estimatedRowHeight = 500
+        table.rowHeight = UITableView.automaticDimension
         table.backgroundColor = .white
         table.separatorStyle = .none
         table.bounces = false

@@ -45,15 +45,16 @@ class GarageInfoView: UIView {
             .height(constant: 21+4+16)
         
         button.anchor
-            .top(component.bottomAnchor, padding: 27, priority: 250)
+            .top(component.bottomAnchor, padding: 24, priority: 250)
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
             .height(button.widthAnchor, multiplier: 0.16)
+            .bottom(bottomAnchor, priority: 250)
     }
     
     private func setConstraintsForSupplementaryView() {
         guard let supplementary = supplementaryView else { return }
-        
+
         supplementary.anchor
             .top(component.bottomAnchor, padding: 24)
             .centerX(centerXAnchor)
@@ -72,7 +73,7 @@ class GarageInfoView: UIView {
     func addSupplementaryView(_ view: UIView, animated: Bool = true, _ completion: (() -> Void)? = nil) {
         supplementaryView?.removeFromSuperview()
         supplementaryView = view
-        //setFrameForSupplementaryView()
+        setFrameForSupplementaryView()
         addSubview(view)
         setConstraintsForSupplementaryView()
         if animated {
@@ -85,6 +86,7 @@ class GarageInfoView: UIView {
             layoutSubviews()
             completion?()
         }
+        
     }
     
     @objc private func parkButtonTapped(_ sender: GFButton) {

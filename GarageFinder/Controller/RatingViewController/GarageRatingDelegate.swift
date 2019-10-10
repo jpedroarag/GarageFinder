@@ -9,5 +9,6 @@
 import Foundation
 
 protocol GarageRatingDelegate: class {
-    func willStartRating() 
+    func willStartRating()
+    func didStartRating()
 }

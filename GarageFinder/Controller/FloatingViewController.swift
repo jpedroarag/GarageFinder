@@ -199,6 +199,9 @@ extension FloatingViewController: RentingGarageDelegate {
 
 extension FloatingViewController: GarageRatingDelegate {
     func willStartRating() {
+        floatingView.animTo(positionY: floatingView.fullView)
+    }
+    func didStartRating() {
         let garageRating = RatingViewController()
         if canShowGarageVC(garageRating) {
             show(garageRating)

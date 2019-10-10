@@ -83,18 +83,21 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func showRatingView(_ button: GFButton) {
-        
         let ratingView = RatingView()
         ratingView.alpha = 0
         removeLastSection()
+        self.garageRatingDelegate?.willStartRating()
         mutableGarageInfoView.addSupplementaryView(ratingView) {
-            UIView.animate(withDuration: 0.2, animations: {
-                ratingView.alpha = 1
-                button.alpha = 0.5
+            UIView.animate(withDuration: 0.175, animations: {
+                button.alpha = 0
             }, completion: { _ in
-                button.alpha = 1
                 button.setTitle("Avaliar", for: .normal)
-                self.garageRatingDelegate?.willStartRating()
+                UIView.animate(withDuration: 0.2, animations: {
+                    ratingView.alpha = 1
+                    button.alpha = 1
+                }, completion: { _ in
+                    self.garageRatingDelegate?.didStartRating()
+                })
             })
         }
         garageInfoView.component.isCollapsed = true
@@ -121,20 +124,6 @@ class GarageRentingViewController: AbstractGarageViewController {
         rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString
         rentingCounterView.priceLabel.text = rentingObject.priceString
     }
-    
-    func startRating() {
-        let ratingView = RatingView()
-        ratingView.alpha = 0
-        garageInfoView.addSupplementaryView(ratingView) {
-            UIView.animate(withDuration: 0.7, animations: {
-                ratingView.alpha = 1
-            }, completion: { _ in
-
-            })
-        }
-        garageInfoView.component.isCollapsed = true
-    }
-
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement

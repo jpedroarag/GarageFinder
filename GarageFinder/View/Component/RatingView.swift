@@ -11,7 +11,12 @@ import GarageFinderFramework
 
 class RatingView: UIView {
     
-    var ratingAction: ((_ rating: Int) -> Void)?
+    var ratingValue: Int = 5
+    var commentIsEmpty = true
+    
+    var comment: String? {
+        return commentIsEmpty ? nil : commentTextView.text
+    }
     
     lazy var ratingButtons: [UIButton] = {
         var buttons: [UIButton] = []
@@ -49,11 +54,17 @@ class RatingView: UIView {
         return textView
     }()
 
+    lazy var limitCharLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0/100"
+        return label
+    }()
+    
     override func didMoveToSuperview() {
         backgroundColor = .white
         addSubviews([contentButtons, shadowedView])
         contentButtons.addArrangedSubviews(ratingButtons)
-        shadowedView.addSubview(commentTextView)
+        shadowedView.addSubviews([commentTextView, limitCharLabel])
         setupConstraints()
         
         ratingButtons.forEach {
@@ -65,7 +76,7 @@ class RatingView: UIView {
         for (index, button) in ratingButtons.enumerated() {
             index <= sender.tag ? button.setImage("rate") : button.setImage("unfilled_star")
         }
-        ratingAction?(sender.tag + 1)
+        ratingValue = sender.tag + 1
     }
     
     func setupConstraints() {
@@ -91,26 +102,33 @@ class RatingView: UIView {
             .bottom(safeAreaLayoutGuide.bottomAnchor, padding: 24)
         
         commentTextView.anchor.attatch(to: shadowedView)
+        
+        limitCharLabel.anchor
+            .right(shadowedView.rightAnchor)
+            .bottom(shadowedView.bottomAnchor)
+        
     }
 }
 
 extension RatingView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .lightGray {
+        if commentIsEmpty {
             textView.text = ""
             textView.textColor = .black
+            commentIsEmpty = false
         }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
+            commentIsEmpty = true
             textView.text = textViewPlaceholder
             textView.textColor = .lightGray
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        
+        limitCharLabel.text = "\(textView.text.count)/\(textViewMaxCharacters)"
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
