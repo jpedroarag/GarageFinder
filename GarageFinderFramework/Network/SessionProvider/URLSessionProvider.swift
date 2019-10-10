@@ -24,7 +24,9 @@ public final class URLSessionProvider: Provider {
             self.handleResult(result: result, completion: completion)
         }
         
-        task.resume()
+        DispatchQueue.global(qos: .userInitiated).async {
+            task.resume()
+        }
     }
     
     private func handleResult<T: Decodable>(result: Result<(URLResponse, Data), Error>,
@@ -37,13 +39,23 @@ public final class URLSessionProvider: Provider {
             guard let httpResponse = response as? HTTPURLResponse else {
                 return completion(.failure(NetworkError.noJSONData))
             }
+            guard let dataString = String(bytes: data, encoding: .utf8) else { return }
+
             switch httpResponse.statusCode {
             case 200...299:
-                guard let model = try? JSONDecoder().decode(T.self, from: data) else {
-                    return completion(.failure(NetworkError.unknown))
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+                do {
+                    let model = try decoder.decode(T.self, from: data)
+                    completion(.success(model))
+                } catch {
+                    completion(.failure(NetworkError.decodeError(error.localizedDescription)))
                 }
-                
-                completion(.success(model))
+            case 400...499:
+                completion(.failure(NetworkError.clientError(statusCode: httpResponse.statusCode, dataResponse: dataString)))
+            case 500...599:
+                completion(.failure(NetworkError.serverError(statusCode: httpResponse.statusCode, dataResponse: dataString)))
             default:
                 completion(.failure(NetworkError.unknown))
             }
