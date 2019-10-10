@@ -10,7 +10,12 @@ import UIKit
 
 class GFButton: UIButton {
     
-    var action: ((GFButton) -> Void)?
+    var action: ((GFButton) -> Void)? {
+        didSet {
+            print("setAction")
+            
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
