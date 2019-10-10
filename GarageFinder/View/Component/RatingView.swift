@@ -56,7 +56,9 @@ class RatingView: UIView {
 
     lazy var limitCharLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/100"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .lightGray
+        label.text = "0/\(textViewMaxCharacters)"
         return label
     }()
     
@@ -104,8 +106,8 @@ class RatingView: UIView {
         commentTextView.anchor.attatch(to: shadowedView)
         
         limitCharLabel.anchor
-            .right(shadowedView.rightAnchor)
-            .bottom(shadowedView.bottomAnchor)
+            .right(shadowedView.rightAnchor, padding: 8)
+            .bottom(shadowedView.bottomAnchor, padding: 8)
         
     }
 }
@@ -132,6 +134,6 @@ extension RatingView: UITextViewDelegate {
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
-        return newText.count < textViewMaxCharacters
+        return newText.count <= textViewMaxCharacters
     }
 }
