@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct Renting {
+public struct Renting: CustomCodable {
+    public static var path: String = "/renting/"
+    
     public var value: Float
     public var permanenceDuration: Int? // In minutes
     public let entryDate: Date

@@ -8,7 +8,9 @@
 
 import Foundation
 
-public enum DocumentType: String {
+public enum DocumentType: String, CustomCodable {
+    public static var path: String = "/documentType/"
+    
     case cpf
     case rg
 }

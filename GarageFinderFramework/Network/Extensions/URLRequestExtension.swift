@@ -14,14 +14,14 @@ extension URLRequest {
         if let urlComponents = URLComponents(service: service),
             let url = urlComponents.url {
             self.init(url: url)
-            
+            print("URL: \(url)")
             self.httpMethod = service.method.rawValue
             
             service.headers?.forEach { key, value in
                 addValue(value, forHTTPHeaderField: key)
             }
             
-            guard case let .requestParameters(payload) = service.task,
+            guard case let .requestWithBody(payload) = service.task,
                 service.parametersEncoding == .json else {
                     return
             }

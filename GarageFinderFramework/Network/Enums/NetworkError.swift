@@ -10,5 +10,8 @@ import Foundation
 
 public enum NetworkError: Error {
     case unknown
+    case clientError(statusCode: Int, dataResponse: String)
+    case serverError(statusCode: Int, dataResponse: String)
+    case decodeError(String)
     case noJSONData
 }

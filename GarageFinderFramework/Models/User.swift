@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct User {
+public struct User: CustomCodable {
+    public static var path: String = "/user/"
+    
     public let userId: Int
     public let name: String
     public let email: String

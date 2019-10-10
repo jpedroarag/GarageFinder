@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct Address {
+public struct Address: CustomCodable {
+    public static var path: String = "/address/"
+    
     public let addressId: Int
     public let zip: String
     public let street: String

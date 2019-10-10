@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct Vehicle {
+public struct Vehicle: CustomCodable {
+    public static var path: String = "/vehicle/"
+    
     public let vehicleId: Int
     public let model: String
     public let chassi: String

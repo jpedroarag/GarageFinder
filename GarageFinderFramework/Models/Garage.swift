@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct Garage {
+public struct Garage: CustomCodable {
+    public static var path: String = "/garage/"
+    
     public let garageId: Int
     public let description: String
     public let parkingSpaces: Int
