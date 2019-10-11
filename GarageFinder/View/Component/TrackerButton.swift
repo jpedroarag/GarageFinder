@@ -48,9 +48,14 @@ class TrackerButton: UIButton {
     func switchToImage(named imageName: String, animated: Bool = false) {
         let image = UIImage(named: imageName)
         if animated {
-            UIView.animate(withDuration: 0.35) {
+            UIView.animate(withDuration: 0.1725, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+                self.alpha = 0
+            }, completion: { _ in
                 self.setImage(image, for: .normal)
-            }
+                UIView.animate(withDuration: 0.1725, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+                    self.alpha = 1
+                }, completion: nil)
+            })
         } else {
             setImage(image, for: .normal)
         }
