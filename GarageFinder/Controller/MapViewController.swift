@@ -148,4 +148,18 @@ extension MapViewController: MKMapViewDelegate {
             return MKPolylineRenderer()
         }
     }
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        switch mode {
+        case .none:
+            toolboxView.trackerButton.switchToImage(named: "tracker", animated: true)
+        case .follow:
+            toolboxView.trackerButton.switchToImage(named: "trackerFilled", animated: true)
+        case .followWithHeading:
+            toolboxView.trackerButton.switchToImage(named: "trackerFilledWithHeading", animated: true)
+        @unknown default:
+            return
+        }
+        toolboxView.trackerButton.mode = mode
+    }
 }

@@ -31,12 +31,7 @@ class AbstractGarageViewController: UIViewController {
     }()
     
     var garageInfoView: GarageInfoView {
-        let garageInfoView = GarageInfoView(frame: .zero)
-        garageInfoView.component.leftImageView.image = UIImage(named: "mockGarage")
-        garageInfoView.component.titleLabel.text = "Garagem de Marcus"
-        garageInfoView.component.subtitleLabel.text = "St. John Rush, 79"
-        garageInfoView.component.ratingLabel.text = "4.3"
-        return garageInfoView
+        return GarageInfoView(frame: .zero)
     }
     
     var numberOfSections = 1

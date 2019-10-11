@@ -11,9 +11,9 @@ import MapKit
 class GarageAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
-            guard let garage = newValue as? Garage else { return }
+            if !(newValue is Garage) { return }
             markerTintColor = .black
-            glyphText = garage.subtitle ?? ""
+            glyphImage = UIImage(named: "carPin")
         }
     }
 }

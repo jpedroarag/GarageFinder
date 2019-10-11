@@ -10,5 +10,5 @@ import Foundation
 extension Notification.Name {
     //notifies the menu scene to present an online game
     static let finishSearch = Notification.Name(rawValue: "finishSearch")
-
+    static let adjustsMenu = Notification.Name(rawValue: "adjustsMenu")
 }
