@@ -10,9 +10,9 @@ import UIKit
 
 class GarageGalleryDataSourceDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var photos: [UIImage]!
+    private var photos: [UIImage?]
     
-    init(_ photos: [UIImage]) {
+    init(_ photos: [UIImage?]) {
         self.photos = photos
     }
     
@@ -29,7 +29,7 @@ class GarageGalleryDataSourceDelegate: NSObject, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let width = photos[indexPath.item].cgImage?.width else {
+        guard let width = photos[indexPath.item]?.cgImage?.width else {
             return .zero
         }
         

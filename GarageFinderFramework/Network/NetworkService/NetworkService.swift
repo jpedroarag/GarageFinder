@@ -10,7 +10,7 @@ import Foundation
 
 public enum NetworkService<T: CustomCodable>: Service {
     
-    case get(T.Type, id: Int? = nil)
+    case get(T.Type, id: Int?)
     case add(T)
     case update(T)
     case login(T)

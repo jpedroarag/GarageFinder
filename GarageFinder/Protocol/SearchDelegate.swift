@@ -13,6 +13,6 @@ protocol SearchDelegate: class {
 }
 
 protocol SelectGarageDelegate: class {
-    func didSelectGarage()
+    func didSelectGarage(_ garage: Garage)
     func didDeselectGarage()
 }

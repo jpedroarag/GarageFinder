@@ -26,7 +26,7 @@ class GarageGalleryView: UIView {
         return view
     }()
     
-    var photos: [UIImage] = [] {
+    var photos: [UIImage?] = [] {
         didSet {
             collectionView.reloadData()
         }
@@ -35,7 +35,7 @@ class GarageGalleryView: UIView {
     var dataSource: GarageGalleryDataSourceDelegate!
     weak var delegate: GarageGalleryDataSourceDelegate!
     
-    convenience init(images: [UIImage]) {
+    convenience init(images: [UIImage?]) {
         self.init(frame: .zero)
         setDataSourceDelegate(images)
         photos = images
@@ -49,7 +49,7 @@ class GarageGalleryView: UIView {
         setLayer()
     }
     
-    private func setDataSourceDelegate(_ photos: [UIImage]) {
+    private func setDataSourceDelegate(_ photos: [UIImage?]) {
         let dataSourceDelegate = GarageGalleryDataSourceDelegate(photos)
         collectionView.dataSource = dataSourceDelegate
         collectionView.delegate = dataSourceDelegate

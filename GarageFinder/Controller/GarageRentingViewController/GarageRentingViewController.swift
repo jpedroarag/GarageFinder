@@ -13,7 +13,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     lazy var rentingObject = Renting()
     lazy var isRunning = true
-    var rentedGarage = Garage()
+    weak var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
     
@@ -96,7 +96,7 @@ class GarageRentingViewController: AbstractGarageViewController {
                     ratingView.alpha = 1
                     button.alpha = 1
                 }, completion: { _ in
-                    self.garageRatingDelegate?.didStartRating()
+                    self.garageRatingDelegate?.didStartRating(self.rentedGarage)
                 })
             })
         }

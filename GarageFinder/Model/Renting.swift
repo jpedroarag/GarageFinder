@@ -6,7 +6,7 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import GarageFinderFramework
 
 public struct Renting: CustomCodable {
     public static var path: String = "/renting/"
@@ -49,14 +49,7 @@ public struct Renting: CustomCodable {
     }
     
     public var priceString: String {
-        let formatter = NumberFormatter()
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = ""
-        formatter.locale = Locale(identifier: "pt_BR")
-        formatter.decimalSeparator = ","
-        formatter.currencyDecimalSeparator = ","
-        return formatter.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)
+        return NumberFormatter.getPriceString(currencySymbol: "", value: Double(value))
     }
     
     public var permanenceDurationString: String {

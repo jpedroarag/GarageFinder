@@ -13,7 +13,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
-    lazy var presentedGarage = Garage()
+    weak var presentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
@@ -21,15 +21,9 @@ class GarageDetailsViewController: AbstractGarageViewController {
             return view
         } else {
             let view = GarageInfoView(frame: .zero)
-            view.loadData(self.presentedGarage)
-            view.button.action = { button in
-                button.action = nil
-                self.removeAdditionalSections(animated: true) {
-                    button.setTitle("Concluir", for: .normal)
-                    self.startRenting()
-                }
-            }
-            self.mutableGarageInfoView = view
+            view.loadData(presentedGarage)
+            view.button.action = parkButtonTapped(_:)
+            mutableGarageInfoView = view
             return view
         }
     }
@@ -44,26 +38,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     var garageGalleryView: GarageGalleryView {
-        var pictures = [UIImage]()
-        (0...5).forEach { _ in
-            guard let image = UIImage(named: "mockGarage") else { return }
-            pictures.append(image)
-        }
-        return GarageGalleryView(images: pictures)
+        return GarageGalleryView(images: presentedGarage.pictures)
     }
     
     lazy var ratingListController: GarageRatingListViewController = {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-        
-        var ratings: [Comment] = []
-        (0...7).forEach { _ in
-            let comment = Comment(title: "Good host", message: "Very friendly and a very good garage", rating: 4.3)
-            ratings.append(comment)
-        }
-        controller.loadRatings(ratings)
-        
+        controller.loadRatings(self.presentedGarage.comments)
         return controller
     }()
     
@@ -78,6 +60,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
         super.viewDidLoad()
     }
     
+    func parkButtonTapped(_ sender: GFButton) {
+        sender.action = nil
+        removeAdditionalSections(animated: true) {
+            sender.setTitle("Concluir", for: .normal)
+            self.startRenting()
+        }
+    }
+    
     private func removeLastSection() {
         numberOfSections -= 1
         tableView.deleteSections([numberOfSections], with: .fade)
@@ -90,10 +80,11 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     private func removeAdditionalSections(animated: Bool = true, _ completion: (() -> Void)? = nil) {
         if animated {
-            (0...3).forEach { index in
-                let sectionsRemovingDeadline = 0.1 * Double(index)
-                let completionDeadline = 0.2
-                let deadline = DispatchTime.now() + (index != 3 ? sectionsRemovingDeadline : completionDeadline)
+            let upperBound = numberOfSections
+            (1...upperBound).forEach { index in
+                let sectionsRemovingDeadline = 0.35 * Double(index)
+                let completionDeadline = 0.7
+                let deadline = DispatchTime.now() + (index != 4 ? sectionsRemovingDeadline : completionDeadline)
                 DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
                     index != 3 ? self.removeLastSection() : completion?()
                 })
@@ -110,7 +101,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage)
+                self.rentingGarageDelegate?.startedRenting(self.presentedGarage)
             })
         }
         self.garageInfoView.component.isCollapsed = true
@@ -169,7 +160,7 @@ extension GarageDetailsViewController {
                  +  5.0
                  +  16.0
         default:
-            let ratingsCount = ratingListController.ratings.count
+            let ratingsCount = ratingListController.ratings.isEmpty ? 1 :  ratingListController.ratings.count
             let rowHeight: CGFloat = 64 + 4
             let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
             return (rowHeight * CGFloat(ratingsCount)) + bottomInset

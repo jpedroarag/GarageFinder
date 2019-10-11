@@ -11,14 +11,15 @@ import MapKit
 
 class ToolboxView: UIView {
     
-    let totalButtons = CGFloat(1)
+    let totalButtons = CGFloat(2)
     let minimumButtonSize = CGSize(width: 48, height: 48)
     
     var totalHeight: CGFloat {
         return totalButtons * minimumButtonSize.height + (totalButtons - 1)
     }
     
-    var locationTrackerButton: MKUserTrackingButton!
+    var trackerButton: TrackerButton!
+    var adjustsButton: AdjustsButton!
     var separators = [UIView]()
 
     init(mapView: MapView, backgroundColor: UIColor, separatorColor: UIColor) {
@@ -34,13 +35,20 @@ class ToolboxView: UIView {
     }
     
     private func configureButtons(_ mapView: MKMapView) {
-        locationTrackerButton = MKUserTrackingButton(mapView: mapView)
-        locationTrackerButton.tintColor = .black
-        addSubview(locationTrackerButton)
+        trackerButton = TrackerButton(mapView: mapView)
+        adjustsButton = AdjustsButton(frame: .zero)
+        addSubview(trackerButton)
+        addSubview(adjustsButton)
     }
     
     func setConstraints() {
-        locationTrackerButton.anchor
+        adjustsButton.anchor
+            .bottom(trackerButton.topAnchor, padding: 1)
+            .left(leftAnchor)
+            .right(rightAnchor)
+            .height(constant: minimumButtonSize.height)
+        
+        trackerButton.anchor
             .bottom(bottomAnchor)
             .left(leftAnchor)
             .right(rightAnchor)
@@ -56,11 +64,11 @@ class ToolboxView: UIView {
     }
     
     func insertSeparators(withColor color: UIColor) {
-        for index in 0..<Int(totalButtons-1) {
+        for index in 0..<Int(totalButtons - 1) {
             let separator = UIView(frame: .zero)
             separator.backgroundColor = color
             addSubview(separator)
-            let topPosition = CGFloat(index+1) * minimumButtonSize.height
+            let topPosition = CGFloat(index + 1) * minimumButtonSize.height
             setSeparatorConstraints(separator, topOffset: topPosition)
         }
     }
