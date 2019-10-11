@@ -158,18 +158,18 @@
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
 		3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
-		3C20C37E23351B7500182CB3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		3C20C38023351DB200182CB3 /* Garage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
-		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
-		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		3C20C3882339047500182CB3 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
+		3C20C37E23351B7500182CB3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = ../../GarageFinder/Model/User.swift; sourceTree = "<group>"; };
+		3C20C38023351DB200182CB3 /* Garage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Garage.swift; path = ../../GarageFinder/Model/Garage.swift; sourceTree = "<group>"; };
+		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Vehicle.swift; path = ../../GarageFinder/Model/Vehicle.swift; sourceTree = "<group>"; };
+		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Address.swift; path = ../../GarageFinder/Model/Address.swift; sourceTree = "<group>"; };
+		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = ../../GarageFinder/Model/Comment.swift; sourceTree = "<group>"; };
+		3C20C3882339047500182CB3 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = ../../GarageFinder/Model/DocumentType.swift; sourceTree = "<group>"; };
 		3C20C38B233A622300182CB3 /* RentingCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingCounterView.swift; sourceTree = "<group>"; };
 		3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingGarageDelegate.swift; sourceTree = "<group>"; };
 		3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRentingViewController.swift; sourceTree = "<group>"; };
 		3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractGarageViewController.swift; sourceTree = "<group>"; };
 		3C20C393233B878400182CB3 /* GarageRatingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingListViewController.swift; sourceTree = "<group>"; };
-		3C20C397233BA5A800182CB3 /* Renting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renting.swift; sourceTree = "<group>"; };
+		3C20C397233BA5A800182CB3 /* Renting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Renting.swift; path = ../../GarageFinder/Model/Renting.swift; sourceTree = "<group>"; };
 		3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsViewController.swift; sourceTree = "<group>"; };
 		3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsCell.swift; sourceTree = "<group>"; };
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
@@ -314,6 +314,7 @@
 		3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */ = {
 			isa = PBXGroup;
 			children = (
+				3C3830A22350BD550034F315 /* Models */,
 				3C10C94B2316A826001BDDB6 /* Constraints */,
 				3C10C94D2316A828001BDDB6 /* Network */,
 				3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */,
@@ -434,6 +435,20 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
+		3C3830A22350BD550034F315 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C20C37E23351B7500182CB3 /* User.swift */,
+				3C20C3882339047500182CB3 /* DocumentType.swift */,
+				3C20C38423351DD100182CB3 /* Address.swift */,
+				3C20C38023351DB200182CB3 /* Garage.swift */,
+				3C20C38623351DE800182CB3 /* Comment.swift */,
+				3C20C38223351DC000182CB3 /* Vehicle.swift */,
+				3C20C397233BA5A800182CB3 /* Renting.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3C811E41232692970075AD49 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,13 +476,6 @@
 			isa = PBXGroup;
 			children = (
 				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
-				3C20C37E23351B7500182CB3 /* User.swift */,
-				3C20C3882339047500182CB3 /* DocumentType.swift */,
-				3C20C38423351DD100182CB3 /* Address.swift */,
-				3C20C38023351DB200182CB3 /* Garage.swift */,
-				3C20C38623351DE800182CB3 /* Comment.swift */,
-				3C20C38223351DC000182CB3 /* Vehicle.swift */,
-				3C20C397233BA5A800182CB3 /* Renting.swift */,
 				3C383085234964040034F315 /* MockedData.swift */,
 			);
 			path = Model;
