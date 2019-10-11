@@ -8,8 +8,8 @@
 
 import UIKit.UIImage
 
-struct MockedData {
-    static func loadMockedGarage(_ id: Int) -> Garage? {
+public struct MockedData {
+    public static func loadMockedGarage(_ id: Int) -> Garage? {
         let bundle = Bundle.main
         guard let path = bundle.url(forResource: "GarageMock", withExtension: "json") else { return nil }
         if let data = try? Data(contentsOf: path, options: .mappedIfSafe) {
@@ -21,7 +21,7 @@ struct MockedData {
         return nil
     }
     
-    static func loadMockedGarages() -> [Garage]? {
+    public static func loadMockedGarages() -> [Garage]? {
         let bundle = Bundle.main
         guard let path = bundle.url(forResource: "GarageMock", withExtension: "json") else { return nil }
         if let data = try? Data(contentsOf: path, options: .mappedIfSafe) {
@@ -31,7 +31,7 @@ struct MockedData {
         return nil
     }
     
-    static func loadMockedUser(_ id: Int) -> User? {
+    public static func loadMockedUser(_ id: Int) -> User? {
         let bundle = Bundle.main
         guard let path = bundle.url(forResource: "UserMock", withExtension: "json") else { return nil }
         if let data = try? Data(contentsOf: path, options: .mappedIfSafe) {

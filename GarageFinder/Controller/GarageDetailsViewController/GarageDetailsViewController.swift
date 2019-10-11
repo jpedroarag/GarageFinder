@@ -86,7 +86,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
                 let completionDeadline = 0.7
                 let deadline = DispatchTime.now() + (index != 4 ? sectionsRemovingDeadline : completionDeadline)
                 DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
-                    index != 4 ? self.removeLastSection() : completion?()
+                    index != 3 ? self.removeLastSection() : completion?()
                 })
             }
         } else {
@@ -101,12 +101,12 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage)
+                self.rentingGarageDelegate?.startedRenting(self.presentedGarage)
             })
         }
         self.garageInfoView.component.isCollapsed = true
     }
-
+    
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement

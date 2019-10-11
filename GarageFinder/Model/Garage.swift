@@ -8,8 +8,11 @@
 
 import MapKit
 import UIKit.UIImage
+import GarageFinderFramework
 
-public class Garage: NSObject, Decodable {
+public class Garage: NSObject, CustomCodable {
+    public static var path: String = "/garage/"
+    
     public var garageId: Int!
     public var name: String! // description
     public var parkingSpaces: Int!
@@ -18,6 +21,7 @@ public class Garage: NSObject, Decodable {
     public var address: Address!
     public var comments: [Comment]!
     public var pictures: [UIImage?]!
+    private var picturesUrls: [String]!
     public var average: Float!
     
     private enum CodingKeys: String, CodingKey {
@@ -74,9 +78,28 @@ public class Garage: NSObject, Decodable {
                 photoUrls.append(url)
             }
         }
+        picturesUrls = photoUrls
+        
         let userId = try? container.decodeIfPresent(Int.self, forKey: .user)
         loadPictures(photoUrls)
         loadUser(userId ?? -1)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(garageId, forKey: .garageId)
+        try container.encode(name, forKey: .name)
+        try container.encode(parkingSpaces, forKey: .parkingSpaces)
+        try container.encode(price, forKey: .price)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(average, forKey: .average)
+        try container.encode(address, forKey: .address)
+        try (0..<picturesUrls.count).forEach { index in
+            guard let key = CodingKeys(rawValue: "photo\(index+1)") else { return }
+            try container.encode(picturesUrls[index], forKey: key)
+        }
+        try container.encode(user.userId, forKey: .user)
     }
     
     func loadPictures(_ urls: [String]) {

@@ -22,7 +22,7 @@ extension CLLocationCoordinate2D {
     }
 }
 
-extension CLLocationCoordinate2D: Decodable {
+extension CLLocationCoordinate2D: Codable {
     private enum Keys: String, CodingKey {
         case latitude
         case longitude
@@ -33,5 +33,11 @@ extension CLLocationCoordinate2D: Decodable {
         let latitude = try container.decode(Double.self, forKey: .latitude)
         let longitude = try container.decode(Double.self, forKey: .longitude)
         self.init(latitude: latitude, longitude: longitude)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: Keys.self)
+        try container.encode(latitude, forKey: .latitude)
+        try container.encode(longitude, forKey: .longitude)
     }
 }

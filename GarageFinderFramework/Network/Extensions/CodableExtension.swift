@@ -19,6 +19,8 @@ extension Encodable {
     }
     
     var data: Data? {
-        return try? JSONEncoder().encode(self)
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
+        return try? jsonEncoder.encode(self)
     }
 }

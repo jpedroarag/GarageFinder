@@ -6,9 +6,9 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import GarageFinderFramework
 
-public class Comment: Decodable {
+public class Comment: Codable {
     public var commentId: Int!
     public var clientUser: User!
     public var hostUser: User!

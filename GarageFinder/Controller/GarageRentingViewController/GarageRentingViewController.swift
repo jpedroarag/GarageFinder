@@ -15,6 +15,8 @@ class GarageRentingViewController: AbstractGarageViewController {
     lazy var isRunning = true
     weak var rentedGarage: Garage!
     
+    weak var garageRatingDelegate: GarageRatingDelegate?
+    
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
         if let view = mutableGarageInfoView {
@@ -23,22 +25,9 @@ class GarageRentingViewController: AbstractGarageViewController {
             let view = GarageInfoView(collapsed: true)
             view.loadData(rentedGarage)
             view.button.setTitle("Concluir", for: .normal)
-            view.button.action = { button in
-                UIView.animate(withDuration: 0.175, animations: {
-                    button.alpha = 0
-                }, completion: { _ in
-                    button.action = nil
-                    button.setTitle("Pagar", for: .normal)
-                    UIView.animate(withDuration: 0.175, animations: {
-                        button.alpha = 1
-                    })
-                })
-                self.isRunning = false
-                self.rentingObject.conclude()
-                self.update()
-                self.pay()
-            }
+            view.button.action = concludeAction(_:)
             view.addSupplementaryView(rentingCounterView, animated: false, nil)
+            self.mutableGarageInfoView = view
             return view
         }
     }
@@ -72,6 +61,53 @@ class GarageRentingViewController: AbstractGarageViewController {
         }
     }
     
+    func concludeAction(_ button: GFButton) {
+        UIView.animate(withDuration: 0.175, animations: {
+            button.alpha = 0
+        }, completion: { _ in
+            button.setTitle("Pagar", for: .normal)
+            UIView.animate(withDuration: 0.175, animations: {
+                button.alpha = 1
+            })
+            
+            button.action = self.paymentAction(_:)
+        })
+        self.isRunning = false
+        self.rentingObject.conclude()
+        self.update()
+    }
+
+    func paymentAction(_ button: GFButton) {
+        // TODO: Payment action
+        showRatingView(button)
+    }
+    
+    func showRatingView(_ button: GFButton) {
+        let ratingView = RatingView()
+        ratingView.alpha = 0
+        removeLastSection()
+        self.garageRatingDelegate?.willStartRating()
+        mutableGarageInfoView.addSupplementaryView(ratingView) {
+            UIView.animate(withDuration: 0.175, animations: {
+                button.alpha = 0
+            }, completion: { _ in
+                button.setTitle("Avaliar", for: .normal)
+                UIView.animate(withDuration: 0.2, animations: {
+                    ratingView.alpha = 1
+                    button.alpha = 1
+                }, completion: { _ in
+                    self.garageRatingDelegate?.didStartRating(self.rentedGarage)
+                })
+            })
+        }
+        garageInfoView.component.isCollapsed = true
+        
+    }
+    private func removeLastSection() {
+        numberOfSections -= 1
+        tableView.deleteSections([numberOfSections], with: .fade)
+    }
+    
     func fireRenting() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isRunning {
@@ -88,11 +124,6 @@ class GarageRentingViewController: AbstractGarageViewController {
         rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString
         rentingCounterView.priceLabel.text = rentingObject.priceString
     }
-    
-    func pay() {
-        // TODO: Payment action
-    }
-
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate implement

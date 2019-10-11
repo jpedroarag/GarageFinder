@@ -6,9 +6,11 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import GarageFinderFramework
 
-public struct Vehicle {
+public struct Vehicle: CustomCodable {
+    public static var path: String = "/vehicle/"
+    
     public let vehicleId: Int
     public let model: String
     public let chassi: String

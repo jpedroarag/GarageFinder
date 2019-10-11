@@ -6,9 +6,12 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import MapKit
+import CoreLocation
+import GarageFinderFramework
 
-public class Address: Decodable {
+public struct Address: CustomCodable {
+    public static var path: String = "/address/"
+    
     public var addressId: Int!
     public var zip: String!
     public var street: String!
