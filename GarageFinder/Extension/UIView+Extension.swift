@@ -38,9 +38,5 @@ extension UIView {
         views.forEach { view in
             addSubview(view)
         }
-    }
-    
-    
-    
-    
+    } 
 }

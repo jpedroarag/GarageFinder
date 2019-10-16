@@ -12,7 +12,7 @@ import GarageFinderFramework
 class RatingViewController: AbstractGarageViewController {
 
     lazy var ratingView = RatingView()
-    var currentGarage = Garage()
+    weak var currentGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {

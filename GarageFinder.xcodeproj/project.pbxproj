@@ -32,20 +32,28 @@
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
 		3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */; };
-		3C20C37F23351B7500182CB3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37E23351B7500182CB3 /* User.swift */; };
-		3C20C38123351DB200182CB3 /* Garage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38023351DB200182CB3 /* Garage.swift */; };
-		3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
-		3C20C38523351DD100182CB3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38423351DD100182CB3 /* Address.swift */; };
-		3C20C38723351DE800182CB3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
-		3C20C3892339047500182CB3 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C3882339047500182CB3 /* DocumentType.swift */; };
+		3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */; };
 		3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */; };
-		3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
 		3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C393233B878400182CB3 /* GarageRatingListViewController.swift */; };
-		3C20C398233BA5A800182CB3 /* Renting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C397233BA5A800182CB3 /* Renting.swift */; };
 		3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */; };
 		3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */; };
 		3C20C3A0233CE05A00182CB3 /* RentingDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */; };
+		3C20C3A2233E588800182CB3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C20C3A1233E588800182CB3 /* MapKit.framework */; };
+		3C38307123410F310034F315 /* Renting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C397233BA5A800182CB3 /* Renting.swift */; };
+		3C38307423410F310034F315 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
+		3C38307523410F310034F315 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
+		3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383078234636BA0034F315 /* GarageAnnotationView.swift */; };
+		3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38307C23478BDF0034F315 /* AdjustsButton.swift */; };
+		3C38307F23495A3F0034F315 /* GarageMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C38307E23495A3F0034F315 /* GarageMock.json */; };
+		3C38308323495AF80034F315 /* UserMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C38308223495AF80034F315 /* UserMock.json */; };
+		3C383086234964040034F315 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383085234964040034F315 /* MockedData.swift */; };
+		3C38308823497FFD0034F315 /* NumberFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */; };
+		3C38308A234CB3160034F315 /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383089234CB3160034F315 /* TrackerButton.swift */; };
+		3C3830AB2350C1680034F315 /* Garage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A72350BEAB0034F315 /* Garage.swift */; };
+		3C3830AC2350C1680034F315 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A52350BE750034F315 /* Address.swift */; };
+		3C3830AD2350C1680034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A32350BE4F0034F315 /* User.swift */; };
+		3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A92350C0540034F315 /* DocumentType.swift */; };
 		3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */; };
 		3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E442327BE130075AD49 /* GarageInfoView.swift */; };
 		3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E462327BE2D0075AD49 /* GFButton.swift */; };
@@ -73,15 +81,15 @@
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
-		6C511F012350D4FB00A0D3DE /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C511F002350D4FB00A0D3DE /* UserAuth.swift */; };
 		6C52C1332330087600233617 /* PlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52C1322330087600233617 /* PlaceCategory.swift */; };
+		6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
 		6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */; };
 		6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
 		6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */; };
-		6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
+		6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F0AC423574C05001159A9 /* UserAuth.swift */; };
 		6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
@@ -157,12 +165,8 @@
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
 		3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
-		3C20C37E23351B7500182CB3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		3C20C38023351DB200182CB3 /* Garage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
 		3C20C38223351DC000182CB3 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
-		3C20C38423351DD100182CB3 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3C20C38623351DE800182CB3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		3C20C3882339047500182CB3 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
 		3C20C38B233A622300182CB3 /* RentingCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingCounterView.swift; sourceTree = "<group>"; };
 		3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingGarageDelegate.swift; sourceTree = "<group>"; };
 		3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRentingViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +176,18 @@
 		3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsViewController.swift; sourceTree = "<group>"; };
 		3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsCell.swift; sourceTree = "<group>"; };
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
+		3C20C3A1233E588800182CB3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3C383078234636BA0034F315 /* GarageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotationView.swift; sourceTree = "<group>"; };
+		3C38307C23478BDF0034F315 /* AdjustsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustsButton.swift; sourceTree = "<group>"; };
+		3C38307E23495A3F0034F315 /* GarageMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GarageMock.json; sourceTree = "<group>"; };
+		3C38308223495AF80034F315 /* UserMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserMock.json; sourceTree = "<group>"; };
+		3C383085234964040034F315 /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
+		3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Extension.swift"; sourceTree = "<group>"; };
+		3C383089234CB3160034F315 /* TrackerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
+		3C3830A32350BE4F0034F315 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3C3830A52350BE750034F315 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		3C3830A72350BEAB0034F315 /* Garage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
+		3C3830A92350C0540034F315 /* DocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = ../../GarageFinderFramework/Models/DocumentType.swift; sourceTree = "<group>"; };
 		3C811E422326946E0075AD49 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3C811E442327BE130075AD49 /* GarageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageInfoView.swift; sourceTree = "<group>"; };
 		3C811E462327BE2D0075AD49 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
@@ -206,6 +222,7 @@
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
+		6C7F0AC423574C05001159A9 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
 		6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem+Extension.swift"; sourceTree = "<group>"; };
@@ -224,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CD2A81E231D3F9200A4782D /* GarageFinderFramework.framework in Frameworks */,
+				3C20C3A2233E588800182CB3 /* MapKit.framework in Frameworks */,
 				6CD2A81A231D3F8300A4782D /* GarageFinderFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +263,7 @@
 				3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */,
 				3C10C8D0230AE450001BDDB6 /* Products */,
 				6CD2A81D231D3F9200A4782D /* Frameworks */,
+				6C7F0AC323574BDE001159A9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,7 +284,7 @@
 				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
 				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
 				3C10C942231579D1001BDDB6 /* IfceLocation.gpx */,
-				3C10C943231579D2001BDDB6 /* NearGarages.json */,
+				3C38308423495D1C0034F315 /* Mock */,
 				6C52C1312330084800233617 /* Enum */,
 				3C10C9462316A38C001BDDB6 /* Extension */,
 				6C1D5F9E2334FBD0005D9B06 /* Model */,
@@ -314,7 +333,6 @@
 		3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */ = {
 			isa = PBXGroup;
 			children = (
-				3C20C37D23351B5C00182CB3 /* Models */,
 				3C10C94B2316A826001BDDB6 /* Constraints */,
 				3C10C94D2316A828001BDDB6 /* Network */,
 				3C10C8F3230AE7D2001BDDB6 /* GarageFinderFramework.h */,
@@ -338,6 +356,7 @@
 				6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */,
 				6C24E17D23461F85007EE981 /* UITextView+Extension.swift */,
 				6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */,
+				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -410,21 +429,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		3C20C37D23351B5C00182CB3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3C20C37E23351B7500182CB3 /* User.swift */,
-				6C511F002350D4FB00A0D3DE /* UserAuth.swift */,
-				3C20C3882339047500182CB3 /* DocumentType.swift */,
-				3C20C38023351DB200182CB3 /* Garage.swift */,
-				3C20C38223351DC000182CB3 /* Vehicle.swift */,
-				3C20C38423351DD100182CB3 /* Address.swift */,
-				3C20C38623351DE800182CB3 /* Comment.swift */,
-				3C20C397233BA5A800182CB3 /* Renting.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		3C20C39D233BB79700182CB3 /* GarageDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,9 +447,21 @@
 			path = GarageRentingViewController;
 			sourceTree = "<group>";
 		};
+		3C38308423495D1C0034F315 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C943231579D2001BDDB6 /* NearGarages.json */,
+				3C38307E23495A3F0034F315 /* GarageMock.json */,
+				3C38308223495AF80034F315 /* UserMock.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		3C811E41232692970075AD49 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				3C38307C23478BDF0034F315 /* AdjustsButton.swift */,
+				3C383089234CB3160034F315 /* TrackerButton.swift */,
 				3C811E462327BE2D0075AD49 /* GFButton.swift */,
 				3C811E4A2327BE840075AD49 /* GFTableViewComponent.swift */,
 				3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */,
@@ -459,6 +475,7 @@
 				3C20C38B233A622300182CB3 /* RentingCounterView.swift */,
 				3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */,
 				3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */,
+				3C383078234636BA0034F315 /* GarageAnnotationView.swift */,
 				6C24E17723461ED9007EE981 /* RatingView.swift */,
 			);
 			path = Component;
@@ -467,6 +484,15 @@
 		6C1D5F9E2334FBD0005D9B06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3C3830A32350BE4F0034F315 /* User.swift */,
+				6C7F0AC423574C05001159A9 /* UserAuth.swift */,
+				3C3830A92350C0540034F315 /* DocumentType.swift */,
+				3C3830A52350BE750034F315 /* Address.swift */,
+				3C3830A72350BEAB0034F315 /* Garage.swift */,
+				3C20C38623351DE800182CB3 /* Comment.swift */,
+				3C20C38223351DC000182CB3 /* Vehicle.swift */,
+				3C20C397233BA5A800182CB3 /* Renting.swift */,
+				3C383085234964040034F315 /* MockedData.swift */,
 				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
 			);
 			path = Model;
@@ -500,9 +526,18 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		6C7F0AC323574BDE001159A9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6C511F002350D4FB00A0D3DE /* UserAuth.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6CD2A81D231D3F9200A4782D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C20C3A1233E588800182CB3 /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -581,6 +616,11 @@
 				TargetAttributes = {
 					3C10C8CE230AE450001BDDB6 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					3C10C8F0230AE7D2001BDDB6 = {
 						CreatedOnToolsVersion = 10.3;
@@ -612,8 +652,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C10C945231579D2001BDDB6 /* NearGarages.json in Resources */,
+				3C38308323495AF80034F315 /* UserMock.json in Resources */,
 				3C10C8E0230AE453001BDDB6 /* LaunchScreen.storyboard in Resources */,
 				3C10C8DD230AE453001BDDB6 /* Assets.xcassets in Resources */,
+				3C38307F23495A3F0034F315 /* GarageMock.json in Resources */,
 				3C10C944231579D2001BDDB6 /* IfceLocation.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,15 +695,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */,
+				6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */,
+				3C383086234964040034F315 /* MockedData.swift in Sources */,
+				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
+				3C38307523410F310034F315 /* Vehicle.swift in Sources */,
+				3C38307423410F310034F315 /* Comment.swift in Sources */,
 				6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */,
-				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
 				3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */,
 				3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */,
+				3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */,
 				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
 				3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */,
+				3C38307123410F310034F315 /* Renting.swift in Sources */,
 				3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */,
 				3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */,
 				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
@@ -676,6 +723,8 @@
 				3C20C3A0233CE05A00182CB3 /* RentingDetailsView.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
 				3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */,
+				3C3830AB2350C1680034F315 /* Garage.swift in Sources */,
+				3C38308A234CB3160034F315 /* TrackerButton.swift in Sources */,
 				3C811E4F2327EA0C0075AD49 /* String+Extension.swift in Sources */,
 				3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */,
 				3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */,
@@ -683,15 +732,20 @@
 				3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */,
 				6C24E17823461ED9007EE981 /* RatingView.swift in Sources */,
 				6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */,
+				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
 				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,
 				6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */,
+				6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */,
 				6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */,
 				3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */,
 				6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */,
 				6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */,
 				6C24E17E23461F85007EE981 /* UITextView+Extension.swift in Sources */,
 				3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */,
+				3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */,
+				3C3830AD2350C1680034F315 /* User.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
+				3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
 				3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* Range.swift in Sources */,
@@ -710,6 +764,7 @@
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */,
 				6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */,
+				3C38308823497FFD0034F315 /* NumberFormatter+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,26 +774,18 @@
 			files = (
 				3C10C9662316A828001BDDB6 /* URLSessionExtension.swift in Sources */,
 				3C10C9682316A828001BDDB6 /* URLRequestExtension.swift in Sources */,
-				3C20C38123351DB200182CB3 /* Garage.swift in Sources */,
 				3C10C9612316A828001BDDB6 /* URLSessionProvider.swift in Sources */,
 				3C10C9672316A828001BDDB6 /* URLComponentsExtension.swift in Sources */,
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
-				6C511F012350D4FB00A0D3DE /* UserAuth.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
-				3C20C38723351DE800182CB3 /* Comment.swift in Sources */,
-				3C20C37F23351B7500182CB3 /* User.swift in Sources */,
 				6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */,
 				6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */,
-				3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
 				3C10C9602316A828001BDDB6 /* NetworkService.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
-				3C20C38523351DD100182CB3 /* Address.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,
 				3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */,
-				3C20C3892339047500182CB3 /* DocumentType.swift in Sources */,
-				3C20C398233BA5A800182CB3 /* Renting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

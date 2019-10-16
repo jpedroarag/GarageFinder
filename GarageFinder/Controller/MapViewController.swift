@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import GarageFinderFramework
 
 class MapViewController: UIViewController {
     
@@ -17,7 +16,7 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        view.pins = findGarages().map { newPin(coordinate: $0, title: "", subtitle: "") }
+        view.pins = MockedData.loadMockedGarages() ?? [] // TODO: get real data, not mocked
         return view
     }()
     
@@ -39,6 +38,8 @@ class MapViewController: UIViewController {
         view.addSubview(mapView)
         view.addSubview(toolboxView)
         title = "Home"
+        
+        mapView.register(GarageAnnotationView.self, forAnnotationViewWithReuseIdentifier: "garagePin")
         
         //setupSearchController()
         addFloatingVC()
@@ -78,32 +79,6 @@ class MapViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-    }
-    
-    func newPin(coordinate: CLLocation, title: String, subtitle: String) -> MKPointAnnotation {
-        let point = MKPointAnnotation()
-        point.coordinate = CLLocationCoordinate2D(location: coordinate)
-        point.title = title
-        point.subtitle = subtitle
-        return point
-    }
-    
-    func findGarages() -> [CLLocation] {
-        let bundle = Bundle.main
-        guard let path = bundle.url(forResource: "NearGarages", withExtension: "json") else { return [] }
-        let data = try? Data(contentsOf: path, options: .mappedIfSafe)
-        if let data = data {
-            var locations = [CLLocation]()
-            let locationsDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Double]]
-            locationsDict?.forEach { locationDict in
-                if let latitude = locationDict["latitude"], let longitude = locationDict["longitude"] {
-                    let location = CLLocation(latitude: latitude, longitude: longitude)
-                    locations.append(location)
-                }
-            }
-            return locations
-        }
-        return []
     }
     
     func openRouteInMaps(sourcePlaceName sourceName: String,
@@ -148,8 +123,16 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isKind(of: MKUserLocation.self) {
+            return nil
+        }
+        return mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        selectGarageDelegate?.didSelectGarage()
+        guard let garage = view.annotation as? Garage else { return }
+        selectGarageDelegate?.didSelectGarage(garage)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -164,5 +147,19 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             return MKPolylineRenderer()
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        switch mode {
+        case .none:
+            toolboxView.trackerButton.switchToImage(named: "tracker", animated: true)
+        case .follow:
+            toolboxView.trackerButton.switchToImage(named: "trackerFilled", animated: true)
+        case .followWithHeading:
+            toolboxView.trackerButton.switchToImage(named: "trackerFilledWithHeading", animated: true)
+        @unknown default:
+            return
+        }
+        toolboxView.trackerButton.mode = mode
     }
 }

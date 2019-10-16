@@ -48,11 +48,16 @@ class FloatingViewController: UIViewController {
 
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAdjustsMenu(_:)), name: .adjustsMenu, object: nil)
     }
     
     @objc func finishSearch(_ notification: Notification) {
         floatingView.animTo(positionY: floatingView.partialView)
         cancellSearch()
+    }
+    
+    @objc func presentAdjustsMenu(_ notification: Notification) {
+        print("Will present adjusts menu")
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
@@ -159,12 +164,12 @@ extension FloatingViewController: UISearchBarDelegate {
 }
 
 extension FloatingViewController: SelectGarageDelegate {
-    
-    func didSelectGarage() {
+    func didSelectGarage(_ garage: Garage) {
         let garageDetail = GarageDetailsViewController()
         if canShowGarageVC(garageDetail) {
             garageDetail.changeScrollViewDelegate = self
             garageDetail.rentingGarageDelegate = self
+            garageDetail.presentedGarage = garage
             floatingView.floatingViewPositioningDelegate = garageDetail
             floatingView.animTo(positionY: floatingView.middleView)
             show(garageDetail)
@@ -179,12 +184,11 @@ extension FloatingViewController: SelectGarageDelegate {
 }
 
 extension FloatingViewController: RentingGarageDelegate {
-    
-    func startedRenting(garage: Garage) {
+    func startedRenting(_ garage: Garage) {
         let garageRenting = GarageRentingViewController()
         if canShowGarageVC(garageRenting) {
-            garageRenting.garageInfoView.loadData(garage)
             garageRenting.garageRatingDelegate = self
+            garageRenting.rentedGarage = garage
             show(garageRenting)
             if floatingView.currentPos == floatingView.partialView {
                 floatingView.animTo(positionY: floatingView.middleView)
@@ -201,9 +205,10 @@ extension FloatingViewController: GarageRatingDelegate {
     func willStartRating() {
         floatingView.animTo(positionY: floatingView.fullView)
     }
-    func didStartRating() {
+    func didStartRating(_ garage: Garage) {
         let garageRating = RatingViewController()
         if canShowGarageVC(garageRating) {
+            garageRating.currentGarage = garage
             show(garageRating)
             floatingView.animTo(positionY: floatingView.fullView)
         }

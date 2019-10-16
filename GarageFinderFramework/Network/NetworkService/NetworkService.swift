@@ -77,15 +77,3 @@ public extension URLSessionProvider {
         self.request(service: service, completion: completion)
     }
 }
-
-func test() {
-    let provider = URLSessionProvider()
-    provider.request(.get(User.self)) { result in
-        switch result {
-        case .success(let user):
-            print(user)
-        case .failure(let error):
-            print(error)
-        }
-    }
-}

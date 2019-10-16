@@ -6,7 +6,7 @@
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import GarageFinderFramework
 
 public struct User: CustomCodable {
     public static var path: String = "/users/"
