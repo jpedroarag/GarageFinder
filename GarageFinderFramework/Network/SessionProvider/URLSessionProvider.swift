@@ -17,7 +17,7 @@ public final class URLSessionProvider {
     }
     
     public func request<G: Service>(service: G,
-                                    completion: @escaping (Result<G.CustomType, Error>) -> Void) {
+                                    completion: @escaping (Result<Response<G.CustomType>, Error>) -> Void) {
         
         let request = URLRequest(service: service)
         let task = self.session.dataTask(with: request) { (result) in
@@ -30,7 +30,7 @@ public final class URLSessionProvider {
     }
     
     private func handleResult<T: Decodable>(result: Result<(URLResponse, Data), Error>,
-                                            completion: (Result<T, Error>) -> Void) {
+                                            completion: (Result<Response<T>, Error>) -> Void) {
         switch result {
         case .failure(let error):
             print("\n\n\nerror\(error)\n\n\n")
@@ -47,7 +47,7 @@ public final class URLSessionProvider {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 do {
-                    let model = try decoder.decode(T.self, from: data)
+                    let model = try decoder.decode(Response<T>.self, from: data)
                     completion(.success(model))
                 } catch {
                     completion(.failure(NetworkError.decodeError(error.localizedDescription)))

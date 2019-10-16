@@ -12,7 +12,7 @@ public enum NetworkService<T: CustomCodable>: Service {
     public typealias CustomType = T
     
     case get(T.Type, id: Int? = nil)
-    case add(T)
+    case post(T)
     case update(T)
     
     public var baseURL: URL {
@@ -27,7 +27,7 @@ public enum NetworkService<T: CustomCodable>: Service {
                 return type.path
             }
             return "\(type.path)\(id)"
-        case .add(let item), .update(let item):
+        case .post(let item), .update(let item):
             return type(of: item).path
         }
     }
@@ -36,7 +36,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .get
-        case .add:
+        case .post:
             return .post
         case .update:
             return .patch
@@ -47,7 +47,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .requestPlain
-        case .add(let item), .update(let item):
+        case .post(let item), .update(let item):
             return .requestWithBody(item)
         }
     }
@@ -56,7 +56,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return nil
-        case .add, .update:
+        case .post, .update:
             return ["Content-type": "application/json"]
         }
     }
@@ -65,7 +65,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .url
-        case .add, .update:
+        case .post, .update:
             return .json
         }
     }
@@ -73,7 +73,7 @@ public enum NetworkService<T: CustomCodable>: Service {
 
 public extension URLSessionProvider {
     func request<T: Decodable>(_ service: NetworkService<T>,
-                               completion: @escaping (Result<T, Error>) -> Void) {
+                               completion: @escaping (Result<Response<T>, Error>) -> Void) {
         self.request(service: service, completion: completion)
     }
 }

@@ -82,6 +82,7 @@
 		6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */; };
 		6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
+		6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
@@ -205,6 +206,7 @@
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
+		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
 		6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem+Extension.swift"; sourceTree = "<group>"; };
 		6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 		3C10C94E2316A828001BDDB6 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
+				6C8ACC5E2357479B00DFC585 /* Response.swift */,
 				3C10C94F2316A828001BDDB6 /* NetworkService.swift */,
 			);
 			path = NetworkService;
@@ -724,6 +727,7 @@
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
 				3C20C38723351DE800182CB3 /* Comment.swift in Sources */,
 				3C20C37F23351B7500182CB3 /* User.swift in Sources */,
+				6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */,
 				6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */,
 				3C20C38323351DC000182CB3 /* Vehicle.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
