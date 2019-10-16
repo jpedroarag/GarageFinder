@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Garage: CustomCodable {
-    public static var path: String = "/garage/"
+    public static var path: String = "/garages/"
     
     public let garageId: Int
     public let description: String

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class URLSessionProvider: Provider {
+public final class URLSessionProvider {
     
     private var session: URLSession
     
@@ -16,9 +16,9 @@ public final class URLSessionProvider: Provider {
         self.session = session
     }
     
-    public func request<T: Decodable>(type: T.Type,
-                                      service: Service,
-                                      completion: @escaping (Result<T, Error>) -> Void) {
+    public func request<G: Service>(service: G,
+                                    completion: @escaping (Result<G.CustomType, Error>) -> Void) {
+        
         let request = URLRequest(service: service)
         let task = self.session.dataTask(with: request) { (result) in
             self.handleResult(result: result, completion: completion)

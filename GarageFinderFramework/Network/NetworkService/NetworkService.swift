@@ -9,29 +9,26 @@
 import Foundation
 
 public enum NetworkService<T: CustomCodable>: Service {
+    public typealias CustomType = T
     
     case get(T.Type, id: Int? = nil)
     case add(T)
     case update(T)
-    case login(T)
-    case logout(T)
     
     public var baseURL: URL {
-        let url = "https://jsonplaceholder.typicode.com"
+        let url = "https://garagefinderapi.herokuapp.com/api/v1"
         return URL(string: url) ?? URL(fileURLWithPath: "")
     }
 
-    //TODO: Get real paths from API
     public var path: String {
         switch self {
         case .get(let type, let id):
-            return id == nil ? type.path : "\(type.path)\(id ?? 0)"
+            guard let id = id else {
+                return type.path
+            }
+            return "\(type.path)\(id)"
         case .add(let item), .update(let item):
             return type(of: item).path
-        case .login:
-            return "/.../"
-        case .logout:
-            return "/.../"
         }
     }
     
@@ -39,7 +36,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .get
-        case .add, .login, .logout:
+        case .add:
             return .post
         case .update:
             return .patch
@@ -50,7 +47,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .requestPlain
-        case .add(let item), .update(let item), .login(let item), .logout(let item):
+        case .add(let item), .update(let item):
             return .requestWithBody(item)
         }
     }
@@ -59,7 +56,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return nil
-        case .add, .login, .logout, .update:
+        case .add, .update:
             return ["Content-type": "application/json"]
         }
     }
@@ -68,16 +65,27 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .url
-        case .add, .login, .logout, .update:
+        case .add, .update:
             return .json
         }
     }
-    
 }
 
 public extension URLSessionProvider {
     func request<T: Decodable>(_ service: NetworkService<T>,
                                completion: @escaping (Result<T, Error>) -> Void) {
-        self.request(type: T.self, service: service, completion: completion)
+        self.request(service: service, completion: completion)
+    }
+}
+
+func test() {
+    let provider = URLSessionProvider()
+    provider.request(.get(User.self)) { result in
+        switch result {
+        case .success(let user):
+            print(user)
+        case .failure(let error):
+            print(error)
+        }
     }
 }

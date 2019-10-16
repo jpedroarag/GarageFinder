@@ -10,7 +10,7 @@ import Foundation
 
 extension URLComponents {
     
-    init?(service: Service) {
+    init?<G: Service>(service: G) {
         let url = service.baseURL.appendingPathComponent(service.path)
         self.init(url: url, resolvingAgainstBaseURL: false)
         
