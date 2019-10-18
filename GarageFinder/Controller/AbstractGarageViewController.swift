@@ -87,6 +87,7 @@ class AbstractGarageViewController: UIViewController {
     
     @objc func closeButtonTapped() {
         dismissFromParent()
+        selectGarageDelegate?.didDismissGarage()
     }
     
     func dismissFromParent() {
@@ -95,7 +96,6 @@ class AbstractGarageViewController: UIViewController {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
             self.view.removeFromSuperview()
-            self.selectGarageDelegate?.didDismissGarage()
         })
     }
     
