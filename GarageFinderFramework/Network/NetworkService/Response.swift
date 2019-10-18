@@ -9,7 +9,8 @@
 import Foundation
 
 public struct Response<T: CustomCodable>: Codable {
-    let result: T
-    let status: String?
-    let notice: String?
+    public let result: T?
+    public let results: [T]?
+    public let status: String?
+    public let notice: String?
 }

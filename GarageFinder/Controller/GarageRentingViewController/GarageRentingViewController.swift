@@ -13,7 +13,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     lazy var rentingObject = Renting()
     lazy var isRunning = true
-    weak var rentedGarage: Garage!
+    var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
     

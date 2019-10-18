@@ -152,10 +152,7 @@ extension FloatingView {
         switch recognizer.state {
         case .began:
             lastTouchY = recognizer.location(in: self).y
-            print("lastscroll began: \(lastScrollView.isScrollEnabled)")
-            
         case .changed:
-            
             let iSTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
 
             if lastScrollView.contentOffset.y <= 0 || iSTouchingSearchBar {
@@ -235,19 +232,20 @@ extension FloatingView {
         })
     }
     func animTo(positionY: CGFloat) {
-        
-        UIView.animate(withDuration: 0.5, delay: 0.0,
-                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
-                       options: [.curveEaseOut, .allowUserInteraction], animations: {
-                        
-                        self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
-                        
-                        let minPosition = self.allPos.firstIndex(of: positionY) ?? 0
-                        if self.currentIndexPos != minPosition {
-                            self.currentIndexPos = minPosition
-                        }
-                        
-        })
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0.0,
+                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                           options: [.curveEaseOut, .allowUserInteraction], animations: {
+
+                            self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
+
+                            let minPosition = self.allPos.firstIndex(of: positionY) ?? 0
+                            if self.currentIndexPos != minPosition {
+                                self.currentIndexPos = minPosition
+                            }
+
+            })
+        }
     }
     
     func changeCurrentScrollView(_ scrollView: UIScrollView) {

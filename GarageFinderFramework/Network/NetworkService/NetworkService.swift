@@ -74,6 +74,7 @@ public enum NetworkService<T: CustomCodable>: Service {
 public extension URLSessionProvider {
     func request<T: Decodable>(_ service: NetworkService<T>,
                                completion: @escaping (Result<Response<T>, Error>) -> Void) {
+        
         self.request(service: service, completion: completion)
     }
 }

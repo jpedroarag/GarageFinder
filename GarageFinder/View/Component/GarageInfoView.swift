@@ -94,10 +94,10 @@ class GarageInfoView: UIView {
     }
     
     func loadData(_ garage: Garage) {
-        component.leftImageView.image = garage.pictures.first ?? UIImage()
-        component.titleLabel.text = garage.name
-        component.subtitleLabel.text = "\(garage.address.street ?? ""), \(garage.address.number ?? "")"
-        component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
+        //component.leftImageView.image = garage.pictures.first ?? UIImage()
+        component.titleLabel.text = garage.description
+        //component.subtitleLabel.text = "\(garage.address?.street ?? ""), \(garage.address?.number ?? "")"
+        //component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

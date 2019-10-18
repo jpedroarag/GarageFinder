@@ -171,8 +171,8 @@ extension FloatingViewController: SelectGarageDelegate {
             garageDetail.rentingGarageDelegate = self
             garageDetail.presentedGarage = garage
             floatingView.floatingViewPositioningDelegate = garageDetail
-            floatingView.animTo(positionY: floatingView.middleView)
             show(garageDetail)
+            floatingView.animTo(positionY: floatingView.middleView)
         }
     }
     

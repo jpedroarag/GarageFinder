@@ -8,9 +8,9 @@
 
 import GarageFinderFramework
 
-struct UserAuth: CustomCodable {
-    static var path = "/user_token/"
+public struct UserAuth: CustomCodable {
+    public static var path = "/user_token/"
     
-    let email: String
-    let password: String
+    public let email: String
+    public let password: String
 }

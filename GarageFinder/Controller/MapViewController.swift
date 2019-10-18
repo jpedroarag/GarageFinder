@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import GarageFinderFramework
 
 class MapViewController: UIViewController {
     
@@ -16,7 +17,7 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        view.pins = MockedData.loadMockedGarages() ?? [] // TODO: get real data, not mocked
+        //view.pins = MockedData.loadMockedGarages() ?? [] // TODO: get real data, not mocked
         return view
     }()
     
@@ -29,7 +30,7 @@ class MapViewController: UIViewController {
     var floatingView: UIView!
     
     weak var selectGarageDelegate: SelectGarageDelegate?
-
+    let provider = URLSessionProvider()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +42,6 @@ class MapViewController: UIViewController {
         
         mapView.register(GarageAnnotationView.self, forAnnotationViewWithReuseIdentifier: "garagePin")
         
-        //setupSearchController()
         addFloatingVC()
         
         locationManager.delegate = self
@@ -49,8 +49,23 @@ class MapViewController: UIViewController {
         
         setConstraints()
         setupObserver()
+        loadGarages()
+
     }
     
+    func loadGarages() {
+        print("loading garages...")
+        provider.request(.get(GarageAnnotation.self)) { result in
+            switch result {
+            case .success(let response):
+                if let garages = response.results {
+                    self.mapView.pins = garages
+                }
+            case .failure(let error):
+                print("Error getting garages: \(error)")
+            }
+        }
+    }
     func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
     }
@@ -127,12 +142,27 @@ extension MapViewController: MKMapViewDelegate {
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
-        return mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") ?? MKAnnotationView()
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") as? MKMarkerAnnotationView
+        annotationView?.titleVisibility = .visible
+        annotationView?.subtitleVisibility = .visible
+        annotationView?.canShowCallout = true
+        return annotationView ?? MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let garage = view.annotation as? Garage else { return }
-        selectGarageDelegate?.didSelectGarage(garage)
+        guard let garage = view.annotation as? GarageAnnotation else { return }
+        provider.request(.get(Garage.self, id: garage.id)) { result in
+            switch result {
+            case .success(let response):
+                if let selectedGarage = response.result {
+                    DispatchQueue.main.async {
+                        self.selectGarageDelegate?.didSelectGarage(selectedGarage)
+                    }
+                }
+            case .failure(let error):
+                print("Error get garage \(error)")
+            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

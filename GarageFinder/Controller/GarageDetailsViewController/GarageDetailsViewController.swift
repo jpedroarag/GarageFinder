@@ -13,7 +13,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
-    weak var presentedGarage: Garage!
+    var presentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
@@ -38,14 +38,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     var garageGalleryView: GarageGalleryView {
-        return GarageGalleryView(images: presentedGarage.pictures)
+        return GarageGalleryView(images: [])
     }
     
     lazy var ratingListController: GarageRatingListViewController = {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-        controller.loadRatings(self.presentedGarage.comments)
+        //controller.loadRatings(self.presentedGarage.comments ?? [])
         return controller
     }()
     
