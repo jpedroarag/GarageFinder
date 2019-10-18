@@ -95,6 +95,7 @@
 		6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
+		6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */; };
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
 		6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */; };
 		6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */; };
@@ -229,6 +230,7 @@
 		6C7F0AC423574C05001159A9 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
+		6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem+Extension.swift"; sourceTree = "<group>"; };
 		6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavGaragesTableViewCell.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */,
 				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
 				6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */,
+				6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -766,6 +769,7 @@
 				3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */,
 				6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
+				6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */,
 				3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */,
 				3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */,
 				3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */,

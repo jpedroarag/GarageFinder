@@ -61,11 +61,19 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     func parkButtonTapped(_ sender: GFButton) {
-        sender.action = nil
-        removeAdditionalSections(animated: true) {
-            sender.setTitle("Concluir", for: .normal)
-            self.startRenting()
-        }
+        
+        let alert = UIAlertController(title: "Estacionamento", message: "Você deseja confirmar o estacionamento neste local?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
+            sender.action = nil
+            self.removeAdditionalSections(animated: true) {
+                sender.setTitle("Concluir", for: .normal)
+                self.startRenting()
+            }
+        }))
+                
+        present(alert, animated: true, completion: nil)
     }
     
     private func removeLastSection() {

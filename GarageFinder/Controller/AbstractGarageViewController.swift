@@ -38,7 +38,7 @@ class AbstractGarageViewController: UIViewController {
     var numberOfSections = 1
     var shouldAppearAnimated = false
     var sectionSeparatorsStartAppearIndex = 0
-    
+    weak var selectGarageDelegate: SelectGarageDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,6 +95,7 @@ class AbstractGarageViewController: UIViewController {
             self.view.frame.origin.y = self.view.frame.height
         }, completion: { _ in
             self.view.removeFromSuperview()
+            self.selectGarageDelegate?.didDismissGarage()
         })
     }
     

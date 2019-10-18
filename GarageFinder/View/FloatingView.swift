@@ -148,14 +148,16 @@ extension FloatingView {
     }
     
     func startGesture(_ recognizer: UIPanGestureRecognizer) {
-        
         switch recognizer.state {
         case .began:
+            if lastScrollView == tableView {
+                tableView.isScrollEnabled = true
+            }
             lastTouchY = recognizer.location(in: self).y
         case .changed:
-            let iSTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
+            let isTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
 
-            if lastScrollView.contentOffset.y <= 0 || iSTouchingSearchBar {
+            if lastScrollView.contentOffset.y <= 0 || isTouchingSearchBar {
                 scroll(recognizer)
             } else {
                 recognizer.setTranslation(.zero, in: self)

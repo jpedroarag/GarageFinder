@@ -17,7 +17,6 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        //view.pins = MockedData.loadMockedGarages() ?? [] // TODO: get real data, not mocked
         return view
     }()
     
@@ -72,6 +71,7 @@ class MapViewController: UIViewController {
     
     func addFloatingVC() {
         let floatingVC = FloatingViewController()
+        floatingVC.mapView = mapView
         self.floatingView = floatingVC.view
         selectGarageDelegate = floatingVC
         show(floatingVC)
