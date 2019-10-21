@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let mapViewController = MapViewController()
         //let navigationController = UINavigationController(rootViewController: mapViewController)
-        window?.rootViewController = mapViewController
+        window?.rootViewController = LoginViewController()
         window?.makeKeyAndVisible()
         return true
     }

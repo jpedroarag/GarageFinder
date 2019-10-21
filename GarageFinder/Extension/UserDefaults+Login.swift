@@ -13,8 +13,8 @@ extension UserDefaults {
         return UserDefaults.standard.integer(forKey: "LoggedUserId")
     }
 
-    static var token: String {
-        return UserDefaults.standard.string(forKey: "Token") ?? ""
+    static var token: String? {
+        return UserDefaults.standard.string(forKey: "Token")
     }
     
     static var userIsLogged: Bool {

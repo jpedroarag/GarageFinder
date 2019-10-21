@@ -11,7 +11,7 @@ import GarageFinderFramework
 public struct User: CustomCodable {
     public static var path: String = "/users/"
     
-    public let userId: Int
+    public let id: Int
     public let name: String
     public let email: String
     public let documentType: DocumentType
