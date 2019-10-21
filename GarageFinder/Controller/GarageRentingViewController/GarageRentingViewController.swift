@@ -13,7 +13,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     lazy var rentingObject = Renting()
     lazy var isRunning = true
-    weak var rentedGarage: Garage!
+    var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
     
@@ -62,19 +62,28 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func concludeAction(_ button: GFButton) {
-        UIView.animate(withDuration: 0.175, animations: {
-            button.alpha = 0
-        }, completion: { _ in
-            button.setTitle("Pagar", for: .normal)
+        
+        let alert = UIAlertController(title: "Concluir", message: "Você deseja concluir o estacionamento?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
             UIView.animate(withDuration: 0.175, animations: {
-                button.alpha = 1
+                button.alpha = 0
+            }, completion: { _ in
+                button.setTitle("Pagar", for: .normal)
+                UIView.animate(withDuration: 0.175, animations: {
+                    button.alpha = 1
+                })
+                
+                button.action = self.paymentAction(_:)
             })
-            
-            button.action = self.paymentAction(_:)
-        })
-        self.isRunning = false
-        self.rentingObject.conclude()
-        self.update()
+            self.isRunning = false
+            self.rentingObject.conclude()
+            self.update()
+        }))
+                
+        present(alert, animated: true, completion: nil)
+        
     }
 
     func paymentAction(_ button: GFButton) {

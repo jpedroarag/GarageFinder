@@ -9,7 +9,7 @@
 import GarageFinderFramework
 
 public struct User: CustomCodable {
-    public static var path: String = "/user/"
+    public static var path: String = "/users/"
     
     public let userId: Int
     public let name: String

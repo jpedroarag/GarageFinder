@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class URLSessionProvider: Provider {
+public final class URLSessionProvider {
     
     private var session: URLSession
     
@@ -16,9 +16,9 @@ public final class URLSessionProvider: Provider {
         self.session = session
     }
     
-    public func request<T: Decodable>(type: T.Type,
-                                      service: Service,
-                                      completion: @escaping (Result<T, Error>) -> Void) {
+    public func request<G: Service>(service: G,
+                                    completion: @escaping (Result<Response<G.CustomType>, Error>) -> Void) {
+        
         let request = URLRequest(service: service)
         let task = self.session.dataTask(with: request) { (result) in
             self.handleResult(result: result, completion: completion)
@@ -30,7 +30,7 @@ public final class URLSessionProvider: Provider {
     }
     
     private func handleResult<T: Decodable>(result: Result<(URLResponse, Data), Error>,
-                                            completion: (Result<T, Error>) -> Void) {
+                                            completion: (Result<Response<T>, Error>) -> Void) {
         switch result {
         case .failure(let error):
             print("\n\n\nerror\(error)\n\n\n")
@@ -40,14 +40,14 @@ public final class URLSessionProvider: Provider {
                 return completion(.failure(NetworkError.noJSONData))
             }
             guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-
+            //print("DATA: ", dataString)
             switch httpResponse.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 do {
-                    let model = try decoder.decode(T.self, from: data)
+                    let model = try decoder.decode(Response<T>.self, from: data)
                     completion(.success(model))
                 } catch {
                     completion(.failure(NetworkError.decodeError(error.localizedDescription)))

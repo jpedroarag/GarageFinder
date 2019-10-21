@@ -38,7 +38,7 @@ class AbstractGarageViewController: UIViewController {
     var numberOfSections = 1
     var shouldAppearAnimated = false
     var sectionSeparatorsStartAppearIndex = 0
-    
+    weak var selectGarageDelegate: SelectGarageDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +87,7 @@ class AbstractGarageViewController: UIViewController {
     
     @objc func closeButtonTapped() {
         dismissFromParent()
+        selectGarageDelegate?.didDismissGarage()
     }
     
     func dismissFromParent() {

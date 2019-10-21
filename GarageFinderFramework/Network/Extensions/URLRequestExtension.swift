@@ -10,11 +10,11 @@ import Foundation
 
 extension URLRequest {
     
-    init(service: Service) {
+    init<G: Service>(service: G) {
         if let urlComponents = URLComponents(service: service),
             let url = urlComponents.url {
             self.init(url: url)
-            print("URL: \(url)")
+
             self.httpMethod = service.method.rawValue
             
             service.headers?.forEach { key, value in

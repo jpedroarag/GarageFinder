@@ -169,10 +169,11 @@ extension FloatingViewController: SelectGarageDelegate {
         if canShowGarageVC(garageDetail) {
             garageDetail.changeScrollViewDelegate = self
             garageDetail.rentingGarageDelegate = self
+            garageDetail.selectGarageDelegate = self
             garageDetail.presentedGarage = garage
             floatingView.floatingViewPositioningDelegate = garageDetail
-            floatingView.animTo(positionY: floatingView.middleView)
             show(garageDetail)
+            floatingView.animTo(positionY: floatingView.middleView)
         }
     }
     
@@ -181,6 +182,11 @@ extension FloatingViewController: SelectGarageDelegate {
             abstractVC.dismissFromParent()
         }
     }
+    func didDismissGarage() {
+        mapView?.selectedAnnotations.forEach({
+            mapView?.deselectAnnotation($0, animated: true)
+        })
+    }
 }
 
 extension FloatingViewController: RentingGarageDelegate {
@@ -188,6 +194,7 @@ extension FloatingViewController: RentingGarageDelegate {
         let garageRenting = GarageRentingViewController()
         if canShowGarageVC(garageRenting) {
             garageRenting.garageRatingDelegate = self
+            garageRenting.selectGarageDelegate = self
             garageRenting.rentedGarage = garage
             show(garageRenting)
             if floatingView.currentPos == floatingView.partialView {
@@ -208,6 +215,7 @@ extension FloatingViewController: GarageRatingDelegate {
     func didStartRating(_ garage: Garage) {
         let garageRating = RatingViewController()
         if canShowGarageVC(garageRating) {
+            garageRating.selectGarageDelegate = self
             garageRating.currentGarage = garage
             show(garageRating)
             floatingView.animTo(positionY: floatingView.fullView)
@@ -218,6 +226,10 @@ extension FloatingViewController: GarageRatingDelegate {
 
 extension FloatingViewController: ChangeScrollViewDelegate {
     func didChange(scrollView: UIScrollView) {
+        floatingView.changeCurrentScrollView(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         floatingView.changeCurrentScrollView(scrollView)
     }
 }

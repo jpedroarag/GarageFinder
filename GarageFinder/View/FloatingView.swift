@@ -148,19 +148,24 @@ extension FloatingView {
     }
     
     func startGesture(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began {
+        switch recognizer.state {
+        case .began:
+            if lastScrollView == tableView {
+                tableView.isScrollEnabled = true
+            }
             lastTouchY = recognizer.location(in: self).y
+        case .changed:
+            let isTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
+
+            if lastScrollView.contentOffset.y <= 0 || isTouchingSearchBar {
+                scroll(recognizer)
+            } else {
+                recognizer.setTranslation(.zero, in: self)
+            }
+        case .cancelled, .ended:
+            endScroll(recognizer)
+        default: break
         }
-        lastScrollView.isScrollEnabled = allPos[currentIndexPos] == fullView
-        let iSTouchingSearchBar = lastTouchY <= searchBar.frame.height * 0.9
-    
-        if lastScrollView.contentOffset.y <= 0 || iSTouchingSearchBar {
-            scroll(recognizer)
-        } else {
-            recognizer.setTranslation(.zero, in: self)
-        }
-        
-        endScroll(recognizer)
     }
     
     func scroll(_ recognizer: UIPanGestureRecognizer) {
@@ -178,74 +183,76 @@ extension FloatingView {
     
     /// Perform animation when stop scrolling
     func endScroll(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .ended {
-            lastScrollView.isScrollEnabled = true
-            let minY = frame.minY
-            
-            let top = abs(minY - fullView)
-            let middle = abs(minY - middleView)
-            let bottom = abs(minY - partialView)
-            
-            //Return the min value to get the closest position
-            let screenPositionValues: [CGFloat: CGFloat] = [top: fullView, middle: middleView, bottom: partialView]
-            guard let min = screenPositionValues.min(by: { itemA, itemB in
-                itemA.key < itemB.key
-            }) else { return }
-            
-            let velocity = recognizer.velocity(in: self).y
-            let isUp = velocity < -400
-            let isDown = velocity > 400
-            let canMoveUp = isDown && currentIndexPos != 0
-            let canMoveDown = isUp && currentIndexPos != 2
-            
-            if (canMoveUp || canMoveDown) && lastScrollView.contentOffset.y <= 0 {
-                
-                if currentPos == partialView && velocity < -1500 {
-                    currentIndexPos += 2
-                } else if currentPos == fullView && velocity > 1500 {
-                    currentIndexPos -= 2
-                } else {
-                    currentIndexPos += canMoveUp ? -1 : 1
-                }
-            } else {
-                let minPosition = allPos.firstIndex(of: min.value) ?? 0
-                if currentIndexPos != minPosition {
-                    currentIndexPos = minPosition
-                }
-            }
-            
-            if currentPos == middleView || currentPos == partialView {
-                lastScrollView.setContentOffset(CGPoint(x: lastScrollView.contentOffset.x, y: 0), animated: true)
-            }
-            
-            if currentPos == 0 { return }
-            UIView.animate(withDuration: 0.5, delay: 0.0,
-                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
-                           options: [.curveEaseOut, .allowUserInteraction], animations: {
-                            
-                            self.frame = CGRect(x: 0, y: self.currentPos,
-                                                width: self.frame.width, height: self.frame.height)
-            })
-        }
-    }
-    func animTo(positionY: CGFloat) {
+        let minY = frame.minY
         
+        let top = abs(minY - fullView)
+        let middle = abs(minY - middleView)
+        let bottom = abs(minY - partialView)
+        
+        //Return the min value to get the closest position
+        let screenPositionValues: [CGFloat: CGFloat] = [top: fullView, middle: middleView, bottom: partialView]
+        guard let min = screenPositionValues.min(by: { itemA, itemB in
+            itemA.key < itemB.key
+        }) else { return }
+        
+        let velocity = recognizer.velocity(in: self).y
+        let isUp = velocity < -400
+        let isDown = velocity > 400
+        let canMoveUp = isDown && currentIndexPos != 0
+        let canMoveDown = isUp && currentIndexPos != 2
+
+        if (canMoveUp || canMoveDown) && lastScrollView.contentOffset.y <= 0 {
+            
+            if currentPos == partialView && velocity < -1500 {
+                currentIndexPos += 2
+            } else if currentPos == fullView && velocity > 1500 {
+                currentIndexPos -= 2
+            } else {
+                currentIndexPos += canMoveUp ? -1 : 1
+            }
+        } else {
+            let minPosition = allPos.firstIndex(of: min.value) ?? 0
+            if currentIndexPos != minPosition {
+                currentIndexPos = minPosition
+            }
+        }
+        
+        if currentPos == middleView || currentPos == partialView {
+            lastScrollView.setContentOffset(CGPoint(x: lastScrollView.contentOffset.x, y: 0), animated: true)
+            lastScrollView.isScrollEnabled = false
+        } else {
+            lastScrollView.isScrollEnabled = true
+        }
+        
+        if currentPos == 0 { return }
         UIView.animate(withDuration: 0.5, delay: 0.0,
                        usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
                        options: [.curveEaseOut, .allowUserInteraction], animations: {
                         
-                        self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
-                        
-                        let minPosition = self.allPos.firstIndex(of: positionY) ?? 0
-                        if self.currentIndexPos != minPosition {
-                            self.currentIndexPos = minPosition
-                        }
-                        
+                        self.frame = CGRect(x: 0, y: self.currentPos,
+                                            width: self.frame.width, height: self.frame.height)
         })
+    }
+    func animTo(positionY: CGFloat) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0.0,
+                           usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1,
+                           options: [.curveEaseOut, .allowUserInteraction], animations: {
+
+                            self.frame = CGRect(x: 0, y: positionY, width: self.frame.width, height: self.frame.height)
+
+                            let minPosition = self.allPos.firstIndex(of: positionY) ?? 0
+                            if self.currentIndexPos != minPosition {
+                                self.currentIndexPos = minPosition
+                            }
+
+            })
+        }
     }
     
     func changeCurrentScrollView(_ scrollView: UIScrollView) {
         if lastScrollView == scrollView { return }
         lastScrollView = scrollView
+        lastScrollView.isScrollEnabled = currentIndexPos == 2
     }
 }

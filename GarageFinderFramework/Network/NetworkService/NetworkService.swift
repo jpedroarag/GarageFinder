@@ -9,29 +9,26 @@
 import Foundation
 
 public enum NetworkService<T: CustomCodable>: Service {
+    public typealias CustomType = T
     
-    case get(T.Type, id: Int?)
-    case add(T)
+    case get(T.Type, id: Int? = nil)
+    case post(T)
     case update(T)
-    case login(T)
-    case logout(T)
     
     public var baseURL: URL {
-        let url = "https://jsonplaceholder.typicode.com"
+        let url = "https://garagefinderapi.herokuapp.com/api/v1"
         return URL(string: url) ?? URL(fileURLWithPath: "")
     }
 
-    //TODO: Get real paths from API
     public var path: String {
         switch self {
         case .get(let type, let id):
-            return id == nil ? type.path : "\(type.path)\(id ?? 0)"
-        case .add(let item), .update(let item):
+            guard let id = id else {
+                return type.path
+            }
+            return "\(type.path)\(id)"
+        case .post(let item), .update(let item):
             return type(of: item).path
-        case .login:
-            return "/.../"
-        case .logout:
-            return "/.../"
         }
     }
     
@@ -39,7 +36,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .get
-        case .add, .login, .logout:
+        case .post:
             return .post
         case .update:
             return .patch
@@ -50,7 +47,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .requestPlain
-        case .add(let item), .update(let item), .login(let item), .logout(let item):
+        case .post(let item), .update(let item):
             return .requestWithBody(item)
         }
     }
@@ -59,7 +56,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return nil
-        case .add, .login, .logout, .update:
+        case .post, .update:
             return ["Content-type": "application/json"]
         }
     }
@@ -68,16 +65,16 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .url
-        case .add, .login, .logout, .update:
+        case .post, .update:
             return .json
         }
     }
-    
 }
 
 public extension URLSessionProvider {
     func request<T: Decodable>(_ service: NetworkService<T>,
-                               completion: @escaping (Result<T, Error>) -> Void) {
-        self.request(type: T.self, service: service, completion: completion)
+                               completion: @escaping (Result<Response<T>, Error>) -> Void) {
+        
+        self.request(service: service, completion: completion)
     }
 }

@@ -12,7 +12,7 @@ import GarageFinderFramework
 public struct Address: CustomCodable {
     public static var path: String = "/address/"
     
-    public var addressId: Int!
+    public var id: Int!
     public var zip: String!
     public var street: String!
     public var number: String!
@@ -20,8 +20,8 @@ public struct Address: CustomCodable {
     public var city: String!
     public var uf: String!
     public var coordinate: CLLocationCoordinate2D!
-    public var user: User!
-    public var garage: Garage!
+    public var userId: Int!
+    public var garageId: Int!
     
     public init(id: Int?,
                 zip: String?,
@@ -31,9 +31,9 @@ public struct Address: CustomCodable {
                 city: String?,
                 uf: String?,
                 coordinate: CLLocationCoordinate2D?,
-                user: User?,
-                garage: Garage?) {
-        self.addressId = id
+                userId: Int? = nil,
+                garageId: Int? = nil) {
+        self.id = id
         self.zip = zip
         self.street = street
         self.number = number
@@ -41,7 +41,7 @@ public struct Address: CustomCodable {
         self.city = city
         self.uf = uf
         self.coordinate = coordinate
-        self.user = user
-        self.garage = garage
+        self.userId = userId
+        self.garageId = garageId
     }
 }

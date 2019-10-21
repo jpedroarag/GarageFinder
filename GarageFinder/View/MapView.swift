@@ -11,7 +11,11 @@ import MapKit
 
 class MapView: MKMapView {
     
-    lazy var pins = [MKAnnotation]()
+    var pins = [MKAnnotation]() {
+        didSet {
+            updateNearGarages(aroundUserLocation: true)
+        }
+    }
     lazy var range = Range()
     var shownRouteOverlay: MKOverlay?
     

@@ -29,14 +29,12 @@
 		3C10C9682316A828001BDDB6 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95A2316A828001BDDB6 /* URLRequestExtension.swift */; };
 		3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95B2316A828001BDDB6 /* CodableExtension.swift */; };
 		3C10C96A2316A828001BDDB6 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95D2316A828001BDDB6 /* Service.swift */; };
-		3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C95E2316A828001BDDB6 /* Provider.swift */; };
 		3C10C96D23180028001BDDB6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96C23180028001BDDB6 /* Range.swift */; };
 		3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */; };
 		3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */; };
 		3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
 		3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */; };
 		3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */; };
-		3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
 		3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C393233B878400182CB3 /* GarageRatingListViewController.swift */; };
 		3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */; };
 		3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */; };
@@ -84,15 +82,20 @@
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
 		6C52C1332330087600233617 /* PlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52C1322330087600233617 /* PlaceCategory.swift */; };
+		6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
+		6C57ABB223574DE0001442A6 /* UserDefaults+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */; };
 		6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */; };
 		6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */; };
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
 		6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */; };
-		6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38B233A622300182CB3 /* RentingCounterView.swift */; };
+		6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C67062E2358AC7200651C4A /* GarageAnnotation.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
+		6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F0AC423574C05001159A9 /* UserAuth.swift */; };
+		6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
+		6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */; };
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
 		6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */; };
 		6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */; };
@@ -162,7 +165,6 @@
 		3C10C95A2316A828001BDDB6 /* URLRequestExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
 		3C10C95B2316A828001BDDB6 /* CodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtension.swift; sourceTree = "<group>"; };
 		3C10C95D2316A828001BDDB6 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		3C10C95E2316A828001BDDB6 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3C10C96C23180028001BDDB6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
 		3C10C96E23194F6B001BDDB6 /* ToolboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxView.swift; sourceTree = "<group>"; };
 		3C20C37B23311F7200182CB3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
@@ -216,13 +218,19 @@
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		6C511F002350D4FB00A0D3DE /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		6C52C1322330087600233617 /* PlaceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategory.swift; sourceTree = "<group>"; };
+		6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Login.swift"; sourceTree = "<group>"; };
 		6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressColectionDataSource.swift; sourceTree = "<group>"; };
 		6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTableViewDataSource.swift; sourceTree = "<group>"; };
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		6C67062E2358AC7200651C4A /* GarageAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotation.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
+		6C7F0AC423574C05001159A9 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
+		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
+		6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem+Extension.swift"; sourceTree = "<group>"; };
 		6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavGaragesTableViewCell.swift; sourceTree = "<group>"; };
@@ -261,6 +269,7 @@
 				3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */,
 				3C10C8D0230AE450001BDDB6 /* Products */,
 				6CD2A81D231D3F9200A4782D /* Frameworks */,
+				6C7F0AC323574BDE001159A9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,6 +363,8 @@
 				6C24E17D23461F85007EE981 /* UITextView+Extension.swift */,
 				6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */,
 				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
+				6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */,
+				6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,6 +392,7 @@
 		3C10C94E2316A828001BDDB6 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
+				6C8ACC5E2357479B00DFC585 /* Response.swift */,
 				3C10C94F2316A828001BDDB6 /* NetworkService.swift */,
 			);
 			path = NetworkService;
@@ -420,7 +432,6 @@
 			isa = PBXGroup;
 			children = (
 				3C10C95D2316A828001BDDB6 /* Service.swift */,
-				3C10C95E2316A828001BDDB6 /* Provider.swift */,
 				6C8C9A54234F5C5700071144 /* CustomCodable.swift */,
 			);
 			path = Protocols;
@@ -482,6 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				3C3830A32350BE4F0034F315 /* User.swift */,
+				6C7F0AC423574C05001159A9 /* UserAuth.swift */,
 				3C3830A92350C0540034F315 /* DocumentType.swift */,
 				3C3830A52350BE750034F315 /* Address.swift */,
 				3C3830A72350BEAB0034F315 /* Garage.swift */,
@@ -490,6 +502,7 @@
 				3C20C397233BA5A800182CB3 /* Renting.swift */,
 				3C383085234964040034F315 /* MockedData.swift */,
 				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
+				6C67062E2358AC7200651C4A /* GarageAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -520,6 +533,14 @@
 				3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		6C7F0AC323574BDE001159A9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6C511F002350D4FB00A0D3DE /* UserAuth.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		6CD2A81D231D3F9200A4782D /* Frameworks */ = {
@@ -683,14 +704,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */,
 				3C383086234964040034F315 /* MockedData.swift in Sources */,
-				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				3C38307523410F310034F315 /* Vehicle.swift in Sources */,
 				3C38307423410F310034F315 /* Comment.swift in Sources */,
-				6C5DB14A234CAA3400A20D2E /* RentingCounterView.swift in Sources */,
 				6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */,
-				3C20C392233AB76700182CB3 /* AbstractGarageViewController.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
 				3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */,
@@ -711,6 +730,7 @@
 				6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				3C20C3A0233CE05A00182CB3 /* RentingDetailsView.swift in Sources */,
+				6C57ABB223574DE0001442A6 /* UserDefaults+Login.swift in Sources */,
 				6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */,
 				3C811E432326946E0075AD49 /* DetailsTableViewCell.swift in Sources */,
 				3C3830AB2350C1680034F315 /* Garage.swift in Sources */,
@@ -725,6 +745,7 @@
 				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
 				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,
 				6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */,
+				6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */,
 				6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */,
 				3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */,
 				6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */,
@@ -742,11 +763,13 @@
 				6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */,
 				3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */,
 				6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */,
+				6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
 				3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */,
 				6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
+				6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */,
 				3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */,
 				3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */,
 				3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */,
@@ -767,11 +790,11 @@
 				3C10C9672316A828001BDDB6 /* URLComponentsExtension.swift in Sources */,
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
+				6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */,
 				6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
 				3C10C9602316A828001BDDB6 /* NetworkService.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
-				3C10C96B2316A828001BDDB6 /* Provider.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,
 				3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */,
@@ -933,6 +956,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_SWIFT_FLAGS[arch=*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.GarageFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
