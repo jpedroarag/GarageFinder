@@ -84,8 +84,9 @@ class MapViewController: UIViewController {
             .bottom(view.bottomAnchor)
             .left(view.leftAnchor)
         toolboxView.anchor
+            .top(view.safeAreaLayoutGuide.topAnchor, padding: 8)
             .right(view.rightAnchor, padding: 16)
-            .bottom(floatingView.topAnchor, padding: 16)
+            //.bottom(floatingView.topAnchor, padding: 16)
             .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }

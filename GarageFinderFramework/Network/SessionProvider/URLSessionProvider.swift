@@ -20,6 +20,7 @@ public final class URLSessionProvider {
                                     completion: @escaping (Result<Response<G.CustomType>, Error>) -> Void) {
         
         let request = URLRequest(service: service)
+        print("REQUEST:", request)
         let task = self.session.dataTask(with: request) { (result) in
             self.handleResult(result: result, completion: completion)
         }

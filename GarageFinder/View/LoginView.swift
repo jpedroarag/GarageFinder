@@ -14,6 +14,7 @@ class LoginView: UIView {
     
     lazy var emailTextField: UITextField = {
         let textfield = UITextField()
+        textfield.autocapitalizationType = .none
         textfield.keyboardType = .emailAddress
         textfield.placeholder = "Email"
         textfield.borderStyle = .none

@@ -16,8 +16,8 @@ public struct User: CustomCodable {
     public let email: String
     public let documentType: DocumentType
     public let documentNumber: String
-    public let password: String
+    public var password: String?
     public let addresses: [Address]
-    public let garages: [Garage]
+    public var garages: [Garage]?
     public let role: String
 }
