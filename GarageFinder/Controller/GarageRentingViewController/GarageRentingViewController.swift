@@ -11,7 +11,7 @@ import GarageFinderFramework
 
 class GarageRentingViewController: AbstractGarageViewController {
     
-    lazy var rentingObject = Renting()
+    lazy var rentingObject = Parking()
     lazy var isRunning = true
     var rentedGarage: Garage!
     
@@ -118,6 +118,14 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func fireRenting() {
+        URLSessionProvider().request(.post(rentingObject)) { result in
+            switch result {
+            case .success(let response):
+                print("ok")
+            case .failure(let error):
+                print("Error posting parking: \(error)")
+            }
+        }
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isRunning {
                 self.update()
@@ -129,7 +137,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     
     func update() {
         rentingObject.update()
-        rentingDetailsController.loadData(self.rentingObject)
+        rentingDetailsController.loadData(rentingObject)
         rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString
         rentingCounterView.priceLabel.text = rentingObject.priceString
     }

@@ -14,7 +14,7 @@ public struct Garage: CustomCodable {
     public static var path: String = "/garages/"
     
     public var id: Int
-    public var description: String? // description
+    public var description: String?
     public var parkingSpaces: Int
     public var busySpace: Int
     public var price: Double

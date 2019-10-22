@@ -40,7 +40,6 @@
 		3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */; };
 		3C20C3A0233CE05A00182CB3 /* RentingDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */; };
 		3C20C3A2233E588800182CB3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C20C3A1233E588800182CB3 /* MapKit.framework */; };
-		3C38307123410F310034F315 /* Renting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C397233BA5A800182CB3 /* Renting.swift */; };
 		3C38307423410F310034F315 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38623351DE800182CB3 /* Comment.swift */; };
 		3C38307523410F310034F315 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C38223351DC000182CB3 /* Vehicle.swift */; };
 		3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C383078234636BA0034F315 /* GarageAnnotationView.swift */; };
@@ -67,6 +66,7 @@
 		3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E5A232A75C90075AD49 /* CircularButton.swift */; };
 		3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E5C232A80460075AD49 /* GarageActionsView.swift */; };
 		3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */; };
+		3C8CB13A235F279E00621BB3 /* Parking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CB139235F279E00621BB3 /* Parking.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */; };
 		6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */; };
@@ -175,7 +175,6 @@
 		3C20C38F233AACE100182CB3 /* GarageRentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRentingViewController.swift; sourceTree = "<group>"; };
 		3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractGarageViewController.swift; sourceTree = "<group>"; };
 		3C20C393233B878400182CB3 /* GarageRatingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingListViewController.swift; sourceTree = "<group>"; };
-		3C20C397233BA5A800182CB3 /* Renting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renting.swift; sourceTree = "<group>"; };
 		3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsViewController.swift; sourceTree = "<group>"; };
 		3C20C39B233BB29F00182CB3 /* RentingDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsCell.swift; sourceTree = "<group>"; };
 		3C20C39F233CE05A00182CB3 /* RentingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingDetailsView.swift; sourceTree = "<group>"; };
@@ -204,6 +203,7 @@
 		3C811E5A232A75C90075AD49 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		3C811E5C232A80460075AD49 /* GarageActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageActionsView.swift; sourceTree = "<group>"; };
 		3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingViewPositioningDelegate.swift; sourceTree = "<group>"; };
+		3C8CB139235F279E00621BB3 /* Parking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parking.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
 		6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -497,9 +497,9 @@
 				3C3830A92350C0540034F315 /* DocumentType.swift */,
 				3C3830A52350BE750034F315 /* Address.swift */,
 				3C3830A72350BEAB0034F315 /* Garage.swift */,
+				3C8CB139235F279E00621BB3 /* Parking.swift */,
 				3C20C38623351DE800182CB3 /* Comment.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
-				3C20C397233BA5A800182CB3 /* Renting.swift */,
 				3C383085234964040034F315 /* MockedData.swift */,
 				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
 				6C67062E2358AC7200651C4A /* GarageAnnotation.swift */,
@@ -717,7 +717,6 @@
 				3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */,
 				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
 				3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */,
-				3C38307123410F310034F315 /* Renting.swift in Sources */,
 				3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */,
 				3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */,
 				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
@@ -738,6 +737,7 @@
 				3C811E4F2327EA0C0075AD49 /* String+Extension.swift in Sources */,
 				3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */,
 				3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */,
+				3C8CB13A235F279E00621BB3 /* Parking.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */,
 				6C24E17823461ED9007EE981 /* RatingView.swift in Sources */,

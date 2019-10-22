@@ -25,11 +25,11 @@ class RentingDetailsViewController: UIViewController {
         contentView.tableView.dataSource = self
     }
     
-    func loadData(_ renting: Renting) {
+    func loadData(_ renting: Parking) {
         content[0].right = renting.priceString
         content[1].right = renting.permanenceDurationString
-        content[2].right = renting.entryDateFormatted
-        content[3].right = renting.exitDateFormatted
+        content[2].right = renting.entryDate
+        content[3].right = renting.exitDate
         contentView.tableView.reloadData()
     }
     
