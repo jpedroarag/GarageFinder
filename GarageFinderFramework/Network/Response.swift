@@ -13,4 +13,5 @@ public struct Response<T: CustomCodable>: Codable {
     public let results: [T]?
     public let status: String?
     public let notice: String?
+    public let jwt: String?
 }

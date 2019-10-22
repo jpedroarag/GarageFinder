@@ -65,11 +65,11 @@ public struct Parking: CustomCodable {
         update()
     }
     
-    public var priceString: String {
+    public func priceString() -> String {
         return NumberFormatter.getPriceString(currencySymbol: "", value: Double(price))
     }
     
-    public var permanenceDurationString: String {
+    public func permanenceDurationString() -> String {
         guard let duration = permanenceDuration else { return "00:00" }
         let hours = Int(duration/60)
         let minutes = duration - (hours * 60)
@@ -78,18 +78,18 @@ public struct Parking: CustomCodable {
         return "\(hoursString):\(minutesString)"
     }
     
-    public var entryDate: String {
+    public func entryDate() -> String {
         return formattedDate(start)
     }
     
-    public var exitDate: String {
+    public func exitDate() -> String {
         return formattedDate(end)
     }
     
     private func formattedDate(_ dateToFormat: Date?) -> String {
         guard let date = dateToFormat else { return "--:--" }
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "hh:mm"
         return formatter.string(from: date)
     }
 }

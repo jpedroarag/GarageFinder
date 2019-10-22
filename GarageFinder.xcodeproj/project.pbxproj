@@ -18,7 +18,6 @@
 		3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */; };
 		3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9492316A7BC001BDDB6 /* ViewController.swift */; };
 		3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C94C2316A826001BDDB6 /* SmartConstraints.swift */; };
-		3C10C9602316A828001BDDB6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C94F2316A828001BDDB6 /* NetworkService.swift */; };
 		3C10C9612316A828001BDDB6 /* URLSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9512316A828001BDDB6 /* URLSessionProvider.swift */; };
 		3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9532316A828001BDDB6 /* ParametersEncoding.swift */; };
 		3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9542316A828001BDDB6 /* HTTPMethod.swift */; };
@@ -92,10 +91,13 @@
 		6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C67062E2358AC7200651C4A /* GarageAnnotation.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
 		6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F0AC423574C05001159A9 /* UserAuth.swift */; };
-		6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
 		6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */; };
+		6CBE730A235DDDAA0048A1DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE7309235DDDAA0048A1DC /* LoginView.swift */; };
+		6CBE730C235DDDB60048A1DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE730B235DDDB60048A1DC /* LoginViewController.swift */; };
+		6CBE731C235DFC0F0048A1DC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C94F2316A828001BDDB6 /* NetworkService.swift */; };
+		6CBE731E235DFC360048A1DC /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8ACC5E2357479B00DFC585 /* Response.swift */; };
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
 		6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */; };
 		6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */; };
@@ -231,6 +233,8 @@
 		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
 		6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		6CBE7309235DDDAA0048A1DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6CBE730B235DDDB60048A1DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem+Extension.swift"; sourceTree = "<group>"; };
 		6CCB1542232A6B5E002B42A1 /* FavAddressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavGaragesTableViewCell.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
 				3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */,
 				3C10C942231579D1001BDDB6 /* IfceLocation.gpx */,
+				6CBE731B235DFBF80048A1DC /* NetworkService */,
 				3C38308423495D1C0034F315 /* Mock */,
 				6C52C1312330084800233617 /* Enum */,
 				3C10C9462316A38C001BDDB6 /* Extension */,
@@ -313,6 +318,7 @@
 				3C20C39D233BB79700182CB3 /* GarageDetailsViewController */,
 				3C20C39E233BB7A800182CB3 /* GarageRentingViewController */,
 				6CE3881D23477ECB002458FC /* RatingViewController */,
+				6CBE730B235DDDB60048A1DC /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */,
 				6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */,
 				6C1051E82332567C00837C04 /* HeaderFavTableView.swift */,
+				6CBE7309235DDDAA0048A1DC /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -380,22 +387,13 @@
 		3C10C94D2316A828001BDDB6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3C10C94E2316A828001BDDB6 /* NetworkService */,
+				6C8ACC5E2357479B00DFC585 /* Response.swift */,
 				3C10C9502316A828001BDDB6 /* SessionProvider */,
 				3C10C9522316A828001BDDB6 /* Enums */,
 				3C10C9572316A828001BDDB6 /* Extensions */,
 				3C10C95C2316A828001BDDB6 /* Protocols */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		3C10C94E2316A828001BDDB6 /* NetworkService */ = {
-			isa = PBXGroup;
-			children = (
-				6C8ACC5E2357479B00DFC585 /* Response.swift */,
-				3C10C94F2316A828001BDDB6 /* NetworkService.swift */,
-			);
-			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		3C10C9502316A828001BDDB6 /* SessionProvider */ = {
@@ -541,6 +539,14 @@
 				6C511F002350D4FB00A0D3DE /* UserAuth.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		6CBE731B235DFBF80048A1DC /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				3C10C94F2316A828001BDDB6 /* NetworkService.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		6CD2A81D231D3F9200A4782D /* Frameworks */ = {
@@ -738,6 +744,7 @@
 				3C811E5D232A80460075AD49 /* GarageActionsView.swift in Sources */,
 				3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */,
 				3C8CB13A235F279E00621BB3 /* Parking.swift in Sources */,
+				6CBE731C235DFC0F0048A1DC /* NetworkService.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */,
 				6C24E17823461ED9007EE981 /* RatingView.swift in Sources */,
@@ -754,6 +761,7 @@
 				3C811E472327BE2D0075AD49 /* GFButton.swift in Sources */,
 				3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */,
 				3C3830AD2350C1680034F315 /* User.swift in Sources */,
+				6CBE730A235DDDAA0048A1DC /* LoginView.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
 				3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
@@ -766,6 +774,7 @@
 				6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
+				6CBE730C235DDDB60048A1DC /* LoginViewController.swift in Sources */,
 				3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */,
 				6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */,
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
@@ -790,10 +799,9 @@
 				3C10C9672316A828001BDDB6 /* URLComponentsExtension.swift in Sources */,
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
-				6C8ACC5F2357479B00DFC585 /* Response.swift in Sources */,
+				6CBE731E235DFC360048A1DC /* Response.swift in Sources */,
 				6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
-				3C10C9602316A828001BDDB6 /* NetworkService.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
 				3C10C9642316A828001BDDB6 /* Task.swift in Sources */,

@@ -27,6 +27,8 @@ extension URLRequest {
             }
             
             self.httpBody = payload.data
+            let item = try? JSONSerialization.jsonObject(with: payload.data!)
+            print("ITEM: \(item)")
         } else {
             self.init(url: URL(fileURLWithPath: ""))
         }

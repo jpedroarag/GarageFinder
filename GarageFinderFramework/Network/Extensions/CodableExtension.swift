@@ -20,6 +20,11 @@ extension Encodable {
     
     var data: Data? {
         let jsonEncoder = JSONEncoder()
+        let formatter = DateFormatter()
+        formatter.calendar = .init(identifier: .iso8601)
+//        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd"
+        jsonEncoder.dateEncodingStrategy = .formatted(formatter)
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         return try? jsonEncoder.encode(self)
     }

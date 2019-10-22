@@ -138,8 +138,8 @@ class GarageRentingViewController: AbstractGarageViewController {
     func update() {
         rentingObject.update()
         rentingDetailsController.loadData(rentingObject)
-        rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString
-        rentingCounterView.priceLabel.text = rentingObject.priceString
+        rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString()
+        rentingCounterView.priceLabel.text = rentingObject.priceString()
     }
 }
 
