@@ -135,7 +135,7 @@ class FloatingView: UIView {
 // MARK: Floating View Animations
 extension FloatingView {
     var fullView: CGFloat {
-        return UIScreen.main.bounds.height * 0.15
+        return UIScreen.main.bounds.height * 0.2
     }
     var middleView: CGFloat {
         return UIScreen.main.bounds.height * 0.65

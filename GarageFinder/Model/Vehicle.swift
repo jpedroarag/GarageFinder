@@ -11,7 +11,7 @@ import GarageFinderFramework
 public struct Vehicle: CustomCodable {
     public static var path: String = "/vehicle/"
     
-    public let vehicleId: Int
+    public let id: Int
     public let model: String
     public let chassi: String
     public let licensePlate: String

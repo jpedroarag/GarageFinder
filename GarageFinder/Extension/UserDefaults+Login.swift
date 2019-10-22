@@ -18,6 +18,6 @@ extension UserDefaults {
     }
     
     static var userIsLogged: Bool {
-        return self.loggedUserId != 0 ? true : false
+        return loggedUserId != 0 && token != "" ? true : false
     }
 }

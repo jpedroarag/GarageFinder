@@ -15,7 +15,7 @@ class AbstractGarageViewController: UIViewController {
     let closeButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "close")
-        button.setImage(image, for: .normal)
+        button.setBackgroundImage(image, for: .normal)
         return button
     }()
     
@@ -74,10 +74,10 @@ class AbstractGarageViewController: UIViewController {
     
     private func setConstraints() {
         closeButton.anchor
-            .top(view.topAnchor, padding: 4)
+            .top(view.topAnchor, padding: 8)
             .right(view.rightAnchor, padding: 8 + 8)
-            .width(constant: 16)
-            .height(constant: 16)
+            .width(constant: 24)
+            .height(constant: 24)
         tableView.anchor
             .top(view.topAnchor, padding: 16 + 8)
             .left(view.leftAnchor, padding: 8)

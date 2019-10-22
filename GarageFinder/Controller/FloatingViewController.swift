@@ -57,7 +57,10 @@ class FloatingViewController: UIViewController {
     }
     
     @objc func presentAdjustsMenu(_ notification: Notification) {
-        print("Will present adjusts menu")
+        
+        let presentVC: UIViewController!
+        presentVC = UserDefaults.userIsLogged ? LoginViewController() : LoginViewController()
+        present(presentVC, animated: true, completion: nil)
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {

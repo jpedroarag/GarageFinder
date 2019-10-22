@@ -10,7 +10,10 @@ import GarageFinderFramework
 
 public struct UserAuth: CustomCodable {
     public static var path = "/user_token/"
-    
+    public let auth: Credentials
+}
+
+public struct Credentials: Codable {
     public let email: String
     public let password: String
 }

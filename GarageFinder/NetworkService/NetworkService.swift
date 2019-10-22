@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import GarageFinderFramework
 
 public enum NetworkService<T: CustomCodable>: Service {
     public typealias CustomType = T
     
-    case get(T.Type, id: Int? = nil)
+    case get(T.Type, id: Int? = nil, isCurrent: Bool = false)
     case post(T)
     case update(T)
     
@@ -22,11 +23,14 @@ public enum NetworkService<T: CustomCodable>: Service {
 
     public var path: String {
         switch self {
-        case .get(let type, let id):
-            guard let id = id else {
+        case .get(let type, let id, let isCurrent):
+            if isCurrent {
+                return "/current_user/"
+            } else if let id = id {
+                return "\(type.path)\(id)"
+            } else {
                 return type.path
-            }
-            return "\(type.path)\(id)"
+            }            
         case .post(let item), .update(let item):
             return type(of: item).path
         }
@@ -36,10 +40,8 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .get
-        case .post:
+        case .post, .update:
             return .post
-        case .update:
-            return .patch
         }
     }
     
@@ -54,9 +56,21 @@ public enum NetworkService<T: CustomCodable>: Service {
     
     public var headers: Headers? {
         switch self {
-        case .get:
-            return nil
-        case .post, .update:
+        case .get(let item, _, _):
+            switch item {
+            case is Vehicle.Type, is User.Type:
+                return ["Content-type": "application/json", "Authorization": UserDefaults.token]
+            default:
+                return nil
+            }
+        case .post(let item):
+            switch item {
+            case is Vehicle:
+                return ["Content-type": "application/json", "Authorization": UserDefaults.token]
+            default:
+                return ["Content-type": "application/json"]
+            }
+        case .update:
             return ["Content-type": "application/json"]
         }
     }

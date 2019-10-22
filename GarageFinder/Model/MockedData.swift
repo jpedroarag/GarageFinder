@@ -38,7 +38,7 @@ public struct MockedData {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let objects = try? decoder.decode([User].self, from: data)
-            return objects?.filter({ $0.userId == id }).first
+            return objects?.filter({ $0.id == id }).first
         }
         return nil
     }
