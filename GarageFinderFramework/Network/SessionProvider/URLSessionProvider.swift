@@ -45,6 +45,10 @@ public final class URLSessionProvider {
             switch httpResponse.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()
+                let formatter = DateFormatter()
+                formatter.calendar = .init(identifier: .iso8601)
+                formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
+                decoder.dateDecodingStrategy = .formatted(formatter)
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 do {

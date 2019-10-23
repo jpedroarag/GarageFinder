@@ -14,36 +14,33 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         view = loginView
-        loginView.action = loginAction(email:password:)
+        loginView.loginAction = loginAction(email:password:)
+        loginView.signUpAction = signUpAction
     }
 
     func loginAction(email: String, password: String) {
-        print(email, password)
-        
-        let userAuth = UserAuth(auth: Credentials(email: email, password: password))
+        let userAuth = UserAuth(email: email, password: password)
         let provider = URLSessionProvider()
         provider.request(.post(userAuth)) { result in
             switch result {
             case .success(let response):
-                if let token = response.jwt {
-                    UserDefaults.standard.set(token, forKey: "Token")
-                    provider.request(.get(User.self, isCurrent: true)) { result in
-                        switch result {
-                        case .success(let response):
-                            if let userId = response.result?.id {
-                                UserDefaults.standard.set(userId, forKey: "LoggedUserId")
-                                DispatchQueue.main.async {
-                                    self.dismiss(animated: true, completion: nil)
-                                }
-                            }
-                        case .failure(let error):
-                            print("Error get current user: \(error)")
-                        }
+                if let userAuth = response.result {
+                    print("TOKEN: \(userAuth.token)")
+                    UserDefaults.standard.set(userAuth.token, forKey: "Token")
+                    //UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
+                    UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
+                    
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
             case .failure(let error):
                 print("Error on login: \(error)")
             }
         }
+    }
+    
+    func signUpAction() {
+        present(SignUpViewController(), animated: true, completion: nil)
     }
 }

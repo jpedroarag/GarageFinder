@@ -17,7 +17,7 @@ public enum NetworkService<T: CustomCodable>: Service {
     case update(T)
     
     public var baseURL: URL {
-        let url = "https://garagefinderapi.herokuapp.com/api/v1"
+        let url = "https://garagefinderapi.herokuapp.com"
         return URL(string: url) ?? URL(fileURLWithPath: "")
     }
 
@@ -25,7 +25,7 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get(let type, let id, let isCurrent):
             if isCurrent {
-                return "/current_user/"
+                return "/api/v1/current_user/"
             } else if let id = id {
                 return "\(type.path)\(id)"
             } else {

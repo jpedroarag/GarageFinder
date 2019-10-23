@@ -11,7 +11,7 @@ import UIKit.UIImage
 import GarageFinderFramework
 
 public struct Garage: CustomCodable {
-    public static var path: String = "/garages/"
+    public static var path: String = "/api/v1/garages/"
     
     public var id: Int
     public var description: String? // description

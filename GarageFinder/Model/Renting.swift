@@ -9,7 +9,7 @@
 import GarageFinderFramework
 
 public struct Renting: CustomCodable {
-    public static var path: String = "/renting/"
+    public static var path: String = "/api/v1/renting/"
     
     public var value: Float
     public var permanenceDuration: Int? // In minutes
