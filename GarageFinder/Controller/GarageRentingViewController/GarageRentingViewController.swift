@@ -80,6 +80,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isRunning = false
             self.rentingObject.conclude()
             self.update()
+            self.uploadParking(withMethod: .update(self.rentingObject))
         }))
                 
         present(alert, animated: true, completion: nil)
@@ -118,14 +119,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func fireRenting() {
-        URLSessionProvider().request(.post(rentingObject)) { result in
-            switch result {
-            case .success(let response):
-                print("ok")
-            case .failure(let error):
-                print("Error posting parking: \(error)")
-            }
-        }
+        uploadParking(withMethod: .post(rentingObject))
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isRunning {
                 self.update()
@@ -140,6 +134,19 @@ class GarageRentingViewController: AbstractGarageViewController {
         rentingDetailsController.loadData(rentingObject)
         rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString()
         rentingCounterView.priceLabel.text = rentingObject.priceString()
+    }
+    
+    func uploadParking(withMethod method: NetworkService<Parking>) {
+        URLSessionProvider().request(method) { result in
+            switch result {
+            case .success(let response):
+                if let parking = response.result {
+                    self.rentingObject.id = parking.id
+                }
+            case .failure(let error):
+                print("Error posting parking: \(error)")
+            }
+        }
     }
 }
 

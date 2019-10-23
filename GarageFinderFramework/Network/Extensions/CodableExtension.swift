@@ -22,8 +22,7 @@ extension Encodable {
         let jsonEncoder = JSONEncoder()
         let formatter = DateFormatter()
         formatter.calendar = .init(identifier: .iso8601)
-//        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
         jsonEncoder.dateEncodingStrategy = .formatted(formatter)
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         return try? jsonEncoder.encode(self)

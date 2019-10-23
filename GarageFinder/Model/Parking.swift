@@ -9,9 +9,9 @@
 import GarageFinderFramework
 
 public struct Parking: CustomCodable {
-    public static var path: String = "/renting/"
+    public static var path: String = "/parkings/"
     
-    public let id: Int
+    public var id: Int?
     public let garageOwnerId: Int
     public let driverId: Int
     public let licensePlate: String
@@ -23,7 +23,7 @@ public struct Parking: CustomCodable {
     public let start: Date
     public var end: Date?
     
-    public init(id: Int,
+    public init(id: Int? = nil,
                 garageOwnerId: Int,
                 driverId: Int,
                 licensePlate: String,
@@ -42,7 +42,7 @@ public struct Parking: CustomCodable {
     }
     
     public init() {
-        self.init(id: 5, garageOwnerId: 1, driverId: 1, licensePlate: "OCB-2913", vehicleId: 1, garageId: 4)
+        self.init(garageOwnerId: 1, driverId: 1, licensePlate: "OCB-2913", vehicleId: 1, garageId: 3)
     }
     
     mutating func updatePermanenceDuration() {

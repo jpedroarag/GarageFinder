@@ -20,7 +20,6 @@ public final class URLSessionProvider {
                                     completion: @escaping (Result<Response<G.CustomType>, Error>) -> Void) {
         
         let request = URLRequest(service: service)
-        print(request.allHTTPHeaderFields)
         print("REQUEST:", request)
         let task = self.session.dataTask(with: request) { (result) in
             self.handleResult(result: result, completion: completion)
@@ -42,10 +41,14 @@ public final class URLSessionProvider {
                 return completion(.failure(NetworkError.noJSONData))
             }
             guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-            //print("DATA: ", dataString)
+//            print("DATA: ", dataString)
             switch httpResponse.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()
+                let formatter = DateFormatter()
+                formatter.calendar = .init(identifier: .iso8601)
+                formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
+                decoder.dateDecodingStrategy = .formatted(formatter)
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 do {

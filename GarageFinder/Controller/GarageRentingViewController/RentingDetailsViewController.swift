@@ -14,10 +14,10 @@ class RentingDetailsViewController: UIViewController {
     lazy var contentView = RentingDetailsView(frame: .zero)
     
     typealias Pair = (left: String, right: String)
-    private lazy var content: [Pair] = [("Value", ""),
-                                        ("Permanence", ""),
-                                        ("Entry", ""),
-                                        ("Exit", "")]
+    private lazy var content: [Pair] = [("Valor", ""),
+                                        ("Permanência", ""),
+                                        ("Entrada", ""),
+                                        ("Saída", "")]
     
     override func viewDidLoad() {
         super.viewDidLoad()

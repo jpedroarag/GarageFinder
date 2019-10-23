@@ -32,6 +32,9 @@ public enum NetworkService<T: CustomCodable>: Service {
                 return type.path
             }            
         case .post(let item), .update(let item):
+            if let object = item as? Parking, let parkingId = object.id {
+                return "\(type(of: item).path)\(parkingId)"
+            }
             return type(of: item).path
         }
     }
@@ -40,8 +43,10 @@ public enum NetworkService<T: CustomCodable>: Service {
         switch self {
         case .get:
             return .get
-        case .post, .update:
+        case .post:
             return .post
+        case .update:
+            return .patch
         }
     }
     
@@ -71,7 +76,7 @@ public enum NetworkService<T: CustomCodable>: Service {
                 return ["Content-type": "application/json"]
             }
         case .update:
-            return ["Content-type": "application/json"]
+            return ["Content-type": "application/json", "Authorization": UserDefaults.token]
         }
     }
     
