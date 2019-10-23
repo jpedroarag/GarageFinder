@@ -13,7 +13,7 @@ public struct UserAuth: CustomCodable {
     public var email: String?
     public var password: String?
     public var token: String?
-    //public var exp: Date?
+    public var exp: Date?
     public var userId: Int?
     
     init(email: String, password: String) {
