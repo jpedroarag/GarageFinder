@@ -27,7 +27,7 @@ class LoadingView: UIView {
         backgroundColor = .customGreen
         loadingIndicator.color = .white
         shadowed()
-        rounded(cornerRadius: 5)
+        layer.cornerRadius = 5
     }
     
     required init?(coder: NSCoder) {
