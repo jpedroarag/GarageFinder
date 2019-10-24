@@ -20,4 +20,19 @@ extension UserDefaults {
     static var userIsLogged: Bool {
         return loggedUserId != 0 && token != "" ? true : false
     }
+    
+    static var tokenIsValid: Bool {
+        if let expDate = UserDefaults.standard.object(forKey: "ExpToken") as? Date {
+            if expDate - Date() > 0.0 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func cleanUser() {
+        set(0, forKey: "LoggedUserId")
+        set(nil, forKey: "Token")
+        set(nil, forKey: "ExpToken")
+    }
 }

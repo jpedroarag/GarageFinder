@@ -50,6 +50,10 @@ class MapViewController: UIViewController {
         setupObserver()
         loadGarages()
 
+        if !UserDefaults.tokenIsValid {
+            print("Session expired")
+            UserDefaults.standard.cleanUser()
+        }
     }
     
     func loadGarages() {
