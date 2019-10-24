@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct Favorite {
-    let name: String
-    let address: String? = nil
-    let category: PlaceCategory
-    let latitude: Double
-    let longitude: Double
-    let type: FavoriteType
-}
+//struct Favorite {
+//    let name: String
+//    let address: String? = nil
+//    let category: PlaceCategory
+//    let latitude: Double
+//    let longitude: Double
+//    let type: FavoriteType
+//}
 
-enum FavoriteType {
+@objc public enum FavoriteType: Int16 {
     case garage
     case address
 }
