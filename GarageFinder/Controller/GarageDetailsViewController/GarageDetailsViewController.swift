@@ -109,7 +109,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(self.presentedGarage)
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: Parking(), createdNow: true)
             })
         }
         self.garageInfoView.component.isCollapsed = true

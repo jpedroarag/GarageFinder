@@ -27,6 +27,7 @@ class MapViewController: UIViewController {
     }()
     
     var floatingView: UIView!
+    var floatingViewController: FloatingViewController!
     
     weak var selectGarageDelegate: SelectGarageDelegate?
     let provider = URLSessionProvider()
@@ -48,7 +49,30 @@ class MapViewController: UIViewController {
         
         setConstraints()
         setupObserver()
-        loadGarages()
+//        loadGarages()
+        
+        provider.request(.getCurrent(Parking.self)) { result in
+            switch result {
+            case .success(let response):
+                print("Is parking right now: Requesting garage")
+                if let parking = response.result {
+                    self.provider.request(.get(Garage.self, id: parking.garageId)) { result in
+                        switch result {
+                        case .success(let response):
+                            if let garage = response.result {
+                                DispatchQueue.main.async {
+                                    self.floatingViewController.startedRenting(garage: garage, parking: parking, createdNow: false)
+                                }
+                            }
+                        case .failure(let error):
+                            print("Error requesting current parking: \(error)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Error requesting current parking: \(error)")
+            }
+        }
 
     }
     
@@ -70,11 +94,11 @@ class MapViewController: UIViewController {
     }
     
     func addFloatingVC() {
-        let floatingVC = FloatingViewController()
-        floatingVC.mapView = mapView
-        self.floatingView = floatingVC.view
-        selectGarageDelegate = floatingVC
-        show(floatingVC)
+        floatingViewController = FloatingViewController()
+        floatingViewController.mapView = mapView
+        self.floatingView = floatingViewController.view
+        selectGarageDelegate = floatingViewController
+        show(floatingViewController)
     }
     
     func setConstraints() {

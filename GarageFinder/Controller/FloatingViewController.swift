@@ -193,14 +193,16 @@ extension FloatingViewController: SelectGarageDelegate {
 }
 
 extension FloatingViewController: RentingGarageDelegate {
-    func startedRenting(_ garage: Garage) {
+    func startedRenting(garage: Garage, parking: Parking, createdNow: Bool) {
         let garageRenting = GarageRentingViewController()
         if canShowGarageVC(garageRenting) {
             garageRenting.garageRatingDelegate = self
             garageRenting.selectGarageDelegate = self
             garageRenting.rentedGarage = garage
+            garageRenting.parkingObject = parking
+            garageRenting.createdNow = createdNow
             show(garageRenting)
-            if floatingView.currentPos == floatingView.partialView {
+            if floatingView.currentIndexPos == 0 {
                 floatingView.animTo(positionY: floatingView.middleView)
             }
         }
