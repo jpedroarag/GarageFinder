@@ -10,7 +10,7 @@ import MapKit
 import GarageFinderFramework
 
 class GarageAnnotation: NSObject, CustomCodable {
-    static var path: String = "/garages/"
+    static var path: String = "/api/v1/garages/"
     
     var id: Int
     var parkingSpaces: Int

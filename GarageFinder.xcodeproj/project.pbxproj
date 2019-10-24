@@ -80,6 +80,9 @@
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
+		6C45CA3523607F54000BDB7D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3423607F54000BDB7D /* SignUpView.swift */; };
+		6C45CA3723607F61000BDB7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3623607F61000BDB7D /* SignUpViewController.swift */; };
+		6C45CA3923608DA0000BDB7D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3823608DA0000BDB7D /* UITextField+Extension.swift */; };
 		6C52C1332330087600233617 /* PlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52C1322330087600233617 /* PlaceCategory.swift */; };
 		6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */; };
 		6C57ABB223574DE0001442A6 /* UserDefaults+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */; };
@@ -220,6 +223,9 @@
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		6C45CA3423607F54000BDB7D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		6C45CA3623607F61000BDB7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		6C45CA3823608DA0000BDB7D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		6C511F002350D4FB00A0D3DE /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		6C52C1322330087600233617 /* PlaceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategory.swift; sourceTree = "<group>"; };
 		6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Login.swift"; sourceTree = "<group>"; };
@@ -319,6 +325,7 @@
 				3C20C39E233BB7A800182CB3 /* GarageRentingViewController */,
 				6CE3881D23477ECB002458FC /* RatingViewController */,
 				6CBE730B235DDDB60048A1DC /* LoginViewController.swift */,
+				6C45CA3623607F61000BDB7D /* SignUpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -339,6 +346,7 @@
 				6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */,
 				6C1051E82332567C00837C04 /* HeaderFavTableView.swift */,
 				6CBE7309235DDDAA0048A1DC /* LoginView.swift */,
+				6C45CA3423607F54000BDB7D /* SignUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 				6C24E17923461F6C007EE981 /* UIButton+Extension.swift */,
 				6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */,
 				6C24E17D23461F85007EE981 /* UITextView+Extension.swift */,
+				6C45CA3823608DA0000BDB7D /* UITextField+Extension.swift */,
 				6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */,
 				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
 				6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */,
@@ -733,6 +742,7 @@
 				6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */,
 				6C52C1332330087600233617 /* PlaceCategory.swift in Sources */,
 				6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */,
+				6C45CA3723607F61000BDB7D /* SignUpViewController.swift in Sources */,
 				3C10C8D5230AE450001BDDB6 /* MapViewController.swift in Sources */,
 				3C20C3A0233CE05A00182CB3 /* RentingDetailsView.swift in Sources */,
 				6C57ABB223574DE0001442A6 /* UserDefaults+Login.swift in Sources */,
@@ -745,9 +755,11 @@
 				3C20C38E233AAC4900182CB3 /* RentingGarageDelegate.swift in Sources */,
 				3C8CB13A235F279E00621BB3 /* Parking.swift in Sources */,
 				6CBE731C235DFC0F0048A1DC /* NetworkService.swift in Sources */,
+				6C45CA3923608DA0000BDB7D /* UITextField+Extension.swift in Sources */,
 				3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */,
 				3C20C394233B878500182CB3 /* GarageRatingListViewController.swift in Sources */,
 				6C24E17823461ED9007EE981 /* RatingView.swift in Sources */,
+				6C45CA3523607F54000BDB7D /* SignUpView.swift in Sources */,
 				6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */,
 				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
 				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,

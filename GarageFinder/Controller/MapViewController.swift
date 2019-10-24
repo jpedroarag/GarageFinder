@@ -146,6 +146,7 @@ extension MapViewController: MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") as? MKMarkerAnnotationView
         annotationView?.titleVisibility = .visible
         annotationView?.subtitleVisibility = .visible
+        annotationView?.displayPriority = .required
         annotationView?.canShowCallout = true
         return annotationView ?? MKAnnotationView()
     }
