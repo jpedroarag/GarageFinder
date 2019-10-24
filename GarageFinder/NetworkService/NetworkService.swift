@@ -29,7 +29,7 @@ public enum NetworkService<T: CustomCodable>: Service {
             case is User.Type:
                 return "/api/v1/current_user/"
             case is Renting.Type:
-                return "/api/v1/user_parking?show=current/"
+                return "/api/v1/user_parking/"
             default:
                 return ""
             }
@@ -57,7 +57,12 @@ public enum NetworkService<T: CustomCodable>: Service {
     
     public var task: Task {
         switch self {
-        case .get, .getCurrent:
+        case .getCurrent(let item):
+            if item is Renting.Type {
+                return .requestParameters(["show": "current"])
+            }
+            return .requestPlain
+        case .get:
             return .requestPlain
         case .post(let item), .update(let item):
             return .requestWithBody(item)
