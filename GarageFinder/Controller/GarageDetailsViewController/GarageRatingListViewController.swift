@@ -45,6 +45,7 @@ extension GarageRatingListViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if ratings.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noRatings", for: indexPath)
+            cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = "Não há avaliações disponíveis para esta garagem ainda"
             return cell
         } else {
