@@ -10,7 +10,7 @@ import CoreLocation
 import GarageFinderFramework
 
 public struct Address: CustomCodable {
-    public static var path: String = "/address/"
+    public static var path: String = "/api/v1/address/"
     
     public var id: Int!
     public var zip: String!
