@@ -30,7 +30,7 @@ extension UserDefaults {
         return false
     }
     
-    func cleanUser() {
+    func logoutUser() {
         set(0, forKey: "LoggedUserId")
         set(nil, forKey: "Token")
         set(nil, forKey: "ExpToken")
