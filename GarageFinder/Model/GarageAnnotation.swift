@@ -19,6 +19,9 @@ class GarageAnnotation: NSObject, CustomCodable {
     var lat: String
     var long: String
 
+    func isAvailable() -> Bool {
+        return busySpace < parkingSpaces
+    }
 }
 
 extension GarageAnnotation: MKAnnotation {

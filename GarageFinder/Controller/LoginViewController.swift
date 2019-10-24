@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
                 if let userAuth = response.result {
                     print("TOKEN: \(userAuth.token ?? "")")
                     UserDefaults.standard.set(userAuth.token, forKey: "Token")
-                    //UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
+                    UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
                     UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
                     
                     DispatchQueue.main.async {

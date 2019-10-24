@@ -50,6 +50,10 @@ class MapViewController: UIViewController {
         setupObserver()
         loadGarages()
 
+        if !UserDefaults.tokenIsValid {
+            print("Session expired")
+            UserDefaults.standard.logoutUser()
+        }
     }
     
     func loadGarages() {
@@ -92,7 +96,8 @@ class MapViewController: UIViewController {
     }
     
     func startUsingDeviceLocation() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
@@ -148,6 +153,10 @@ extension MapViewController: MKMapViewDelegate {
         annotationView?.subtitleVisibility = .visible
         annotationView?.displayPriority = .required
         annotationView?.canShowCallout = true
+        
+        if let garageAnnotation = annotation as? GarageAnnotation {
+            annotationView?.markerTintColor = garageAnnotation.isAvailable() ? .customGreen : .gray
+        }
         return annotationView ?? MKAnnotationView()
     }
     

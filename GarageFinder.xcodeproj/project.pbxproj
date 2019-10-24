@@ -68,6 +68,7 @@
 		3C8CB13A235F279E00621BB3 /* Parking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CB139235F279E00621BB3 /* Parking.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */; };
+		6C07D5E32361EDE2002514FE /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C07D5E22361EDE2002514FE /* Date+Extension.swift */; };
 		6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */; };
 		6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */; };
 		6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E82332567C00837C04 /* HeaderFavTableView.swift */; };
@@ -211,6 +212,7 @@
 		3C8CB139235F279E00621BB3 /* Parking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parking.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
+		6C07D5E22361EDE2002514FE /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
 		6C1051E82332567C00837C04 /* HeaderFavTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFavTableView.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				3C38308723497FFD0034F315 /* NumberFormatter+Extension.swift */,
 				6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */,
 				6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */,
+				6C07D5E22361EDE2002514FE /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				3C38307523410F310034F315 /* Vehicle.swift in Sources */,
 				3C38307423410F310034F315 /* Comment.swift in Sources */,
+				6C07D5E32361EDE2002514FE /* Date+Extension.swift in Sources */,
 				6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,

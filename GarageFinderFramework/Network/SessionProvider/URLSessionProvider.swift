@@ -55,6 +55,7 @@ public final class URLSessionProvider {
                     let model = try decoder.decode(Response<T>.self, from: data)
                     completion(.success(model))
                 } catch {
+                    print("DECODE ERROR: \(error)")
                     completion(.failure(NetworkError.decodeError(error.localizedDescription)))
                 }
             case 400...499:
