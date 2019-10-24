@@ -57,15 +57,19 @@ class MapViewController: UIViewController {
     }
     
     func loadGarages() {
+        let loadingView = LoadingView(message: "Carregando garagens")
+        view.addSubview(loadingView)
         print("loading garages...")
         provider.request(.get(GarageAnnotation.self)) { result in
             switch result {
             case .success(let response):
                 if let garages = response.results {
                     self.mapView.pins = garages
+                    loadingView.dismissIndicator()
                 }
             case .failure(let error):
                 print("Error getting garages: \(error)")
+                loadingView.dismissIndicator()
             }
         }
     }
@@ -162,16 +166,20 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let garage = view.annotation as? GarageAnnotation else { return }
+        let loadingView = LoadingView(message: "Carregando garagem")
+        self.view.addSubview(loadingView)
         provider.request(.get(Garage.self, id: garage.id)) { result in
             switch result {
             case .success(let response):
                 if let selectedGarage = response.result {
                     DispatchQueue.main.async {
                         self.selectGarageDelegate?.didSelectGarage(selectedGarage)
+                        loadingView.dismissIndicator()
                     }
                 }
             case .failure(let error):
                 print("Error get garage \(error)")
+                loadingView.dismissIndicator()
             }
         }
     }
