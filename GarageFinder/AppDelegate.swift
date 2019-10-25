@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        CoreDataManager.shared.deleteAll(fromEntity: "Favorite")
         window = UIWindow(frame: UIScreen.main.bounds)
         let mapViewController = MapViewController()
         //let navigationController = UINavigationController(rootViewController: mapViewController)

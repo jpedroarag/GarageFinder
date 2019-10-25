@@ -76,7 +76,7 @@
 		6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */; };
 		6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */; };
 		6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E82332567C00837C04 /* HeaderFavTableView.swift */; };
-		6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */; };
+		6C1D5FA02334FBF1005D9B06 /* FavoriteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */; };
 		6C24E17823461ED9007EE981 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17723461ED9007EE981 /* RatingView.swift */; };
 		6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17923461F6C007EE981 /* UIButton+Extension.swift */; };
 		6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */; };
@@ -224,7 +224,7 @@
 		6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
 		6C1051E82332567C00837C04 /* HeaderFavTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFavTableView.swift; sourceTree = "<group>"; };
-		6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteType.swift; sourceTree = "<group>"; };
 		6C24E17723461ED9007EE981 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		6C24E17923461F6C007EE981 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
@@ -538,7 +538,7 @@
 				3C20C38623351DE800182CB3 /* Comment.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C383085234964040034F315 /* MockedData.swift */,
-				6C1D5F9F2334FBF1005D9B06 /* Favorite.swift */,
+				6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */,
 				3C8CB142236095BC00621BB3 /* Favorite */,
 				6C67062E2358AC7200651C4A /* GarageAnnotation.swift */,
 			);
@@ -796,7 +796,7 @@
 				6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */,
 				3C8CB14E2361C8CE00621BB3 /* CoreDataError.swift in Sources */,
 				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
-				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,
+				6C1D5FA02334FBF1005D9B06 /* FavoriteType.swift in Sources */,
 				6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */,
 				6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */,
 				6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */,

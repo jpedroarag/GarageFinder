@@ -10,11 +10,29 @@ import UIKit
 
 class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
     
-    var favoriteGarages: [Favorite] = [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                                      Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                                      Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                                      Favorite(name: "Garagem de Joaquim", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                                      Favorite(name: "Garagem de Dano;p", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage)]
+    var favoriteGarages: [Favorite] = []
+    
+    override init() {
+        super.init()
+        if let favorites = CoreDataManager.shared.getObjects(forEntity: "Favorite") as? [Favorite] {
+            favoriteGarages = favorites.filter { $0.type == .garage }
+            favoriteGarages = favoriteGarages.sorted { $0.id < $1.id }
+            if !favoriteGarages.isEmpty { // TODO: Remove this (using for testing core data)
+                return
+            }
+        }
+        favoriteGarages = getFavorites()
+        CoreDataManager.shared.saveContext()
+    }
+    
+    func getFavorites() -> [Favorite] {
+        return [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                Favorite(name: "Garagem de Joaquim", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
+                Favorite(name: "Garagem de Dano;p", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage)]
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }

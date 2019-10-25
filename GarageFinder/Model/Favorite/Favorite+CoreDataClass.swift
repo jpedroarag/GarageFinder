@@ -12,5 +12,7 @@ import CoreData
 
 @objc(Favorite)
 public class Favorite: NSManagedObject {
-    public var category: PlaceCategory?
+    public var category: PlaceCategory? {
+        return PlaceCategory(rawValue: categoryString)
+    }
 }

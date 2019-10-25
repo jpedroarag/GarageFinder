@@ -8,15 +8,33 @@
 import UIKit
 
 class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
-    var items: [Favorite] = [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address),
-                             Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address),
-                                    Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                                    Favorite(name: "Academia da Maria", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                                    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-    Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address)]
+    var items: [Favorite] = []
+    
+    override init() {
+        super.init()
+        if let favorites = CoreDataManager.shared.getObjects(forEntity: "Favorite") as? [Favorite] {
+            items = favorites.filter { $0.type == .address }
+            items = items.sorted { $0.id < $1.id }
+            if !items.isEmpty { // TODO: Remove this (using for testing core data)
+                return
+            }
+        }
+        items = getFavorites()
+        CoreDataManager.shared.saveContext()
+    }
+    
+    func getFavorites() -> [Favorite] {
+        return [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia da Maria", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address)]
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }

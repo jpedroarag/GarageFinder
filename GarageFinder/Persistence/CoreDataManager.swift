@@ -22,7 +22,7 @@ class CoreDataManager : NSObject {
         let container = NSPersistentContainer(name: name)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if error != nil {
-                print("CoreData - There was an error (Error while loading persistent stores). \(error!.localizedDescription)")
+                print("CoreData: Error while loading persistent stores). \(error!.localizedDescription)")
             }
         })
         return container
