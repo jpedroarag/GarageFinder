@@ -18,6 +18,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
+    weak var garageRentingDelegate: RentingGarageDelegate?
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
@@ -82,6 +83,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isRunning = false
             self.parkingObject.conclude()
             self.update()
+            self.garageRentingDelegate?.stoppedRenting()
             self.uploadParking(withMethod: .update(self.parkingObject))
         }))
                 
