@@ -17,6 +17,19 @@ extension UIView {
         self.endEditing(true)
     }
     
+    convenience init(withImage: UIImage?) {
+        self.init()
+        let imageView = UIImageView(image: withImage)
+        imageView.contentMode = .scaleAspectFit
+        addSubview(imageView)
+        
+        imageView.anchor
+            .top(topAnchor, padding: 32)
+            .left(leftAnchor, padding: 32)
+            .right(rightAnchor, padding: 32)
+            .bottom(bottomAnchor, padding: 32)
+    }
+
     func shadowed(color: UIColor = .black,
                   opacity: Float = 0.2,
                   offset: CGSize = CGSize(width: 0, height: 2),
@@ -38,5 +51,5 @@ extension UIView {
         views.forEach { view in
             addSubview(view)
         }
-    } 
+    }
 }

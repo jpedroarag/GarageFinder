@@ -112,6 +112,12 @@
 		6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */; };
 		6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */; };
 		6CFFC7A223624E67005D8D2F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7A123624E67005D8D2F /* LoadingView.swift */; };
+		6CFFC7A52363114E005D8D2F /* TextFieldsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7A42363114E005D8D2F /* TextFieldsTableView.swift */; };
+		6CFFC7A823631191005D8D2F /* TextFieldCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7A723631191005D8D2F /* TextFieldCollection.swift */; };
+		6CFFC7AA236311D0005D8D2F /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7A9236311D0005D8D2F /* GFTextField.swift */; };
+		6CFFC7AC2363121B005D8D2F /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7AB2363121B005D8D2F /* TextFieldType.swift */; };
+		6CFFC7AE236312EA005D8D2F /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7AD236312EA005D8D2F /* TextFieldCell.swift */; };
+		6CFFC7B023631DCB005D8D2F /* TextFieldsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7AF23631DCB005D8D2F /* TextFieldsTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +259,12 @@
 		6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewController.swift; sourceTree = "<group>"; };
 		6CFFC7A123624E67005D8D2F /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		6CFFC7A42363114E005D8D2F /* TextFieldsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsTableView.swift; sourceTree = "<group>"; };
+		6CFFC7A723631191005D8D2F /* TextFieldCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollection.swift; sourceTree = "<group>"; };
+		6CFFC7A9236311D0005D8D2F /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
+		6CFFC7AB2363121B005D8D2F /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
+		6CFFC7AD236312EA005D8D2F /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		6CFFC7AF23631DCB005D8D2F /* TextFieldsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsTableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +311,7 @@
 		3C10C8D1230AE450001BDDB6 /* GarageFinder */ = {
 			isa = PBXGroup;
 			children = (
+				6CFFC7A623631183005D8D2F /* Utils */,
 				3C10C8E1230AE453001BDDB6 /* Info.plist */,
 				3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */,
 				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
@@ -480,6 +493,7 @@
 		3C811E41232692970075AD49 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				6CFFC7A3236310F6005D8D2F /* TextFieldsTable */,
 				3C38307C23478BDF0034F315 /* AdjustsButton.swift */,
 				3C383089234CB3160034F315 /* TrackerButton.swift */,
 				3C811E462327BE2D0075AD49 /* GFButton.swift */,
@@ -524,6 +538,7 @@
 			isa = PBXGroup;
 			children = (
 				6C52C1322330087600233617 /* PlaceCategory.swift */,
+				6CFFC7AB2363121B005D8D2F /* TextFieldType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -533,6 +548,7 @@
 			children = (
 				6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */,
 				6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */,
+				6CFFC7AF23631DCB005D8D2F /* TextFieldsTableViewDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -579,6 +595,24 @@
 				6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */,
 			);
 			path = RatingViewController;
+			sourceTree = "<group>";
+		};
+		6CFFC7A3236310F6005D8D2F /* TextFieldsTable */ = {
+			isa = PBXGroup;
+			children = (
+				6CFFC7A42363114E005D8D2F /* TextFieldsTableView.swift */,
+				6CFFC7A9236311D0005D8D2F /* GFTextField.swift */,
+				6CFFC7AD236312EA005D8D2F /* TextFieldCell.swift */,
+			);
+			path = TextFieldsTable;
+			sourceTree = "<group>";
+		};
+		6CFFC7A623631183005D8D2F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6CFFC7A723631191005D8D2F /* TextFieldCollection.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,7 +763,10 @@
 				3C383086234964040034F315 /* MockedData.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				3C38307523410F310034F315 /* Vehicle.swift in Sources */,
+				6CFFC7A823631191005D8D2F /* TextFieldCollection.swift in Sources */,
+				6CFFC7B023631DCB005D8D2F /* TextFieldsTableViewDataSource.swift in Sources */,
 				3C38307423410F310034F315 /* Comment.swift in Sources */,
+				6CFFC7AA236311D0005D8D2F /* GFTextField.swift in Sources */,
 				6C07D5E32361EDE2002514FE /* Date+Extension.swift in Sources */,
 				6C5DB149234CAA1E00A20D2E /* FavAddressCollectionViewCell.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
@@ -740,6 +777,7 @@
 				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
 				3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */,
 				3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */,
+				6CFFC7A52363114E005D8D2F /* TextFieldsTableView.swift in Sources */,
 				3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */,
 				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
 				6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */,
@@ -781,6 +819,7 @@
 				3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */,
 				3C3830AD2350C1680034F315 /* User.swift in Sources */,
 				6CBE730A235DDDAA0048A1DC /* LoginView.swift in Sources */,
+				6CFFC7AE236312EA005D8D2F /* TextFieldCell.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
 				3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */,
 				6C339B292327DBC200A376ED /* CircleView.swift in Sources */,
@@ -790,6 +829,7 @@
 				6CFFC7A223624E67005D8D2F /* LoadingView.swift in Sources */,
 				6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */,
 				3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */,
+				6CFFC7AC2363121B005D8D2F /* TextFieldType.swift in Sources */,
 				6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */,
 				6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
