@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
+    lazy var isUserParking = false
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
@@ -27,9 +28,11 @@ class MapViewController: UIViewController {
     }()
     
     var floatingView: UIView!
+    var floatingViewController: FloatingViewController!
     
     weak var selectGarageDelegate: SelectGarageDelegate?
     let provider = URLSessionProvider()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,8 +51,54 @@ class MapViewController: UIViewController {
         
         setConstraints()
         setupObserver()
-        loadGarages()
+        
+        isUserParking { result in
+            if let parking = result {
+                self.isUserParking = true
+                self.requestCurrentParkingGarage(id: parking.garageId) { result in
+                    if let garage = result {
+                        DispatchQueue.main.async {
+                            if let annotation = GarageAnnotation(fromGarage: garage) {
+                                self.mapView.addPin(annotation)
+                                self.mapView.selectAnnotation(annotation, animated: true)
+                            }
+                            self.floatingViewController.startedRenting(garage: garage,
+                                                                       parking: parking,
+                                                                       createdNow: false)
+                        }
+                    }
+                }
+            } else {
+                self.loadGarages()
+            }
+        }
 
+    }
+    
+    func isUserParking(_ completion: @escaping (Parking?) -> Void) {
+        if UserDefaults.userIsLogged {
+            provider.request(.getCurrent(Parking.self)) { result in
+                switch result {
+                case .success(let response):
+                    completion(response.result)
+                case .failure(let error):
+                    print("Error requesting current parking: \(error)")
+                }
+            }
+        } else {
+            loadGarages()
+        }
+    }
+    
+    func requestCurrentParkingGarage(id: Int, _ completion: @escaping (Garage?) -> Void) {
+        self.provider.request(.get(Garage.self, id: id)) { result in
+            switch result {
+            case .success(let response):
+                completion(response.result)
+            case .failure(let error):
+                print("Error requesting current parking: \(error)")
+            }
+        }
     }
     
     func loadGarages() {
@@ -70,11 +119,11 @@ class MapViewController: UIViewController {
     }
     
     func addFloatingVC() {
-        let floatingVC = FloatingViewController()
-        floatingVC.mapView = mapView
-        self.floatingView = floatingVC.view
-        selectGarageDelegate = floatingVC
-        show(floatingVC)
+        floatingViewController = FloatingViewController()
+        floatingViewController.mapView = mapView
+        self.floatingView = floatingViewController.view
+        selectGarageDelegate = floatingViewController
+        show(floatingViewController)
     }
     
     func setConstraints() {
@@ -146,11 +195,13 @@ extension MapViewController: MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "garagePin") as? MKMarkerAnnotationView
         annotationView?.titleVisibility = .visible
         annotationView?.subtitleVisibility = .visible
+        annotationView?.displayPriority = .required
         annotationView?.canShowCallout = true
         return annotationView ?? MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if isUserParking { return }
         guard let garage = view.annotation as? GarageAnnotation else { return }
         provider.request(.get(Garage.self, id: garage.id)) { result in
             switch result {
@@ -167,6 +218,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if isUserParking { return }
         selectGarageDelegate?.didDeselectGarage()
     }
     

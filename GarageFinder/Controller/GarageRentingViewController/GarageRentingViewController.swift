@@ -11,11 +11,14 @@ import GarageFinderFramework
 
 class GarageRentingViewController: AbstractGarageViewController {
     
-    lazy var rentingObject = Parking()
     lazy var isRunning = true
+    lazy var createdNow = true
+    
+    var parkingObject: Parking!
     var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
+    weak var garageRentingDelegate: RentingGarageDelegate?
     
     private var mutableGarageInfoView: GarageInfoView!
     override var garageInfoView: GarageInfoView {
@@ -38,7 +41,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         let controller = RentingDetailsViewController()
         addChild(controller)
         controller.didMove(toParent: self)
-        controller.loadData(self.rentingObject)
+        controller.loadData(self.parkingObject)
         return controller
     }()
     
@@ -78,9 +81,10 @@ class GarageRentingViewController: AbstractGarageViewController {
                 button.action = self.paymentAction(_:)
             })
             self.isRunning = false
-            self.rentingObject.conclude()
+            self.parkingObject.conclude()
             self.update()
-            self.uploadParking(withMethod: .update(self.rentingObject))
+            self.garageRentingDelegate?.stoppedRenting()
+            self.uploadParking(withMethod: .update(self.parkingObject))
         }))
                 
         present(alert, animated: true, completion: nil)
@@ -119,7 +123,9 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func fireRenting() {
-        uploadParking(withMethod: .post(rentingObject))
+        if createdNow {
+            uploadParking(withMethod: .post(parkingObject))
+        }
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isRunning {
                 self.update()
@@ -130,10 +136,10 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func update() {
-        rentingObject.update()
-        rentingDetailsController.loadData(rentingObject)
-        rentingCounterView.timerLabel.text = rentingObject.permanenceDurationString()
-        rentingCounterView.priceLabel.text = rentingObject.priceString()
+        parkingObject.update()
+        rentingDetailsController.loadData(parkingObject)
+        rentingCounterView.timerLabel.text = parkingObject.permanenceDurationString()
+        rentingCounterView.priceLabel.text = parkingObject.priceString()
     }
     
     func uploadParking(withMethod method: NetworkService<Parking>) {
@@ -141,7 +147,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             switch result {
             case .success(let response):
                 if let parking = response.result {
-                    self.rentingObject.id = parking.id
+                    self.parkingObject.id = parking.id
                 }
             case .failure(let error):
                 print("Error posting parking: \(error)")
