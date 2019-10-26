@@ -37,18 +37,21 @@ class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
         
         var textFieldCell: TextFieldCell?
         var labelCell: LabelCell?
-        
+
         if isEditing {
             labelCell = tableView.dequeueReusableCell(withIdentifier: "labelCell") as? LabelCell
         } else {
             textFieldCell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
-            
-            switch indexPath.section {
-            case 0:
-                textFieldCell?.textField.setUpType(type: userTypes[indexPath.row])
-            default:
-                textFieldCell?.textField.setUpType(type: vehicleTypes[indexPath.row])
-            }
+        }
+        switch indexPath.section {
+        case 0:
+            let userType = userTypes[indexPath.row]
+            textFieldCell?.textField.setUpType(type: userType)
+            labelCell?.setType(userType)
+        default:
+            let vehicleType = vehicleTypes[indexPath.row]
+            textFieldCell?.textField.setUpType(type: vehicleType)
+            labelCell?.setType(vehicleType)
         }
         
         return textFieldCell ?? labelCell ?? UITableViewCell()

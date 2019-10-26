@@ -9,7 +9,7 @@
 import UIKit
 
 class TextFieldCell: UITableViewCell {
-    private var type: TextFieldType?
+    var type: TextFieldType?
 
     lazy var textField: GFTextField = {
         let textField = GFTextField(withType: .none)

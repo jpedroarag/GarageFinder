@@ -34,7 +34,6 @@ class SignUpView: UIView {
     lazy var textFieldsTableView: TextFieldsTableView = {
         let table = TextFieldsTableView(frame: .zero, style: .plain)
         table.dataSource = dataSource
-        table.delegate = self
         return table
     }()
 
@@ -47,9 +46,19 @@ class SignUpView: UIView {
     var keyScroller: KeyScroller?
     
     init(isEditingProfile: Bool = false) {
-        self.dataSource = TextFieldsTableDataSource(userTypes: [.name, .email, .cpf, .password, .confirmPassword],
+        var userTypes: [TextFieldType] = [.name, .email, .cpf, .password]
+            
+        if !isEditingProfile {
+            userTypes.append(.confirmPassword)
+        }
+        
+        self.dataSource = TextFieldsTableDataSource(userTypes: userTypes,
         vehicleTypes: [.model, .color, .year, .licensePlate], isEditing: isEditingProfile)
         super.init(frame: .zero)
+        
+        if !isEditingProfile {
+            addGestureRecognizer(tap)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -57,11 +66,13 @@ class SignUpView: UIView {
     }
     
     override func didMoveToSuperview() {
-        keyScroller = KeyScroller(withScrollView: scrollView)
+        
         addSubview(scrollView)
         scrollView.addSubviews([photoImageView, editPhotoButton, textFieldsTableView])
         
         if !dataSource.isEditing {
+            keyScroller = KeyScroller(withScrollView: scrollView)
+        } else {
             scrollView.addSubview(submitButton)
         }
         
@@ -70,7 +81,6 @@ class SignUpView: UIView {
         
         editPhotoButton.addTarget(self, action: #selector(photoButtonAction), for: .touchUpInside)
         
-        addGestureRecognizer(tap)
     }
     @objc func photoButtonAction() {
         print("Photo button")
@@ -106,17 +116,8 @@ class SignUpView: UIView {
                 .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
                 .bottom(scrollView.bottomAnchor, padding: 64)
         } else {
-            textFieldsTableView.anchor.bottom(scrollView.bottomAnchor, padding: 32)
+            textFieldsTableView.anchor
+                .bottom(scrollView.bottomAnchor, padding: 32)
         }
-    }
-}
-
-extension SignUpView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerTitle = section == 0 ? "Usuário" : "Veículo"
-        let headerView = SignupHeader(frame: CGRect(x: 0, y: 0,
-                                                          width: tableView.frame.width, height: 50),
-                                            title: headerTitle)
-        return headerView
     }
 }

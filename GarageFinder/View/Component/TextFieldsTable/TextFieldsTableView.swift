@@ -52,6 +52,8 @@ class TextFieldsTableView: UITableView {
         
         return fields
     }
+    
+    //TODO: - Implementation of loading data in profile
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

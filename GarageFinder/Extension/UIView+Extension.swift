@@ -9,13 +9,6 @@
 import UIKit
 
 extension UIView {
-    var tap: UITapGestureRecognizer {
-        return UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-    }
-    
-    @objc func dismissKeyboard() {
-        self.endEditing(true)
-    }
     
     convenience init(withImage: UIImage?) {
         self.init()
@@ -51,5 +44,15 @@ extension UIView {
         views.forEach { view in
             addSubview(view)
         }
+    }
+}
+
+extension UIView {
+    var tap: UITapGestureRecognizer {
+        return UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    }
+    
+    @objc func dismissKeyboard() {
+        self.endEditing(true)
     }
 }

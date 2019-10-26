@@ -9,7 +9,7 @@
 import UIKit
 
 class LabelCell: UITableViewCell {
-    private var type: TextFieldType?
+    var type: TextFieldType?
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -20,6 +20,7 @@ class LabelCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let label = UILabel()
+        label.text = "Exemplo"
         label.font = .systemFont(ofSize: 16, weight: .regular)
         return label
     }()
@@ -36,8 +37,6 @@ class LabelCell: UITableViewCell {
     
     override func didMoveToSuperview() {
         setUpConstraint()
-        titleLabel.text = "Title"
-        label.text = "Text"
     }
     
     private func setUpConstraint() {
@@ -49,5 +48,10 @@ class LabelCell: UITableViewCell {
             .top(titleLabel.topAnchor, padding: 16)
             .left(leftAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 16)
+    }
+    
+    func setType(_ type: TextFieldType) {
+        self.type = type
+        titleLabel.text = type.rawValue
     }
 }
