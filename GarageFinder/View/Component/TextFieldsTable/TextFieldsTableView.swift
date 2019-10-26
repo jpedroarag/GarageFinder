@@ -15,13 +15,13 @@ class TextFieldsTableView: UITableView {
         self.isScrollEnabled = false
         self.contentInset = .zero
         self.rowHeight = 56
-        self.separatorColor = UIColor.clear
+        self.separatorColor = .clear
         self.backgroundColor = .white
     }
     
-    func getHeight() -> CGFloat {
-        let height = self.rowHeight * CGFloat(self.numberOfRows(inSection: 0))
-        return height
+    var height: CGFloat {
+        layoutIfNeeded()
+        return contentSize.height + 108
     }
 
     func getData() -> TextFieldCollection<TextFieldType, GFTextField> {

@@ -9,20 +9,35 @@
 import UIKit
 
 class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
-    let textFieldTypes: [TextFieldType]
-    
-    required init(_ textFieldTypes: TextFieldType ...) {
-        self.textFieldTypes = textFieldTypes
+    let userTypes: [TextFieldType]
+    let vehicleTypes: [TextFieldType]
+    required init(userTypes: [TextFieldType], vehicleTypes: [TextFieldType]) {
+        self.userTypes = userTypes
+        self.vehicleTypes = vehicleTypes
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return textFieldTypes.count
+        
+        switch section {
+        case 0:
+            return userTypes.count
+        default:
+            return vehicleTypes.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
-        cell?.textField.setUpType(type: textFieldTypes[indexPath.row])
         
+        switch indexPath.section {
+        case 0:
+            cell?.textField.setUpType(type: userTypes[indexPath.row])
+        default:
+            cell?.textField.setUpType(type: vehicleTypes[indexPath.row])
+        } 
         return cell ?? UITableViewCell()
     }
 }

@@ -9,15 +9,17 @@
 import UIKit
 
 class SignUpView: UIView {
-    let dataSource = TextFieldsTableDataSource(.name, .email, .cpf, .password, .confirmPassword)
+    let dataSource = TextFieldsTableDataSource(userTypes: [.name, .email, .cpf, .password, .confirmPassword],
+                                               vehicleTypes: [.model, .color, .year, .licensePlate])
     
+    lazy var scrollView = UIScrollView()
     lazy var editPhotoButton: UIButton = {
         guard let image = UIImage(named: "edit") else { return UIButton() }
         let button = UIButton(circularWith: image.withRenderingMode(.alwaysTemplate), andCornerRadius: 18)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
-        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        button.tintColor = .gray
+        button.imageEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        button.tintColor = .lightBlue
         return button
     }()
 
@@ -33,6 +35,7 @@ class SignUpView: UIView {
     lazy var textFieldsTableView: TextFieldsTableView = {
         let table = TextFieldsTableView(frame: .zero, style: .plain)
         table.dataSource = dataSource
+        table.delegate = self
         return table
     }()
 
@@ -42,16 +45,32 @@ class SignUpView: UIView {
         return button
     }()
     
+    var keyScroller: KeyScroller?
+    
     override func didMoveToSuperview() {
-        addSubviews([photoImageView, editPhotoButton, textFieldsTableView, submitButton])
+        keyScroller = KeyScroller(withScrollView: scrollView)
+        addSubview(scrollView)
+        scrollView.addSubviews([photoImageView, editPhotoButton, textFieldsTableView, submitButton])
         setupConstraints()
         backgroundColor = .white
+        
+        editPhotoButton.addTarget(self, action: #selector(photoButtonAction), for: .touchUpInside)
+        
+        addGestureRecognizer(tap)
     }
-    
+    @objc func photoButtonAction() {
+        print("Photo button")
+    }
     func setupConstraints() {
+        scrollView.anchor
+            .top(safeAreaLayoutGuide.topAnchor)
+            .left(safeAreaLayoutGuide.leftAnchor, padding: 8)
+            .right(safeAreaLayoutGuide.rightAnchor, padding: 8)
+            .bottom(safeAreaLayoutGuide.bottomAnchor)
+        
         photoImageView.anchor
-            .top(safeAreaLayoutGuide.topAnchor, padding: 16)
-            .centerX(centerXAnchor)
+            .top(scrollView.topAnchor, padding: 16)
+            .centerX(scrollView.centerXAnchor)
             .width(constant: 125)
             .height(constant: 125)
         
@@ -62,15 +81,24 @@ class SignUpView: UIView {
             .height(constant: 36)
         
         textFieldsTableView.anchor
-            .top(photoImageView.bottomAnchor, padding: 16)
-            .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
-            .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
-            .height(constant: textFieldsTableView.getHeight() + 8)
+            .top(photoImageView.bottomAnchor, padding: 32)
+            .width(scrollView.widthAnchor)
+            .height(constant: textFieldsTableView.height)
         
         submitButton.anchor
             .top(textFieldsTableView.bottomAnchor, padding: 16)
-            .left(safeAreaLayoutGuide.leftAnchor, padding: 32)
-            .right(safeAreaLayoutGuide.rightAnchor, padding: 32)
-            
+            .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
+            .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
+            .bottom(scrollView.bottomAnchor, padding: 64)
+    }
+}
+
+extension SignUpView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerTitle = section == 0 ? "Usuário" : "Veículo"
+        let headerView = SignupHeader(frame: CGRect(x: 0, y: 0,
+                                                          width: tableView.frame.width, height: 50),
+                                            title: headerTitle)
+        return headerView
     }
 }

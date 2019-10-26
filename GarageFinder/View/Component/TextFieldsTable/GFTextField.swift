@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GFTextField: UITextField {
+class GFTextField: UITextMaskField {
     var type: TextFieldType = .none
     
     let warningLabel: UILabel = {
@@ -20,14 +20,13 @@ class GFTextField: UITextField {
         
         return warningLabel
     }()
-    var hasIcon: Bool = true
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setStyle()
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 1))
         leftViewMode = .always
-        self.addSubview(warningLabel)
+        //addSubview(warningLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,25 +35,13 @@ class GFTextField: UITextField {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        self.setConstraints()
+        //self.setConstraints()
     }
 
     convenience init(withType type: TextFieldType) {
         self.init(frame: .zero)
         self.backgroundColor = .white
         setUpType(type: type)
-    }
-    
-    private func setIcon(image: UIImage) {
-        if hasIcon {
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-            imageView.contentMode = .scaleAspectFit
-            imageView.image = image
-            let icon = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 25))
-            icon.addSubview(imageView)
-            leftView = icon
-            leftViewMode = .always
-        }
     }
     
     private func setConstraints() {
@@ -69,20 +56,17 @@ class GFTextField: UITextField {
         placeholder = type.rawValue
         switch type {
         case .email:
-            guard let image = UIImage(named: "envelope") else {
-                print("Image not contained in assets")
-                return
-            }
-            self.setIcon(image: image)
+            autocapitalizationType = .none
+            keyboardType = .emailAddress
         case .password, .confirmPassword:
-            guard let image = UIImage(named: "lock") else {
-                print("Image not contained in assets")
-                return
-            }
-            self.setIcon(image: image)
-            self.isSecureTextEntry = true
+            isSecureTextEntry = true
         case .cpf:
-            self.keyboardType = .numberPad
+            maskString = "NNN.NNN.NNN-NN"
+            keyboardType = .numberPad
+        case .year:
+            maskString = "NNNN"
+        case .licensePlate:
+            maskString = "CCC-NNNN"
         default:
             return
         }

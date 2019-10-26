@@ -15,7 +15,7 @@ extension UIButton {
     
     convenience init(circularWith img: UIImage?, andCornerRadius cornerRadius: CGFloat) {
         self.init()
-        setBackgroundImage(img, for: .normal)
+        setImage(img, for: .normal)
         contentMode = .center
         imageView?.contentMode = .center
         layer.cornerRadius = cornerRadius

@@ -16,7 +16,7 @@ class MapView: MKMapView {
             updateNearGarages(aroundUserLocation: true)
         }
     }
-    lazy var range = Range()
+    lazy var range = RangeLocation()
     var shownRouteOverlay: MKOverlay?
     
     override init(frame: CGRect) {

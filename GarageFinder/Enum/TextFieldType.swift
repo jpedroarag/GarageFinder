@@ -13,5 +13,9 @@ enum TextFieldType: String {
     case confirmPassword = "Confirme sua senha"
     case name = "Nome"
     case cpf = "CPF"
+    case model = "Modelo"
+    case color = "Cor"
+    case year = "Ano"
+    case licensePlate = "Placa"
     case none = ""
 }

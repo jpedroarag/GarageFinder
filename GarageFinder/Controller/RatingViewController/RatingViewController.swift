@@ -39,8 +39,6 @@ class RatingViewController: AbstractGarageViewController {
         numberOfSections = 1
         sectionSeparatorsStartAppearIndex = 1
         super.viewDidLoad()
-        
-        view.addGestureRecognizer(view.tap)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

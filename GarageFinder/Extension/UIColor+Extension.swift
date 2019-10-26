@@ -49,4 +49,6 @@ extension UIColor {
     static var customYellow = UIColor(rgb: 0xFFCE00, alpha: 100)
     
     static var customGreen = UIColor(rgb: 0x23D25B, alpha: 100)
+
+    static var lightBlue = UIColor(rgb: 0x738C99, alpha: 100)
 }

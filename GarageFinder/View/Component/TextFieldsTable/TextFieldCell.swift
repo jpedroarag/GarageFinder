@@ -13,13 +13,17 @@ class TextFieldCell: UITableViewCell {
 
     lazy var textField: GFTextField = {
         let textField = GFTextField(withType: .none)
+
+        textField.attributedPlaceholder = NSAttributedString(string: "placeholder text", attributes: [.foregroundColor: UIColor.lightBlue])
+            
         return textField
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.addSubview(textField)
-        self.backgroundColor = .white
+        addSubview(textField)
+        backgroundColor = .white
+        selectionStyle = .none
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,9 +35,9 @@ class TextFieldCell: UITableViewCell {
     
     private func setUpConstraint() {
         textField.anchor
-            .top(topAnchor, padding: 16)
-            .right(rightAnchor)
-            .left(leftAnchor)
-            .bottom(bottomAnchor)
+            .top(topAnchor, padding: 8)
+            .right(rightAnchor, padding: 8)
+            .left(leftAnchor, padding: 8)
+            .bottom(bottomAnchor, padding: 8)
     }
 }
