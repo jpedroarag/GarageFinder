@@ -9,8 +9,7 @@
 import UIKit
 
 class SignUpView: UIView {
-    let dataSource = TextFieldsTableDataSource(userTypes: [.name, .email, .cpf, .password, .confirmPassword],
-                                               vehicleTypes: [.model, .color, .year, .licensePlate])
+    let dataSource: TextFieldsTableDataSource
     
     lazy var scrollView = UIScrollView()
     lazy var editPhotoButton: UIButton = {
@@ -47,10 +46,25 @@ class SignUpView: UIView {
     
     var keyScroller: KeyScroller?
     
+    init(isEditingProfile: Bool = false) {
+        self.dataSource = TextFieldsTableDataSource(userTypes: [.name, .email, .cpf, .password, .confirmPassword],
+        vehicleTypes: [.model, .color, .year, .licensePlate], isEditing: isEditingProfile)
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMoveToSuperview() {
         keyScroller = KeyScroller(withScrollView: scrollView)
         addSubview(scrollView)
-        scrollView.addSubviews([photoImageView, editPhotoButton, textFieldsTableView, submitButton])
+        scrollView.addSubviews([photoImageView, editPhotoButton, textFieldsTableView])
+        
+        if !dataSource.isEditing {
+            scrollView.addSubview(submitButton)
+        }
+        
         setupConstraints()
         backgroundColor = .white
         
@@ -85,11 +99,15 @@ class SignUpView: UIView {
             .width(scrollView.widthAnchor)
             .height(constant: textFieldsTableView.height)
         
-        submitButton.anchor
-            .top(textFieldsTableView.bottomAnchor, padding: 16)
-            .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
-            .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
-            .bottom(scrollView.bottomAnchor, padding: 64)
+        if !dataSource.isEditing {
+            submitButton.anchor
+                .top(textFieldsTableView.bottomAnchor, padding: 16)
+                .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
+                .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
+                .bottom(scrollView.bottomAnchor, padding: 64)
+        } else {
+            textFieldsTableView.anchor.bottom(scrollView.bottomAnchor, padding: 32)
+        }
     }
 }
 

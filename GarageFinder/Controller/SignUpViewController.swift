@@ -10,7 +10,18 @@ import UIKit
 import GarageFinderFramework
 
 class SignUpViewController: UIViewController {
-    let sigUpView = SignUpView()
+    let sigUpView: SignUpView
+    let isEditingProfile: Bool
+    
+    init(isEditingProfile: Bool = false) {
+        self.isEditingProfile = isEditingProfile
+        self.sigUpView = SignUpView(isEditingProfile: isEditingProfile)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         view = sigUpView
     }

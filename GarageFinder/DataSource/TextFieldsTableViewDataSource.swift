@@ -11,9 +11,13 @@ import UIKit
 class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
     let userTypes: [TextFieldType]
     let vehicleTypes: [TextFieldType]
-    required init(userTypes: [TextFieldType], vehicleTypes: [TextFieldType]) {
+    let isEditing: Bool
+    
+    required init(userTypes: [TextFieldType], vehicleTypes: [TextFieldType], isEditing: Bool = false) {
+        
         self.userTypes = userTypes
         self.vehicleTypes = vehicleTypes
+        self.isEditing = isEditing
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,14 +34,23 @@ class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
         
-        switch indexPath.section {
-        case 0:
-            cell?.textField.setUpType(type: userTypes[indexPath.row])
-        default:
-            cell?.textField.setUpType(type: vehicleTypes[indexPath.row])
-        } 
-        return cell ?? UITableViewCell()
+        var textFieldCell: TextFieldCell?
+        var labelCell: LabelCell?
+        
+        if isEditing {
+            labelCell = tableView.dequeueReusableCell(withIdentifier: "labelCell") as? LabelCell
+        } else {
+            textFieldCell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
+            
+            switch indexPath.section {
+            case 0:
+                textFieldCell?.textField.setUpType(type: userTypes[indexPath.row])
+            default:
+                textFieldCell?.textField.setUpType(type: vehicleTypes[indexPath.row])
+            }
+        }
+        
+        return textFieldCell ?? labelCell ?? UITableViewCell()
     }
 }

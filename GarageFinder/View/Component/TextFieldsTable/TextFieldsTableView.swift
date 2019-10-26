@@ -12,11 +12,12 @@ class TextFieldsTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         register(TextFieldCell.self, forCellReuseIdentifier: "cell")
-        self.isScrollEnabled = false
-        self.contentInset = .zero
-        self.rowHeight = 56
-        self.separatorColor = .clear
-        self.backgroundColor = .white
+        register(LabelCell.self, forCellReuseIdentifier: "labelCell")
+        isScrollEnabled = false
+        contentInset = .zero
+        rowHeight = 56
+        separatorColor = .clear
+        backgroundColor = .white
     }
     
     var height: CGFloat {

@@ -128,6 +128,8 @@
 		6CFFC7C523649059005D8D2F /* UITextMaskField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7BD23649059005D8D2F /* UITextMaskField.swift */; };
 		6CFFC7C623649059005D8D2F /* String+isNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7BE23649059005D8D2F /* String+isNumber.swift */; };
 		6CFFC7C8236497DE005D8D2F /* KeyScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7C7236497DD005D8D2F /* KeyScroller.swift */; };
+		6CFFC7CA23649BE8005D8D2F /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7C923649BE8005D8D2F /* LabelCell.swift */; };
+		6CFFC7CC23649DB9005D8D2F /* TableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7CB23649DB9005D8D2F /* TableCellProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +287,8 @@
 		6CFFC7BD23649059005D8D2F /* UITextMaskField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextMaskField.swift; sourceTree = "<group>"; };
 		6CFFC7BE23649059005D8D2F /* String+isNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+isNumber.swift"; sourceTree = "<group>"; };
 		6CFFC7C7236497DD005D8D2F /* KeyScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyScroller.swift; sourceTree = "<group>"; };
+		6CFFC7C923649BE8005D8D2F /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		6CFFC7CB23649DB9005D8D2F /* TableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -625,6 +629,8 @@
 				6CFFC7A42363114E005D8D2F /* TextFieldsTableView.swift */,
 				6CFFC7A9236311D0005D8D2F /* GFTextField.swift */,
 				6CFFC7AD236312EA005D8D2F /* TextFieldCell.swift */,
+				6CFFC7C923649BE8005D8D2F /* LabelCell.swift */,
+				6CFFC7CB23649DB9005D8D2F /* TableCellProtocol.swift */,
 			);
 			path = TextFieldsTable;
 			sourceTree = "<group>";
@@ -805,8 +811,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CFFC7CC23649DB9005D8D2F /* TableCellProtocol.swift in Sources */,
 				6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */,
 				3C383086234964040034F315 /* MockedData.swift in Sources */,
+				6CFFC7CA23649BE8005D8D2F /* LabelCell.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				3C38307523410F310034F315 /* Vehicle.swift in Sources */,
 				6CFFC7A823631191005D8D2F /* TextFieldCollection.swift in Sources */,
