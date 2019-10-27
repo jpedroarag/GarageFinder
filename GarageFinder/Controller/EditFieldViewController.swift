@@ -16,6 +16,9 @@ class EditFieldViewController: UIViewController {
         editFieldView = EditFieldView(fieldType: fieldType)
         editFieldView.textField.text = content
         super.init(nibName: nil, bundle: nil)
+        
+        modalTransitionStyle = .crossDissolve
+        modalPresentationStyle = .overCurrentContext
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +29,6 @@ class EditFieldViewController: UIViewController {
         super.viewDidLoad()
         editFieldView.closeButtonAction = cancel
         editFieldView.submitButtonAction = submit
-        print("view did load")
         editFieldView.textField.becomeFirstResponder()
     }
 

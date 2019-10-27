@@ -59,7 +59,7 @@ class FloatingViewController: UIViewController {
     @objc func presentAdjustsMenu(_ notification: Notification) {
         
         let presentVC: UIViewController!
-        presentVC = UserDefaults.userIsLogged ? LoginViewController() : LoginViewController()
+        presentVC = UserDefaults.userIsLogged ? SignUpViewController(isEditingProfile: true) : LoginViewController()
         present(presentVC, animated: true, completion: nil)
     }
     

@@ -12,7 +12,8 @@ import GarageFinderFramework
 class SignUpViewController: UIViewController {
     let signUpView: SignUpView
     let isEditingProfile: Bool
-    
+    let imagePickerTool = ImagePickerTool()
+    var savedImage: UIImage?
     init(isEditingProfile: Bool = false) {
         self.isEditingProfile = isEditingProfile
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
@@ -26,6 +27,40 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         view = signUpView
         signUpView.textFieldsTableView.delegate = self
+        signUpView.photoButtonAction = showImagePicker
+        
+        if isEditingProfile {
+            loadUser()
+        }
+    }
+    
+    func loadUser() {
+        URLSessionProvider().request(.getCurrent(User.self)) { result in
+            switch result {
+            case .success(let response):
+                if let user = response.result {
+                    let content: [TextFieldType: String] = [.name: user.name,
+                                                                 .email: user.email,
+                                                                 .cpf: user.documentNumber]
+                    self.signUpView.textFieldsTableView.load(data: content)
+                }
+                
+            case .failure(let error):
+                print("Error loading current user: \(error)")
+            }
+        }
+    }
+    
+    func showImagePicker() {
+        self.imagePickerTool.getImage(from: [.camera, .photoLibrary], parentViewController: self, imageCompletion: { (result) in
+            switch result {
+            case .image(let image):
+                self.savedImage = image
+                self.signUpView.setUserPhoto(image)
+            case .canceled:
+                break
+            }
+        })
     }
 }
 
@@ -44,9 +79,6 @@ extension SignUpViewController: UITableViewDelegate {
         if isEditingProfile {
             if let labelCell = tableView.cellForRow(at: indexPath) as? LabelCell, let type = labelCell.type {
                 let editFieldVC = EditFieldViewController(fieldType: type, content: labelCell.label.text)
-                editFieldVC.modalPresentationStyle = .overCurrentContext
-                editFieldVC.modalTransitionStyle = .crossDissolve
-                print("PRESENTING")
                 DispatchQueue.main.async {
                     self.present(editFieldVC, animated: true, completion: nil)
                 }

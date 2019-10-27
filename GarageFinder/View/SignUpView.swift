@@ -9,6 +9,8 @@
 import UIKit
 
 class SignUpView: UIView {
+    typealias Action = () -> Void
+    var photoButtonAction: Action?
     let dataSource: TextFieldsTableDataSource
     
     lazy var scrollView = UIScrollView()
@@ -22,12 +24,20 @@ class SignUpView: UIView {
         return button
     }()
 
-    lazy var photoImageView: UIView = {
-        let photoImageView = UIView(withImage: UIImage(named: "profile"))
+    lazy var photoShadowView: UIView = {
+        let view = UIView()
+        view.shadowed()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 62.5
+        return view
+    }()
+    
+    lazy var photoImageView: UIImageView = {
+        let photoImageView = UIImageView(image: UIImage(named: "profile"))
         photoImageView.contentMode = .center
-        photoImageView.shadowed()
         photoImageView.backgroundColor = .white
         photoImageView.layer.cornerRadius = 62.5
+        photoImageView.clipsToBounds = true
         return photoImageView
     }()
     
@@ -68,29 +78,41 @@ class SignUpView: UIView {
     override func didMoveToSuperview() {
         
         addSubview(scrollView)
-        scrollView.addSubviews([photoImageView, editPhotoButton, textFieldsTableView])
+        scrollView.addSubviews([photoShadowView, photoImageView, editPhotoButton, textFieldsTableView])
         
         if !dataSource.isEditing {
             keyScroller = KeyScroller(withScrollView: scrollView)
-        } else {
             scrollView.addSubview(submitButton)
         }
         
         setupConstraints()
         backgroundColor = .white
         
-        editPhotoButton.addTarget(self, action: #selector(photoButtonAction), for: .touchUpInside)
+        editPhotoButton.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
         
     }
-    @objc func photoButtonAction() {
-        print("Photo button")
+    
+    @objc func photoButtonTapped() {
+        photoButtonAction?()
     }
+    
+    func setUserPhoto(_ image: UIImage?) {
+        photoImageView.contentMode = .scaleAspectFill
+        photoImageView.image = image
+    }
+    
     func setupConstraints() {
         scrollView.anchor
             .top(safeAreaLayoutGuide.topAnchor)
             .left(safeAreaLayoutGuide.leftAnchor, padding: 8)
             .right(safeAreaLayoutGuide.rightAnchor, padding: 8)
             .bottom(safeAreaLayoutGuide.bottomAnchor)
+        
+        photoShadowView.anchor
+            .top(scrollView.topAnchor, padding: 16)
+            .centerX(scrollView.centerXAnchor)
+            .width(constant: 125)
+            .height(constant: 125)
         
         photoImageView.anchor
             .top(scrollView.topAnchor, padding: 16)

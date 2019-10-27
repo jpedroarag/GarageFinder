@@ -35,6 +35,19 @@ class TextFieldsTableView: UITableView {
         return tfData
     }
     
+    func load(data: [TextFieldType: String]) {
+        DispatchQueue.main.async {
+            (0..<self.numberOfRows(inSection: 0)).forEach { row in
+                if let cell = self.cellForRow(at: IndexPath(row: row, section: 0)) as? LabelCell, let type = cell.type {
+                    if let content = data[type] {
+                        cell.label.text = content
+                    }
+                }
+            }
+        }
+        
+    }
+    
     func getField(atPosition position: Int) -> GFTextField? {
         guard let cell = cellForRow(at: IndexPath(row: position, section: 0)) as? TextFieldCell else {
             return nil

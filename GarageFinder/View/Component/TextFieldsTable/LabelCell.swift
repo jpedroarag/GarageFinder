@@ -18,8 +18,9 @@ class LabelCell: UITableViewCell {
         return label
     }()
     
-    lazy var label: UILabel = {
-        let label = UILabel()
+    lazy var label: UITextField = {
+        let label = UITextField()
+        label.isUserInteractionEnabled = false
         label.text = "Exemplo"
         label.font = .systemFont(ofSize: 16, weight: .regular)
         return label
@@ -47,11 +48,16 @@ class LabelCell: UITableViewCell {
         label.anchor
             .top(titleLabel.topAnchor, padding: 16)
             .left(leftAnchor, padding: 8)
+            .right(rightAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 16)
     }
     
     func setType(_ type: TextFieldType) {
         self.type = type
         titleLabel.text = type.rawValue
+        
+        if type == .password {
+            label.isSecureTextEntry = true
+        }
     }
 }
