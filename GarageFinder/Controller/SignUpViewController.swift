@@ -18,7 +18,6 @@ class SignUpViewController: UIViewController {
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
         
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -43,12 +42,14 @@ extension SignUpViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditingProfile {
-
             if let labelCell = tableView.cellForRow(at: indexPath) as? LabelCell, let type = labelCell.type {
                 let editFieldVC = EditFieldViewController(fieldType: type, content: labelCell.label.text)
                 editFieldVC.modalPresentationStyle = .overCurrentContext
                 editFieldVC.modalTransitionStyle = .crossDissolve
-                present(editFieldVC, animated: true, completion: nil)
+                print("PRESENTING")
+                DispatchQueue.main.async {
+                    self.present(editFieldVC, animated: true, completion: nil)
+                }
             }
         }
     }

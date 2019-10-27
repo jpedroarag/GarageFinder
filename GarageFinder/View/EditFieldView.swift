@@ -44,9 +44,9 @@ class EditFieldView: UIView {
     }()
     
     lazy var blurEffectView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.bounds
+        blurEffectView.frame = self.frame
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         return blurEffectView
@@ -58,7 +58,7 @@ class EditFieldView: UIView {
     init(fieldType: TextFieldType) {
         super.init(frame: .zero)
         titleLabel.text = fieldType.rawValue
-        backgroundColor = .clear
+        textField.setUpType(type: fieldType)
         setupBlurView()
         addSubview(contentView)
         contentView.addSubviews([titleLabel, textField, submitButton, closeButton])
@@ -78,7 +78,12 @@ class EditFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        animateZoomIn()
+    }
     func setupBlurView() {
+        backgroundColor = .clear
         addSubview(blurEffectView)
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeButtonTapped))
         blurEffectView.addGestureRecognizer(tap)
@@ -107,7 +112,7 @@ class EditFieldView: UIView {
             .height(constant: 24)
         
         submitButton.anchor
-            .top(textField.bottomAnchor, padding: 16)
+            .top(textField.bottomAnchor, padding: 32)
             .left(contentView.leftAnchor, padding: 16)
             .right(contentView.rightAnchor, padding: 16)
             .bottom(contentView.bottomAnchor, padding: 16)
@@ -115,10 +120,10 @@ class EditFieldView: UIView {
     }
     
     func animateZoomIn() {
-        self.contentView.layer.setAffineTransform(CGAffineTransform(scaleX: 1.05, y: 1.05))
+        contentView.layer.setAffineTransform(CGAffineTransform(scaleX: 0.95, y: 0.95))
         blurEffectView.layer.opacity = 0
-        UIView.animate(withDuration: 0.334) {
-            self.blurEffectView.layer.opacity = 1
+        UIView.animate(withDuration: 0.3) {
+            self.blurEffectView.layer.opacity = 0.8
             self.contentView.layer.setAffineTransform(CGAffineTransform(scaleX: 1, y: 1))
         }
     }

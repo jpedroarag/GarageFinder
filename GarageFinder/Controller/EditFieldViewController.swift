@@ -26,12 +26,12 @@ class EditFieldViewController: UIViewController {
         super.viewDidLoad()
         editFieldView.closeButtonAction = cancel
         editFieldView.submitButtonAction = submit
+        print("view did load")
         editFieldView.textField.becomeFirstResponder()
     }
 
     override func loadView() {
         view = editFieldView
-        editFieldView.animateZoomIn()
     }
     
     func submit() {
