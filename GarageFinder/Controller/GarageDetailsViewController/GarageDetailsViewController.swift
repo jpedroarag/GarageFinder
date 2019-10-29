@@ -13,6 +13,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
+    weak var actionsDelegate: GarageActionsDelegate?
     var presentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
@@ -30,7 +31,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     var garageActionsView: GarageActionsView {
         let garageActionsView = GarageActionsView(frame: .zero)
-        garageActionsView.likeButton.action = { _ in print("like") }
+        garageActionsView.likeButton.action = { _ in self.favoriteGarage(self.presentedGarage) }
         garageActionsView.rateButton.action = { _ in print("rate") }
         garageActionsView.shareButton.action = { _ in print("share") }
         garageActionsView.reportButton.action = { _ in print("report") }
@@ -58,6 +59,25 @@ class GarageDetailsViewController: AbstractGarageViewController {
         shouldAppearAnimated = true
         sectionSeparatorsStartAppearIndex = 2
         super.viewDidLoad()
+    }
+    
+    func favoriteGarage(_ garage: Garage) {
+        let dataManager = CoreDataManager.shared
+        let predicate = NSPredicate(format: "(objectId = %d)", garage.id)
+        if let favorite = dataManager.fetch(Favorite.self, predicate: predicate).first {
+            dataManager.delete(object: favorite)
+            actionsDelegate?.unlikedGarage()
+            return
+        } else {
+            let favorite = Favorite(name: garage.description ?? "Garagem",
+                                    category: .other,
+                                    latitude: garage.address?.coordinate.latitude ?? 0,
+                                    longitude: garage.address?.coordinate.longitude ?? 0,
+                                    type: .garage,
+                                    objectId: garage.id)
+            dataManager.insert(object: favorite)
+            actionsDelegate?.likedGarage()
+        }
     }
     
     func parkButtonTapped(_ sender: GFButton) {

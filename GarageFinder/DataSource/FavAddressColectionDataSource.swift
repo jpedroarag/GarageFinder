@@ -25,15 +25,15 @@ class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func getFavorites() -> [Favorite] {
-        return [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia da Maria", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address),
-                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address)]
+        return [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3001),
+                Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3002),
+                Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3003),
+                Favorite(name: "Academia da Maria", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3004),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3005),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3006),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3007),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3008),
+                Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3009)]
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

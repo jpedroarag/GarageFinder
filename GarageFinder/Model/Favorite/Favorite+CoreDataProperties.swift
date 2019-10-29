@@ -12,8 +12,6 @@ import CoreData
 import UIKit.UIApplication
 
 extension Favorite {
-    
-    private static var currentId = 1
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Favorite> {
         return NSFetchRequest<Favorite>(entityName: "Favorite")
@@ -26,22 +24,24 @@ extension Favorite {
     @NSManaged public var longitude: Double
     @NSManaged public var type: FavoriteType
     @NSManaged public var categoryString: String
+    @NSManaged public var objectId: Int
     
     public convenience init() {
         let context = CoreDataManager.shared.context
-        let entityDescription = NSEntityDescription.entity(forEntityName: "Favorite", in: context) ?? NSEntityDescription()
+        let entityDescription = NSEntityDescription.entity(forEntityName: Favorite.entityName, in: context) ?? NSEntityDescription()
         self.init(entity: entityDescription, insertInto: context)
     }
     
-    public convenience init(name: String, category: PlaceCategory, latitude: Double, longitude: Double, type: FavoriteType) {
+    public convenience init(name: String, category: PlaceCategory, latitude: Double, longitude: Double, type: FavoriteType, objectId: Int) {
         self.init()
-        self.id = Favorite.currentId
+        self.id = Identifier.nextAvailableIdValue()
         self.name = name
         self.categoryString = category.rawValue
         self.latitude = latitude
         self.longitude = longitude
         self.type = type
-        Favorite.currentId += 1
+        self.objectId = objectId
+        Identifier.update()
     }
 
 }

@@ -173,6 +173,7 @@ extension FloatingViewController: SelectGarageDelegate {
             garageDetail.changeScrollViewDelegate = self
             garageDetail.rentingGarageDelegate = self
             garageDetail.selectGarageDelegate = self
+            garageDetail.actionsDelegate = self
             garageDetail.presentedGarage = garage
             floatingView.floatingViewPositioningDelegate = garageDetail
             show(garageDetail)
@@ -189,6 +190,20 @@ extension FloatingViewController: SelectGarageDelegate {
         mapView?.selectedAnnotations.forEach({
             mapView?.deselectAnnotation($0, animated: true)
         })
+    }
+}
+
+extension FloatingViewController: GarageActionsDelegate {
+    func likedGarage() {
+        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count, section: 1)
+        floatingTableViewDataSource.reloadFavorites()
+        floatingView.tableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func unlikedGarage() {
+        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count - 1, section: 1)
+        floatingTableViewDataSource.reloadFavorites()
+        floatingView.tableView.deleteRows(at: [indexPath], with: .none)
     }
 }
 

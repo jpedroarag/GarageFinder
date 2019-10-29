@@ -14,9 +14,7 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-        let favoriteTypeInt16 = NSNumber(value: FavoriteType.garage.rawValue)
-        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
-        let favorites = CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
+        let favorites = loadFavorites()
         if !favorites.isEmpty {
             favoriteGarages = favorites
             return
@@ -27,11 +25,21 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func getFavorites() -> [Favorite] {
-        return [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                Favorite(name: "Garagem de Joaquim", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage),
-                Favorite(name: "Garagem de Dano;p", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage)]
+        return [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1001),
+                Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1002),
+                Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1003),
+                Favorite(name: "Garagem de Joaquim", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1004),
+                Favorite(name: "Garagem de Dano;p", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1005)]
+    }
+    
+    func loadFavorites() -> [Favorite] {
+        let favoriteTypeInt16 = NSNumber(value: FavoriteType.garage.rawValue)
+        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
+        return CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
+    }
+    
+    func reloadFavorites() {
+        favoriteGarages = loadFavorites()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

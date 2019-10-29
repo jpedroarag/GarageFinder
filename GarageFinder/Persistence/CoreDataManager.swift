@@ -9,9 +9,9 @@
 import CoreData
 
 protocol PersistableObject: NSManagedObject {
-    associatedtype Identifier: Equatable & Comparable & CVarArg
+    associatedtype IdentifierType: Equatable & Comparable & CVarArg
     static var entityName: String { get }
-    var id: Identifier { get set }
+    var id: IdentifierType { get set }
 }
 
 class CoreDataManager: NSObject {
@@ -42,16 +42,23 @@ class CoreDataManager: NSObject {
         }
     }
     
+    func insert<T: PersistableObject>(object: T) {
+        var objects = fetch(T.self, sortedReturn: true)
+        objects.append(object)
+        saveChanges()
+    }
+    
     func delete<T: PersistableObject>(object: T) {
-        var format = "(id == %)"
+        var format = "(id == %"
         switch object.id {
         case is Int:
             format = "\(format)d"
         case is String:
-            format = "\(format)d"
+            format = "\(format)s"
         default:
             return
         }
+        format = "\(format))"
         let predicate = NSPredicate(format: format, object.id)
         executeDeleteRequest(T.self, withPredicate: predicate)
     }

@@ -24,6 +24,7 @@ public struct Garage: CustomCodable {
 //    //public var pictures: [UIImage?]?
 //    private var picturesUrls: [String]?
     public var average: Float? = 0.0
+    public var favoriteId: Int?
     
     public init(id: Int = 0,
                 description: String? = nil,
