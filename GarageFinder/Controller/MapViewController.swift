@@ -165,11 +165,8 @@ class MapViewController: UIViewController {
     
     @objc func finishSearch(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }
- 
-        mapView.removeRangeCircle(userLocation: false)
-        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
-        mapView.updateNearGarages(aroundUserLocation: false)
-        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location: location), span: span)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -177,8 +174,6 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
-        mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
-        mapView.updateNearGarages(aroundUserLocation: true)
         if !locationSet {
             mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
             locationSet = true
@@ -227,9 +222,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKCircle {
-            return self.mapView.rendererForRangeOverlay(overlay)
-        } else if overlay is MKPolyline {
+        if overlay is MKPolyline {
             return self.mapView.rendererForRouteOverlay(overlay)
         } else {
             return MKPolylineRenderer()

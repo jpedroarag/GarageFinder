@@ -85,7 +85,6 @@ extension SearchResultViewController: SearchDelegate, UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        mapView?.removeRangeCircle(userLocation: false)
     }
     
 }
