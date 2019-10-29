@@ -18,7 +18,7 @@ extension Identifier {
 
     @NSManaged public var id: Int
     
-    public convenience init() {
+    private convenience init() {
         let context = CoreDataManager.shared.context
         let entityDescription = NSEntityDescription.entity(forEntityName: Identifier.entityName, in: context) ?? NSEntityDescription()
         self.init(entity: entityDescription, insertInto: context)
