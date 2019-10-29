@@ -28,7 +28,7 @@ extension Favorite {
     @NSManaged public var categoryString: String
     
     public convenience init() {
-        let context = (try? CoreDataManager.shared.getContext()) ?? NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        let context = CoreDataManager.shared.context
         let entityDescription = NSEntityDescription.entity(forEntityName: "Favorite", in: context) ?? NSEntityDescription()
         self.init(entity: entityDescription, insertInto: context)
     }

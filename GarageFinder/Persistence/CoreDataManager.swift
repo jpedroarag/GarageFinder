@@ -8,75 +8,89 @@
 
 import CoreData
 
-class CoreDataManager : NSObject {
+protocol PersistableObject: NSManagedObject {
+    associatedtype Identifier: Equatable & Comparable & CVarArg
+    static var entityName: String { get }
+    var id: Identifier { get set }
+}
+
+class CoreDataManager: NSObject {
     static var shared = CoreDataManager()
     
     private override init() {}
     
-    // MARK: - Core Data Stack
-    lazy var persistentContainer: NSPersistentContainer? = {
-        return newPersistentContainer(coreDataModelName: "GarageFinderModel")
-    }()
-    
-    func newPersistentContainer(coreDataModelName name: String = "") -> NSPersistentContainer {
-        let container = NSPersistentContainer(name: name)
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if error != nil {
-                print("CoreData: Error while loading persistent stores). \(error!.localizedDescription)")
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "GarageFinderModel")
+        container.loadPersistentStores(completionHandler: { _, error in
+            if let loadingError = error {
+                print("CORE DATA: Error while loading persistent stores!")
+                print("ERROR DESCRIPTION: \(loadingError.localizedDescription)")
             }
         })
         return container
+    }()
+    
+    var context: NSManagedObjectContext {
+        return persistentContainer.viewContext
     }
     
-    // MARK: - View Context of Persistent Container
-    func getContext() throws -> NSManagedObjectContext {
-        guard let context = persistentContainer?.viewContext else { throw CoreDataManagerError.noContainer }
-        return context
-    }
-    
-    // MARK: - Core Data Saving support
-    func saveContext() {
+    func saveChanges() {
         do {
-            let context = try getContext()
             if context.hasChanges { try context.save() }
         } catch let error as NSError {
             print("Error saving context. \(error), \(error.userInfo)")
         }
     }
     
-    // MARK: - Delete
-    func delete(object: NSManagedObject) {
-        do {
-            let context = try getContext()
-            context.delete(object)
-            try context.save()
-        } catch let error as NSError {
-            print("Error deleting object. \(error), \(error.userInfo)")
+    func delete<T: PersistableObject>(object: T) {
+        var format = "(id == %)"
+        switch object.id {
+        case is Int:
+            format = "\(format)d"
+        case is String:
+            format = "\(format)d"
+        default:
+            return
         }
+        let predicate = NSPredicate(format: format, object.id)
+        executeDeleteRequest(T.self, withPredicate: predicate)
     }
     
-    // MARK: - Delete All
-    func deleteAll(fromEntity name: String) {
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
-        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+    func deleteAll<T: PersistableObject>(_ entityType: T.Type) {
+        executeDeleteRequest(entityType)
+    }
+    
+    func fetch<T: PersistableObject>(_ entityType: T.Type, predicate: NSPredicate? = nil, sortedReturn: Bool = true) -> [T] {
         do {
-            let context = try getContext()
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityType.entityName, predicate: predicate)
+            let requestResult = try context.fetch(request)
+            if let objects = requestResult as? [T] {
+                if sortedReturn {
+                    return objects.sorted { $0.id < $1.id }
+                }
+                return objects
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    func executeDeleteRequest<T: PersistableObject>(_ entityType: T.Type, withPredicate predicate: NSPredicate? = nil) {
+        do {
+            let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityType.entityName, predicate: predicate)
+            let request = NSBatchDeleteRequest(fetchRequest: fetch)
             try context.execute(request)
             try context.save()
         } catch let error as NSError {
             print("Error deleting data. \(error), \(error.userInfo)")
         }
     }
-    
-    // MARK: - Fetch
-    func getObjects(forEntity name: String) -> [NSManagedObject] {
-        let request = NSFetchRequest<NSManagedObject>(entityName: name)
-        do {
-            let context = try getContext()
-            return try context.fetch(request)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        return []
+}
+
+extension NSFetchRequest {
+    @objc convenience init(entityName: String, predicate: NSPredicate? = nil) {
+        self.init(entityName: entityName)
+        self.predicate = predicate
     }
 }

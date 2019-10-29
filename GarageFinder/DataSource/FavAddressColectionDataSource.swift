@@ -12,15 +12,16 @@ class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
     
     override init() {
         super.init()
-        if let favorites = CoreDataManager.shared.getObjects(forEntity: "Favorite") as? [Favorite] {
-            items = favorites.filter { $0.type == .address }
-            items = items.sorted { $0.id < $1.id }
-            if !items.isEmpty { // TODO: Remove this (using for testing core data)
-                return
-            }
+        let favoriteTypeInt16 = NSNumber(value: FavoriteType.address.rawValue)
+        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
+        let favorites = CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
+        if !favorites.isEmpty {
+            items = favorites
+            return
         }
+        // TODO: Remove the code below later (using for testing core data)
         items = getFavorites()
-        CoreDataManager.shared.saveContext()
+        CoreDataManager.shared.saveChanges()
     }
     
     func getFavorites() -> [Favorite] {

@@ -218,7 +218,11 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if isUserParking { return }
+        guard let garage = view.annotation as? GarageAnnotation else { return }
+        if isUserParking {
+            mapView.selectAnnotation(garage, animated: true)
+            return
+        }
         selectGarageDelegate?.didDeselectGarage()
     }
     

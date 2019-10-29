@@ -53,6 +53,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         shouldAppearAnimated = false
         numberOfSections = 1
         sectionSeparatorsStartAppearIndex = 1
+        closeButton.isHidden = true
         super.viewDidLoad()
         fireRenting()
     }

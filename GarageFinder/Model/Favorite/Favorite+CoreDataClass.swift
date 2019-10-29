@@ -11,8 +11,11 @@ import Foundation
 import CoreData
 
 @objc(Favorite)
-public class Favorite: NSManagedObject {
+public class Favorite: NSManagedObject, PersistableObject {
     public var category: PlaceCategory? {
         return PlaceCategory(rawValue: categoryString)
+    }
+    static var entityName: String {
+        return "Favorite"
     }
 }

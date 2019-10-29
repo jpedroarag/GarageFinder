@@ -193,6 +193,9 @@ extension FloatingViewController: SelectGarageDelegate {
 }
 
 extension FloatingViewController: RentingGarageDelegate {
+    var mapViewController: MapViewController? {
+        return parent as? MapViewController
+    }
     func startedRenting(garage: Garage, parking: Parking, createdNow: Bool) {
         let garageRenting = GarageRentingViewController()
         if canShowGarageVC(garageRenting) {

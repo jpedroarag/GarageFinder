@@ -14,15 +14,16 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-        if let favorites = CoreDataManager.shared.getObjects(forEntity: "Favorite") as? [Favorite] {
-            favoriteGarages = favorites.filter { $0.type == .garage }
-            favoriteGarages = favoriteGarages.sorted { $0.id < $1.id }
-            if !favoriteGarages.isEmpty { // TODO: Remove this (using for testing core data)
-                return
-            }
+        let favoriteTypeInt16 = NSNumber(value: FavoriteType.garage.rawValue)
+        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
+        let favorites = CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
+        if !favorites.isEmpty {
+            favoriteGarages = favorites
+            return
         }
+        // TODO: Remove the code below later (using for testing core data)
         favoriteGarages = getFavorites()
-        CoreDataManager.shared.saveContext()
+        CoreDataManager.shared.saveChanges()
     }
     
     func getFavorites() -> [Favorite] {
