@@ -58,10 +58,7 @@ class MapViewController: UIViewController {
                 self.requestCurrentParkingGarage(id: parking.garageId) { result in
                     if let garage = result {
                         DispatchQueue.main.async {
-                            if let annotation = GarageAnnotation(fromGarage: garage) {
-                                self.mapView.addPin(annotation)
-                                self.mapView.selectAnnotation(annotation, animated: true)
-                            }
+                            self.popupCurrentRentingGaragePin(garage)
                             self.floatingViewController.startedRenting(garage: garage,
                                                                        parking: parking,
                                                                        createdNow: false)
@@ -73,6 +70,14 @@ class MapViewController: UIViewController {
             }
         }
 
+    }
+    
+    func popupCurrentRentingGaragePin(_ garage: Garage) {
+        if let annotation = GarageAnnotation(fromGarage: garage) {
+            self.mapView.removeAnnotations(mapView.pins)
+            self.mapView.addPin(annotation)
+            self.mapView.selectAnnotation(annotation, animated: true)
+        }
     }
     
     func isUserParking(_ completion: @escaping (Parking?) -> Void) {

@@ -84,7 +84,6 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isRunning = false
             self.parkingObject.conclude()
             self.update()
-            self.garageRentingDelegate?.stoppedRenting()
             self.uploadParking(withMethod: .update(self.parkingObject))
         }))
                 
@@ -94,6 +93,7 @@ class GarageRentingViewController: AbstractGarageViewController {
 
     func paymentAction(_ button: GFButton) {
         // TODO: Payment action
+        self.garageRentingDelegate?.stoppedRenting()
         showRatingView(button)
     }
     

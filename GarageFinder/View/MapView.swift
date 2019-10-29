@@ -11,7 +11,12 @@ import MapKit
 
 class MapView: MKMapView {
     
-    var pins = [MKAnnotation]()
+    var pins = [MKAnnotation]() {
+        didSet {
+            removeAnnotations(annotations)
+            addPins(pins)
+        }
+    }
     var shownRouteOverlay: MKOverlay?
     
     override init(frame: CGRect) {
