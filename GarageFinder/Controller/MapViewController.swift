@@ -222,9 +222,10 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
+        switch overlay {
+        case is MKPolyline:
             return self.mapView.rendererForRouteOverlay(overlay)
-        } else {
+        default:
             return MKPolylineRenderer()
         }
     }
