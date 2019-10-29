@@ -21,8 +21,9 @@ public struct Garage: CustomCodable {
     public var userId: Int?
     public var address: Address?
     public var comments: [Comment]?
-//    //public var pictures: [UIImage?]?
-//    private var picturesUrls: [String]?
+    var photo1: String?
+    var photo2: String?
+    var photo3: String?
     public var average: Float? = 0.0
     
     public init(id: Int = 0,
@@ -43,12 +44,20 @@ public struct Garage: CustomCodable {
         self.userId = userId
         self.address = address
         self.comments = comments
-//        //self.pictures = pictures
         self.average = average
     }
 
-    func loadPictures(_ urls: [String]) {
-        // TODO: request pictures
-        //pictures = MockedData.loadMockedPictures()
+    func loadPhotos() -> [UIImage] {
+        var images: [UIImage] = []
+        if let p1 = photo1 {
+            images.append(p1.base64Convert())
+        }
+        if let p2 = photo2 {
+            images.append(p2.base64Convert())
+        }
+        if let p3 = photo3 {
+            images.append(p3.base64Convert())
+        }
+        return images
     }
 }
