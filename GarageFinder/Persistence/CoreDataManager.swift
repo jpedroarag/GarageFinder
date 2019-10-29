@@ -9,7 +9,7 @@
 import CoreData
 
 protocol PersistableObject: NSManagedObject {
-    associatedtype IdentifierType: Equatable & Comparable & CVarArg
+    associatedtype IdentifierType: Comparable & CVarArg
     static var entityName: String { get }
     var id: IdentifierType { get set }
 }
@@ -49,17 +49,16 @@ class CoreDataManager: NSObject {
     }
     
     func delete<T: PersistableObject>(object: T) {
-        var format = "(id == %"
+        var symbol: String = ""
         switch object.id {
         case is Int:
-            format = "\(format)d"
+            symbol = "%d"
         case is String:
-            format = "\(format)s"
+            symbol = "%s"
         default:
             return
         }
-        format = "\(format))"
-        let predicate = NSPredicate(format: format, object.id)
+        let predicate = NSPredicate(format: "(id == \(symbol)", object.id)
         executeDeleteRequest(T.self, withPredicate: predicate)
     }
     
