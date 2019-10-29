@@ -123,6 +123,7 @@
 		6CD2A81B231D3F8300A4782D /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CD2A81E231D3F9200A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
 		6CD62A7D236884FA00331B86 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD62A7C236884FA00331B86 /* String+Base64.swift */; };
+		6CD62A7F2368884600331B86 /* UIImage+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD62A7E2368884600331B86 /* UIImage+Base64.swift */; };
 		6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE31B052330FBF9002AFF85 /* SearchResultView.swift */; };
 		6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */; };
 		6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */; };
@@ -295,6 +296,7 @@
 		6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavGaragesTableViewCell.swift; sourceTree = "<group>"; };
 		6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavAddressTableViewCell.swift; sourceTree = "<group>"; };
 		6CD62A7C236884FA00331B86 /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
+		6CD62A7E2368884600331B86 /* UIImage+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Base64.swift"; sourceTree = "<group>"; };
 		6CE31B052330FBF9002AFF85 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingDelegate.swift; sourceTree = "<group>"; };
 		6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				6C07D5E22361EDE2002514FE /* Date+Extension.swift */,
 				6C8B9A122365E5DC00EA950C /* UINavigationController+Extension.swift */,
 				6CD62A7C236884FA00331B86 /* String+Base64.swift */,
+				6CD62A7E2368884600331B86 /* UIImage+Base64.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 			files = (
 				6C57ABB023574D0C001442A6 /* AbstractGarageViewController.swift in Sources */,
 				3C383086234964040034F315 /* MockedData.swift in Sources */,
+				6CD62A7F2368884600331B86 /* UIImage+Base64.swift in Sources */,
 				6CFFC7CA23649BE8005D8D2F /* LabelCell.swift in Sources */,
 				3C20C38C233A622300182CB3 /* RentingCounterView.swift in Sources */,
 				3C38307523410F310034F315 /* Vehicle.swift in Sources */,

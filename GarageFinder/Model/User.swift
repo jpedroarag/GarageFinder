@@ -20,4 +20,5 @@ public struct User: CustomCodable {
     public let addresses: [Address]?
     public var garages: [Garage]?
     public let role: String
+    public let avatar: String?
 }

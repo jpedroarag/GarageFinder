@@ -12,7 +12,8 @@ extension String {
     
     func base64Convert() -> UIImage {
         let base = self.components(separatedBy: ",")
-        if let data = Data(base64Encoded: base[1], options: .ignoreUnknownCharacters){
+        print("BASE AFTER , : \(base.last)")
+        if let contentBase = base.last, let data = Data(base64Encoded: contentBase, options: .ignoreUnknownCharacters) {
             if let image = UIImage(data: data) {
                 return image
             }

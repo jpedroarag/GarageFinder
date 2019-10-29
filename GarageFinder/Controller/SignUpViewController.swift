@@ -46,12 +46,16 @@ class SignUpViewController: UIViewController {
                                                      .email: user.email,
                                                      .cpf: user.documentNumber]
         self.signUpView.textFieldsTableView.load(data: content)
+        
+        if let image = user.avatar?.base64Convert() {
+            signUpView.setUserPhoto(image)
+        }
     }
     
     func saveUser(_ content: TextFieldCollection<TextFieldType, GFTextField>) {
         let user = User(id: nil, name: content[.name], email: content[.email],
                         documentType: .cpf, documentNumber: content[.cpf], password: content[.password],
-                        addresses: nil, garages: nil, role: "ROLE_GD")
+                        addresses: nil, garages: nil, role: "ROLE_GD", avatar: savedImage?.toBase64())
         
         URLSessionProvider().request(.post(user)) { result in
             switch result {
