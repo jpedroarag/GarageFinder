@@ -21,7 +21,7 @@ class LabelCell: UITableViewCell {
     lazy var label: UITextField = {
         let label = UITextField()
         label.isUserInteractionEnabled = false
-        label.text = "Exemplo"
+        label.text = "------"
         label.font = .systemFont(ofSize: 16, weight: .regular)
         return label
     }()

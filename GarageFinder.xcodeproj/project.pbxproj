@@ -81,6 +81,10 @@
 		6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B262327CEEF00A376ED /* UIView+Extension.swift */; };
 		6C339B292327DBC200A376ED /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B282327DBC200A376ED /* CircleView.swift */; };
 		6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C339B2A2327EAB300A376ED /* FloatingView.swift */; };
+		6C371EE523673B2900EF9BE7 /* MenuTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C371EE423673B2900EF9BE7 /* MenuTableViewDataSource.swift */; };
+		6C371EE723674A2800EF9BE7 /* GarageHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */; };
+		6C371EE923674AA700EF9BE7 /* GarageHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C371EE823674AA700EF9BE7 /* GarageHistoryDataSource.swift */; };
+		6C371EEB23674B5500EF9BE7 /* GarageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C371EEA23674B5500EF9BE7 /* GarageHistoryViewController.swift */; };
 		6C45CA3523607F54000BDB7D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3423607F54000BDB7D /* SignUpView.swift */; };
 		6C45CA3723607F61000BDB7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3623607F61000BDB7D /* SignUpViewController.swift */; };
 		6C45CA3923608DA0000BDB7D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C45CA3823608DA0000BDB7D /* UITextField+Extension.swift */; };
@@ -101,6 +105,10 @@
 		6C8B9A0B2365CFFC00EA950C /* ImagePickerTool+UIImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A072365CFFC00EA950C /* ImagePickerTool+UIImagePickerControllerDelegate.swift */; };
 		6C8B9A0C2365CFFC00EA950C /* ImagePickerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A082365CFFC00EA950C /* ImagePickerTool.swift */; };
 		6C8B9A0D2365CFFC00EA950C /* ImagePickerSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A092365CFFC00EA950C /* ImagePickerSourceType.swift */; };
+		6C8B9A0F2365DC5A00EA950C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A0E2365DC5A00EA950C /* MenuView.swift */; };
+		6C8B9A112365DC6A00EA950C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A102365DC6A00EA950C /* MenuViewController.swift */; };
+		6C8B9A132365E5DC00EA950C /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A122365E5DC00EA950C /* UINavigationController+Extension.swift */; };
+		6C8B9A152365EB3C00EA950C /* TitleMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A142365EB3C00EA950C /* TitleMenuView.swift */; };
 		6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9A54234F5C5700071144 /* CustomCodable.swift */; };
 		6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */; };
 		6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */; };
@@ -249,6 +257,10 @@
 		6C339B262327CEEF00A376ED /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6C339B282327DBC200A376ED /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		6C339B2A2327EAB300A376ED /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		6C371EE423673B2900EF9BE7 /* MenuTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewDataSource.swift; sourceTree = "<group>"; };
+		6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageHistoryView.swift; sourceTree = "<group>"; };
+		6C371EE823674AA700EF9BE7 /* GarageHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageHistoryDataSource.swift; sourceTree = "<group>"; };
+		6C371EEA23674B5500EF9BE7 /* GarageHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageHistoryViewController.swift; sourceTree = "<group>"; };
 		6C45CA3423607F54000BDB7D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		6C45CA3623607F61000BDB7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6C45CA3823608DA0000BDB7D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
@@ -269,6 +281,10 @@
 		6C8B9A072365CFFC00EA950C /* ImagePickerTool+UIImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImagePickerTool+UIImagePickerControllerDelegate.swift"; sourceTree = "<group>"; };
 		6C8B9A082365CFFC00EA950C /* ImagePickerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerTool.swift; sourceTree = "<group>"; };
 		6C8B9A092365CFFC00EA950C /* ImagePickerSourceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerSourceType.swift; sourceTree = "<group>"; };
+		6C8B9A0E2365DC5A00EA950C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		6C8B9A102365DC6A00EA950C /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		6C8B9A122365E5DC00EA950C /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		6C8B9A142365EB3C00EA950C /* TitleMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMenuView.swift; sourceTree = "<group>"; };
 		6C8C9A54234F5C5700071144 /* CustomCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodable.swift; sourceTree = "<group>"; };
 		6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		6CBE7309235DDDAA0048A1DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -378,6 +394,8 @@
 				6CBE730B235DDDB60048A1DC /* LoginViewController.swift */,
 				6C45CA3623607F61000BDB7D /* SignUpViewController.swift */,
 				6C8B9A032364FA5700EA950C /* EditFieldViewController.swift */,
+				6C8B9A102365DC6A00EA950C /* MenuViewController.swift */,
+				6C371EEA23674B5500EF9BE7 /* GarageHistoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -400,6 +418,8 @@
 				6CBE7309235DDDAA0048A1DC /* LoginView.swift */,
 				6C45CA3423607F54000BDB7D /* SignUpView.swift */,
 				6C8B9A012364F93500EA950C /* EditFieldView.swift */,
+				6C8B9A162365EB7A00EA950C /* MenuView */,
+				6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -435,6 +455,7 @@
 				6C57ABB123574DE0001442A6 /* UserDefaults+Login.swift */,
 				6CBE7307235A5C8C0048A1DC /* UIAlertController+Extension.swift */,
 				6C07D5E22361EDE2002514FE /* Date+Extension.swift */,
+				6C8B9A122365E5DC00EA950C /* UINavigationController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -587,6 +608,8 @@
 				6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */,
 				6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */,
 				6CFFC7AF23631DCB005D8D2F /* TextFieldsTableViewDataSource.swift */,
+				6C371EE423673B2900EF9BE7 /* MenuTableViewDataSource.swift */,
+				6C371EE823674AA700EF9BE7 /* GarageHistoryDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -619,6 +642,15 @@
 				6C8B9A092365CFFC00EA950C /* ImagePickerSourceType.swift */,
 			);
 			path = ImagePickerTool;
+			sourceTree = "<group>";
+		};
+		6C8B9A162365EB7A00EA950C /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				6C8B9A142365EB3C00EA950C /* TitleMenuView.swift */,
+				6C8B9A0E2365DC5A00EA950C /* MenuView.swift */,
+			);
+			path = MenuView;
 			sourceTree = "<group>";
 		};
 		6CBE731B235DFBF80048A1DC /* NetworkService */ = {
@@ -889,6 +921,7 @@
 				6C45CA3523607F54000BDB7D /* SignUpView.swift in Sources */,
 				6C58990E2333C598000DA4C2 /* FavAddressColectionDataSource.swift in Sources */,
 				6CFFC7C223649059005D8D2F /* DefaultChain.swift in Sources */,
+				6C371EE923674AA700EF9BE7 /* GarageHistoryDataSource.swift in Sources */,
 				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
 				6C1D5FA02334FBF1005D9B06 /* Favorite.swift in Sources */,
 				6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */,
@@ -896,6 +929,7 @@
 				6CFFC7C523649059005D8D2F /* UITextMaskField.swift in Sources */,
 				6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */,
 				3C20C390233AACE100182CB3 /* GarageRentingViewController.swift in Sources */,
+				6C371EE523673B2900EF9BE7 /* MenuTableViewDataSource.swift in Sources */,
 				6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */,
 				6CFFC7C023649059005D8D2F /* NumberChain.swift in Sources */,
 				6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */,
@@ -904,6 +938,7 @@
 				3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */,
 				3C3830AD2350C1680034F315 /* User.swift in Sources */,
 				6CBE730A235DDDAA0048A1DC /* LoginView.swift in Sources */,
+				6C8B9A0F2365DC5A00EA950C /* MenuView.swift in Sources */,
 				6CFFC7AE236312EA005D8D2F /* TextFieldCell.swift in Sources */,
 				6C339B2B2327EAB300A376ED /* FloatingView.swift in Sources */,
 				3C383079234636BA0034F315 /* GarageAnnotationView.swift in Sources */,
@@ -916,10 +951,13 @@
 				6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */,
 				3C811E5B232A75C90075AD49 /* CircularButton.swift in Sources */,
 				6CFFC7AC2363121B005D8D2F /* TextFieldType.swift in Sources */,
+				6C8B9A132365E5DC00EA950C /* UINavigationController+Extension.swift in Sources */,
 				6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */,
+				6C371EE723674A2800EF9BE7 /* GarageHistoryView.swift in Sources */,
 				6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */,
 				6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */,
 				3C10C909231016DE001BDDB6 /* MapView.swift in Sources */,
+				6C8B9A112365DC6A00EA950C /* MenuViewController.swift in Sources */,
 				6CFFC7C8236497DE005D8D2F /* KeyScroller.swift in Sources */,
 				6CBE730C235DDDB60048A1DC /* LoginViewController.swift in Sources */,
 				3C20C39C233BB29F00182CB3 /* RentingDetailsCell.swift in Sources */,
@@ -927,6 +965,7 @@
 				3C10C8D3230AE450001BDDB6 /* AppDelegate.swift in Sources */,
 				6CBE7308235A5C8C0048A1DC /* UIAlertController+Extension.swift in Sources */,
 				6CFFC7C623649059005D8D2F /* String+isNumber.swift in Sources */,
+				6C8B9A152365EB3C00EA950C /* TitleMenuView.swift in Sources */,
 				6CFFC7C123649059005D8D2F /* CharacterChain.swift in Sources */,
 				3C811E452327BE130075AD49 /* GarageInfoView.swift in Sources */,
 				6C8B9A0A2365CFFC00EA950C /* ImageResult.swift in Sources */,
@@ -935,6 +974,7 @@
 				6C8B9A0D2365CFFC00EA950C /* ImagePickerSourceType.swift in Sources */,
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */,
+				6C371EEB23674B5500EF9BE7 /* GarageHistoryViewController.swift in Sources */,
 				6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */,
 				3C38308823497FFD0034F315 /* NumberFormatter+Extension.swift in Sources */,
 				6C8B9A0C2365CFFC00EA950C /* ImagePickerTool.swift in Sources */,

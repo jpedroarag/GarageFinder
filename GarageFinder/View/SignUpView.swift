@@ -11,6 +11,7 @@ import UIKit
 class SignUpView: UIView {
     typealias Action = () -> Void
     var photoButtonAction: Action?
+    var submitButtonAction: ((_ content: TextFieldCollection<TextFieldType, GFTextField>) -> Void)?
     let dataSource: TextFieldsTableDataSource
     
     lazy var scrollView = UIScrollView()
@@ -57,7 +58,6 @@ class SignUpView: UIView {
     
     init(isEditingProfile: Bool = false) {
         var userTypes: [TextFieldType] = [.name, .email, .cpf, .password]
-            
         if !isEditingProfile {
             userTypes.append(.confirmPassword)
         }
@@ -65,7 +65,7 @@ class SignUpView: UIView {
         self.dataSource = TextFieldsTableDataSource(userTypes: userTypes,
         vehicleTypes: [.model, .color, .year, .licensePlate], isEditing: isEditingProfile)
         super.init(frame: .zero)
-        
+        scrollView.bounces = false
         if !isEditingProfile {
             addGestureRecognizer(tap)
         }
@@ -89,11 +89,15 @@ class SignUpView: UIView {
         backgroundColor = .white
         
         editPhotoButton.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
-        
+        submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
     @objc func photoButtonTapped() {
         photoButtonAction?()
+    }
+    
+    @objc func submitButtonTapped() {
+        submitButtonAction?(textFieldsTableView.getData())
     }
     
     func setUserPhoto(_ image: UIImage?) {

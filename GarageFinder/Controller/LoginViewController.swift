@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
         view = loginView
         loginView.loginAction = loginAction(email:password:)
         loginView.signUpAction = signUpAction
+        loginView.closeAction = closeAction
+        view.addGestureRecognizer(view.tap)
     }
 
     func loginAction(email: String, password: String) {
@@ -55,4 +57,9 @@ class LoginViewController: UIViewController {
     func signUpAction() {
         present(SignUpViewController(), animated: true, completion: nil)
     }
+    
+    func closeAction() {
+        dismiss(animated: true, completion: nil)
+    }
+
 }

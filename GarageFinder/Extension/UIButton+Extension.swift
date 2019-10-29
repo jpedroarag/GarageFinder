@@ -23,4 +23,10 @@ extension UIButton {
         backgroundColor = .white
         shadowed()
     }
+    
+    convenience init(withTitle: String) {
+        self.init()
+        setTitle(withTitle, for: .normal)
+        setTitleColor(.black, for: .normal)
+    }
 }

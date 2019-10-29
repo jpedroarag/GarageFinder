@@ -28,31 +28,43 @@ class SignUpViewController: UIViewController {
         view = signUpView
         signUpView.textFieldsTableView.delegate = self
         signUpView.photoButtonAction = showImagePicker
-        
+        signUpView.submitButtonAction = saveUser(_:)
         if isEditingProfile {
-            loadUser()
+            //loadUser()
+            navigationItem.largeTitleDisplayMode = .never
+            title = "Editar Conta"
+            setNavigationCloseButton()
         }
     }
     
-    func loadUser() {
-        URLSessionProvider().request(.getCurrent(User.self)) { result in
+    func load(_ user: User) {
+        let content: [TextFieldType: String] = [.name: user.name,
+                                                     .email: user.email,
+                                                     .cpf: user.documentNumber]
+        self.signUpView.textFieldsTableView.load(data: content)
+    }
+    
+    func saveUser(_ content: TextFieldCollection<TextFieldType, GFTextField>) {
+        let user = User(id: nil, name: content[.name], email: content[.email],
+                        documentType: .cpf, documentNumber: content[.cpf], password: content[.password],
+                        addresses: nil, garages: nil, role: "ROLE_GD")
+        
+        URLSessionProvider().request(.post(user)) { result in
             switch result {
             case .success(let response):
-                if let user = response.result {
-                    let content: [TextFieldType: String] = [.name: user.name,
-                                                                 .email: user.email,
-                                                                 .cpf: user.documentNumber]
-                    self.signUpView.textFieldsTableView.load(data: content)
+                if let userResp = response.result {
+                    print("USER SAVED: \(userResp)")
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
-                
             case .failure(let error):
-                print("Error loading current user: \(error)")
+                print("Error save user: \(error)")
             }
         }
     }
-    
     func showImagePicker() {
-        self.imagePickerTool.getImage(from: [.camera, .photoLibrary], parentViewController: self, imageCompletion: { (result) in
+        self.imagePickerTool.getImage(from: [.camera, .photoLibrary], parentViewController: self, imageCompletion: { result in
             switch result {
             case .image(let image):
                 self.savedImage = image

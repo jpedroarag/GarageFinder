@@ -13,9 +13,7 @@ class TextFieldCell: UITableViewCell {
 
     lazy var textField: GFTextField = {
         let textField = GFTextField(withType: .none)
-
         textField.attributedPlaceholder = NSAttributedString(string: "placeholder text", attributes: [.foregroundColor: UIColor.lightBlue])
-            
         return textField
     }()
     
