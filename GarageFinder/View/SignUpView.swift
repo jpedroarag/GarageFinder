@@ -12,6 +12,7 @@ class SignUpView: UIView {
     typealias Action = () -> Void
     var photoButtonAction: Action?
     var submitButtonAction: ((_ content: TextFieldCollection<TextFieldType, GFTextField>) -> Void)?
+    var closeButtonAction: Action?
     let dataSource: TextFieldsTableDataSource
     
     lazy var scrollView = UIScrollView()
@@ -54,6 +55,13 @@ class SignUpView: UIView {
         return button
     }()
     
+    let closeButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "close")
+        button.setBackgroundImage(image, for: .normal)
+        return button
+    }()
+    
     var keyScroller: KeyScroller?
     
     init(isEditingProfile: Bool = false) {
@@ -81,6 +89,7 @@ class SignUpView: UIView {
         scrollView.addSubviews([photoShadowView, photoImageView, editPhotoButton, textFieldsTableView])
         
         if !dataSource.isEditing {
+            addSubview(closeButton)
             keyScroller = KeyScroller(withScrollView: scrollView)
             scrollView.addSubview(submitButton)
         }
@@ -90,6 +99,7 @@ class SignUpView: UIView {
         
         editPhotoButton.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     @objc func photoButtonTapped() {
@@ -98,6 +108,10 @@ class SignUpView: UIView {
     
     @objc func submitButtonTapped() {
         submitButtonAction?(textFieldsTableView.getData())
+    }
+    
+    @objc func closeButtonTapped() {
+        closeButtonAction?()
     }
     
     func setUserPhoto(_ image: UIImage?) {
@@ -113,13 +127,13 @@ class SignUpView: UIView {
             .bottom(safeAreaLayoutGuide.bottomAnchor)
         
         photoShadowView.anchor
-            .top(scrollView.topAnchor, padding: 16)
+            .top(scrollView.topAnchor, padding: 32)
             .centerX(scrollView.centerXAnchor)
             .width(constant: 125)
             .height(constant: 125)
         
         photoImageView.anchor
-            .top(scrollView.topAnchor, padding: 16)
+            .top(scrollView.topAnchor, padding: 32)
             .centerX(scrollView.centerXAnchor)
             .width(constant: 125)
             .height(constant: 125)
@@ -141,6 +155,12 @@ class SignUpView: UIView {
                 .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
                 .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
                 .bottom(scrollView.bottomAnchor, padding: 64)
+            
+            closeButton.anchor
+                .top(safeAreaLayoutGuide.topAnchor, padding: 16)
+                .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
+                .width(constant: 24)
+                .height(constant: 24)
         } else {
             textFieldsTableView.anchor
                 .bottom(scrollView.bottomAnchor, padding: 32)

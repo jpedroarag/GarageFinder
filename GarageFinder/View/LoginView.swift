@@ -57,6 +57,7 @@ class LoginView: UIView {
         button.setBackgroundImage(image, for: .normal)
         return button
     }()
+    
     var keyScroller: KeyScroller?
     override func didMoveToSuperview() {
         backgroundColor = .white

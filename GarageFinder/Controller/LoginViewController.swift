@@ -44,13 +44,23 @@ class LoginViewController: UIViewController {
                             }
                         case .failure(let error):
                             print("Error getting current user: \(error)")
+                            
                         }
                     }
                     
                 }
             case .failure(let error):
                 print("Error on login: \(error)")
+                self.showErrorAlert()
             }
+        }
+    }
+    
+    func showErrorAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Erro ao logar", message: "Credenciais incorretas", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

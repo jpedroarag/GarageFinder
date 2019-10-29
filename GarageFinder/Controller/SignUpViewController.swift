@@ -30,13 +30,17 @@ class SignUpViewController: UIViewController {
         signUpView.photoButtonAction = showImagePicker
         signUpView.submitButtonAction = saveUser(_:)
         if isEditingProfile {
-            //loadUser()
             navigationItem.largeTitleDisplayMode = .never
             title = "Editar Conta"
             setNavigationCloseButton()
+        } else {
+            signUpView.closeButtonAction = closeButtonAction
         }
     }
     
+    func closeButtonAction() {
+        dismiss(animated: true, completion: nil)
+    }
     func load(_ user: User) {
         let content: [TextFieldType: String] = [.name: user.name,
                                                      .email: user.email,

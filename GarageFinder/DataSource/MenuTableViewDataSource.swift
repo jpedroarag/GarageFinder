@@ -18,6 +18,7 @@ class MenuTableViewDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         cell?.textLabel?.text = options[indexPath.row]
+        cell?.selectionStyle = .none
         if indexPath.row == 3 {
             cell?.textLabel?.textColor = .systemRed
         } else {
