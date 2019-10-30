@@ -13,11 +13,10 @@ class GFTextField: UITextMaskField {
     
     let warningLabel: UILabel = {
         let warningLabel = UILabel()
-        warningLabel.textColor = .red
+        warningLabel.textColor = .systemRed
         warningLabel.font = UIFont.systemFont(ofSize: 10)
         warningLabel.text = "warning"
         warningLabel.isHidden = true
-        
         return warningLabel
     }()
 
@@ -26,7 +25,7 @@ class GFTextField: UITextMaskField {
         setStyle()
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 1))
         leftViewMode = .always
-        //addSubview(warningLabel)
+        addSubview(warningLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,7 +34,7 @@ class GFTextField: UITextMaskField {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        //self.setConstraints()
+        self.setConstraints()
     }
 
     convenience init(withType type: TextFieldType) {
@@ -48,7 +47,7 @@ class GFTextField: UITextMaskField {
         warningLabel.anchor
             .left(leftAnchor)
             .right(rightAnchor)
-            .bottom(bottomAnchor)
+            .bottom(bottomAnchor, padding: -15)
     }
     
      func setUpType(type: TextFieldType) {

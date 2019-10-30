@@ -53,6 +53,8 @@ class MenuViewController: UIViewController {
             case .success(let response):
                 if let user = response.result {
                     DispatchQueue.main.async {
+                        self.titleMenuView.photoImageView.contentMode = .scaleAspectFill
+                        self.titleMenuView.photoImageView.image = user.avatar?.base64Convert()
                         self.title = user.name
                         self.user = user
                     }

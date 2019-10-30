@@ -95,7 +95,7 @@ class LoginView: UIView {
             .right(scrollView.rightAnchor, padding: 16)
             .height(constant: 40)
         passwordTextField.anchor
-            .top(emailTextField.bottomAnchor, padding: 16)
+            .top(emailTextField.bottomAnchor, padding: 24)
             .left(scrollView.leftAnchor, padding: 16)
             .right(scrollView.rightAnchor, padding: 16)
             .height(constant: 40)

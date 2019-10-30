@@ -11,7 +11,7 @@ import GarageFinderFramework
 
 class LoginViewController: UIViewController {
     let loginView = LoginView()
-    
+    var validator: FieldValidator!
     override func viewDidLoad() {
         view = loginView
         loginView.loginAction = loginAction(email:password:)
@@ -21,37 +21,33 @@ class LoginViewController: UIViewController {
     }
 
     func loginAction(email: String, password: String) {
-        let userAuth = UserAuth(email: email, password: password)
-        let provider = URLSessionProvider()
-        provider.request(.post(userAuth)) { result in
-            switch result {
-            case .success(let response):
-                if let userAuth = response.result {
-                    print("TOKEN: \(userAuth.token ?? "")")
-                    UserDefaults.standard.set(userAuth.token, forKey: "Token")
-                    UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
-                    UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
-                    
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                    
-                    provider.request(.getCurrent(User.self)) { result in
-                        switch result {
-                        case .success(let response):
-                            if let user = response.result {
-                                print("Current user: \(user)")
-                            }
-                        case .failure(let error):
-                            print("Error getting current user: \(error)")
-                            
+        
+        let strategies: [ValidationStrategy] = [EmailValidationStrategy(), EmptyStrategy()]
+        validator = FieldValidator(andStrategies: strategies)
+        let isEmailRight = validator.validate(elements: loginView.emailTextField, withStrategy: EmailValidationStrategy.self)
+        let isNoEmpty = validator.validate(elements: loginView.passwordTextField, withStrategy: EmptyStrategy.self)
+        let hasNoWarning = isEmailRight && isNoEmpty
+        
+        if hasNoWarning {
+            let userAuth = UserAuth(email: email, password: password)
+            let provider = URLSessionProvider()
+            provider.request(.post(userAuth)) { result in
+                switch result {
+                case .success(let response):
+                    if let userAuth = response.result {
+                        print("TOKEN: \(userAuth.token ?? "")")
+                        UserDefaults.standard.set(userAuth.token, forKey: "Token")
+                        UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
+                        UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
+                        
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
-                    
+                case .failure(let error):
+                    print("Error on login: \(error)")
+                    self.showErrorAlert()
                 }
-            case .failure(let error):
-                print("Error on login: \(error)")
-                self.showErrorAlert()
             }
         }
     }

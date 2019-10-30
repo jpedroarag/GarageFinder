@@ -70,8 +70,7 @@ class SignUpView: UIView {
             userTypes.append(.confirmPassword)
         }
         
-        self.dataSource = TextFieldsTableDataSource(userTypes: userTypes,
-        vehicleTypes: [.model, .color, .year, .licensePlate], isEditing: isEditingProfile)
+        self.dataSource = TextFieldsTableDataSource(userTypes: userTypes, isEditing: isEditingProfile)
         super.init(frame: .zero)
         scrollView.bounces = false
         if !isEditingProfile {

@@ -15,14 +15,13 @@ class TextFieldsTableView: UITableView {
         register(LabelCell.self, forCellReuseIdentifier: "labelCell")
         isScrollEnabled = false
         contentInset = .zero
-        rowHeight = 56
+        rowHeight = 72
         separatorColor = .clear
         backgroundColor = .white
     }
     
     var height: CGFloat {
-        layoutIfNeeded()
-        return contentSize.height + 108
+        return self.rowHeight * CGFloat(self.numberOfRows(inSection: 0))
     }
 
     func getData() -> TextFieldCollection<TextFieldType, GFTextField> {
@@ -66,8 +65,6 @@ class TextFieldsTableView: UITableView {
         return fields
     }
     
-    //TODO: - Implementation of loading data in profile
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

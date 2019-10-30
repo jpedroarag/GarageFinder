@@ -36,6 +36,6 @@ class TextFieldCell: UITableViewCell {
             .top(topAnchor, padding: 8)
             .right(rightAnchor, padding: 8)
             .left(leftAnchor, padding: 8)
-            .bottom(bottomAnchor, padding: 8)
+            .bottom(bottomAnchor, padding: 16)
     }
 }

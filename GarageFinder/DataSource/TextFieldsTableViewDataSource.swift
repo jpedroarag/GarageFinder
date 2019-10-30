@@ -10,27 +10,19 @@ import UIKit
 
 class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
     let userTypes: [TextFieldType]
-    let vehicleTypes: [TextFieldType]
     let isEditing: Bool
     
-    required init(userTypes: [TextFieldType], vehicleTypes: [TextFieldType], isEditing: Bool = false) {
+    required init(userTypes: [TextFieldType], isEditing: Bool = false) {
         
         self.userTypes = userTypes
-        self.vehicleTypes = vehicleTypes
         self.isEditing = isEditing
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        switch section {
-        case 0:
-            return userTypes.count
-        default:
-            return vehicleTypes.count
-        }
+        return userTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,17 +35,11 @@ class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
         } else {
             textFieldCell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
         }
-        switch indexPath.section {
-        case 0:
-            let userType = userTypes[indexPath.row]
-            textFieldCell?.textField.setUpType(type: userType)
-            labelCell?.setType(userType)
-        default:
-            let vehicleType = vehicleTypes[indexPath.row]
-            textFieldCell?.textField.setUpType(type: vehicleType)
-            labelCell?.setType(vehicleType)
-        }
-        
+
+        let userType = userTypes[indexPath.row]
+        textFieldCell?.textField.setUpType(type: userType)
+        labelCell?.setType(userType)
+
         return textFieldCell ?? labelCell ?? UITableViewCell()
     }
 }
