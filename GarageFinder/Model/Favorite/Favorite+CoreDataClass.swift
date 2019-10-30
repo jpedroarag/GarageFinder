@@ -18,4 +18,7 @@ public class Favorite: NSManagedObject, PersistableObject {
     static var entityName: String {
         return "Favorite"
     }
+    static var idStringSymbol: String {
+        return "%d"
+    }
 }

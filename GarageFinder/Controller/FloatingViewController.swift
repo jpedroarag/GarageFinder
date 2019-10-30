@@ -83,7 +83,8 @@ extension FloatingViewController: UIGestureRecognizerDelegate {
 // MARK: TableViewDataSource
 extension FloatingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerTitle = section == 0 ? "Endereços" : "Garagens"
+//        let headerTitle = section == 0 ? "Endereços" : "Garagens"
+        let headerTitle = "Garagens"
         let headerView = HeaderFavTableView(frame: CGRect(x: 0, y: 0,
                                                           width: tableView.frame.width, height: 50),
                                             title: headerTitle,
@@ -93,16 +94,38 @@ extension FloatingViewController: UITableViewDelegate {
     
     /// MARK: Set the collection view delegate of Addresses
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let favAddressTableViewCell = cell as? FavAddressTableViewCell {
-            favAddressTableViewCell.setCollectionViewDelegate(self)
-        }
+//        if let favAddressTableViewCell = cell as? FavAddressTableViewCell {
+//            favAddressTableViewCell.setCollectionViewDelegate(self)
+//        }
     }
     
     /// MARK: Select a garage
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section != 0 { //if the current section is not the address cell
-            if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
-                print("garage selected name: \(garage.name)")
+//        if indexPath.section != 0 { //if the current section is not the address cell
+//            if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
+//                print("garage selected name: \(garage.name)")
+//            }
+//        }
+        if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
+            let filteredPins = self.mapView?.pins.filter {
+                $0.coordinate == CLLocationCoordinate2D(latitude: garage.latitude, longitude: garage.longitude)
+            }
+            if let pin = filteredPins?.first {
+                self.mapView?.selectAnnotation(pin, animated: true)
+            } else {
+                URLSessionProvider().request(.get(Garage.self, id: garage.objectId)) { result in
+                    switch result {
+                    case .success(let response):
+                        DispatchQueue.main.async {
+                            if let garageObject = response.result, let annotation = GarageAnnotation(fromGarage: garageObject) {
+                                self.mapView?.addPin(annotation)
+                                self.mapView?.selectAnnotation(annotation, animated: true)
+                            }
+                        }
+                    case .failure(let error):
+                        print("Error requesting favorite garage: \(error)")
+                    }
+                }
             }
         }
     }
@@ -195,25 +218,23 @@ extension FloatingViewController: SelectGarageDelegate {
 
 extension FloatingViewController: GarageActionsDelegate {
     func likedGarage() {
-        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count, section: 1)
+        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count, section: 0)
         floatingTableViewDataSource.reloadFavorites()
         floatingView.tableView.insertRows(at: [indexPath], with: .none)
     }
     
     func unlikedGarage() {
-        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count - 1, section: 1)
+        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count - 1, section: 0)
         floatingTableViewDataSource.reloadFavorites()
         floatingView.tableView.deleteRows(at: [indexPath], with: .none)
     }
 }
 
 extension FloatingViewController: RentingGarageDelegate {
-    var mapViewController: MapViewController? {
-        return parent as? MapViewController
-    }
     func startedRenting(garage: Garage, parking: Parking, createdNow: Bool) {
         let garageRenting = GarageRentingViewController()
         if canShowGarageVC(garageRenting) {
+            let mapViewController = parent as? MapViewController
             mapViewController?.isUserParking = true
             mapViewController?.popupCurrentRentingGaragePin(garage)
             garageRenting.garageRatingDelegate = self

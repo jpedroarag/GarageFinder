@@ -15,4 +15,7 @@ public class Identifier: NSManagedObject, PersistableObject {
     public static var entityName: String {
         return "Identifier"
     }
+    static var idStringSymbol: String {
+        return "%d"
+    }
 }

@@ -25,6 +25,7 @@ extension Favorite {
     @NSManaged public var type: FavoriteType
     @NSManaged public var categoryString: String
     @NSManaged public var objectId: Int
+    @NSManaged public var average: Float
     
     public convenience init() {
         let context = CoreDataManager.shared.context
@@ -32,15 +33,24 @@ extension Favorite {
         self.init(entity: entityDescription, insertInto: context)
     }
     
-    public convenience init(name: String, category: PlaceCategory, latitude: Double, longitude: Double, type: FavoriteType, objectId: Int) {
+    public convenience init(name: String,
+                            address: String? = nil,
+                            category: PlaceCategory,
+                            latitude: Double,
+                            longitude: Double,
+                            type: FavoriteType,
+                            objectId: Int,
+                            average: Float = 0) {
         self.init()
         self.id = Identifier.nextAvailableIdValue()
         self.name = name
+        self.address = address
         self.categoryString = category.rawValue
         self.latitude = latitude
         self.longitude = longitude
         self.type = type
         self.objectId = objectId
+        self.average = (type == .garage) ? average : 0
         Identifier.update()
     }
 

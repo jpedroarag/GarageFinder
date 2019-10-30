@@ -60,6 +60,10 @@ public struct Address: CustomCodable {
     public var coordinate: CLLocationCoordinate2D!
     public var userId: Int!
     public var garageId: Int!
+    
+    var description: String? {
+        return "\(street ?? ""), \(number ?? "")"
+    }
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
