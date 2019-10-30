@@ -9,7 +9,7 @@
 import UIKit
 class EditFieldView: UIView {
     typealias Action = () -> Void
-    
+    let type: TextFieldType
     private let contentView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .white
@@ -26,6 +26,16 @@ class EditFieldView: UIView {
     }()
     
     lazy var textField: GFTextField = {
+        let textField = GFTextField(withType: .none)
+        return textField
+    }()
+    
+    lazy var newPassword: GFTextField = {
+        let textField = GFTextField(withType: .none)
+        return textField
+    }()
+    
+    lazy var confirmPassword: GFTextField = {
         let textField = GFTextField(withType: .none)
         return textField
     }()
@@ -56,17 +66,27 @@ class EditFieldView: UIView {
     var closeButtonAction: Action?
     
     init(fieldType: TextFieldType) {
+        self.type = fieldType
         super.init(frame: .zero)
         titleLabel.text = fieldType.rawValue
         textField.setUpType(type: fieldType)
         setupBlurView()
         addSubview(contentView)
         contentView.addSubviews([titleLabel, textField, submitButton, closeButton])
+        setupPassword()
         setupConstraints()
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
+    func setupPassword() {
+        if type == .password {
+            textField.placeholder = "Senha atual"
+            newPassword.placeholder = "Nova Senha"
+            confirmPassword.placeholder = "Confirmar nova Senha"
+            contentView.addSubviews([newPassword, confirmPassword])
+        }
+    }
     @objc func submitButtonTapped() {
         submitButtonAction?()
     }
@@ -112,11 +132,29 @@ class EditFieldView: UIView {
             .height(constant: 24)
         
         submitButton.anchor
-            .top(textField.bottomAnchor, padding: 32)
+            .top(textField.bottomAnchor, padding: 32, priority: 250)
             .left(contentView.leftAnchor, padding: 16)
             .right(contentView.rightAnchor, padding: 16)
             .bottom(contentView.bottomAnchor, padding: 16)
             .height(constant: 40)
+        
+        if type == .password {
+            newPassword.anchor
+                .top(textField.bottomAnchor, padding: 16)
+                .left(contentView.leftAnchor, padding: 16)
+                .right(contentView.rightAnchor, padding: 16)
+                .height(constant: 36)
+            
+            confirmPassword.anchor
+                .top(newPassword.bottomAnchor, padding: 16)
+                .left(contentView.leftAnchor, padding: 16)
+                .right(contentView.rightAnchor, padding: 16)
+                .height(constant: 36)
+            
+            submitButton.anchor
+                .top(confirmPassword.bottomAnchor, padding: 32, priority: 750)
+            
+        }
     }
     
     func animateZoomIn() {

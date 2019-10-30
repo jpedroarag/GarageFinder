@@ -47,6 +47,17 @@ class TextFieldsTableView: UITableView {
         
     }
     
+    func get(_ field: TextFieldType) -> UITextField? {
+        var label: UITextField?
+        (0..<numberOfRows(inSection: 0)).forEach { row in
+            if let cell = cellForRow(at: IndexPath(row: row, section: 0)) as? LabelCell, label == nil {
+                if cell.type == field {
+                    label = cell.label
+                }
+            }
+        }
+        return label
+    }
     func getField(atPosition position: Int) -> GFTextField? {
         guard let cell = cellForRow(at: IndexPath(row: position, section: 0)) as? TextFieldCell else {
             return nil

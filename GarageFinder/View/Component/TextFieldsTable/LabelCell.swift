@@ -56,8 +56,12 @@ class LabelCell: UITableViewCell {
         self.type = type
         titleLabel.text = type.rawValue
         
-        if type == .password {
+        switch type {
+        case .password:
             label.isSecureTextEntry = true
+        case .email:
+            label.textColor = .lightGray
+        default: break
         }
     }
 }

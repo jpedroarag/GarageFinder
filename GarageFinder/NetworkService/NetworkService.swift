@@ -44,6 +44,8 @@ public enum NetworkService<T: CustomCodable>: Service {
         case .post(let item), .update(let item):
             if let object = item as? Parking, let parkingId = object.id {
                 return "\(type(of: item).path)\(parkingId)"
+            } else if let object = item as? User, let userId = object.id {
+                return "\(type(of: item).path)\(userId)"
             }
             return type(of: item).path
         }

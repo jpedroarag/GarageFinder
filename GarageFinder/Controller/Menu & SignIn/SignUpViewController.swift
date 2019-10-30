@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController {
     let imagePickerTool = ImagePickerTool()
     var savedImage: UIImage?
     var validator: FieldValidator!
+    var user: User?
     init(isEditingProfile: Bool = false) {
         self.isEditingProfile = isEditingProfile
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
@@ -43,9 +44,11 @@ class SignUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     func load(_ user: User) {
-        let content: [TextFieldType: String] = [.name: user.name,
-                                                     .email: user.email,
-                                                     .cpf: user.documentNumber]
+        self.user = user
+        guard let name = user.name, let email = user.email, let cpf = user .documentNumber else { return }
+        let content: [TextFieldType: String] = [.name: name,
+                                                     .email: email,
+                                                     .cpf: cpf]
         self.signUpView.textFieldsTableView.load(data: content)
         
         if let image = user.avatar?.base64Convert() {
@@ -71,7 +74,7 @@ class SignUpViewController: UIViewController {
             URLSessionProvider().request(.post(user)) { result in
                 switch result {
                 case .success(let response):
-                    if let _ = response.result {
+                    if response.result != nil {
                         print("USER SAVED")
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: nil)
@@ -89,6 +92,19 @@ class SignUpViewController: UIViewController {
             case .image(let image):
                 self.savedImage = image
                 self.signUpView.setUserPhoto(image)
+                
+                if self.isEditingProfile {
+                    guard let userId = self.user?.id else { return}
+                    let user = User(id: userId, avatar: image.toBase64())
+                    URLSessionProvider().request(.update(user)) { result in
+                        switch result {
+                        case .success:
+                            print("update photo")
+                        case .failure(let error):
+                            print("Erron update photo: \(error)")
+                        }
+                    }
+                }
             case .canceled:
                 break
             }
@@ -110,11 +126,24 @@ extension SignUpViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditingProfile {
             if let labelCell = tableView.cellForRow(at: indexPath) as? LabelCell, let type = labelCell.type {
-                let editFieldVC = EditFieldViewController(fieldType: type, content: labelCell.label.text)
-                DispatchQueue.main.async {
-                    self.present(editFieldVC, animated: true, completion: nil)
+                if type != .email {
+                    guard let id = user?.id else { return}
+                    let editFieldVC = EditFieldViewController(userId: id, fieldType: type, content: labelCell.label.text)
+                    editFieldVC.updateFieldDelegate = self
+                    DispatchQueue.main.async {
+                        self.present(editFieldVC, animated: true, completion: nil)
+                    }
                 }
             }
         }
     }
+}
+
+extension SignUpViewController: UpdateFieldDelegate {
+    func didUpdate(field: TextFieldType, content: String?) {
+        if let label = signUpView.textFieldsTableView.get(field) {
+            label.text = content
+        }
+    }
+    
 }
