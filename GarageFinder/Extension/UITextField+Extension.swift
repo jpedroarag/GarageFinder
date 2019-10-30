@@ -16,6 +16,6 @@ extension UITextField {
         layer.borderColor = UIColor.textFieldBorderGray.cgColor
         layer.cornerRadius = 5
         clipsToBounds = true
-        //shadowed()
+        shadowed()
     }
 }

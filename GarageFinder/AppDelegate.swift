@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        CoreDataManager.shared.deleteAll(Identifier.self)
         window = UIWindow(frame: UIScreen.main.bounds)
         let mapViewController = MapViewController()
-        //let navigationController = UINavigationController(rootViewController: mapViewController)
         window?.rootViewController = mapViewController
         window?.makeKeyAndVisible()
         return true

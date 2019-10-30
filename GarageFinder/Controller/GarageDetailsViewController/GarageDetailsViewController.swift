@@ -44,7 +44,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     var garageGalleryView: GarageGalleryView {
-        return GarageGalleryView(images: [])
+
+        return GarageGalleryView(images: presentedGarage.loadPhotos())
     }
     
     lazy var ratingListController: GarageRatingListViewController = {

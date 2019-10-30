@@ -14,4 +14,14 @@ extension UIViewController {
         view.addSubview(vc.view)
         vc.didMove(toParent: self)
     }
+    
+    func setNavigationCloseButton() {
+        let rightButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(dismissVC))
+        rightButton.image = UIImage(named: "close2")?.withRenderingMode(.alwaysOriginal)
+        navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    @objc func dismissVC() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
 }

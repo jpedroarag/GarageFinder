@@ -72,6 +72,8 @@ class RatingView: UIView {
         ratingButtons.forEach {
             $0.addTarget(nil, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
         }
+        
+        addGestureRecognizer(tap)
     }
     
     @objc func tapRatingButton(_ sender: UIButton) {

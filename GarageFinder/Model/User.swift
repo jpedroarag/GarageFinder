@@ -11,13 +11,30 @@ import GarageFinderFramework
 public struct User: CustomCodable {
     public static var path: String = "/api/v1/users/"
     
-    public let id: Int
-    public let name: String
-    public let email: String
-    public let documentType: DocumentType
-    public let documentNumber: String
+    public var id: Int?
+    public var name: String?
+    public var email: String?
+    public var documentType: DocumentType?
+    public var documentNumber: String?
     public var password: String?
-    public let addresses: [Address]
+    public var addresses: [Address]?
     public var garages: [Garage]?
-    public let role: String
+    public var role: String?
+    public var avatar: String?
+    
+    init(id: Int? = nil, name: String? = nil, email: String? = nil,
+         documentType: DocumentType? = nil, documentNumber: String? = nil,
+         password: String? = nil, addresses: [Address]? = nil, garages: [Garage]? = nil,
+         role: String? = nil, avatar: String? = nil) {
+        self.id = id
+        self.name = name
+        self.email = email
+        self.documentType = documentType
+        self.documentNumber = documentNumber
+        self.password = password
+        self.addresses = addresses
+        self.garages = garages
+        self.role = role
+        self.avatar = avatar
+    }
 }

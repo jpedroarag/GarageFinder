@@ -158,7 +158,6 @@ extension SmartConstraint {
     @discardableResult
     public func attatch(to view: UIView, paddings: [Paddings]? = nil) -> SmartConstraint {
         var anchors: [CGFloat] = [0, 0, 0, 0]
-        
         paddings?.forEach({ (padding) in
             switch padding {
             case .top(let anchor):
@@ -174,9 +173,34 @@ extension SmartConstraint {
         })
         
         top(view.topAnchor, padding: anchors[0])
-        bottom(view.bottomAnchor, padding: anchors[1])
-        left(view.leftAnchor, padding: anchors[2])
-        right(view.rightAnchor, padding: anchors[3])
+        right(view.rightAnchor, padding: anchors[1])
+        bottom(view.bottomAnchor, padding: anchors[2])
+        left(view.leftAnchor, padding: anchors[3])
+        return self
+    }
+    
+    @discardableResult
+    public func attatch(to layoutGuide: UILayoutGuide, paddings: [Paddings]? = nil) -> SmartConstraint {
+        var anchors: [CGFloat] = [0, 0, 0, 0]
+        
+        paddings?.forEach({ (padding) in
+            switch padding {
+            case .top(let anchor):
+                anchors[0] = anchor
+            case .right(let anchor):
+                anchors[1] = anchor
+            case .bottom(let anchor):
+                anchors[2] = anchor
+            case .left(let anchor):
+                anchors[3] = anchor
+            }
+            
+        })
+        
+        top(layoutGuide.topAnchor, padding: anchors[0])
+        right(layoutGuide.rightAnchor, padding: anchors[1])
+        bottom(layoutGuide.bottomAnchor, padding: anchors[2])
+        left(layoutGuide.leftAnchor, padding: anchors[3])
         return self
     }
     

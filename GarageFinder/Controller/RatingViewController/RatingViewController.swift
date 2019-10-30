@@ -32,6 +32,7 @@ class RatingViewController: AbstractGarageViewController {
     func ratingAction (_ button: GFButton) {
         ratingView.commentTextView.endEditing(true)
         print("Rating: \(ratingView.ratingValue), Comment: \(ratingView.comment ?? "")")
+        dismissFromParent()
     }
     
     override func viewDidLoad() {
@@ -39,8 +40,6 @@ class RatingViewController: AbstractGarageViewController {
         numberOfSections = 1
         sectionSeparatorsStartAppearIndex = 1
         super.viewDidLoad()
-        
-        view.addGestureRecognizer(view.tap)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

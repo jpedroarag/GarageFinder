@@ -71,7 +71,6 @@ class MapViewController: UIViewController {
         }
 
         if !UserDefaults.tokenIsValid {
-            print("Session expired")
             UserDefaults.standard.logoutUser()
         }
     }
