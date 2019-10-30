@@ -28,6 +28,9 @@ class GarageAnnotation: NSObject, CustomCodable {
         self.long = long
     }
 
+    func isAvailable() -> Bool {
+        return busySpace < parkingSpaces
+    }
 }
 
 extension GarageAnnotation: MKAnnotation {

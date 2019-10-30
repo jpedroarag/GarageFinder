@@ -70,6 +70,10 @@ class MapViewController: UIViewController {
             }
         }
 
+        if !UserDefaults.tokenIsValid {
+            print("Session expired")
+            UserDefaults.standard.logoutUser()
+        }
     }
     
     func popupCurrentRentingGaragePin(_ garage: Garage) {
@@ -107,15 +111,19 @@ class MapViewController: UIViewController {
     }
     
     func loadGarages() {
+        let loadingView = LoadingView(message: "Carregando garagens")
+        view.addSubview(loadingView)
         print("loading garages...")
         provider.request(.get(GarageAnnotation.self)) { result in
             switch result {
             case .success(let response):
                 if let garages = response.results {
                     self.mapView.pins = garages
+                    loadingView.dismissIndicator()
                 }
             case .failure(let error):
                 print("Error getting garages: \(error)")
+                loadingView.dismissIndicator()
             }
         }
     }
@@ -140,13 +148,13 @@ class MapViewController: UIViewController {
         toolboxView.anchor
             .top(view.safeAreaLayoutGuide.topAnchor, padding: 8)
             .right(view.rightAnchor, padding: 16)
-            //.bottom(floatingView.topAnchor, padding: 16)
             .width(constant: toolboxView.minimumButtonSize.width)
             .height(constant: toolboxView.totalHeight)
     }
     
     func startUsingDeviceLocation() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
@@ -197,22 +205,30 @@ extension MapViewController: MKMapViewDelegate {
         annotationView?.subtitleVisibility = .visible
         annotationView?.displayPriority = .required
         annotationView?.canShowCallout = true
+        
+        if let garageAnnotation = annotation as? GarageAnnotation {
+            annotationView?.markerTintColor = garageAnnotation.isAvailable() ? .customGreen : .gray
+        }
         return annotationView ?? MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if isUserParking { return }
         guard let garage = view.annotation as? GarageAnnotation else { return }
+        let loadingView = LoadingView(message: "Carregando garagem")
+        self.view.addSubview(loadingView)
         provider.request(.get(Garage.self, id: garage.id)) { result in
             switch result {
             case .success(let response):
                 if let selectedGarage = response.result {
                     DispatchQueue.main.async {
                         self.selectGarageDelegate?.didSelectGarage(selectedGarage)
+                        loadingView.dismissIndicator()
                     }
                 }
             case .failure(let error):
                 print("Error get garage \(error)")
+                loadingView.dismissIndicator()
             }
         }
     }

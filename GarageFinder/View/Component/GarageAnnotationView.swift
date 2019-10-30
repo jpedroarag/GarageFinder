@@ -12,7 +12,6 @@ class GarageAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             if !(newValue is GarageAnnotation) { return }
-            markerTintColor = .black
             glyphImage = UIImage(named: "carPin")
         }
     }
