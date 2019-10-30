@@ -32,6 +32,7 @@ class RatingViewController: AbstractGarageViewController {
     func ratingAction (_ button: GFButton) {
         ratingView.commentTextView.endEditing(true)
         print("Rating: \(ratingView.ratingValue), Comment: \(ratingView.comment ?? "")")
+        dismissFromParent()
     }
     
     override func viewDidLoad() {
