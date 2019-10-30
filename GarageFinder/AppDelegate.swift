@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        CoreDataManager.shared.deleteAll(Favorite.self)
+//        CoreDataManager.shared.deleteAll(Identifier.self)
         window = UIWindow(frame: UIScreen.main.bounds)
         let mapViewController = MapViewController()
         //let navigationController = UINavigationController(rootViewController: mapViewController)
@@ -40,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        
+        CoreDataManager.shared.saveChanges()
     }
 
 }

@@ -8,7 +8,8 @@
 
 import UIKit
 import MapKit
-enum PlaceCategory: String {
+
+public enum PlaceCategory: String {
     case home //Home
     case restaurant //Restaurant
     case gym //Active Life, Gym
