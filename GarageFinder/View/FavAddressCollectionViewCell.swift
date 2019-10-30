@@ -55,7 +55,7 @@ class FavAddressCollectionViewCell: UICollectionViewCell {
     func loadData(favoriteAddress: Favorite) {
         self.favoriteAddress = favoriteAddress
         label.text = favoriteAddress.name
-        iconImageView.image = favoriteAddress.category.icon
+        iconImageView.image = favoriteAddress.category?.icon
     }
     
     required init?(coder: NSCoder) {

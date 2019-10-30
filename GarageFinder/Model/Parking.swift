@@ -42,7 +42,7 @@ public struct Parking: CustomCodable {
     }
     
     public init() {
-        self.init(garageOwnerId: 1, driverId: 1, licensePlate: "OCB-2913", vehicleId: 1, garageId: 3)
+        self.init(garageOwnerId: 4, driverId: UserDefaults.loggedUserId, licensePlate: "OCB-2913", vehicleId: 1, garageId: 5)
     }
     
     mutating func updatePermanenceDuration() {

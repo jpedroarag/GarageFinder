@@ -11,7 +11,7 @@ import UIKit
 class GarageActionsView: UIView {
 
     lazy var likeButton: CircularButton = {
-        let icon = UIImage(named: "like")
+        let icon = UIImage(named: "HeartIconUnfilled")
         let width = 0.128 * UIScreen.main.bounds.width
         return CircularButton(icon: icon, size: width)
     }()
@@ -53,6 +53,13 @@ class GarageActionsView: UIView {
         setConstraints()
     }
     
+    convenience init(likeButtonFilled: Bool = false) {
+        self.init(frame: .zero)
+        if likeButtonFilled {
+            switchLikeIcon()
+        }
+    }
+    
     private func setConstraints() {
         let ratio: CGFloat = 0.128
         let screenWidth: CGFloat = UIScreen.main.bounds.width
@@ -83,8 +90,18 @@ class GarageActionsView: UIView {
             .height(reportButton.widthAnchor)
     }
     
+    private func switchLikeIcon() {
+        let image = UIImage(named: "HeartIconUnfilled")
+        if likeButton.image(for: .normal) == image {
+            likeButton.setImage(UIImage(named: "HeartIcon"), for: .normal)
+        } else {
+            likeButton.setImage(image, for: .normal)
+        }
+    }
+    
     @objc private func likeButtonTapped(_ sender: CircularButton) {
         likeButton.action?(sender)
+        switchLikeIcon()
     }
     
     @objc private func rateButtonTapped(_ sender: CircularButton) {

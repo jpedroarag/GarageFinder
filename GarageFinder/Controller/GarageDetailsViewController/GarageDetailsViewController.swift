@@ -13,6 +13,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     lazy var floatingViewShouldStopListeningToPan = false
     weak var rentingGarageDelegate: RentingGarageDelegate?
+    weak var actionsDelegate: GarageActionsDelegate?
     var presentedGarage: Garage!
     
     private var mutableGarageInfoView: GarageInfoView!
@@ -29,8 +30,13 @@ class GarageDetailsViewController: AbstractGarageViewController {
     }
     
     var garageActionsView: GarageActionsView {
-        let garageActionsView = GarageActionsView(frame: .zero)
-        garageActionsView.likeButton.action = { _ in print("like") }
+        let predicate = NSPredicate(format: "(objectId == %d)", presentedGarage.id)
+        var isFavorite = false
+        if CoreDataManager.shared.fetch(Favorite.self, predicate: predicate).first != nil {
+            isFavorite = true
+        }
+        let garageActionsView = GarageActionsView(likeButtonFilled: isFavorite)
+        garageActionsView.likeButton.action = { _ in self.favoriteGarage(self.presentedGarage) }
         garageActionsView.rateButton.action = { _ in print("rate") }
         garageActionsView.shareButton.action = { _ in print("share") }
         garageActionsView.reportButton.action = { _ in print("report") }
@@ -59,6 +65,27 @@ class GarageDetailsViewController: AbstractGarageViewController {
         shouldAppearAnimated = true
         sectionSeparatorsStartAppearIndex = 2
         super.viewDidLoad()
+    }
+    
+    func favoriteGarage(_ garage: Garage) {
+        let dataManager = CoreDataManager.shared
+        let predicate = NSPredicate(format: "(objectId = %d)", garage.id)
+        if let favorite = dataManager.fetch(Favorite.self, predicate: predicate).first {
+            dataManager.delete(object: favorite)
+            actionsDelegate?.unlikedGarage()
+            return
+        } else {
+            let favorite = Favorite(name: garage.description ?? "Garagem",
+                                    address: garage.address?.description,
+                                    category: .other,
+                                    latitude: garage.address?.coordinate.latitude ?? 0,
+                                    longitude: garage.address?.coordinate.longitude ?? 0,
+                                    type: .garage,
+                                    objectId: garage.id,
+                                    average: garage.average ?? 0)
+            dataManager.insert(object: favorite)
+            actionsDelegate?.likedGarage()
+        }
     }
     
     func parkButtonTapped(_ sender: GFButton) {
@@ -110,7 +137,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(self.presentedGarage)
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: Parking(), createdNow: true)
             })
         }
         self.garageInfoView.component.isCollapsed = true

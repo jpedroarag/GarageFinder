@@ -13,10 +13,10 @@ class MapView: MKMapView {
     
     var pins = [MKAnnotation]() {
         didSet {
-            updateNearGarages(aroundUserLocation: true)
+            removeAnnotations(annotations)
+            addPins(pins)
         }
     }
-    lazy var range = RangeLocation()
     var shownRouteOverlay: MKOverlay?
     
     override init(frame: CGRect) {
@@ -64,59 +64,6 @@ class MapView: MKMapView {
         addAnnotations(filtered)
     }
     
-    func removePinsOutsideRadius(userLocation: Bool) {
-        annotations.forEach { pin in
-            let mapPoint = MKMapPoint(pin.coordinate)
-            let bothRangesAreBeingDisplayed = range.userLocation != nil && range.searchLocation != nil
-            if bothRangesAreBeingDisplayed {
-                if !range.userLocation.boundingMapRect.contains(mapPoint)
-                && !range.searchLocation.boundingMapRect.contains(mapPoint) {
-                    removeAnnotation(pin)
-                }
-            } else {
-                let circle: MKCircle! = userLocation ? range.userLocation : range.searchLocation
-                if !circle.boundingMapRect.contains(mapPoint) {
-                    removeAnnotation(pin)
-                }
-            }
-        }
-    }
-    
-    func addRangeCircle(location: CLLocation, meters: Int, userLocation: Bool) {
-        let circle = MKCircle(center: location.coordinate, radius: CLLocationDistance(meters))
-        if userLocation {
-            range.userLocation = circle
-        } else {
-            range.searchLocation = circle
-        }
-        addOverlay(circle)
-    }
-    
-    func removeRangeCircle(userLocation: Bool) {
-        var rangeToRemove = userLocation ? range.userLocation : range.searchLocation
-        if let range = rangeToRemove {
-            removeOverlay(range)
-            rangeToRemove = nil
-        }
-    }
-    
-    func updateRangeCircle(location: CLLocation, meters: Int, userLocation: Bool) {
-        removeRangeCircle(userLocation: userLocation)
-        addRangeCircle(location: location, meters: meters, userLocation: userLocation)
-    }
-    
-    func updateNearGarages(aroundUserLocation userLocation: Bool) {
-        removePinsOutsideRadius(userLocation: userLocation)
-        let nearGaragesPins = pins.filter { pin in
-            let mapPoint = MKMapPoint(pin.coordinate)
-            if let circle = (userLocation ? range.userLocation : range.searchLocation) {
-                return circle.boundingMapRect.contains(mapPoint)
-            }
-            return false
-        }
-        addPins(nearGaragesPins)
-    }
-    
     func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
         let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
         let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
@@ -142,15 +89,6 @@ class MapView: MKMapView {
                 self.setRegion(MKCoordinateRegion(route.polyline.boundingMapRect), animated: true)
             }
         }
-    }
-    
-    // MARK: - Render Circle
-    func rendererForRangeOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
-        let circle = MKCircleRenderer(overlay: overlay)
-        circle.strokeColor = UIColor(rgb: 0x23D25B, alpha: 100)
-        circle.fillColor = UIColor(rgb: 0x23D25B, alpha: 15)
-        circle.lineWidth = 0.1
-        return circle
     }
     
     func rendererForRouteOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {

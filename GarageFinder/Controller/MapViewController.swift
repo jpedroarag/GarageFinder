@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
+    lazy var isUserParking = false
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
@@ -27,9 +28,11 @@ class MapViewController: UIViewController {
     }()
     
     var floatingView: UIView!
+    var floatingViewController: FloatingViewController!
     
     weak var selectGarageDelegate: SelectGarageDelegate?
     let provider = URLSessionProvider()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,10 +51,61 @@ class MapViewController: UIViewController {
         
         setConstraints()
         setupObserver()
-        loadGarages()
+        
+        isUserParking { result in
+            if let parking = result {
+                self.isUserParking = true
+                self.requestCurrentParkingGarage(id: parking.garageId) { result in
+                    if let garage = result {
+                        DispatchQueue.main.async {
+                            self.popupCurrentRentingGaragePin(garage)
+                            self.floatingViewController.startedRenting(garage: garage,
+                                                                       parking: parking,
+                                                                       createdNow: false)
+                        }
+                    }
+                }
+            } else {
+                self.loadGarages()
+            }
+        }
 
         if !UserDefaults.tokenIsValid {
             UserDefaults.standard.logoutUser()
+        }
+    }
+    
+    func popupCurrentRentingGaragePin(_ garage: Garage) {
+        if let annotation = GarageAnnotation(fromGarage: garage) {
+            self.mapView.removeAnnotations(mapView.pins)
+            self.mapView.addPin(annotation)
+            self.mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+    
+    func isUserParking(_ completion: @escaping (Parking?) -> Void) {
+        if UserDefaults.userIsLogged {
+            provider.request(.getCurrent(Parking.self)) { result in
+                switch result {
+                case .success(let response):
+                    completion(response.result)
+                case .failure(let error):
+                    print("Error requesting current parking: \(error)")
+                }
+            }
+        } else {
+            loadGarages()
+        }
+    }
+    
+    func requestCurrentParkingGarage(id: Int, _ completion: @escaping (Garage?) -> Void) {
+        self.provider.request(.get(Garage.self, id: id)) { result in
+            switch result {
+            case .success(let response):
+                completion(response.result)
+            case .failure(let error):
+                print("Error requesting current parking: \(error)")
+            }
         }
     }
     
@@ -77,11 +131,11 @@ class MapViewController: UIViewController {
     }
     
     func addFloatingVC() {
-        let floatingVC = FloatingViewController()
-        floatingVC.mapView = mapView
-        self.floatingView = floatingVC.view
-        selectGarageDelegate = floatingVC
-        show(floatingVC)
+        floatingViewController = FloatingViewController()
+        floatingViewController.mapView = mapView
+        self.floatingView = floatingViewController.view
+        selectGarageDelegate = floatingViewController
+        show(floatingViewController)
     }
     
     func setConstraints() {
@@ -123,11 +177,8 @@ class MapViewController: UIViewController {
     
     @objc func finishSearch(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }
- 
-        mapView.removeRangeCircle(userLocation: false)
-        mapView.addRangeCircle(location: location, meters: 500, userLocation: false)
-        mapView.updateNearGarages(aroundUserLocation: false)
-        let region = MKCoordinateRegion(mapView.range.searchLocation.boundingMapRect)
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location: location), span: span)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -135,8 +186,6 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
-        mapView.updateRangeCircle(location: lastLocation, meters: 500, userLocation: true)
-        mapView.updateNearGarages(aroundUserLocation: true)
         if !locationSet {
             mapView.updateRegion(lastLocation, shouldChangeZoomToDefault: true)
             locationSet = true
@@ -163,6 +212,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if isUserParking { return }
         guard let garage = view.annotation as? GarageAnnotation else { return }
         let loadingView = LoadingView(message: "Carregando garagem")
         self.view.addSubview(loadingView)
@@ -183,15 +233,19 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        guard let garage = view.annotation as? GarageAnnotation else { return }
+        if isUserParking {
+            mapView.selectAnnotation(garage, animated: true)
+            return
+        }
         selectGarageDelegate?.didDeselectGarage()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKCircle {
-            return self.mapView.rendererForRangeOverlay(overlay)
-        } else if overlay is MKPolyline {
+        switch overlay {
+        case is MKPolyline:
             return self.mapView.rendererForRouteOverlay(overlay)
-        } else {
+        default:
             return MKPolylineRenderer()
         }
     }

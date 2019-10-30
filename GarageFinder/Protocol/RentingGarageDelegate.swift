@@ -9,6 +9,6 @@
 import GarageFinderFramework
 
 protocol RentingGarageDelegate: class {
-    func startedRenting(_ garage: Garage)
+    func startedRenting(garage: Garage, parking: Parking, createdNow: Bool)
     func stoppedRenting()
 }

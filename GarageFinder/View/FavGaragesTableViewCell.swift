@@ -12,6 +12,8 @@ class FavGaragesTableViewCell: UITableViewCell {
 
     lazy var boxView = UIView()
     
+    lazy var component = GFTableViewComponent(type: .rating)
+    
     lazy var garageOwnerImage: CircleImageView = {
         let image = CircleImageView()
         let shadowImage = CircleView()
@@ -55,13 +57,14 @@ class FavGaragesTableViewCell: UITableViewCell {
         boxView.addSubview(addressLabel)
         addSubview(ratingLabel)
         addSubview(starImage)
-        setConstraints()
+        setConstraintsa()
         
         // add shadow on cell and make rounded
         backgroundColor = .clear
         shadowed()
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 8
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,6 +81,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         garageTitleLabel.text = favoriteGarage.name
         addressLabel.text = favoriteGarage.address
         garageOwnerImage.image = UIImage(named: "mockPerson")
+        ratingLabel.text = "\(favoriteGarage.average)"
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -112,6 +116,37 @@ class FavGaragesTableViewCell: UITableViewCell {
         
         starImage.anchor
             .centerY(centerYAnchor, padding: 7)
+            .right(rightAnchor, padding: 16)
+    }
+    
+    func setConstraintsa() {
+        garageOwnerImage.anchor
+            .top(topAnchor, padding: 8)
+            .bottom(bottomAnchor, padding: 8, priority: 999)
+            .left(leftAnchor, padding: 16)
+            .width(constant: 50)
+            .height(constant: 50)
+        
+        boxView.anchor
+            .top(topAnchor, padding: 16)
+            .left(garageOwnerImage.rightAnchor, padding: 16)
+            .right(ratingLabel.leftAnchor, padding: 16)
+            .bottom(bottomAnchor, padding: 16)
+        
+        garageTitleLabel.anchor
+            .top(boxView.topAnchor)
+            .left(boxView.leftAnchor)
+            
+        addressLabel.anchor
+            .left(boxView.leftAnchor)
+            .top(garageTitleLabel.bottomAnchor)
+
+        ratingLabel.anchor
+            .right(starImage.leftAnchor, padding: 4)
+            .centerY(garageOwnerImage.centerYAnchor)
+        
+        starImage.anchor
+            .centerY(centerYAnchor)
             .right(rightAnchor, padding: 16)
     }
 
