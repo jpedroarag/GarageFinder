@@ -22,7 +22,7 @@ extension UIImage {
     }
     
     func toBase64() -> String? {
-        guard let img = resizeWithPercent(percentage: 0.1) else { return nil}
+        guard let img = resizeWithPercent(percentage: 0.3) else { return nil}
         let data = img.jpegData(compressionQuality: .zero)
         return data?.base64EncodedString()
     }

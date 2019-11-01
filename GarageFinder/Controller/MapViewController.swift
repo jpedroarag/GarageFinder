@@ -66,7 +66,9 @@ class MapViewController: UIViewController {
                     }
                 }
             } else {
-                self.loadGarages()
+                DispatchQueue.main.async {
+                    self.loadGarages()
+                }
             }
         }
 
@@ -117,8 +119,10 @@ class MapViewController: UIViewController {
             switch result {
             case .success(let response):
                 if let garages = response.results {
-                    self.mapView.pins = garages
-                    loadingView.dismissIndicator()
+                    DispatchQueue.main.async {
+                        self.mapView.pins = garages
+                        loadingView.dismissIndicator()
+                    }
                 }
             case .failure(let error):
                 print("Error getting garages: \(error)")

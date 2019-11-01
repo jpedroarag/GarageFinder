@@ -97,7 +97,8 @@ class GarageInfoView: UIView {
         //component.leftImageView.image = garage.pictures.first ?? UIImage()
         component.titleLabel.text = garage.description
         component.subtitleLabel.text = garage.address?.description
-        //component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
+//        component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
+        component.ratingLabel.text = "4.6"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
