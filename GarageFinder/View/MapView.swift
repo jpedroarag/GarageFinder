@@ -27,9 +27,6 @@ class MapView: MKMapView {
         showsCompass = true
         showsTraffic = true
         tintColor = UIColor(rgb: 0x23D25B, alpha: 100)
-        //TODO: Reminder ---
-        //See this property to remove all places of map
-        //showsPointsOfInterest = false
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
