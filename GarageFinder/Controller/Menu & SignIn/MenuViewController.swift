@@ -78,6 +78,7 @@ extension MenuViewController: UITableViewDelegate {
         case 0:
             showTitleView(show: false)
             let signVC = SignUpViewController(isEditingProfile: true)
+            signVC.updateUserPhotoDelegate = self
             if let user = self.user {
                 signVC.load(user)
                 navigationController?.pushViewController(signVC, animated: true)   
@@ -98,5 +99,11 @@ extension MenuViewController: UITableViewDelegate {
             present(alert, animated: true, completion: nil)
         default: break
         }
+    }
+}
+
+extension MenuViewController: UpdateUserPhotoDelegate {
+    func didUpdateUserPhoto(_ image: UIImage) {
+        titleMenuView.photoImageView.image = image
     }
 }
