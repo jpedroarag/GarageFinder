@@ -49,6 +49,7 @@ class FloatingView: UIView {
         lastScrollView = tableView
         tableView.register(FavAddressTableViewCell.self, forCellReuseIdentifier: "FavAddress")
         tableView.register(FavGaragesTableViewCell.self, forCellReuseIdentifier: "FavGarages")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.bounces = false
         tableView.separatorStyle = .none
         return tableView

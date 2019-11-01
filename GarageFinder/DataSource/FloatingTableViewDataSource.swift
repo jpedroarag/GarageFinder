@@ -54,7 +54,11 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
 //        default:
 //            return favoriteGarages.count
 //        }
-        return favoriteGarages.count
+        if favoriteGarages.count == 0 {
+            return 1
+        } else {
+            return favoriteGarages.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,8 +74,10 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
 //                cell = favGaragesCell
 //            }
 //        }
-        
-        if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
+        if favoriteGarages.count == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell?.textLabel?.text = "Você ainda Não possui garagens favoritas"
+        } else if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
             favGaragesCell.loadData(favoriteGarages[indexPath.row])
             cell = favGaragesCell
         }

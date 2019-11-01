@@ -24,7 +24,6 @@ class FavGaragesTableViewCell: UITableViewCell {
     
     lazy var garageTitleLabel: UILabel = {
         let label = UILabel()
-        label.lineBreakMode = .byTruncatingTail
         label.font = .systemFont(ofSize: 16, weight: .medium)
         return label
     }()
@@ -57,7 +56,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         boxView.addSubview(addressLabel)
         addSubview(ratingLabel)
         addSubview(starImage)
-        setConstraintsa()
+        setConstraints()
         
         // add shadow on cell and make rounded
         backgroundColor = .clear
@@ -87,39 +86,8 @@ class FavGaragesTableViewCell: UITableViewCell {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8))
     }
-    
+        
     func setConstraints() {
-        garageOwnerImage.anchor
-            .top(topAnchor, padding: 12)
-            .bottom(bottomAnchor, padding: 12, priority: 999)
-            .left(leftAnchor, padding: 24)
-            .width(constant: 50)
-            .height(constant: 50)
-        
-        boxView.anchor
-            .top(topAnchor, padding: 22)
-            .left(garageOwnerImage.rightAnchor, padding: 24)
-            .right(ratingLabel.leftAnchor, padding: 24)
-            .bottom(bottomAnchor, padding: 22)
-        
-        garageTitleLabel.anchor
-            .top(boxView.topAnchor)
-            .left(boxView.leftAnchor)
-            
-        addressLabel.anchor
-            .left(boxView.leftAnchor)
-            .bottom(boxView.bottomAnchor)
-
-        ratingLabel.anchor
-            .right(starImage.leftAnchor)
-            .bottom(bottomAnchor, padding: 16)
-        
-        starImage.anchor
-            .centerY(centerYAnchor, padding: 7)
-            .right(rightAnchor, padding: 16)
-    }
-    
-    func setConstraintsa() {
         garageOwnerImage.anchor
             .top(topAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 8, priority: 999)
@@ -136,7 +104,8 @@ class FavGaragesTableViewCell: UITableViewCell {
         garageTitleLabel.anchor
             .top(boxView.topAnchor)
             .left(boxView.leftAnchor)
-            
+            .right(ratingLabel.leftAnchor, padding: 8)
+        
         addressLabel.anchor
             .left(boxView.leftAnchor)
             .top(garageTitleLabel.bottomAnchor)

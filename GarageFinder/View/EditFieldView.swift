@@ -32,11 +32,13 @@ class EditFieldView: UIView {
     
     lazy var newPassword: GFTextField = {
         let textField = GFTextField(withType: .none)
+        textField.isSecureTextEntry = true
         return textField
     }()
     
     lazy var confirmPassword: GFTextField = {
         let textField = GFTextField(withType: .none)
+        textField.isSecureTextEntry = true
         return textField
     }()
     

@@ -46,7 +46,6 @@ import GarageFinderFramework
 //    }
 //}
 
-
 public struct Address: CustomCodable {
     public static var path: String = "/api/v1/address/"
     
@@ -120,7 +119,8 @@ public struct Address: CustomCodable {
             coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         
-        self.init(id: id, zip: zip, street: street, number: number, complement: complement, city: city, uf: uf, coordinate: coord, userId: userId, garageId: garageId)
+        self.init(id: id, zip: zip, street: street, number: number, complement: complement,
+                  city: city, uf: uf, coordinate: coord, userId: userId, garageId: garageId)
     }
     
     public func encode(to encoder: Encoder) throws {

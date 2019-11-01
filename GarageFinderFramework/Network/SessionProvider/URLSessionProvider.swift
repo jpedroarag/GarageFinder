@@ -53,11 +53,17 @@ public final class URLSessionProvider {
 
                 do {
                     let model = try decoder.decode(Response<T>.self, from: data)
-                    completion(.success(model))
+                    if let notice = model.notice {
+                        completion(.failure(NetworkError.noticeError(notice)))
+                    } else {
+                        completion(.success(model))
+                    }
+
                 } catch {
                     print("DECODE ERROR: \(error)")
                     completion(.failure(NetworkError.decodeError(error.localizedDescription)))
                 }
+                
             case 400...499:
                 completion(.failure(NetworkError.clientError(statusCode: httpResponse.statusCode, dataResponse: dataString)))
             case 500...599:
