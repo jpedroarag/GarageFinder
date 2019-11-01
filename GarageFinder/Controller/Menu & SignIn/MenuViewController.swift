@@ -78,13 +78,16 @@ extension MenuViewController: UITableViewDelegate {
         case 0:
             showTitleView(show: false)
             let signVC = SignUpViewController(isEditingProfile: true)
+            signVC.updateUserPhotoDelegate = self
             if let user = self.user {
                 signVC.load(user)
                 navigationController?.pushViewController(signVC, animated: true)   
             }
         case 1:
-           showTitleView(show: false)
-           navigationController?.pushViewController(GarageHistoryViewController(), animated: true)
+            print("Garage History")
+//           TODO: - Show Garage History
+//           showTitleView(show: false)
+//           navigationController?.pushViewController(GarageHistoryViewController(), animated: true)
         case 2:
            print("Settings")
         case 3:
@@ -98,5 +101,11 @@ extension MenuViewController: UITableViewDelegate {
             present(alert, animated: true, completion: nil)
         default: break
         }
+    }
+}
+
+extension MenuViewController: UpdateUserPhotoDelegate {
+    func didUpdateUserPhoto(_ image: UIImage) {
+        titleMenuView.photoImageView.image = image
     }
 }

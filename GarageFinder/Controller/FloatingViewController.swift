@@ -227,17 +227,10 @@ extension FloatingViewController: SelectGarageDelegate {
     }
 }
 
-extension FloatingViewController: GarageActionsDelegate {
-    func likedGarage() {
-        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count, section: 0)
+extension FloatingViewController: GarageActionsDelegate {    
+    func reloadLikedGarage() {
         floatingTableViewDataSource.reloadFavorites()
-        floatingView.tableView.insertRows(at: [indexPath], with: .none)
-    }
-    
-    func unlikedGarage() {
-        let indexPath = IndexPath(row: floatingTableViewDataSource.favoriteGarages.count - 1, section: 0)
-        floatingTableViewDataSource.reloadFavorites()
-        floatingView.tableView.deleteRows(at: [indexPath], with: .none)
+        floatingView.tableView.reloadData()
     }
 }
 

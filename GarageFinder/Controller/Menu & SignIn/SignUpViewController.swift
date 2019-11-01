@@ -17,7 +17,8 @@ class SignUpViewController: UIViewController {
     var validator: FieldValidator!
     var user: User?
     weak var finishSignUpDelegate: FinishSignUpDelegate?
-    
+    weak var updateUserPhotoDelegate: UpdateUserPhotoDelegate?
+    let provider = URLSessionProvider()
     init(isEditingProfile: Bool = false) {
         self.isEditingProfile = isEditingProfile
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
@@ -43,11 +44,16 @@ class SignUpViewController: UIViewController {
     }
     
     func closeButtonAction() {
+        finishSignUpDelegate?.didFinishSignUp()
         dismiss(animated: true, completion: nil)
     }
+    
     func load(_ user: User) {
         self.user = user
-        guard let name = user.name, let email = user.email, let cpf = user .documentNumber else { return }
+        guard let name = user.name, let email = user.email, var cpf = user.documentNumber else { return }
+        if cpf == "" {
+            cpf = "------"
+        }
         let content: [TextFieldType: String] = [.name: name,
                                                      .email: email,
                                                      .cpf: cpf]
@@ -74,7 +80,7 @@ class SignUpViewController: UIViewController {
                             documentType: .cpf, documentNumber: content[.cpf], password: content[.password],
                             addresses: nil, garages: nil, role: "ROLE_GD", avatar: savedImage?.toBase64())
 
-            URLSessionProvider().request(.post(user)) { result in
+            provider.request(.post(user)) { result in
                 switch result {
                 case .success(let response):
                     print("response: ", response)
@@ -101,10 +107,12 @@ class SignUpViewController: UIViewController {
                 if self.isEditingProfile {
                     guard let userId = self.user?.id else { return}
                     let user = User(id: userId, avatar: image.toBase64())
-                    URLSessionProvider().request(.update(user)) { result in
+                    self.provider.request(.update(user)) { result in
                         switch result {
                         case .success:
-                            print("update photo")
+                            DispatchQueue.main.async {
+                                self.updateUserPhotoDelegate?.didUpdateUserPhoto(image)
+                            }
                         case .failure(let error):
                             print("Erron update photo: \(error)")
                         }
@@ -132,8 +140,7 @@ extension SignUpViewController: UITableViewDelegate {
         if isEditingProfile {
             if let labelCell = tableView.cellForRow(at: indexPath) as? LabelCell, let type = labelCell.type {
                 if type != .email {
-                    guard let id = user?.id else { return}
-                    let editFieldVC = EditFieldViewController(userId: id, fieldType: type, content: labelCell.label.text)
+                    let editFieldVC = EditFieldViewController(user: user, fieldType: type, content: labelCell.label.text)
                     editFieldVC.updateFieldDelegate = self
                     DispatchQueue.main.async {
                         self.present(editFieldVC, animated: true, completion: nil)

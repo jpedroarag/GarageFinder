@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTableViewDataSource: NSObject, UITableViewDataSource {
     
-    let options = ["Editar Conta", "Histórico de Garagens", "Configurações", "Sair da Conta"]
+    let options = ["Editar Conta", "Histórico de Garagens(Em Breve)", "Configurações(Em breve)", "Sair da Conta"]
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return options.count
     }
@@ -19,11 +19,16 @@ class MenuTableViewDataSource: NSObject, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         cell?.textLabel?.text = options[indexPath.row]
         cell?.selectionStyle = .none
-        if indexPath.row == 3 {
+        
+        switch indexPath.row {
+        case 1, 2:
+            cell?.textLabel?.textColor = .lightGray
+        case 3:
             cell?.textLabel?.textColor = .systemRed
-        } else {
+        default:
             cell?.accessoryType = .disclosureIndicator
         }
+
         return cell ?? UITableViewCell()
     }
 }

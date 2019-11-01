@@ -72,7 +72,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         let predicate = NSPredicate(format: "(objectId = %d)", garage.id)
         if let favorite = dataManager.fetch(Favorite.self, predicate: predicate).first {
             dataManager.delete(object: favorite)
-            actionsDelegate?.unlikedGarage()
+            actionsDelegate?.reloadLikedGarage()
             return
         } else {
             let favorite = Favorite(name: garage.description ?? "Garagem",
@@ -84,7 +84,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
                                     objectId: garage.id,
                                     average: garage.average ?? 0)
             dataManager.insert(object: favorite)
-            actionsDelegate?.likedGarage()
+            actionsDelegate?.reloadLikedGarage()
         }
     }
     

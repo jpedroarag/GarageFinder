@@ -1,13 +1,13 @@
 //
-//  FinishSignUp.swift
+//  UpdateUserPhotoDelegate.swift
 //  GarageFinder
 //
 //  Created by João Paulo de Oliveira Sabino on 01/11/19.
 //  Copyright © 2019 João Pedro Aragão. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol FinishSignUpDelegate: class {
-    func didFinishSignUp()
+protocol UpdateUserPhotoDelegate: class {
+    func didUpdateUserPhoto(_ image: UIImage)
 }

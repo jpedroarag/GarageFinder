@@ -14,4 +14,5 @@ public enum NetworkError: Error {
     case serverError(statusCode: Int, dataResponse: String)
     case decodeError(String)
     case noJSONData
+    case noticeError(String)
 }
