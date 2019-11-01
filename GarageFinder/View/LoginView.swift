@@ -72,6 +72,10 @@ class LoginView: UIView {
         keyScroller = KeyScroller(withScrollView: scrollView)
     }
     
+    func setKeyScroller(enabled: Bool) {
+        keyScroller = enabled ? KeyScroller(withScrollView: scrollView) : nil
+    }
+    
     func setupConstraints() {
         closeButton.anchor
             .top(safeAreaLayoutGuide.topAnchor, padding: 16)

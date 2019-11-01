@@ -19,9 +19,8 @@ class LoginViewController: UIViewController {
         loginView.closeAction = closeAction
         view.addGestureRecognizer(view.tap)
     }
-
+    
     func loginAction(email: String, password: String) {
-        
         let strategies: [ValidationStrategy] = [EmailValidationStrategy(), EmptyStrategy()]
         validator = FieldValidator(andStrategies: strategies)
         let isEmailRight = validator.validate(elements: loginView.emailTextField, withStrategy: EmailValidationStrategy.self)
@@ -61,11 +60,20 @@ class LoginViewController: UIViewController {
     }
     
     func signUpAction() {
-        present(SignUpViewController(), animated: true, completion: nil)
+        loginView.setKeyScroller(enabled: false)
+        let signUpVC = SignUpViewController()
+        signUpVC.finishSignUpDelegate = self
+        present(signUpVC, animated: true, completion: nil)
     }
     
     func closeAction() {
         dismiss(animated: true, completion: nil)
     }
 
+}
+
+extension LoginViewController: FinishSignUpDelegate {
+    func didFinishSignUp() {
+        loginView.setKeyScroller(enabled: true)
+    }
 }

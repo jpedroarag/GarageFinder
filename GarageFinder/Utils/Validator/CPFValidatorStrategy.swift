@@ -22,6 +22,10 @@ struct NumericDigititsLimitValidationStrategy: ValidationStrategy {
             return char.wholeNumberValue
         }
         
+        if numbers.count == 0 {
+            return .ok
+        }
+        
         guard numbers.count == limit && !numbers.allElementsAreEqual else {
             return .wrong(Self.self)
         }
@@ -31,7 +35,7 @@ struct NumericDigititsLimitValidationStrategy: ValidationStrategy {
 }
 
 struct CPFValidationStrategy: ValidationStrategy {
-    var subStrategies: [ValidationStrategy] = [EmptyStrategy(), NumericDigititsLimitValidationStrategy(limit: 11)]
+    var subStrategies: [ValidationStrategy] = [NumericDigititsLimitValidationStrategy(limit: 11)]
     
     func validate(value: String) -> ValidationResult {
         let numbers = value.compactMap { (char) -> Int? in
@@ -40,11 +44,13 @@ struct CPFValidationStrategy: ValidationStrategy {
         
         let digitVerifier1 = digitCalculator(numbers.prefix(9))
         let digitVerifier2 = digitCalculator(numbers.prefix(10))
-        
-        if digitVerifier1 == numbers[9] && digitVerifier2 == numbers[10] {
+        if numbers.count > 0 {
+            if digitVerifier1 == numbers[9] && digitVerifier2 == numbers[10] {
+                return .ok
+            }
+        } else {
             return .ok
         }
-        
         return .wrong(Self.self)
     }
     

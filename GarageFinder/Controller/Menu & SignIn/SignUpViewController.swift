@@ -16,6 +16,8 @@ class SignUpViewController: UIViewController {
     var savedImage: UIImage?
     var validator: FieldValidator!
     var user: User?
+    weak var finishSignUpDelegate: FinishSignUpDelegate?
+    
     init(isEditingProfile: Bool = false) {
         self.isEditingProfile = isEditingProfile
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
@@ -57,6 +59,7 @@ class SignUpViewController: UIViewController {
     }
     
     func saveUser(_ content: TextFieldCollection<TextFieldType, GFTextField>) {
+        
         let strategies: [ValidationStrategy] = [CPFValidationStrategy(), EmptyStrategy(),
                                                 EmailValidationStrategy(), NewPasswordValidationStrategy(oldPasswordTextField: content[.password])]
         validator = FieldValidator(andStrategies: strategies)
@@ -74,9 +77,11 @@ class SignUpViewController: UIViewController {
             URLSessionProvider().request(.post(user)) { result in
                 switch result {
                 case .success(let response):
+                    print("response: ", response)
                     if response.result != nil {
                         print("USER SAVED")
                         DispatchQueue.main.async {
+                            self.finishSignUpDelegate?.didFinishSignUp()
                             self.dismiss(animated: true, completion: nil)
                         }
                     }
