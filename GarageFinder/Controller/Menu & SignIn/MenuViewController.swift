@@ -84,8 +84,10 @@ extension MenuViewController: UITableViewDelegate {
                 navigationController?.pushViewController(signVC, animated: true)   
             }
         case 1:
-           showTitleView(show: false)
-           navigationController?.pushViewController(GarageHistoryViewController(), animated: true)
+            print("Garage History")
+//           TODO: - Show Garage History
+//           showTitleView(show: false)
+//           navigationController?.pushViewController(GarageHistoryViewController(), animated: true)
         case 2:
            print("Settings")
         case 3:
