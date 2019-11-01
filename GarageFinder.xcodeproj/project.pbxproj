@@ -615,6 +615,7 @@
 		3C8CB142236095BC00621BB3 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */,
 				3C59AE1D2368772D006EC36E /* Identifier+CoreDataClass.swift */,
 				3C59AE1E2368772D006EC36E /* Identifier+CoreDataProperties.swift */,
 				3C8CB143236095BC00621BB3 /* Favorite+CoreDataProperties.swift */,
@@ -643,7 +644,6 @@
 				3C20C38623351DE800182CB3 /* Comment.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
 				3C383085234964040034F315 /* MockedData.swift */,
-				6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */,
 				3C8CB142236095BC00621BB3 /* Favorite */,
 				6C67062E2358AC7200651C4A /* GarageAnnotation.swift */,
 			);
@@ -1255,7 +1255,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9TV25TFN7;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
 				INFOPLIST_FILE = GarageFinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1275,7 +1275,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9TV25TFN7;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
 				INFOPLIST_FILE = GarageFinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (

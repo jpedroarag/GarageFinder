@@ -19,6 +19,7 @@ public struct Parking: CustomCodable {
     public let garageId: Int
     
     public var price: Float
+    public var pricePerHour: Float?
     public var permanenceDuration: Int? // In minutes
     public let start: Date
     public var end: Date?
@@ -28,14 +29,16 @@ public struct Parking: CustomCodable {
                 driverId: Int,
                 licensePlate: String,
                 vehicleId: Int,
-                garageId: Int) {
+                garageId: Int,
+                pricePerHour: Float = 0) {
         self.id = id
         self.garageOwnerId = garageOwnerId
         self.driverId = driverId
         self.licensePlate = licensePlate
         self.vehicleId = vehicleId
         self.garageId = garageId
-        self.price = 12
+        self.price = 0
+        self.pricePerHour = price
         self.permanenceDuration = nil
         self.start = Date()
         self.end = nil
@@ -52,7 +55,15 @@ public struct Parking: CustomCodable {
     }
     
     mutating func updatePrice() {
-        // TODO: Price business logic
+        if permanenceDuration != nil {
+            guard let permanence = permanenceDuration, let pricePerHour = pricePerHour else { return }
+            let pricePerMinute = pricePerHour/60
+            let actualPrice = pricePerMinute * Float(permanence)
+            self.price = actualPrice
+        } else {
+            guard let pricePerHour = pricePerHour else { return }
+            self.price = pricePerHour/60
+        }
     }
     
     public mutating func update() {

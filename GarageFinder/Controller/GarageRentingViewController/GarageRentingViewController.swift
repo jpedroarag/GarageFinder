@@ -14,7 +14,12 @@ class GarageRentingViewController: AbstractGarageViewController {
     lazy var isRunning = true
     lazy var createdNow = true
     
-    var parkingObject: Parking!
+    var parkingObject: Parking! {
+        didSet {
+            parkingObject.pricePerHour = Float(rentedGarage.price)
+        }
+    }
+    
     var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
@@ -124,6 +129,7 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func fireRenting() {
+        update()
         if createdNow {
             uploadParking(withMethod: .post(parkingObject))
         }
