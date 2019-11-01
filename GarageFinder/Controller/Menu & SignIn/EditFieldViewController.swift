@@ -71,6 +71,7 @@ class EditFieldViewController: UIViewController {
         }
         
         if isRight {
+            //If user want to change password, first need to confirm old password. Need to login again.
             if fieldType == .password, let email = user.email, let password = field {
                 let newPassword = self.editFieldView.confirmPassword.text
                 provider.request(.post(UserAuth(email: email, password: password))) { result in
