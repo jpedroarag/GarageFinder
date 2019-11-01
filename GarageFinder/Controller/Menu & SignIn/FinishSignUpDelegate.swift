@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol FinishSignUpDelegate: AnyObject {
+protocol FinishSignUpDelegate: class {
     func didFinishSignUp()
 }

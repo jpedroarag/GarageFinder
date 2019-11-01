@@ -9,6 +9,5 @@
 import Foundation
 
 protocol GarageActionsDelegate: class {
-    func likedGarage()
-    func unlikedGarage()
+    func reloadLikedGarage()
 }

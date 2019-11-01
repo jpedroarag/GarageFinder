@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol UpdateUserPhotoDelegate: AnyObject {
+protocol UpdateUserPhotoDelegate: class {
     func didUpdateUserPhoto(_ image: UIImage)
 }

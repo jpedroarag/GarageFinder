@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol UpdateFieldDelegate: AnyObject {
+protocol UpdateFieldDelegate: class {
     func didUpdate(field: TextFieldType, content: String?)
 }
