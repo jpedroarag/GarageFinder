@@ -64,11 +64,14 @@ class FloatingViewController: UIViewController {
         
         let presentVC: UIViewController!
         if UserDefaults.userIsLogged {
-            let navigationVC = UINavigationController(rootViewController: MenuViewController(), int: 0)
+            let controller = MenuViewController()
+            controller.parkingStatusDelegate = parent as? MapViewController
+            let navigationVC = UINavigationController(rootViewController: controller, int: 0)
             presentVC = navigationVC
-            
         } else {
-            presentVC = LoginViewController()
+            let controller = LoginViewController()
+            controller.parkingStatusDelegate = parent as? MapViewController
+            presentVC = controller
         }
         
         present(presentVC, animated: true, completion: nil)

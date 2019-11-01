@@ -55,15 +55,10 @@ public struct Parking: CustomCodable {
     }
     
     mutating func updatePrice() {
-        if permanenceDuration != nil {
-            guard let permanence = permanenceDuration, let pricePerHour = pricePerHour else { return }
-            let pricePerMinute = pricePerHour/60
-            let actualPrice = pricePerMinute * Float(permanence)
-            self.price = actualPrice
-        } else {
-            guard let pricePerHour = pricePerHour else { return }
-            self.price = pricePerHour/60
-        }
+        guard let permanence = permanenceDuration, let pricePerHour = pricePerHour else { return }
+        let pricePerMinute = pricePerHour/60
+        let actualPrice = pricePerMinute * Float(permanence)
+        self.price = actualPrice == 0 ? pricePerMinute : actualPrice
     }
     
     public mutating func update() {

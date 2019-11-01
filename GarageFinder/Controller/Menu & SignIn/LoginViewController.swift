@@ -12,6 +12,9 @@ import GarageFinderFramework
 class LoginViewController: UIViewController {
     let loginView = LoginView()
     var validator: FieldValidator!
+    
+    weak var parkingStatusDelegate: ParkingStatusDelegate!
+    
     override func viewDidLoad() {
         view = loginView
         loginView.loginAction = loginAction(email:password:)
@@ -41,6 +44,7 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
                         
                         DispatchQueue.main.async {
+                            self.parkingStatusDelegate.loadData(fromLogin: true)
                             self.dismiss(animated: true, completion: nil)
                         }
                     }
