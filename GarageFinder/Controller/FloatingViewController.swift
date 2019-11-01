@@ -64,11 +64,14 @@ class FloatingViewController: UIViewController {
         
         let presentVC: UIViewController!
         if UserDefaults.userIsLogged {
-            let navigationVC = UINavigationController(rootViewController: MenuViewController(), int: 0)
+            let controller = MenuViewController()
+            controller.parkingStatusDelegate = parent as? MapViewController
+            let navigationVC = UINavigationController(rootViewController: controller, int: 0)
             presentVC = navigationVC
-            
         } else {
-            presentVC = LoginViewController()
+            let controller = LoginViewController()
+            controller.parkingStatusDelegate = parent as? MapViewController
+            presentVC = controller
         }
         
         present(presentVC, animated: true, completion: nil)
@@ -121,7 +124,11 @@ extension FloatingViewController: UITableViewDelegate {
             let filteredPins = self.mapView?.pins.filter {
                 $0.coordinate == CLLocationCoordinate2D(latitude: garage.latitude, longitude: garage.longitude)
             }
+            
             if let pin = filteredPins?.first {
+                let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+                let region = MKCoordinateRegion(center: pin.coordinate, span: span)
+                self.mapView?.setRegion(region, animated: true)
                 self.mapView?.selectAnnotation(pin, animated: true)
             } else {
                 URLSessionProvider().request(.get(Garage.self, id: garage.objectId)) { result in
@@ -129,7 +136,10 @@ extension FloatingViewController: UITableViewDelegate {
                     case .success(let response):
                         DispatchQueue.main.async {
                             if let garageObject = response.result, let annotation = GarageAnnotation(fromGarage: garageObject) {
+                                let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+                                let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
                                 self.mapView?.addPin(annotation)
+                                self.mapView?.setRegion(region, animated: true)
                                 self.mapView?.selectAnnotation(annotation, animated: true)
                             }
                         }

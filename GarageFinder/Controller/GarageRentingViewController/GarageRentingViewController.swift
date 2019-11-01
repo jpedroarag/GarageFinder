@@ -11,10 +11,15 @@ import GarageFinderFramework
 
 class GarageRentingViewController: AbstractGarageViewController {
     
-    lazy var isRunning = true
+    lazy var isParking = true
     lazy var createdNow = true
     
-    var parkingObject: Parking!
+    var parkingObject: Parking! {
+        didSet {
+            parkingObject.pricePerHour = Float(rentedGarage.price)
+        }
+    }
+    
     var rentedGarage: Garage!
     
     weak var garageRatingDelegate: GarageRatingDelegate?
@@ -81,7 +86,7 @@ class GarageRentingViewController: AbstractGarageViewController {
                 
                 button.action = self.paymentAction(_:)
             })
-            self.isRunning = false
+            self.isParking = false
             self.parkingObject.conclude()
             self.update()
             self.uploadParking(withMethod: .update(self.parkingObject))
@@ -124,11 +129,12 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func fireRenting() {
+        update()
         if createdNow {
             uploadParking(withMethod: .post(parkingObject))
         }
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if self.isRunning {
+            if self.isParking {
                 self.update()
             } else {
                 timer.invalidate()

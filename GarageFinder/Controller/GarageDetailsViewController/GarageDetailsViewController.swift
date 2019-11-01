@@ -94,10 +94,19 @@ class GarageDetailsViewController: AbstractGarageViewController {
         
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
-            sender.action = nil
-            self.removeAdditionalSections(animated: true) {
-                sender.setTitle("Concluir", for: .normal)
-                self.startRenting()
+            if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
+                sender.action = nil
+                self.removeAdditionalSections(animated: true) {
+                    sender.setTitle("Concluir", for: .normal)
+                    self.startRenting()
+                }
+            } else {
+                let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
+                loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                loginAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { _ in
+                    NotificationCenter.default.post(name: .adjustsMenu, object: nil)
+                }))
+                self.present(loginAlert, animated: true, completion: nil)
             }
         }))
                 

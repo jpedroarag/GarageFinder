@@ -48,6 +48,8 @@
 		3C3830AC2350C1680034F315 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A52350BE750034F315 /* Address.swift */; };
 		3C3830AD2350C1680034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A32350BE4F0034F315 /* User.swift */; };
 		3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A92350C0540034F315 /* DocumentType.swift */; };
+		3C55F214236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */; };
+		3C55F216236C7E9200CBFDB9 /* FavoriteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C55F215236C7E9200CBFDB9 /* FavoriteType.swift */; };
 		3C59AE1F2368772D006EC36E /* Identifier+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C59AE1D2368772D006EC36E /* Identifier+CoreDataClass.swift */; };
 		3C59AE202368772D006EC36E /* Identifier+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C59AE1E2368772D006EC36E /* Identifier+CoreDataProperties.swift */; };
 		3C59AE2223688582006EC36E /* GarageActionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C59AE2123688582006EC36E /* GarageActionsDelegate.swift */; };
@@ -74,7 +76,6 @@
 		6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */; };
 		6C1051E723324FA700837C04 /* ChangeScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */; };
 		6C1051E92332567C00837C04 /* HeaderFavTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1051E82332567C00837C04 /* HeaderFavTableView.swift */; };
-		6C1D5FA02334FBF1005D9B06 /* FavoriteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */; };
 		6C24E17823461ED9007EE981 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17723461ED9007EE981 /* RatingView.swift */; };
 		6C24E17A23461F6C007EE981 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17923461F6C007EE981 /* UIButton+Extension.swift */; };
 		6C24E17C23461F7B007EE981 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */; };
@@ -240,6 +241,8 @@
 		3C3830A52350BE750034F315 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3C3830A72350BEAB0034F315 /* Garage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
 		3C3830A92350C0540034F315 /* DocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = ../../GarageFinderFramework/Models/DocumentType.swift; sourceTree = "<group>"; };
+		3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingStatusDelegate.swift; sourceTree = "<group>"; };
+		3C55F215236C7E9200CBFDB9 /* FavoriteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteType.swift; sourceTree = "<group>"; };
 		3C59AE1D2368772D006EC36E /* Identifier+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Identifier+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3C59AE1E2368772D006EC36E /* Identifier+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Identifier+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3C59AE2123688582006EC36E /* GarageActionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageActionsDelegate.swift; sourceTree = "<group>"; };
@@ -267,7 +270,6 @@
 		6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
 		6C1051E82332567C00837C04 /* HeaderFavTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFavTableView.swift; sourceTree = "<group>"; };
-		6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteType.swift; sourceTree = "<group>"; };
 		6C24E17723461ED9007EE981 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		6C24E17923461F6C007EE981 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6C24E17B23461F7B007EE981 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 		3C8CB142236095BC00621BB3 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				3C55F215236C7E9200CBFDB9 /* FavoriteType.swift */,
 				3C59AE1D2368772D006EC36E /* Identifier+CoreDataClass.swift */,
 				3C59AE1E2368772D006EC36E /* Identifier+CoreDataProperties.swift */,
 				3C8CB143236095BC00621BB3 /* Favorite+CoreDataProperties.swift */,
@@ -626,7 +629,6 @@
 				3C8CB139235F279E00621BB3 /* Parking.swift */,
 				3C20C38623351DE800182CB3 /* Comment.swift */,
 				3C20C38223351DC000182CB3 /* Vehicle.swift */,
-				6C1D5F9F2334FBF1005D9B06 /* FavoriteType.swift */,
 				3C8CB142236095BC00621BB3 /* Favorite */,
 				6C67062E2358AC7200651C4A /* GarageAnnotation.swift */,
 			);
@@ -662,6 +664,7 @@
 				3C811E60232F025E0075AD49 /* FloatingViewPositioningDelegate.swift */,
 				3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */,
 				3C59AE2123688582006EC36E /* GarageActionsDelegate.swift */,
+				3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1002,7 +1005,6 @@
 				6CFFC7C223649059005D8D2F /* DefaultChain.swift in Sources */,
 				6C371EE923674AA700EF9BE7 /* GarageHistoryDataSource.swift in Sources */,
 				3C3830AC2350C1680034F315 /* Address.swift in Sources */,
-				6C1D5FA02334FBF1005D9B06 /* FavoriteType.swift in Sources */,
 				6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */,
 				6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */,
 				6CE30E3D2369D104002C04D7 /* UpdateFieldDelegate.swift in Sources */,
@@ -1059,8 +1061,10 @@
 				3C20C37C23311F7200182CB3 /* RatingTableViewCell.swift in Sources */,
 				3C10C96F23194F6B001BDDB6 /* ToolboxView.swift in Sources */,
 				6C8B9A0D2365CFFC00EA950C /* ImagePickerSourceType.swift in Sources */,
+				3C55F216236C7E9200CBFDB9 /* FavoriteType.swift in Sources */,
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */,
+				3C55F214236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift in Sources */,
 				6C371EEB23674B5500EF9BE7 /* GarageHistoryViewController.swift in Sources */,
 				6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */,
 				3C8CB14D2361C8CE00621BB3 /* CoreDataManager.swift in Sources */,
@@ -1237,7 +1241,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9TV25TFN7;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
 				INFOPLIST_FILE = GarageFinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1257,7 +1261,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9TV25TFN7;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
 				INFOPLIST_FILE = GarageFinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (

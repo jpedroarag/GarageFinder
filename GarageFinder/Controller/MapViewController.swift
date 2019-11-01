@@ -51,30 +51,12 @@ class MapViewController: UIViewController {
         
         setConstraints()
         setupObserver()
-        
-        isUserParking { result in
-            if let parking = result {
-                self.isUserParking = true
-                self.requestCurrentParkingGarage(id: parking.garageId) { result in
-                    if let garage = result {
-                        DispatchQueue.main.async {
-                            self.popupCurrentRentingGaragePin(garage)
-                            self.floatingViewController.startedRenting(garage: garage,
-                                                                       parking: parking,
-                                                                       createdNow: false)
-                        }
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.loadGarages()
-                }
-            }
-        }
 
         if !UserDefaults.tokenIsValid {
             UserDefaults.standard.logoutUser()
         }
+        
+        loadData()
     }
     
     func popupCurrentRentingGaragePin(_ garage: Garage) {
@@ -86,7 +68,7 @@ class MapViewController: UIViewController {
     }
     
     func isUserParking(_ completion: @escaping (Parking?) -> Void) {
-        if UserDefaults.userIsLogged {
+        if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
             provider.request(.getCurrent(Parking.self)) { result in
                 switch result {
                 case .success(let response):
@@ -266,5 +248,38 @@ extension MapViewController: MKMapViewDelegate {
             return
         }
         toolboxView.trackerButton.mode = mode
+    }
+}
+
+extension MapViewController: ParkingStatusDelegate {
+    func loadData(fromLogin: Bool = false) {
+        isUserParking { result in
+            if let parking = result {
+                self.isUserParking = true
+                self.requestCurrentParkingGarage(id: parking.garageId) { result in
+                    if let garage = result {
+                        DispatchQueue.main.async {
+                            self.popupCurrentRentingGaragePin(garage)
+                            self.floatingViewController.startedRenting(garage: garage,
+                                                                       parking: parking,
+                                                                       createdNow: false)
+                        }
+                    }
+                }
+            } else {
+                if !fromLogin {
+                    DispatchQueue.main.async {
+                        self.loadGarages()
+                    }
+                }
+            }
+        }
+    }
+    
+    func dismissRenting() {
+        let floatingChildrenFiltered = floatingViewController.children.filter { $0.isKind(of: GarageRentingViewController.self) }
+        let rentingController = floatingChildrenFiltered.first as? AbstractGarageViewController
+        rentingController?.dismissFromParent()
+        floatingViewController.stoppedRenting()
     }
 }
