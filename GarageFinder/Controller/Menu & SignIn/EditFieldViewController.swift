@@ -46,7 +46,6 @@ class EditFieldViewController: UIViewController {
     
     func submit() {
 
-        //let isRight = validator.validate(elements: content[.email], withStrategy: EmailValidationStrategy.self)
         var strategies: [ValidationStrategy] = []
         
         var user = User(id: userId)

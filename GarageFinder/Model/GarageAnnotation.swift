@@ -48,6 +48,7 @@ extension GarageAnnotation: MKAnnotation {
         guard let latitude = garage.address?.coordinate.latitude, let longitude = garage.address?.coordinate.longitude else {
             return nil
         }
-        self.init(id: garage.id, parkingSpaces: garage.parkingSpaces, busySpace: garage.busySpace, price: garage.price, lat: "\(latitude)", long: "\(longitude)")
+        self.init(id: garage.id, parkingSpaces: garage.parkingSpaces, busySpace: garage.busySpace,
+                  price: garage.price, lat: "\(latitude)", long: "\(longitude)")
     }
 }

@@ -101,6 +101,10 @@ class SignUpView: UIView {
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
+    func setKeyScroller(enabled: Bool) {
+        keyScroller = enabled ? KeyScroller(withScrollView: scrollView) : nil
+    }
+    
     @objc func photoButtonTapped() {
         photoButtonAction?()
     }
