@@ -9,7 +9,7 @@
 import UIKit
 
 class ThirdPageIntroView: UIView {
-    
+    var action: (() -> Void)?
     lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
@@ -50,13 +50,19 @@ class ThirdPageIntroView: UIView {
         addSubviews([contentView, finishButton])
         contentView.addSubviews([infoLabel, greetingsLabel])
         setupConstraints()
+        
+        finishButton.addTarget(self, action: #selector(startAction), for: .touchUpInside)
+    }
+    
+    @objc func startAction() {
+        action?()
     }
     
     func setupConstraints() {
         contentView.anchor
             .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
             .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
-            .centerY(safeAreaLayoutGuide.centerYAnchor)
+            .centerY(safeAreaLayoutGuide.centerYAnchor, padding: -50)
             .height(heightAnchor, multiplier: 0.6)
         
         finishButton.anchor
@@ -67,7 +73,7 @@ class ThirdPageIntroView: UIView {
         infoLabel.anchor
             .left(contentView.leftAnchor, padding: 16)
             .right(contentView.rightAnchor, padding: 16)
-            .centerY(contentView.centerYAnchor)
+            .centerY(contentView.centerYAnchor, padding: -40)
         
         greetingsLabel.anchor
             .left(contentView.leftAnchor, padding: 16)

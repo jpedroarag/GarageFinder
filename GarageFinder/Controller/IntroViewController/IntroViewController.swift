@@ -30,13 +30,22 @@ class IntroViewController: UIPageViewController {
                 animated: true,
                 completion: nil)
         }
+        
+        if let thirdView = (orderedViewControllers.last as? PagesIntroViewController)?.pageView as? ThirdPageIntroView {
+            thirdView.action = startUsingApp
+        }
+    }
+    
+    func startUsingApp() {
+        dismiss(animated: true, completion: nil)
     }
     
     func setPageControl() {
         pageControl.numberOfPages = 3
         view.addSubview(pageControl)
+        
         pageControl.anchor
-            .bottom(view.bottomAnchor)
+            .bottom(view.bottomAnchor, padding: UIScreen.main.bounds.height / 6.5)
             .centerX(view.centerXAnchor)
             .width(constant: 100)
             .height(constant: 100)

@@ -10,31 +10,25 @@ import UIKit
 import GarageFinderFramework
 
 class MainIntroView: UIView {
-    lazy var scrollView = UIScrollView()
-    lazy var firstPage = FirstPageIntroView()
-    lazy var secondPage = SecondPageIntroView()
-    
+    lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        contentView.shadowed()
+        contentView.layer.cornerRadius = 5
+        return contentView
+    }()
+
     override func didMoveToSuperview() {
-        backgroundColor = .blue
-        addSubview(scrollView)
-        scrollView.addSubviews([firstPage, secondPage])
+        backgroundColor = .init(rgb: 0x019231, alpha: 100)
+        addSubview(contentView)
         setupConstraints()
     }
     
     func setupConstraints() {
-        scrollView.anchor.attatch(to: safeAreaLayoutGuide)
-        
-        firstPage.anchor
-            .top(scrollView.topAnchor)
-            .left(scrollView.leftAnchor)
-            .bottom(scrollView.bottomAnchor)
-            .width(constant: UIScreen.main.bounds.width - 100)
-            .height(constant: UIScreen.main.bounds.height)
-        
-        secondPage.anchor
-            .top(scrollView.topAnchor)
-            .left(firstPage.rightAnchor)
-            .bottom(scrollView.bottomAnchor)
-            .width(constant: UIScreen.main.bounds.width)
+        contentView.anchor
+            .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
+            .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
+            .centerY(safeAreaLayoutGuide.centerYAnchor)
+            .height(heightAnchor, multiplier: 0.6)
     }
 }

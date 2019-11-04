@@ -46,11 +46,11 @@ class SecondPageIntroView: UIView {
         contentView.anchor
             .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
             .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
-            .centerY(safeAreaLayoutGuide.centerYAnchor)
+            .centerY(safeAreaLayoutGuide.centerYAnchor, padding: -50)
             .height(heightAnchor, multiplier: 0.6)
         
         imageView.anchor
-            .centerY(contentView.centerYAnchor)
+            .centerY(contentView.centerYAnchor, padding: -40)
             .centerX(contentView.centerXAnchor)
             .height(contentView.heightAnchor, multiplier: 0.3)
             .width(imageView.heightAnchor, multiplier: 0.7)

@@ -82,12 +82,12 @@ class MapViewController: UIViewController {
     }
     
     func showIntro() {
-        //if !UserDefaults.isntFirstAccess {
+        if !UserDefaults.isntFirstAccess {
             UserDefaults.standard.set(true, forKey: "IsntFirstAccess")
             let introVC = IntroViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             introVC.modalPresentationStyle = .fullScreen
             present(introVC, animated: true, completion: nil)
-        //}
+        }
     }
     
     func popupCurrentRentingGaragePin(_ garage: Garage) {
