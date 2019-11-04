@@ -36,10 +36,19 @@ class GarageDetailsViewController: AbstractGarageViewController {
             isFavorite = true
         }
         let garageActionsView = GarageActionsView(likeButtonFilled: isFavorite)
-        garageActionsView.likeButton.action = { _ in self.favoriteGarage(self.presentedGarage) }
-        garageActionsView.rateButton.action = { _ in print("rate") }
-        garageActionsView.shareButton.action = { _ in print("share") }
-        garageActionsView.reportButton.action = { _ in print("report") }
+        garageActionsView.likeButton.action = { _ in
+            // TODO: Metrify here
+            self.favoriteGarage(self.presentedGarage)
+        }
+        garageActionsView.rateButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
+        garageActionsView.shareButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
+        garageActionsView.reportButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
         return garageActionsView
     }
     
@@ -92,25 +101,41 @@ class GarageDetailsViewController: AbstractGarageViewController {
         
         let alert = UIAlertController(title: "Estacionamento", message: "Você deseja confirmar o estacionamento neste local?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { _ in
+            // TODO: Metrify here
+        }))
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
-            if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
-                sender.action = nil
-                self.removeAdditionalSections(animated: true) {
-                    sender.setTitle("Concluir", for: .normal)
-                    self.startRenting()
-                }
-            } else {
-                let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
-                loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                loginAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { _ in
-                    NotificationCenter.default.post(name: .adjustsMenu, object: nil)
-                }))
-                self.present(loginAlert, animated: true, completion: nil)
-            }
+//            if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
+//                sender.action = nil
+//                self.removeAdditionalSections(animated: true) {
+//                    sender.setTitle("Concluir", for: .normal)
+//                    self.startRenting()
+//                }
+//            } else {
+//                let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
+//                loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//                loginAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { _ in
+//                    NotificationCenter.default.post(name: .adjustsMenu, object: nil)
+//                }))
+//                self.present(loginAlert, animated: true, completion: nil)
+//            }
+            
+            // TODO: Metrify here
+            let controller = UserTestFeedbackViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true, completion: nil)
         }))
                 
         present(alert, animated: true, completion: nil)
+    }
+    
+    func soonFeatureAlertController() {
+        let alert = UIAlertController(title: "Em breve", message: "Não disponível ainda", preferredStyle: .alert)
+        present(alert, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     private func removeLastSection() {

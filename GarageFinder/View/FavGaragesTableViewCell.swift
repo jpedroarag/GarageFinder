@@ -80,7 +80,14 @@ class FavGaragesTableViewCell: UITableViewCell {
         garageTitleLabel.text = favoriteGarage.name
         addressLabel.text = favoriteGarage.address
         garageOwnerImage.image = UIImage(named: "mockPerson")
-        ratingLabel.text = "\(favoriteGarage.average)"
+//        ratingLabel.text = "\(favoriteGarage.average)"
+        
+        let average = favoriteGarage.average.rounded(toPlaces: 2)
+        if average != 0 {
+            ratingLabel.text = "\(average)"
+            return
+        }
+        ratingLabel.text = "S/A"
     }
     override func layoutSubviews() {
         super.layoutSubviews()

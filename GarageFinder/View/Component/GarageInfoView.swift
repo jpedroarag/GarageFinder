@@ -28,7 +28,6 @@ class GarageInfoView: UIView {
         super.init(frame: frame)
         addSubview(component)
         addSubview(button)
-        button.addTarget(self, action: #selector(parkButtonTapped(_:)), for: .touchUpInside)
         setConstraints()
     }
     
@@ -89,16 +88,18 @@ class GarageInfoView: UIView {
         
     }
     
-    @objc private func parkButtonTapped(_ sender: GFButton) {
-        button.action?(sender)
-    }
-    
     func loadData(_ garage: Garage) {
         //component.leftImageView.image = garage.pictures.first ?? UIImage()
         component.titleLabel.text = garage.description
         component.subtitleLabel.text = garage.address?.description
-//        component.ratingLabel.text = "\(garage.average.rounded(toPlaces: 2))"
-        component.ratingLabel.text = "4.6"
+        if let average = garage.average?.rounded(toPlaces: 2) {
+            if average != 0 {
+                component.ratingLabel.text = "\(average)"
+                return
+            }
+        }
+        component.ratingLabel.text = "S/A"
+//        component.ratingLabel.text = "4.6"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
