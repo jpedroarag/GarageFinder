@@ -77,6 +77,19 @@ class MapViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        showIntro()
+    }
+    
+    func showIntro() {
+        //if !UserDefaults.isntFirstAccess {
+            UserDefaults.standard.set(true, forKey: "IsntFirstAccess")
+            let introVC = IntroViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            introVC.modalPresentationStyle = .fullScreen
+            present(introVC, animated: true, completion: nil)
+        //}
+    }
+    
     func popupCurrentRentingGaragePin(_ garage: Garage) {
         if let annotation = GarageAnnotation(fromGarage: garage) {
             self.mapView.removeAnnotations(mapView.pins)
