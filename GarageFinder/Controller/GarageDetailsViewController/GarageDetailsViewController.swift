@@ -105,25 +105,25 @@ class GarageDetailsViewController: AbstractGarageViewController {
             // TODO: Metrify here
         }))
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
-//            if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
-//                sender.action = nil
-//                self.removeAdditionalSections(animated: true) {
-//                    sender.setTitle("Concluir", for: .normal)
-//                    self.startRenting()
-//                }
-//            } else {
-//                let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
-//                loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//                loginAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { _ in
-//                    NotificationCenter.default.post(name: .adjustsMenu, object: nil)
-//                }))
-//                self.present(loginAlert, animated: true, completion: nil)
-//            }
-            
             // TODO: Metrify here
-            let controller = UserTestFeedbackViewController()
-            controller.modalPresentationStyle = .fullScreen
-            self.present(controller, animated: true, completion: nil)
+            if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
+                let controller = UserTestFeedbackViewController()
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: true, completion: nil)
+                
+                sender.action = nil
+                self.removeAdditionalSections(animated: true) {
+                    sender.setTitle("Concluir", for: .normal)
+                    self.startRenting()
+                }
+            } else {
+                let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
+                loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                loginAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { _ in
+                    NotificationCenter.default.post(name: .adjustsMenu, object: nil)
+                }))
+                self.present(loginAlert, animated: true, completion: nil)
+            }
         }))
                 
         present(alert, animated: true, completion: nil)
