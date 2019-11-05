@@ -99,7 +99,6 @@ class GarageInfoView: UIView {
             }
         }
         component.ratingLabel.text = "S/A"
-//        component.ratingLabel.text = "4.6"
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

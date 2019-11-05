@@ -19,14 +19,6 @@ class UserTestFeedbackView: UIView {
                     Agradecemos o seu interesse pelo nosso app e muito em breve você poderá encontrar garagens por aqui para estacionar normalmente.
                     Atenciosamente, Equipe Finder! ;)
                     """
-//        let textLines = ["Opa, tudo bem?",
-//                        "Agradecemos o seu interesse pelo nosso app, porém, estamos com problemas e esta versão ainda não está funcionando.",
-//                        "Contudo, muito em breve você poderá encontrar garagens por aqui para estacionar normalmente.",
-//                        "Atenciosamente, Equipe Finder! ;)"]
-//        textLines.forEach { line in
-//            label.text = "\(label.text ?? "")\(line) "
-//        }
-//        label.textAlignment = .center
         return label
     }()
     
