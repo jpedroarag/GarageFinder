@@ -9,6 +9,10 @@
 import Foundation
 
 extension UserDefaults {
+    static var isntFirstAccess: Bool {
+        return UserDefaults.standard.bool(forKey: "IsntFirstAccess")
+    }
+    
     static var loggedUserId: Int {
         return UserDefaults.standard.integer(forKey: "LoggedUserId")
     }
