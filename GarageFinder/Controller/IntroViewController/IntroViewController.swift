@@ -10,6 +10,13 @@ import UIKit
 
 class IntroViewController: UIPageViewController {
     
+    lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Próximo", for: .normal)
+        return button
+    }()
+    
     let pageControl = UIPageControl()
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
@@ -34,6 +41,20 @@ class IntroViewController: UIPageViewController {
         if let thirdView = (orderedViewControllers.last as? PagesIntroViewController)?.pageView as? ThirdPageIntroView {
             thirdView.action = startUsingApp
         }
+        
+        nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+    }
+    
+    @objc func nextAction() {
+        pageControl.currentPage += 1
+        setViewControllers([orderedViewControllers[pageControl.currentPage]],
+        direction: .forward,
+        animated: true,
+        completion: nil)
+        
+        if pageControl.currentPage == 2 {
+            nextButton.alpha = 0
+        }
     }
     
     func startUsingApp() {
@@ -42,13 +63,17 @@ class IntroViewController: UIPageViewController {
     
     func setPageControl() {
         pageControl.numberOfPages = 3
-        view.addSubview(pageControl)
+        view.addSubviews([pageControl, nextButton])
         
         pageControl.anchor
             .bottom(view.bottomAnchor, padding: UIScreen.main.bounds.height / 6.5)
             .centerX(view.centerXAnchor)
             .width(constant: 100)
             .height(constant: 100)
+        
+        nextButton.anchor
+            .top(pageControl.bottomAnchor, padding: 16)
+            .right(view.rightAnchor, padding: 16)
     }
 }
 
@@ -105,10 +130,23 @@ extension IntroViewController: UIPageViewControllerDataSource {
 }
 
 extension IntroViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        if let firstViewController = pendingViewControllers.first,
+            let index = orderedViewControllers.firstIndex(of: firstViewController) {
+            if index == 2 {
+                nextButton.alpha = 0
+            }
+            
+        }
+    }
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let firstViewController = viewControllers?.first,
             let index = orderedViewControllers.firstIndex(of: firstViewController) {
+                if index != 2 {
+                    nextButton.alpha = 1
+                }
                 pageControl.currentPage = index
         }
     }

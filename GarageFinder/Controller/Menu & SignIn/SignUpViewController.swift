@@ -16,9 +16,13 @@ class SignUpViewController: UIViewController {
     var savedImage: UIImage?
     var validator: FieldValidator!
     var user: User?
+    
+    weak var parkingStatusDelegate: ParkingStatusDelegate!
     weak var finishSignUpDelegate: FinishSignUpDelegate?
     weak var updateUserPhotoDelegate: UpdateUserPhotoDelegate?
+    
     let provider = URLSessionProvider()
+    
     init(isEditingProfile: Bool = false) {
         self.isEditingProfile = isEditingProfile
         self.signUpView = SignUpView(isEditingProfile: isEditingProfile)
@@ -87,6 +91,9 @@ class SignUpViewController: UIViewController {
                     if response.result != nil {
                         print("USER SAVED")
                         DispatchQueue.main.async {
+                            if !self.isEditingProfile {
+                                self.parkingStatusDelegate.loadData(fromLogin: true)
+                            }
                             self.finishSignUpDelegate?.didFinishSignUp()
                             self.dismiss(animated: true, completion: nil)
                         }

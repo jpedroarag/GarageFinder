@@ -34,8 +34,8 @@ class GarageAnnotation: NSObject, CustomCodable {
 }
 
 extension GarageAnnotation: MKAnnotation {
-    public var title: String? {
-        return NumberFormatter.getPriceString(value: price)
+    var title: String? {
+        return "\(NumberFormatter.getPriceString(value: price))/hora"
     }
 
     var coordinate: CLLocationCoordinate2D {
@@ -48,7 +48,11 @@ extension GarageAnnotation: MKAnnotation {
         guard let latitude = garage.address?.coordinate.latitude, let longitude = garage.address?.coordinate.longitude else {
             return nil
         }
-        self.init(id: garage.id, parkingSpaces: garage.parkingSpaces, busySpace: garage.busySpace,
-                  price: garage.price, lat: "\(latitude)", long: "\(longitude)")
+        self.init(id: garage.id,
+                  parkingSpaces: garage.parkingSpaces,
+                  busySpace: garage.busySpace,
+                  price: garage.price,
+                  lat: "\(latitude)",
+                  long: "\(longitude)")
     }
 }

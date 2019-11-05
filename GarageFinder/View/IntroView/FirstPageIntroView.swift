@@ -32,7 +32,6 @@ class FirstPageIntroView: UIView {
         label.text = "Encontre garagens em qualquer local"
         return label
     }()
-    
     override func didMoveToSuperview() {
         backgroundColor = .init(rgb: 0x019231, alpha: 100)
         addSubview(contentView)

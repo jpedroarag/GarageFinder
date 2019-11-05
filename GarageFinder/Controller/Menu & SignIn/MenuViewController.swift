@@ -12,6 +12,9 @@ import GarageFinderFramework
 class MenuViewController: UIViewController {
     let menuView = MenuView()
     let titleMenuView = TitleMenuView()
+    
+    weak var parkingStatusDelegate: ParkingStatusDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         menuView.tableView.delegate = self
@@ -67,6 +70,9 @@ class MenuViewController: UIViewController {
     }
     
     func logoutAccount() {
+        if parkingStatusDelegate.isUserParking {
+            parkingStatusDelegate.dismissRenting()
+        }
         UserDefaults.standard.logoutUser()
         dismiss(animated: true, completion: nil)
     }
