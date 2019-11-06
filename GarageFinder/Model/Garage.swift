@@ -50,14 +50,35 @@ public struct Garage: CustomCodable {
     func loadPhotos() -> [UIImage] {
         var images: [UIImage] = []
         if let p1 = photo1 {
-            images.append(p1.base64Convert())
+            if let image = p1.base64Convert() {
+                images.append(image)
+            }
         }
         if let p2 = photo2 {
-            images.append(p2.base64Convert())
+            if let image = p2.base64Convert() {
+                images.append(image)
+            }
         }
         if let p3 = photo3 {
-            images.append(p3.base64Convert())
+            if let image = p3.base64Convert() {
+                images.append(image)
+            }
         }
         return images
+    }
+    
+    func loadUserImage(_ completion: ((UIImage?) -> Void)? = nil) {
+        URLSessionProvider().request(.get(User.self, id: userId)) { result in
+            switch result {
+            case .success(let response):
+                if let image = response.result?.avatar?.base64Convert() {
+                    completion?(image)
+                    return
+                }
+            case .failure(let error):
+                print("Error requesting garage owner image: \(error)")
+            }
+            completion?(UIImage(named: "profile"))
+        }
     }
 }

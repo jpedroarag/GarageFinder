@@ -12,26 +12,22 @@ class GarageActionsView: UIView {
 
     lazy var likeButton: CircularButton = {
         let icon = UIImage(named: "HeartIconUnfilled")
-        let width = 0.128 * UIScreen.main.bounds.width
-        return CircularButton(icon: icon, size: width)
+        return CircularButton(icon: icon, size: 48)
     }()
     
     lazy var rateButton: CircularButton = {
         let icon = UIImage(named: "rate")
-        let width = 0.128 * UIScreen.main.bounds.width
-        return CircularButton(icon: icon, size: width)
+        return CircularButton(icon: icon, size: 48)
     }()
     
     lazy var shareButton: CircularButton = {
         let icon = UIImage(named: "share")
-        let width = 0.128 * UIScreen.main.bounds.width
-        return CircularButton(icon: icon, size: width)
+        return CircularButton(icon: icon, size: 48)
     }()
     
     lazy var reportButton: CircularButton = {
         let icon = UIImage(named: "report")
-        let width = 0.128 * UIScreen.main.bounds.width
-        return CircularButton(icon: icon, size: width)
+        return CircularButton(icon: icon, size: 48)
     }()
     
     override init(frame: CGRect) {
@@ -72,22 +68,22 @@ class GarageActionsView: UIView {
             .top(topAnchor)
             .left(leftAnchor, padding: 32)
             .width(constant: buttonsWidth)
-            .height(likeButton.widthAnchor)
+            .height(constant: 48)
         rateButton.anchor
             .top(topAnchor)
             .left(likeButton.rightAnchor, padding: emptySpace/3)
             .width(constant: buttonsWidth)
-            .height(rateButton.widthAnchor)
+            .height(likeButton.heightAnchor)
         shareButton.anchor
             .top(topAnchor)
             .right(reportButton.leftAnchor, padding: emptySpace/3)
             .width(constant: buttonsWidth)
-            .height(shareButton.widthAnchor)
+            .height(likeButton.heightAnchor)
         reportButton.anchor
             .top(topAnchor)
             .right(rightAnchor, padding: 32)
             .width(constant: buttonsWidth)
-            .height(reportButton.widthAnchor)
+            .height(likeButton.heightAnchor)
     }
     
     private func switchLikeIcon() {

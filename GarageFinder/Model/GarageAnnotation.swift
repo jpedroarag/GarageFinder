@@ -35,7 +35,7 @@ class GarageAnnotation: NSObject, CustomCodable {
 
 extension GarageAnnotation: MKAnnotation {
     var title: String? {
-        return "\(NumberFormatter.getPriceString(value: price))/hora"
+        return "\(NumberFormatter.getPriceString(value: price))/h"
     }
 
     var coordinate: CLLocationCoordinate2D {

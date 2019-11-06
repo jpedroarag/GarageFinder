@@ -10,17 +10,17 @@ import GarageFinderFramework
 
 public class Comment: Codable {
     public var commentId: Int!
-    public var clientUser: User!
-    public var hostUser: User!
+    public var clientUserId: Int!
+    public var hostUserId: Int!
     public var garage: Garage!
     public var title: String!
     public var message: String!
     public var rating: Float!
 
-    public init(id: Int? = nil, fromUser: User? = nil, toUser: User? = nil, garage: Garage? = nil, title: String?, message: String?, rating: Float?) {
+    public init(id: Int? = nil, fromUserId: Int? = nil, toUserId: Int? = nil, garage: Garage? = nil, title: String?, message: String?, rating: Float?) {
         self.commentId = id
-        self.clientUser = fromUser
-        self.hostUser = toUser
+        self.clientUserId = fromUserId
+        self.hostUserId = toUserId
         self.garage = garage
         self.title = title
         self.message = message

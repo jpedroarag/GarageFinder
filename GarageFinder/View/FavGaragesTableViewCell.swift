@@ -12,7 +12,7 @@ class FavGaragesTableViewCell: UITableViewCell {
 
     lazy var boxView = UIView()
     
-    lazy var component = GFTableViewComponent(type: .rating)
+//    lazy var component = GFTableViewComponent(type: .rating)
     
     lazy var garageOwnerImage: CircleImageView = {
         let image = CircleImageView()

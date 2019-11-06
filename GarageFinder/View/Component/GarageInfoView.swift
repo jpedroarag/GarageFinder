@@ -41,7 +41,7 @@ class GarageInfoView: UIView {
             .top(topAnchor)
             .left(leftAnchor, padding: 20)
             .right(rightAnchor, padding: 20)
-            .height(constant: 21+4+16)
+            .height(constant: 75)
         
         button.anchor
             .top(component.bottomAnchor, padding: 24, priority: 250)
@@ -99,6 +99,13 @@ class GarageInfoView: UIView {
             }
         }
         component.ratingLabel.text = "S/A"
+    }
+    
+    func loadImage(_ image: UIImage?) {
+        if image == UIImage(named: "profile") {
+            component.leftImageView.contentMode = .scaleAspectFit
+        }
+        component.leftImageView.image = image
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

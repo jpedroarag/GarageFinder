@@ -34,12 +34,12 @@ class GarageGalleryDataSourceDelegate: NSObject, UICollectionViewDataSource, UIC
         }
         
         let maxWidth = UIScreen.main.bounds.width * 3/4
-        let height = UIScreen.main.bounds.height * 0.2
+        let height = collectionView.bounds.height - 10
         let minWidth = height
         
         if CGFloat(width) > maxWidth {
             return CGSize(width: maxWidth, height: height)
-        } else if CGFloat(width) > minWidth {
+        } else if CGFloat(width) < minWidth {
             return CGSize(width: minWidth, height: height)
         } else {
             return CGSize(width: CGFloat(width), height: height)

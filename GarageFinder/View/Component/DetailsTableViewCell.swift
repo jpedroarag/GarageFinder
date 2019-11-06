@@ -34,7 +34,7 @@ class DetailsTableViewCell: UITableViewCell {
             .right(rightAnchor, padding: 20)
     }
     
-    func addContentView(_ view: UIView) {
+    func addContentView(_ view: UIView, heightAnchor: NSLayoutDimension) {
         content = view
         addSubview(view)
         
@@ -65,6 +65,7 @@ class DetailsTableViewCell: UITableViewCell {
             .top(anchor, padding: topPadding)
             .left(leftAnchor)
             .right(rightAnchor)
+//            .height(heightAnchor)
             .bottom(bottomAnchor, padding: bottomPadding)
     }
     
