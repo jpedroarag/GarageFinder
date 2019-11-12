@@ -41,7 +41,7 @@ public final class URLSessionProvider {
                 return completion(.failure(NetworkError.noJSONData))
             }
             guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-//            print("DATA: ", dataString)
+            print("DATA: ", dataString)
             switch httpResponse.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()

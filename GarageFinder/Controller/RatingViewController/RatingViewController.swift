@@ -32,6 +32,23 @@ class RatingViewController: AbstractGarageViewController {
     func ratingAction (_ button: GFButton) {
         ratingView.commentTextView.endEditing(true)
         print("Rating: \(ratingView.ratingValue), Comment: \(ratingView.comment ?? "")")
+        if UserDefaults.tokenIsValid {
+            let comment = Comment(fromUserId: UserDefaults.loggedUserId,
+                                  toUserId: currentGarage.userId,
+                                  garageId: currentGarage.id,
+                                  message: ratingView.comment,
+                                  rating: Float(ratingView.ratingValue))
+            URLSessionProvider().request(.post(comment)) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    print("Error posting comment: \(error)")
+                }
+            }
+        } else {
+            print("Invalid token")
+        }
         dismissFromParent()
     }
     

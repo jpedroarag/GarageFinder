@@ -43,6 +43,7 @@ public enum NetworkService<T: CustomCodable>: Service {
             }            
         case .post(let item), .update(let item):
             if let object = item as? Parking, let parkingId = object.id {
+                print("\(type(of: item).path)\(parkingId)")
                 return "\(type(of: item).path)\(parkingId)"
             } else if let object = item as? User, let userId = object.id {
                 return "\(type(of: item).path)\(userId)"
@@ -89,7 +90,7 @@ public enum NetworkService<T: CustomCodable>: Service {
             }
         case .post(let item):
             switch item {
-            case is Vehicle, is Parking:
+            case is Vehicle, is Parking, is Comment:
                 return ["Content-type": "application/json", "Authorization": UserDefaults.token]
             default:
                 return ["Content-type": "application/json"]

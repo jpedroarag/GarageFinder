@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PassKit
 import GarageFinderFramework
 
 class GarageRentingViewController: AbstractGarageViewController {
@@ -89,6 +90,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isParking = false
             self.parkingObject.conclude()
             self.update()
+            print("PATCH: ")
             self.uploadParking(withMethod: .update(self.parkingObject))
         }))
                 
@@ -191,5 +193,14 @@ extension GarageRentingViewController {
             return (height + insets) * 4.0 + 48.0
         default: return .zero
         }
+    }
+}
+
+extension GarageRentingViewController: PKPaymentAuthorizationControllerDelegate {
+    func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
+        
+    }
+    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        
     }
 }

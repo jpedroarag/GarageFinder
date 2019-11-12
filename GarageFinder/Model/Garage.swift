@@ -20,7 +20,7 @@ public struct Garage: CustomCodable {
     public var price: Double
     public var userId: Int?
     public var address: Address?
-    public var comments: [Comment]?
+    public var comments: [Comment]
     var photo1: String?
     var photo2: String?
     var photo3: String?
@@ -34,7 +34,7 @@ public struct Garage: CustomCodable {
                 average: Float? = 0.0,
                 userId: Int? = nil,
                 address: Address? = nil,
-                comments: [Comment]? = nil,
+                comments: [Comment] = [],
                 pictures: [UIImage]? = []) {
         self.id = id
         self.description = description

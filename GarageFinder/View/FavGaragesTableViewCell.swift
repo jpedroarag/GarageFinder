@@ -79,7 +79,7 @@ class FavGaragesTableViewCell: UITableViewCell {
         self.favoriteGarage = favoriteGarage
         garageTitleLabel.text = favoriteGarage.name
         addressLabel.text = favoriteGarage.address
-        garageOwnerImage.image = UIImage(named: "mockPerson")
+        garageOwnerImage.image = UIImage(named: "profile")
 //        ratingLabel.text = "\(favoriteGarage.average)"
         
         let average = favoriteGarage.average.rounded(toPlaces: 2)

@@ -62,7 +62,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-        var comments = [Comment]()
+//        var comments = [Comment]()
 //        (0...5).forEach { index in
 //            comments.append(Comment(id: index,
 //                                    fromUserId: UserDefaults.loggedUserId,
@@ -72,7 +72,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
 //                                    message: "Awesome host",
 //                                    rating: 4.5))
 //        }
-        controller.loadRatings(comments)
+        controller.loadRatings(presentedGarage.comments)
         return controller
     }()
     
@@ -178,7 +178,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: Parking(), createdNow: true)
+                let parking = Parking(garageOwnerId: self.presentedGarage.userId, driverId: UserDefaults.loggedUserId, garageId: self.presentedGarage.id)
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: parking, createdNow: true)
             })
         }
         self.garageInfoView.component.isCollapsed = true

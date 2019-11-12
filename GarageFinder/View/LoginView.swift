@@ -107,6 +107,7 @@ class LoginView: UIView {
             .top(passwordTextField.bottomAnchor, padding: 32)
             .left(scrollView.leftAnchor, padding: 16)
             .right(scrollView.rightAnchor, padding: 16)
+            .height(widthAnchor, multiplier: 0.16)
         signUpButton.anchor
             .top(submitButton.bottomAnchor, padding: 16)
             .left(scrollView.leftAnchor, padding: 16)

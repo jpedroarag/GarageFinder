@@ -260,6 +260,7 @@ extension MapViewController: MKMapViewDelegate {
         @unknown default:
             return
         }
+        print("MODE: \(mode.rawValue)")
         toolboxView.trackerButton.mode = mode
     }
 }
