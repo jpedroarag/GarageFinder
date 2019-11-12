@@ -47,7 +47,7 @@ class GarageInfoView: UIView {
             .top(component.bottomAnchor, padding: 24, priority: 250)
             .left(leftAnchor, padding: 16)
             .right(rightAnchor, padding: 16)
-            .height(button.widthAnchor, multiplier: 0.16)
+            .height(constant: 60)
             .bottom(bottomAnchor, priority: 250)
     }
     

@@ -58,12 +58,15 @@ public struct Parking: CustomCodable {
     }
     
     public mutating func update() {
-        updatePermanenceDuration()
-        updatePrice()
+//        updatePermanenceDuration()
+//        updatePrice()
+        permanenceDuration = 48
+        price = 16.0
     }
     
     public mutating func conclude() {
-        end = Date()
+//        end = Date()
+        end = Date(timeIntervalSinceNow: 48 * 60)
         update()
     }
     

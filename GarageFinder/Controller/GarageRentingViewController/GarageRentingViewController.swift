@@ -185,7 +185,11 @@ extension GarageRentingViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 192 + 64
+            if UIScreen.main.bounds.width < 500 {
+                return 192 + 64
+            } else {
+                return 192 + 164
+            }
         case 1:
             let font: UIFont = .systemFont(ofSize: 16, weight: .regular)
             let height: CGFloat = "Value".heightOfString(usingFont: font)
