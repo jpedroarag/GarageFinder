@@ -47,6 +47,7 @@ extension GarageRatingListViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withIdentifier: "noRatings", for: indexPath)
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = "Não há avaliações disponíveis para esta garagem ainda"
+            cell.selectionStyle = .none
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell", for: indexPath) as? RatingTableViewCell else {
@@ -58,7 +59,7 @@ extension GarageRatingListViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return ratings.isEmpty ? UITableView.automaticDimension : 64 + 4
+        return ratings.isEmpty ? UITableView.automaticDimension : 64 + 8
     }
     
 }

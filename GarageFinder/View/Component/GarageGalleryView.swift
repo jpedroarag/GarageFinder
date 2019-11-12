@@ -62,7 +62,7 @@ class GarageGalleryView: UIView {
         .top(topAnchor)
         .left(leftAnchor, padding: 16)
         .right(rightAnchor, padding: -5)
-        .bottom(bottomAnchor)
+        .height(constant: 192)
     }
     
     private func setLayer() {

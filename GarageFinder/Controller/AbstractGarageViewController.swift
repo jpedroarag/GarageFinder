@@ -21,7 +21,7 @@ class AbstractGarageViewController: UIViewController {
     
     let tableView: UITableView = {
         let table = UITableView()
-        table.estimatedRowHeight = 500
+        table.estimatedRowHeight = UITableView.automaticDimension
         table.rowHeight = UITableView.automaticDimension
         table.backgroundColor = .white
         table.separatorStyle = .none
@@ -39,6 +39,7 @@ class AbstractGarageViewController: UIViewController {
     var shouldAppearAnimated = false
     var sectionSeparatorsStartAppearIndex = 0
     weak var selectGarageDelegate: SelectGarageDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -142,7 +143,7 @@ extension AbstractGarageViewController: UITableViewDataSource, UITableViewDelega
         
         if cell.content == nil {
             if let contentView = sectionContent(forIndexPath: indexPath) {
-                cell.addContentView(contentView)
+                cell.addContentView(contentView, heightAnchor: contentView.heightAnchor)
             }
         }
         

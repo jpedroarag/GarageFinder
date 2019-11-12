@@ -12,8 +12,8 @@ public struct Parking: CustomCodable {
     public static var path: String = "/api/v1/parkings/"
     
     public var id: Int?
-    public let garageOwnerId: Int
-    public let driverId: Int
+    public let garageOwnerId: Int?
+    public let driverId: Int?
     public let licensePlate: String
     public let vehicleId: Int
     public let garageId: Int
@@ -25,10 +25,10 @@ public struct Parking: CustomCodable {
     public var end: Date?
     
     public init(id: Int? = nil,
-                garageOwnerId: Int,
-                driverId: Int,
-                licensePlate: String,
-                vehicleId: Int,
+                garageOwnerId: Int?,
+                driverId: Int?,
+                licensePlate: String = "XXXX-000",
+                vehicleId: Int = 0,
                 garageId: Int,
                 pricePerHour: Float = 0) {
         self.id = id
@@ -42,10 +42,6 @@ public struct Parking: CustomCodable {
         self.permanenceDuration = nil
         self.start = Date()
         self.end = nil
-    }
-    
-    public init() {
-        self.init(garageOwnerId: 4, driverId: UserDefaults.loggedUserId, licensePlate: "OCB-2913", vehicleId: 1, garageId: 5)
     }
     
     mutating func updatePermanenceDuration() {

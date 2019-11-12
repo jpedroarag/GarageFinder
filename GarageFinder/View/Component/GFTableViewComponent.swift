@@ -30,10 +30,11 @@ class GFTableViewComponent: UIView {
         }
     }
     
-    lazy var leftImageView: UIImageView = {
-        let view = UIImageView()
+    lazy var leftImageView: CircleImageView = {
+        let view = CircleImageView()
         view.contentMode = .scaleAspectFill
-        view.clipsToBounds = true
+        view.backgroundColor = .white
+        view.shadowed()
         return view
     }()
     
@@ -124,7 +125,7 @@ class GFTableViewComponent: UIView {
         rightImageView.translatesAutoresizingMaskIntoConstraints = false
         
         leftImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        leftImageView.heightAnchor.constraint(equalTo: heightAnchor, constant: (type == .rating) ? -12 : 0).isActive = true
+        leftImageView.heightAnchor.constraint(equalToConstant: (type == .rating) ? 50 : 75).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: leftImageView.centerYAnchor).isActive = true
         subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
         subtitleLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor).isActive = true

@@ -76,7 +76,7 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
 //        }
         if favoriteGarages.count == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell?.textLabel?.text = "Você ainda Não possui garagens favoritas"
+            cell?.textLabel?.text = "Você ainda não possui garagens favoritas"
         } else if let favGaragesCell = tableView.dequeueReusableCell(withIdentifier: "FavGarages", for: indexPath) as? FavGaragesTableViewCell {
             favGaragesCell.loadData(favoriteGarages[indexPath.row])
             cell = favGaragesCell

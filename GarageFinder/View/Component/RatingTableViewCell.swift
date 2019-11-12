@@ -33,7 +33,8 @@ class RatingTableViewCell: UITableViewCell {
     }
     
     func loadData(_ comment: Comment) {
-        component.leftImageView.image = UIImage(named: "mockBadge")
+        component.leftImageView.contentMode = .scaleAspectFit
+        component.leftImageView.image = UIImage(named: "profile")
         component.titleLabel.text = comment.title
         component.subtitleLabel.text = comment.message
         component.ratingLabel.text = "\(comment.rating.rounded(toPlaces: 2))"

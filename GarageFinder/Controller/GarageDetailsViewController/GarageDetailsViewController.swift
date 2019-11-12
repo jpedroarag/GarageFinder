@@ -23,6 +23,11 @@ class GarageDetailsViewController: AbstractGarageViewController {
         } else {
             let view = GarageInfoView(frame: .zero)
             view.loadData(presentedGarage)
+            presentedGarage.loadUserImage { image in
+                DispatchQueue.main.async {
+                    view.loadImage(image)
+                }
+            }
             view.button.action = parkButtonTapped(_:)
             mutableGarageInfoView = view
             return view
@@ -31,20 +36,25 @@ class GarageDetailsViewController: AbstractGarageViewController {
     
     var garageActionsView: GarageActionsView {
         let predicate = NSPredicate(format: "(objectId == %d)", presentedGarage.id)
-        var isFavorite = false
-        if CoreDataManager.shared.fetch(Favorite.self, predicate: predicate).first != nil {
-            isFavorite = true
-        }
+        let isFavorite = (CoreDataManager.shared.fetch(Favorite.self, predicate: predicate).first != nil)
         let garageActionsView = GarageActionsView(likeButtonFilled: isFavorite)
-        garageActionsView.likeButton.action = { _ in self.favoriteGarage(self.presentedGarage) }
-        garageActionsView.rateButton.action = { _ in print("rate") }
-        garageActionsView.shareButton.action = { _ in print("share") }
-        garageActionsView.reportButton.action = { _ in print("report") }
+        garageActionsView.likeButton.action = { _ in
+            // TODO: Metrify here
+            self.favoriteGarage(self.presentedGarage)
+        }
+        garageActionsView.rateButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
+        garageActionsView.shareButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
+        garageActionsView.reportButton.action = { _ in
+            self.soonFeatureAlertController()
+        }
         return garageActionsView
     }
     
     var garageGalleryView: GarageGalleryView {
-
         return GarageGalleryView(images: presentedGarage.loadPhotos())
     }
     
@@ -52,7 +62,17 @@ class GarageDetailsViewController: AbstractGarageViewController {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-        //controller.loadRatings(self.presentedGarage.comments ?? [])
+//        var comments = [Comment]()
+//        (0...5).forEach { index in
+//            comments.append(Comment(id: index,
+//                                    fromUserId: UserDefaults.loggedUserId,
+//                                    toUserId: presentedGarage.userId,
+//                                    garage: presentedGarage,
+//                                    title: "Good host",
+//                                    message: "Awesome host",
+//                                    rating: 4.5))
+//        }
+        controller.loadRatings(presentedGarage.comments)
         return controller
     }()
     
@@ -92,8 +112,11 @@ class GarageDetailsViewController: AbstractGarageViewController {
         
         let alert = UIAlertController(title: "Estacionamento", message: "Você deseja confirmar o estacionamento neste local?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { _ in
+            // TODO: Metrify here
+        }))
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
+            // TODO: Metrify here
             if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
                 sender.action = nil
                 self.removeAdditionalSections(animated: true) {
@@ -111,6 +134,15 @@ class GarageDetailsViewController: AbstractGarageViewController {
         }))
                 
         present(alert, animated: true, completion: nil)
+    }
+    
+    func soonFeatureAlertController() {
+        let alert = UIAlertController(title: "Em breve", message: "Não disponível ainda", preferredStyle: .alert)
+        present(alert, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     private func removeLastSection() {
@@ -146,7 +178,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: Parking(), createdNow: true)
+                let parking = Parking(garageOwnerId: self.presentedGarage.userId, driverId: UserDefaults.loggedUserId, garageId: self.presentedGarage.id)
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: parking, createdNow: true)
             })
         }
         self.garageInfoView.component.isCollapsed = true
@@ -168,46 +201,31 @@ extension GarageDetailsViewController {
         switch indexPath.section {
         case 0: return garageInfoView
         case 1: return garageActionsView
-        case 2: return garageGalleryView
+        case 2:
+            if garageGalleryView.photos.isEmpty {
+                return PaddedLabel(text: "Sem fotos disponíveis para esta garagem")
+            }
+            return garageGalleryView
         case 3: return ratingsView
         default: return nil
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let screenBounds = UIScreen.main.bounds
-        let headerLabelHeight: CGFloat = 17.0
         switch indexPath.section {
         case 0:
-            let titleLabelHeight: CGFloat = 21.5
-            let subtitleLabelHeight: CGFloat = 16.0
-            let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
-            var supplementaryViewSpace: CGFloat = 0
-            
-            if numberOfSections == 1 {
-                supplementaryViewSpace = 24.0 + 50.0
-            }
-
-            return 16.0 + titleLabelHeight
-                 +  4.0 + subtitleLabelHeight
-                 +  supplementaryViewSpace
-                 +  24.0 + buttonHeight
-                 +  16.0
+            return numberOfSections == 1 ? 192 + 64 : 192
         case 1:
-            let ratio: CGFloat = 0.128
-            let screenWidth: CGFloat = screenBounds.width
-            return 8.0 + ratio * screenWidth + 8.0
+            return 48 + 16
         case 2:
-            return 16.0 + headerLabelHeight
-                 +  4.0
-                 +  5.0
-                 + UIScreen.main.bounds.height * 0.2
-                 +  5.0
-                 +  16.0
+            if garageGalleryView.photos.isEmpty {
+                return 96
+            }
+            return 192 + 64
         default:
             let ratingsCount = ratingListController.ratings.isEmpty ? 1 :  ratingListController.ratings.count
-            let rowHeight: CGFloat = 64 + 4
-            let bottomInset: CGFloat = UIScreen.main.bounds.height * 187.5/667
+            let rowHeight: CGFloat = 64 + 8
+            let bottomInset: CGFloat = UIScreen.main.bounds.height * 0.3
             return (rowHeight * CGFloat(ratingsCount)) + bottomInset
         }
     }

@@ -12,7 +12,7 @@ class FavGaragesTableViewCell: UITableViewCell {
 
     lazy var boxView = UIView()
     
-    lazy var component = GFTableViewComponent(type: .rating)
+//    lazy var component = GFTableViewComponent(type: .rating)
     
     lazy var garageOwnerImage: CircleImageView = {
         let image = CircleImageView()
@@ -79,8 +79,15 @@ class FavGaragesTableViewCell: UITableViewCell {
         self.favoriteGarage = favoriteGarage
         garageTitleLabel.text = favoriteGarage.name
         addressLabel.text = favoriteGarage.address
-        garageOwnerImage.image = UIImage(named: "mockPerson")
-        ratingLabel.text = "\(favoriteGarage.average)"
+        garageOwnerImage.image = UIImage(named: "profile")
+//        ratingLabel.text = "\(favoriteGarage.average)"
+        
+        let average = favoriteGarage.average.rounded(toPlaces: 2)
+        if average != 0 {
+            ratingLabel.text = "\(average)"
+            return
+        }
+        ratingLabel.text = "S/A"
     }
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PassKit
 import GarageFinderFramework
 
 class GarageRentingViewController: AbstractGarageViewController {
@@ -89,6 +90,7 @@ class GarageRentingViewController: AbstractGarageViewController {
             self.isParking = false
             self.parkingObject.conclude()
             self.update()
+            print("PATCH: ")
             self.uploadParking(withMethod: .update(self.parkingObject))
         }))
                 
@@ -181,30 +183,24 @@ extension GarageRentingViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let screenBounds = UIScreen.main.bounds
         switch indexPath.section {
         case 0:
-            let titleLabelHeight: CGFloat = 21.5
-            let subtitleLabelHeight: CGFloat = 16.0
-            let buttonHeight: CGFloat = screenBounds.width * 0.92 * 0.16
-            let supplementaryViewSpace: CGFloat = 50.0
-            
-            return 16.0 + titleLabelHeight
-                +  4.0 + subtitleLabelHeight
-                +  24.0 + supplementaryViewSpace
-                +  24.0 + buttonHeight
-                +  16.0
+            return 192 + 64
         case 1:
-            let headerLabelHeight: CGFloat = 17.0
             let font: UIFont = .systemFont(ofSize: 16, weight: .regular)
             let height: CGFloat = "Value".heightOfString(usingFont: font)
             let insets: CGFloat = 16
-            return 16.0
-                +  headerLabelHeight
-                +  4.0
-                +  (height + insets) * 4.0
-                +  16.0
+            return (height + insets) * 4.0 + 48.0
         default: return .zero
         }
+    }
+}
+
+extension GarageRentingViewController: PKPaymentAuthorizationControllerDelegate {
+    func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
+        
+    }
+    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        
     }
 }
