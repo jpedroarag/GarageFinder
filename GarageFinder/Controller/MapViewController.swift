@@ -157,22 +157,22 @@ class MapViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
-    func openRouteInMaps(sourcePlaceName sourceName: String,
-                         sourcePlaceLocation sourceLocation: CLLocation,
-                         destinationPlaceName destinationName: String,
-                         destinationPlaceLocation destinationLocation: CLLocation) {
-        let srcCoord = CLLocationCoordinate2D(location: sourceLocation)
-        let srcPlacemark = MKPlacemark(coordinate: srcCoord)
-        let source = MKMapItem(placemark: srcPlacemark)
-        source.name = sourceName
-        
-        let destCoord = CLLocationCoordinate2D(location: destinationLocation)
-        let destPlacemark = MKPlacemark(coordinate: destCoord)
-        let destination = MKMapItem(placemark: destPlacemark)
-        destination.name = destinationName
-        
-        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-    }
+//    func openRouteInMaps(sourcePlaceName sourceName: String,
+//                         sourcePlaceLocation sourceLocation: CLLocation,
+//                         destinationPlaceName destinationName: String,
+//                         destinationPlaceLocation destinationLocation: CLLocation) {
+//        let srcCoord = CLLocationCoordinate2D(location: sourceLocation)
+//        let srcPlacemark = MKPlacemark(coordinate: srcCoord)
+//        let source = MKMapItem(placemark: srcPlacemark)
+//        source.name = sourceName
+//
+//        let destCoord = CLLocationCoordinate2D(location: destinationLocation)
+//        let destPlacemark = MKPlacemark(coordinate: destCoord)
+//        let destination = MKMapItem(placemark: destPlacemark)
+//        destination.name = destinationName
+//
+//        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+//    }
     
     @objc func finishSearch(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }

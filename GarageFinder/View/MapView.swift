@@ -61,32 +61,32 @@ class MapView: MKMapView {
         addAnnotations(filtered)
     }
     
-    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
-        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
-        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
-        
-        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        
-        let directionRequest = MKDirections.Request()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .automobile
-        
-        MKDirections(request: directionRequest).calculate { response, error in
-            guard let response = response else {
-                if let error = error { print("Error: \(error)") }
-                return
-            }
-            
-            if let route = response.routes.first {
-                if let overlay = self.shownRouteOverlay { self.removeOverlay(overlay) }
-                self.shownRouteOverlay = route.polyline
-                self.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
-                self.setRegion(MKCoordinateRegion(route.polyline.boundingMapRect), animated: true)
-            }
-        }
-    }
+//    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+//        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
+//        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
+//        
+//        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+//        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+//        
+//        let directionRequest = MKDirections.Request()
+//        directionRequest.source = sourceMapItem
+//        directionRequest.destination = destinationMapItem
+//        directionRequest.transportType = .automobile
+//        
+//        MKDirections(request: directionRequest).calculate { response, error in
+//            guard let response = response else {
+//                if let error = error { print("Error: \(error)") }
+//                return
+//            }
+//            
+//            if let route = response.routes.first {
+//                if let overlay = self.shownRouteOverlay { self.removeOverlay(overlay) }
+//                self.shownRouteOverlay = route.polyline
+//                self.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
+//                self.setRegion(MKCoordinateRegion(route.polyline.boundingMapRect), animated: true)
+//            }
+//        }
+//    }
     
     func rendererForRouteOverlay(_ overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
