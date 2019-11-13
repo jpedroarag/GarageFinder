@@ -31,8 +31,7 @@ class ThirdPageIntroView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = """
-                     Garage Finder está em teste, Isso significa que você poderá fazer seu cadastro e testar o app.
-                     O aluguel de garagens ficará disponível muito em breve :)
+                     Tudo pronto para você usar o Garage Finder :)
                      """
         return label
     }()
@@ -42,7 +41,7 @@ class ThirdPageIntroView: UIView {
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .right
         label.textColor = .customDarkGray
-        label.text = "Atenciosamente, Equipe Garage Finder."
+        label.text = ""
         return label
     }()
     override func didMoveToSuperview() {
@@ -69,6 +68,7 @@ class ThirdPageIntroView: UIView {
             .bottom(safeAreaLayoutGuide.bottomAnchor, padding: 32)
             .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
             .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
+            .height(constant: 60)
         
         infoLabel.anchor
             .left(contentView.leftAnchor, padding: 16)

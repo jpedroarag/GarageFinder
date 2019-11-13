@@ -31,9 +31,8 @@ class GarageRentingViewController: AbstractGarageViewController {
         if let view = mutableGarageInfoView {
             return view
         } else {
-            let view = GarageInfoView(collapsed: true)
+            let view = GarageInfoView(collapsed: true, buttonTitle: "Concluir")
             view.loadData(rentedGarage)
-            view.button.setTitle("Concluir", for: .normal)
             view.button.action = concludeAction(_:)
             view.addSupplementaryView(rentingCounterView, animated: false, nil)
             self.mutableGarageInfoView = view

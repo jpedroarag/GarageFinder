@@ -91,7 +91,7 @@ public struct Parking: CustomCodable {
     private func formattedDate(_ dateToFormat: Date?) -> String {
         guard let date = dateToFormat else { return "--:--" }
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm"
+        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
 }

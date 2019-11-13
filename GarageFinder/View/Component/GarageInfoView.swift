@@ -33,9 +33,10 @@ class GarageInfoView: UIView {
         setConstraints()
     }
     
-    convenience init(collapsed: Bool) {
+    convenience init(collapsed: Bool, buttonTitle: String? = nil) {
         self.init(frame: .zero)
         component.isCollapsed = collapsed
+        button.setTitle(buttonTitle, for: .normal)
     }
     
     private func setConstraints() {

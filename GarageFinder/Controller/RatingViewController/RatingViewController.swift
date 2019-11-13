@@ -19,8 +19,7 @@ class RatingViewController: AbstractGarageViewController {
         if let view = mutableGarageInfoView {
             return view
         } else {
-            let view = GarageInfoView(collapsed: true)
-            view.button.setTitle("Avaliar", for: .normal)
+            let view = GarageInfoView(collapsed: true, buttonTitle: "Avaliar")
             view.addSupplementaryView(ratingView, animated: true, nil)
             view.button.action = ratingAction(_:)
             view.loadData(currentGarage)

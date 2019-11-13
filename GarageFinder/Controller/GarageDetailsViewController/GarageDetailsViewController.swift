@@ -21,7 +21,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         if let view = mutableGarageInfoView {
             return view
         } else {
-            let view = GarageInfoView(frame: .zero)
+            let view = GarageInfoView(collapsed: false, buttonTitle: "Estacionar")
             view.loadData(presentedGarage)
             presentedGarage.loadUserImage { image in
                 DispatchQueue.main.async {
@@ -108,7 +108,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         }
     }
     
-    func parkButtonTapped(_ sender: GFButton) {
+    @objc func parkButtonTapped(_ sender: GFButton) {
         
         let alert = UIAlertController(title: "Estacionamento", message: "Você deseja confirmar o estacionamento neste local?", preferredStyle: .alert)
         
@@ -118,11 +118,16 @@ class GarageDetailsViewController: AbstractGarageViewController {
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
             // TODO: Metrify here
             if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
-                sender.action = nil
-                self.removeAdditionalSections(animated: true) {
-                    sender.setTitle("Concluir", for: .normal)
-                    self.startRenting()
+                let waitAlert = UIAlertController(title: "Garagem esperando", message: "Confirme quando você chegar na garagem", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default) { action in
+                    sender.action = nil
+                    self.removeAdditionalSections(animated: true) {
+                        sender.setTitle("Concluir", for: .normal)
+                        self.startRenting()
+                    }
                 }
+                waitAlert.addAction(action)
+                self.present(waitAlert, animated: true, completion: nil)
             } else {
                 let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
                 loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
