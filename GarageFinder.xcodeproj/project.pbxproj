@@ -109,6 +109,7 @@
 		6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C67062E2358AC7200651C4A /* GarageAnnotation.swift */; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
 		6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F0AC423574C05001159A9 /* UserAuth.swift */; };
+		6C81DF5A237C430300EA3373 /* PayMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81DF59237C430300EA3373 /* PayMethodView.swift */; };
 		6C8B9A022364F93500EA950C /* EditFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A012364F93500EA950C /* EditFieldView.swift */; };
 		6C8B9A042364FA5700EA950C /* EditFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A032364FA5700EA950C /* EditFieldViewController.swift */; };
 		6C8B9A0A2365CFFC00EA950C /* ImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8B9A062365CFFC00EA950C /* ImageResult.swift */; };
@@ -311,6 +312,7 @@
 		6C67062E2358AC7200651C4A /* GarageAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotation.swift; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
 		6C7F0AC423574C05001159A9 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
+		6C81DF59237C430300EA3373 /* PayMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMethodView.swift; sourceTree = "<group>"; };
 		6C8ACC5E2357479B00DFC585 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6C8B9A012364F93500EA950C /* EditFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldView.swift; sourceTree = "<group>"; };
 		6C8B9A032364FA5700EA950C /* EditFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldViewController.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 				6C24E17723461ED9007EE981 /* RatingView.swift */,
 				6CFFC7A123624E67005D8D2F /* LoadingView.swift */,
 				6CFFC7B3236489AA005D8D2F /* SignupHeader.swift */,
+				6C81DF59237C430300EA3373 /* PayMethodView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1109,6 +1112,7 @@
 				6C8B9A0D2365CFFC00EA950C /* ImagePickerSourceType.swift in Sources */,
 				3C55F216236C7E9200CBFDB9 /* FavoriteType.swift in Sources */,
 				3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
+				6C81DF5A237C430300EA3373 /* PayMethodView.swift in Sources */,
 				6C5899102333C92D000DA4C2 /* FloatingTableViewDataSource.swift in Sources */,
 				3C55F214236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift in Sources */,
 				6C371EEB23674B5500EF9BE7 /* GarageHistoryViewController.swift in Sources */,
