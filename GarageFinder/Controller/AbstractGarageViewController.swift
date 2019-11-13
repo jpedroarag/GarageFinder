@@ -143,7 +143,7 @@ extension AbstractGarageViewController: UITableViewDataSource, UITableViewDelega
         
         if cell.content == nil {
             if let contentView = sectionContent(forIndexPath: indexPath) {
-                cell.addContentView(contentView, heightAnchor: contentView.heightAnchor)
+                cell.addContentView(contentView)
             }
         }
         

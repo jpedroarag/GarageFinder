@@ -57,8 +57,6 @@ class GarageActionsView: UIView {
     }
     
     private func setConstraints() {
-//        let ratio: CGFloat = 0.128
-//        let screenWidth: CGFloat = UIScreen.main.bounds.width
         let buttonsWidth: CGFloat = 48
         let contentWidth = 4 * buttonsWidth
         let width = UIScreen.main.bounds.width - (64 + 16)
@@ -67,8 +65,8 @@ class GarageActionsView: UIView {
         likeButton.anchor
             .top(topAnchor)
             .left(leftAnchor, padding: 32)
-            .width(constant: 48)
-            .height(constant: 48)
+            .width(constant: buttonsWidth)
+            .height(constant: buttonsWidth)
         rateButton.anchor
             .top(topAnchor)
             .left(likeButton.rightAnchor, padding: emptySpace/3)

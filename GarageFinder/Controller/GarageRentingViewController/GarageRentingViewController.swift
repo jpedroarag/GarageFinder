@@ -181,30 +181,4 @@ extension GarageRentingViewController {
         default: return nil
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            if UIScreen.main.bounds.width < 500 {
-                return 192 + 64
-            } else {
-                return 192 + 164
-            }
-        case 1:
-            let font: UIFont = .systemFont(ofSize: 16, weight: .regular)
-            let height: CGFloat = "Value".heightOfString(usingFont: font)
-            let insets: CGFloat = 16
-            return (height + insets) * 4.0 + 48.0
-        default: return .zero
-        }
-    }
-}
-
-extension GarageRentingViewController: PKPaymentAuthorizationControllerDelegate {
-    func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
-        
-    }
-    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        
-    }
 }
