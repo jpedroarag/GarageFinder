@@ -24,6 +24,8 @@ class GarageInfoView: UIView {
     
     lazy var supplementaryView: UIView? = nil
 
+    lazy var paymentMethodView: UIView? = nil
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(component)
@@ -60,9 +62,21 @@ class GarageInfoView: UIView {
             .width(widthAnchor)
         
         button.anchor
-            .top(supplementary.bottomAnchor, padding: 24, priority: 750)
+            .top(supplementary.bottomAnchor, padding: 24, priority: 700)
     }
     
+    private func setConstraintsPaymentMethodView() {
+        
+        guard let paymentView = paymentMethodView, let supplementary = supplementaryView else { return }
+
+        paymentView.anchor
+            .top(supplementary.bottomAnchor, padding: 24)
+            .centerX(centerXAnchor)
+            .width(widthAnchor)
+            .height(constant: 50)
+        button.anchor
+            .top(paymentView.bottomAnchor, padding: 24, priority: 750)
+    }
     private func setFrameForSupplementaryView() {
         let position = CGPoint(x: component.frame.origin.x + 24, y: button.frame.origin.y)
         let size = CGSize(width: button.bounds.width - 2 * 24, height: .zero)
@@ -78,6 +92,26 @@ class GarageInfoView: UIView {
         if animated {
             UIView.animate(withDuration: 0.3, animations: {
                 self.layoutSubviews()
+            }, completion: { _ in
+                completion?()
+            })
+        } else {
+            layoutSubviews()
+            completion?()
+        }
+        
+    }
+    
+    func addPaymentMethodView(_ view: UIView, animated: Bool = true, _ completion: (() -> Void)? = nil) {
+        paymentMethodView?.removeFromSuperview()
+        paymentMethodView = view
+        view.alpha = 0
+        addSubview(view)
+        setConstraintsPaymentMethodView()
+        self.layoutSubviews()
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: {
+                view.alpha = 1
             }, completion: { _ in
                 completion?()
             })

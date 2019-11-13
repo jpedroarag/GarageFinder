@@ -72,7 +72,6 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func concludeAction(_ button: GFButton) {
-        
         let alert = UIAlertController(title: "Concluir", message: "Você deseja concluir o estacionamento?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
@@ -80,6 +79,8 @@ class GarageRentingViewController: AbstractGarageViewController {
             UIView.animate(withDuration: 0.175, animations: {
                 button.alpha = 0
             }, completion: { _ in
+                self.mutableGarageInfoView.addPaymentMethodView(PayMethodView())
+                self.tableView.reloadSections([0, 1], with: .fade)
                 button.setTitle("Pagar", for: .normal)
                 UIView.animate(withDuration: 0.175, animations: {
                     button.alpha = 1
@@ -99,6 +100,10 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
 
     func paymentAction(_ button: GFButton) {
+        UIView.animate(withDuration: 0.3) {
+            self.garageInfoView.paymentMethodView?.alpha = 0
+        }
+        
         // TODO: Payment action
         self.garageRentingDelegate?.stoppedRenting()
         showRatingView(button)
