@@ -34,7 +34,7 @@ class DetailsTableViewCell: UITableViewCell {
             .right(rightAnchor, padding: 20)
     }
     
-    func addContentView(_ view: UIView, heightAnchor: NSLayoutDimension) {
+    func addContentView(_ view: UIView) {
         content = view
         addSubview(view)
         
@@ -47,26 +47,46 @@ class DetailsTableViewCell: UITableViewCell {
         
         var topPadding: CGFloat
         var bottomPadding: CGFloat
+        var fixedHeight: CGFloat?
+        
         if view is GarageInfoView {
             topPadding = 16
             bottomPadding = 16
         } else if view is GarageActionsView {
             topPadding = 0
             bottomPadding = 4
+            fixedHeight = 48 + 8
         } else if view is GarageGalleryView {
             topPadding = 4
             bottomPadding = 16
+            fixedHeight = 192
+        } else if view is RentingDetailsView {
+            topPadding = 4
+            bottomPadding = 16
+            let font: UIFont = .systemFont(ofSize: 16, weight: .regular)
+            let height: CGFloat = "Value".heightOfString(usingFont: font)
+            let insets: CGFloat = 16
+            fixedHeight = (height + insets) * 4.0
         } else {
             topPadding = 4
             bottomPadding = 16
+            if let ratingsTable = view as? UITableView {
+                let rowHeight: CGFloat = 72
+                let count = ratingsTable.dataSource?.tableView(ratingsTable, numberOfRowsInSection: 0) ?? 1
+                let bottomInset = UIScreen.main.bounds.height * 0.3
+                fixedHeight = rowHeight * CGFloat(count) + bottomInset
+            }
         }
-
+        
         view.anchor
             .top(anchor, padding: topPadding)
             .left(leftAnchor)
             .right(rightAnchor)
-//            .height(heightAnchor)
             .bottom(bottomAnchor, padding: bottomPadding)
+
+        if let height = fixedHeight {
+            view.anchor.height(constant: height)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

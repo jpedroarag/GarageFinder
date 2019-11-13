@@ -210,25 +210,6 @@ extension GarageDetailsViewController {
         default: return nil
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return numberOfSections == 1 ? 192 + 64 : 192
-        case 1:
-            return 48 + 16
-        case 2:
-            if garageGalleryView.photos.isEmpty {
-                return 96
-            }
-            return 192 + 64
-        default:
-            let ratingsCount = ratingListController.ratings.isEmpty ? 1 :  ratingListController.ratings.count
-            let rowHeight: CGFloat = 64 + 8
-            let bottomInset: CGFloat = UIScreen.main.bounds.height * 0.3
-            return (rowHeight * CGFloat(ratingsCount)) + bottomInset
-        }
-    }
 }
 
 extension GarageDetailsViewController: FloatingViewPositioningDelegate {

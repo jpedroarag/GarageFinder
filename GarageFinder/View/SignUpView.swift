@@ -158,7 +158,7 @@ class SignUpView: UIView {
                 .left(safeAreaLayoutGuide.leftAnchor, padding: 16)
                 .right(safeAreaLayoutGuide.rightAnchor, padding: 16)
                 .bottom(scrollView.bottomAnchor, padding: 64)
-                .height(widthAnchor, multiplier: 0.16)
+                .height(constant: 60)
             
             closeButton.anchor
                 .top(safeAreaLayoutGuide.topAnchor, padding: 16)

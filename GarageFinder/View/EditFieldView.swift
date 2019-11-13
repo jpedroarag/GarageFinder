@@ -138,7 +138,7 @@ class EditFieldView: UIView {
             .left(contentView.leftAnchor, padding: 16)
             .right(contentView.rightAnchor, padding: 16)
             .bottom(contentView.bottomAnchor, padding: 16)
-            .height(constant: 40)
+            .height(constant: 60)
         
         if type == .password {
             newPassword.anchor
