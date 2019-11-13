@@ -150,7 +150,7 @@ class SignUpView: UIView {
         textFieldsTableView.anchor
             .top(photoImageView.bottomAnchor, padding: 32)
             .width(scrollView.widthAnchor)
-            .height(constant: textFieldsTableView.height)
+            .height(constant: textFieldsTableView.height + 16)
         
         if !dataSource.isEditing {
             submitButton.anchor
