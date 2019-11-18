@@ -79,8 +79,14 @@ class FavGaragesTableViewCell: UITableViewCell {
         self.favoriteGarage = favoriteGarage
         garageTitleLabel.text = favoriteGarage.name
         addressLabel.text = favoriteGarage.address
-        garageOwnerImage.image = UIImage(named: "profile")
-//        ratingLabel.text = "\(favoriteGarage.average)"
+        
+        if let image = favoriteGarage.imageBase64?.base64Convert() {
+            garageOwnerImage.image = image
+            garageOwnerImage.contentMode = .scaleAspectFill
+        } else {
+            garageOwnerImage.image = UIImage(named: "profile")
+            garageOwnerImage.contentMode = .scaleAspectFit
+        }
         
         let average = favoriteGarage.average.rounded(toPlaces: 2)
         if average != 0 {

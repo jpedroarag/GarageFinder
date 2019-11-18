@@ -5,6 +5,7 @@
         <attribute name="average" attributeType="Float" usesScalarValueType="YES"/>
         <attribute name="categoryString" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageBase64" optional="YES" attributeType="String"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
@@ -15,7 +16,7 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Favorite" positionX="-54" positionY="-9" width="128" height="178"/>
+        <element name="Favorite" positionX="-54" positionY="-9" width="128" height="193"/>
         <element name="Identifier" positionX="-54" positionY="45" width="128" height="58"/>
     </elements>
 </model>
