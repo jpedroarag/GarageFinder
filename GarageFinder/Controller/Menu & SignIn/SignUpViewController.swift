@@ -95,7 +95,10 @@ class SignUpViewController: UIViewController {
                                 self.parkingStatusDelegate.loadData(fromLogin: true)
                             }
                             self.finishSignUpDelegate?.didFinishSignUp()
-                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true) {
+                                let loginController = self.finishSignUpDelegate as? LoginViewController
+                                loginController?.dismiss(animated: true)
+                            }
                         }
                     }
                 case .failure(let error):
