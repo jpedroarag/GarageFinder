@@ -16,7 +16,7 @@ class TrackerButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let image = UIImage(named: "tracker")
+        let image = UIImage(named: "tracker(0)")
         setImage(image, for: .normal)
         addTarget(self, action: #selector(tapped(_:)), for: .touchUpInside)
         backgroundColor = .clear
