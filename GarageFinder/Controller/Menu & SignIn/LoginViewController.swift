@@ -66,6 +66,7 @@ class LoginViewController: UIViewController {
     func signUpAction() {
         loginView.setKeyScroller(enabled: false)
         let signUpVC = SignUpViewController()
+        signUpVC.parkingStatusDelegate = parkingStatusDelegate
         signUpVC.finishSignUpDelegate = self
         present(signUpVC, animated: true, completion: nil)
     }
