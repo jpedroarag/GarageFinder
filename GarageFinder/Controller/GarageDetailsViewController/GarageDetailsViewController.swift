@@ -25,6 +25,14 @@ class GarageDetailsViewController: AbstractGarageViewController {
             view.loadData(presentedGarage)
             presentedGarage.loadUserImage { image in
                 DispatchQueue.main.async {
+                    let predicate = NSPredicate(format: "(objectId == %d)", self.presentedGarage.id)
+                    if let favorite = CoreDataManager.shared.fetch(Favorite.self, predicate: predicate).first {
+                        if favorite.imageBase64 == "" {
+                            favorite.imageBase64 = image?.toBase64()
+                            CoreDataManager.shared.saveChanges()
+                        }
+                        self.actionsDelegate?.reloadLikedGarage()
+                    }
                     view.loadImage(image)
                 }
             }
@@ -62,16 +70,6 @@ class GarageDetailsViewController: AbstractGarageViewController {
         let controller = GarageRatingListViewController()
         self.addChild(controller)
         controller.didMove(toParent: self)
-//        var comments = [Comment]()
-//        (0...5).forEach { index in
-//            comments.append(Comment(id: index,
-//                                    fromUserId: UserDefaults.loggedUserId,
-//                                    toUserId: presentedGarage.userId,
-//                                    garage: presentedGarage,
-//                                    title: "Good host",
-//                                    message: "Awesome host",
-//                                    rating: 4.5))
-//        }
         controller.loadRatings(presentedGarage.comments)
         return controller
     }()
@@ -95,6 +93,10 @@ class GarageDetailsViewController: AbstractGarageViewController {
             actionsDelegate?.reloadLikedGarage()
             return
         } else {
+            var imageBase64: String? = ""
+            if garageInfoView.component.leftImageView.image != UIImage(named: "profile") {
+                imageBase64 = garageInfoView.component.leftImageView.image?.toBase64()
+            }
             let favorite = Favorite(name: garage.description ?? "Garagem",
                                     address: garage.address?.description,
                                     category: .other,
@@ -102,7 +104,8 @@ class GarageDetailsViewController: AbstractGarageViewController {
                                     longitude: garage.address?.coordinate.longitude ?? 0,
                                     type: .garage,
                                     objectId: garage.id,
-                                    average: garage.average ?? 0)
+                                    average: garage.average ?? 0,
+                                    imageBase64: imageBase64)
             dataManager.insert(object: favorite)
             actionsDelegate?.reloadLikedGarage()
         }

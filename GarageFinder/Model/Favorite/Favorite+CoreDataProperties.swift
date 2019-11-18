@@ -26,6 +26,7 @@ extension Favorite {
     @NSManaged public var categoryString: String
     @NSManaged public var objectId: Int
     @NSManaged public var average: Float
+    @NSManaged public var imageBase64: String?
     
     public convenience init() {
         let context = CoreDataManager.shared.context
@@ -40,7 +41,8 @@ extension Favorite {
                             longitude: Double,
                             type: FavoriteType,
                             objectId: Int,
-                            average: Float = 0) {
+                            average: Float = 0,
+                            imageBase64: String? = "") {
         self.init()
         self.id = Identifier.nextAvailableIdValue()
         self.name = name
@@ -51,6 +53,7 @@ extension Favorite {
         self.type = type
         self.objectId = objectId
         self.average = (type == .garage) ? average : 0
+        self.imageBase64 = imageBase64 ?? ""
         Identifier.update()
     }
 
