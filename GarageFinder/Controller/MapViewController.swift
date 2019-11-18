@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     lazy var locationManager = CLLocationManager()
     lazy var locationSet = false
     lazy var isUserParking = false
+    lazy var lastTrackingMode = MKUserTrackingMode.none
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
@@ -250,18 +251,9 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        switch mode {
-        case .none:
-            toolboxView.trackerButton.switchToImage(named: "tracker", animated: true)
-        case .follow:
-            toolboxView.trackerButton.switchToImage(named: "trackerFilled", animated: true)
-        case .followWithHeading:
-            toolboxView.trackerButton.switchToImage(named: "trackerFilledWithHeading", animated: true)
-        @unknown default:
-            return
-        }
-        print("MODE: \(mode.rawValue)")
+        toolboxView.trackerButton.switchToImage(named: "tracker(\(mode.rawValue))", animated: lastTrackingMode.rawValue != 2)
         toolboxView.trackerButton.mode = mode
+        lastTrackingMode = mode
     }
 }
 
