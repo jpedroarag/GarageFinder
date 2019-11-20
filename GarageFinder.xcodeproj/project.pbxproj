@@ -49,6 +49,8 @@
 		3C3830AC2350C1680034F315 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A52350BE750034F315 /* Address.swift */; };
 		3C3830AD2350C1680034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A32350BE4F0034F315 /* User.swift */; };
 		3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A92350C0540034F315 /* DocumentType.swift */; };
+		3C54CDED2385795700EFF918 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54CDEC2385795700EFF918 /* UIView+Extension.swift */; };
+		3C54CDEF2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54CDEE2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift */; };
 		3C55F214236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */; };
 		3C55F216236C7E9200CBFDB9 /* FavoriteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C55F215236C7E9200CBFDB9 /* FavoriteType.swift */; };
 		3C59AE1F2368772D006EC36E /* Identifier+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C59AE1D2368772D006EC36E /* Identifier+CoreDataClass.swift */; };
@@ -249,6 +251,8 @@
 		3C3830A52350BE750034F315 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3C3830A72350BEAB0034F315 /* Garage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
 		3C3830A92350C0540034F315 /* DocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = ../../GarageFinderFramework/Models/DocumentType.swift; sourceTree = "<group>"; };
+		3C54CDEC2385795700EFF918 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		3C54CDEE2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstrait.Attribute+CaseIterable.swift"; sourceTree = "<group>"; };
 		3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingStatusDelegate.swift; sourceTree = "<group>"; };
 		3C55F215236C7E9200CBFDB9 /* FavoriteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteType.swift; sourceTree = "<group>"; };
 		3C55F21D23730A6200CBFDB9 /* PaddedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
@@ -516,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				3C10C94C2316A826001BDDB6 /* SmartConstraints.swift */,
+				3C54CDEB2385794000EFF918 /* Extension */,
 			);
 			path = Constraints;
 			sourceTree = "<group>";
@@ -587,6 +592,15 @@
 				3C20C399233BAD4100182CB3 /* RentingDetailsViewController.swift */,
 			);
 			path = GarageRentingViewController;
+			sourceTree = "<group>";
+		};
+		3C54CDEB2385794000EFF918 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3C54CDEC2385795700EFF918 /* UIView+Extension.swift */,
+				3C54CDEE2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		3C811E41232692970075AD49 /* Component */ = {
@@ -1134,7 +1148,9 @@
 				3C10C9692316A828001BDDB6 /* CodableExtension.swift in Sources */,
 				3C10C96A2316A828001BDDB6 /* Service.swift in Sources */,
 				6CBE731E235DFC360048A1DC /* Response.swift in Sources */,
+				3C54CDEF2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift in Sources */,
 				6C8C9A55234F5C5700071144 /* CustomCodable.swift in Sources */,
+				3C54CDED2385795700EFF918 /* UIView+Extension.swift in Sources */,
 				3C10C9652316A828001BDDB6 /* NetworkError.swift in Sources */,
 				3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */,
 				3C10C9632316A828001BDDB6 /* HTTPMethod.swift in Sources */,
