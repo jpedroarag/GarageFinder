@@ -11,66 +11,98 @@ import MapKit
 
 class ToolboxView: UIView {
     
-    let totalButtons = CGFloat(2)
     let minimumButtonSize = CGSize(width: 48, height: 48)
     
     var totalHeight: CGFloat {
-        return totalButtons * minimumButtonSize.height + (totalButtons - 1)
+        return CGFloat(buttons.count) * minimumButtonSize.height + CGFloat((buttons.count - 1))
     }
     
-    var trackerButton: TrackerButton!
-    var adjustsButton: AdjustsButton!
+    var buttons = [UIButton]()
     var separators = [UIView]()
+    
+    private var separatorColor: UIColor?
 
-    init(mapView: MapView, backgroundColor: UIColor, separatorColor: UIColor) {
+    init(withBackgroundColor backgroundColor: UIColor, withSeparatorColor separatorColor: UIColor, andButtons buttons: UIButton...) {
         super.init(frame: .zero)
         
         self.backgroundColor = backgroundColor
+        self.separatorColor = separatorColor
+        self.buttons = buttons
+        
         rounded(cornerRadius: 5)
         shadowed()
         
-        configureButtons(mapView)
+        addSubviews(buttons)
         setConstraints()
         insertSeparators(withColor: separatorColor)
     }
     
-    private func configureButtons(_ mapView: MKMapView) {
-        trackerButton = TrackerButton(mapView: mapView)
-        adjustsButton = AdjustsButton(frame: .zero)
-        addSubview(trackerButton)
-        addSubview(adjustsButton)
+    private func setConstraints() {
+        for index in 0..<buttons.count {
+            if buttons[index] === buttons.last {
+                buttons[index].anchor
+                    .bottom(bottomAnchor)
+                    .left(leftAnchor)
+                    .right(rightAnchor)
+                    .height(constant: minimumButtonSize.height)
+                return
+            }
+            buttons[index].anchor
+                .bottom(buttons[index+1].topAnchor, padding: 1)
+                .left(leftAnchor)
+                .right(rightAnchor)
+                .height(constant: minimumButtonSize.height)
+        }
     }
     
-    func setConstraints() {
-        adjustsButton.anchor
-            .bottom(trackerButton.topAnchor, padding: 1)
-            .left(leftAnchor)
-            .right(rightAnchor)
-            .height(constant: minimumButtonSize.height)
-        
-        trackerButton.anchor
-            .bottom(bottomAnchor)
-            .left(leftAnchor)
-            .right(rightAnchor)
-            .height(constant: minimumButtonSize.height)
-    }
-    
-    func setSeparatorConstraints(_ separator: UIView, topOffset: CGFloat) {
-        separator.anchor
-            .top(topAnchor, padding: topOffset)
-            .left(leftAnchor, padding: 2)
-            .right(rightAnchor, padding: 2)
-            .height(constant: 1)
-    }
-    
-    func insertSeparators(withColor color: UIColor) {
-        for index in 0..<Int(totalButtons - 1) {
+    private func insertSeparators(withColor color: UIColor) {
+        buttons.forEach { button in
+            if button === buttons.last { return }
+            
             let separator = UIView(frame: .zero)
             separator.backgroundColor = color
             addSubview(separator)
-            let topPosition = CGFloat(index + 1) * minimumButtonSize.height
-            setSeparatorConstraints(separator, topOffset: topPosition)
+            
+            separator.anchor
+                .top(button.bottomAnchor)
+                .left(leftAnchor, padding: 2)
+                .right(rightAnchor, padding: 2)
+                .height(constant: 1)
         }
+    }
+    
+    private func remakeConstraints() {
+        buttons.forEach { button in
+            button.anchor.deactivateAll(withLayoutAttributes: .bottom,
+                                                              .left,
+                                                              .right,
+                                                              .height)
+        }
+        separators.forEach { separator in
+            separator.anchor.deactivateAll(withLayoutAttributes: .top,
+                                                                 .left,
+                                                                 .right,
+                                                                 .height)
+        }
+        setConstraints()
+        insertSeparators(withColor: separatorColor ?? .black)
+    }
+    
+    func addButtons(_ buttons: UIButton...) {
+        addSubviews(buttons)
+        self.buttons.append(contentsOf: buttons)
+        remakeConstraints()
+    }
+    
+    func removeButton(_ button: UIButton) {
+        buttons.removeAll { $0 == button }
+        remakeConstraints()
+    }
+    
+    func removeButton(atIndex index: Int) {
+        if index >= buttons.count || index < buttons.count { return }
+        buttons.remove(at: index)
+        remakeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

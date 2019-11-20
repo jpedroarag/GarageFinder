@@ -22,10 +22,15 @@ class MapViewController: UIViewController {
         return view
     }()
     
+    lazy var adjustsButton = AdjustsButton(frame: .zero)
+    lazy var trackerButton = TrackerButton(mapView: mapView)
+    
     lazy var toolboxView: ToolboxView = {
         let backgroundColor = UIColor(rgb: 0xFFFFFF, alpha: 90)
         let separatorColor = UIColor(rgb: 0xBEBEBE, alpha: 100)
-        return ToolboxView(mapView: mapView, backgroundColor: backgroundColor, separatorColor: separatorColor)
+        return ToolboxView(withBackgroundColor: backgroundColor,
+                           withSeparatorColor: separatorColor,
+                           andButtons: self.adjustsButton, self.trackerButton)
     }()
     
     var floatingView: UIView!
@@ -251,8 +256,8 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        toolboxView.trackerButton.switchToImage(named: "tracker(\(mode.rawValue))", animated: lastTrackingMode.rawValue != 2)
-        toolboxView.trackerButton.mode = mode
+        trackerButton.switchToImage(named: "tracker(\(mode.rawValue))", animated: lastTrackingMode.rawValue != 2)
+        trackerButton.mode = mode
         lastTrackingMode = mode
     }
 }

@@ -49,10 +49,22 @@ public class SmartConstraint {
         
     }
     
-    /// Deactivate all constraints
     public func deactivateAll() {
-        NSLayoutConstraint.deactivate(constraints)
-        constraints.removeAll()
+        deactivateAll(withLayoutAttributes: NSLayoutConstraint.Attribute.allCases)
+    }
+    
+    public func deactivateAll(withLayoutAttributes attributes: NSLayoutConstraint.Attribute...) {
+        deactivateAll(withLayoutAttributes: attributes)
+    }
+    
+    public func deactivateAll(withLayoutAttributes attributes: [NSLayoutConstraint.Attribute]) {
+        attributes.forEach { attribute in
+            if let view = self.view as? UIView {
+                view.findConstraint(layoutAttribute: attribute)?.isActive = false
+            } else {
+                NSLayoutConstraint.deactivate(view.constraints)
+            }
+        }
     }
 
 }
@@ -61,7 +73,6 @@ public extension UIView {
     var anchor: SmartConstraint {
         return SmartConstraint(view: self)
     }
-    
 }
 
 extension SmartConstraint {
