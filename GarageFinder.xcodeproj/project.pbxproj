@@ -109,6 +109,8 @@
 		6C5AD4E323157162001F14A0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */; };
 		6C5AD4E623157A5A001F14A0 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */; };
 		6C67062F2358AC7200651C4A /* GarageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C67062E2358AC7200651C4A /* GarageAnnotation.swift */; };
+		6C70BD77238588CD00E1FC72 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C70BD76238588CD00E1FC72 /* NotificationService.swift */; };
+		6C70BD7B238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6C70BD74238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6C7C05AD2316BB5D00FB8974 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */; };
 		6C7F0AC523574C05001159A9 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F0AC423574C05001159A9 /* UserAuth.swift */; };
 		6C81DF5A237C430300EA3373 /* PayMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81DF59237C430300EA3373 /* PayMethodView.swift */; };
@@ -134,7 +136,6 @@
 		6CC40F17232FB25C00AD4101 /* MKMapItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC40F16232FB25C00AD4101 /* MKMapItem+Extension.swift */; };
 		6CCB1545232A6BDF002B42A1 /* FavGaragesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1544232A6BDF002B42A1 /* FavGaragesTableViewCell.swift */; };
 		6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB1546232A6C74002B42A1 /* FavAddressTableViewCell.swift */; };
-		6CD2A81A231D3F8300A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
 		6CD2A81B231D3F8300A4782D /* GarageFinderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CD2A81E231D3F9200A4782D /* GarageFinderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */; };
 		6CD62A7D236884FA00331B86 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD62A7C236884FA00331B86 /* String+Base64.swift */; };
@@ -170,6 +171,9 @@
 		6CFFC7C623649059005D8D2F /* String+isNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7BE23649059005D8D2F /* String+isNumber.swift */; };
 		6CFFC7C8236497DE005D8D2F /* KeyScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7C7236497DD005D8D2F /* KeyScroller.swift */; };
 		6CFFC7CA23649BE8005D8D2F /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7C923649BE8005D8D2F /* LabelCell.swift */; };
+		A10267E523063AB1CB2FD00A /* libPods-GarageFinder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE0B728A27EC25CBC74EFE5 /* libPods-GarageFinder.a */; };
+		D068DF6AD55BCFCCF3F29648 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3070223222AAB41DBDDE74E /* libPods-OneSignalNotificationServiceExtension.a */; };
+		DE0D75F3034B55B67DBA90B5 /* libPods-GarageFinderFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A46187515B4E71794AC4991 /* libPods-GarageFinderFramework.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +183,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3C10C8F0230AE7D2001BDDB6;
 			remoteInfo = GarageFinderFramework;
+		};
+		6C70BD79238588CD00E1FC72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C10C8C7230AE450001BDDB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C70BD73238588CD00E1FC72;
+			remoteInfo = OneSignalNotificationServiceExtension;
 		};
 		6CD2A81F231D3F9200A4782D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -190,6 +201,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6C70BD7F238588CD00E1FC72 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6C70BD7B238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6CD2A81C231D3F8300A4782D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,6 +226,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A46187515B4E71794AC4991 /* libPods-GarageFinderFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GarageFinderFramework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39A9AAFADD058130D3D0E55B /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		3C10C8CF230AE450001BDDB6 /* GarageFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GarageFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C10C8D2230AE450001BDDB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C10C8D4230AE450001BDDB6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +304,8 @@
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
 		3CF6B9ED237AF07A002C8B24 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		3FBF1C7D3989842A52666278 /* Pods-GarageFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GarageFinder.release.xcconfig"; path = "Target Support Files/Pods-GarageFinder/Pods-GarageFinder.release.xcconfig"; sourceTree = "<group>"; };
+		56826C9898DBDF6196E05955 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6C07D5E22361EDE2002514FE /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6C1051E623324FA700837C04 /* ChangeScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScrollViewDelegate.swift; sourceTree = "<group>"; };
@@ -314,6 +340,10 @@
 		6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		6C5AD4E523157A5A001F14A0 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C67062E2358AC7200651C4A /* GarageAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageAnnotation.swift; sourceTree = "<group>"; };
+		6C70BD6F2385848000E1FC72 /* GarageFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GarageFinder.entitlements; sourceTree = "<group>"; };
+		6C70BD74238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C70BD76238588CD00E1FC72 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		6C70BD78238588CD00E1FC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C7C05AC2316BB5D00FB8974 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
 		6C7F0AC423574C05001159A9 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		6C81DF59237C430300EA3373 /* PayMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMethodView.swift; sourceTree = "<group>"; };
@@ -370,6 +400,11 @@
 		6CFFC7BE23649059005D8D2F /* String+isNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+isNumber.swift"; sourceTree = "<group>"; };
 		6CFFC7C7236497DD005D8D2F /* KeyScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyScroller.swift; sourceTree = "<group>"; };
 		6CFFC7C923649BE8005D8D2F /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		9CF1C3EB3F50C59DEB7F7468 /* Pods-GarageFinderFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GarageFinderFramework.release.xcconfig"; path = "Target Support Files/Pods-GarageFinderFramework/Pods-GarageFinderFramework.release.xcconfig"; sourceTree = "<group>"; };
+		B3070223222AAB41DBDDE74E /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2D80B2123205E783F6C39C7 /* Pods-GarageFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GarageFinder.debug.xcconfig"; path = "Target Support Files/Pods-GarageFinder/Pods-GarageFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		CCE0B728A27EC25CBC74EFE5 /* libPods-GarageFinder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GarageFinder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F296F1403758F2CCCAC56E95 /* Pods-GarageFinderFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GarageFinderFramework.debug.xcconfig"; path = "Target Support Files/Pods-GarageFinderFramework/Pods-GarageFinderFramework.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,7 +414,7 @@
 			files = (
 				6CD2A81E231D3F9200A4782D /* GarageFinderFramework.framework in Frameworks */,
 				3C20C3A2233E588800182CB3 /* MapKit.framework in Frameworks */,
-				6CD2A81A231D3F8300A4782D /* GarageFinderFramework.framework in Frameworks */,
+				A10267E523063AB1CB2FD00A /* libPods-GarageFinder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +422,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE0D75F3034B55B67DBA90B5 /* libPods-GarageFinderFramework.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C70BD71238588CD00E1FC72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D068DF6AD55BCFCCF3F29648 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,9 +442,11 @@
 			children = (
 				3C10C8D1230AE450001BDDB6 /* GarageFinder */,
 				3C10C8F2230AE7D2001BDDB6 /* GarageFinderFramework */,
+				6C70BD75238588CD00E1FC72 /* OneSignalNotificationServiceExtension */,
 				3C10C8D0230AE450001BDDB6 /* Products */,
 				6CD2A81D231D3F9200A4782D /* Frameworks */,
 				6C7F0AC323574BDE001159A9 /* Recovered References */,
+				481A5785CE82F21CB0DAF509 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -409,6 +455,7 @@
 			children = (
 				3C10C8CF230AE450001BDDB6 /* GarageFinder.app */,
 				3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */,
+				6C70BD74238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -416,6 +463,7 @@
 		3C10C8D1230AE450001BDDB6 /* GarageFinder */ = {
 			isa = PBXGroup;
 			children = (
+				6C70BD6F2385848000E1FC72 /* GarageFinder.entitlements */,
 				3C10C8E1230AE453001BDDB6 /* Info.plist */,
 				3C10C8DE230AE453001BDDB6 /* LaunchScreen.storyboard */,
 				3C10C8DC230AE453001BDDB6 /* Assets.xcassets */,
@@ -653,6 +701,19 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		481A5785CE82F21CB0DAF509 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2D80B2123205E783F6C39C7 /* Pods-GarageFinder.debug.xcconfig */,
+				3FBF1C7D3989842A52666278 /* Pods-GarageFinder.release.xcconfig */,
+				F296F1403758F2CCCAC56E95 /* Pods-GarageFinderFramework.debug.xcconfig */,
+				9CF1C3EB3F50C59DEB7F7468 /* Pods-GarageFinderFramework.release.xcconfig */,
+				39A9AAFADD058130D3D0E55B /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				56826C9898DBDF6196E05955 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6C13B39523704E2600F25A34 /* IntroView */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +772,15 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		6C70BD75238588CD00E1FC72 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6C70BD76238588CD00E1FC72 /* NotificationService.swift */,
+				6C70BD78238588CD00E1FC72 /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		6C7C05AB2316BB4900FB8974 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -764,6 +834,9 @@
 			isa = PBXGroup;
 			children = (
 				3C20C3A1233E588800182CB3 /* MapKit.framework */,
+				CCE0B728A27EC25CBC74EFE5 /* libPods-GarageFinder.a */,
+				1A46187515B4E71794AC4991 /* libPods-GarageFinderFramework.a */,
+				B3070223222AAB41DBDDE74E /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -870,17 +943,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C10C8E4230AE453001BDDB6 /* Build configuration list for PBXNativeTarget "GarageFinder" */;
 			buildPhases = (
+				9834F620D575BFA78F5EC214 /* [CP] Check Pods Manifest.lock */,
 				3C10C8CB230AE450001BDDB6 /* Sources */,
 				3C10C8CC230AE450001BDDB6 /* Frameworks */,
 				3C10C8CD230AE450001BDDB6 /* Resources */,
 				6C81F6AF230D632D004A5850 /* Swift Lint */,
 				6CD2A81C231D3F8300A4782D /* Embed Frameworks */,
+				6C70BD7F238588CD00E1FC72 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				3C10C8F7230AE7D2001BDDB6 /* PBXTargetDependency */,
 				6CD2A820231D3F9200A4782D /* PBXTargetDependency */,
+				6C70BD7A238588CD00E1FC72 /* PBXTargetDependency */,
 			);
 			name = GarageFinder;
 			productName = GarageFinder;
@@ -891,6 +967,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C10C8FA230AE7D2001BDDB6 /* Build configuration list for PBXNativeTarget "GarageFinderFramework" */;
 			buildPhases = (
+				261746BDF5378F864EB9D1FB /* [CP] Check Pods Manifest.lock */,
 				3C10C8EC230AE7D2001BDDB6 /* Headers */,
 				3C10C8ED230AE7D2001BDDB6 /* Sources */,
 				3C10C8EE230AE7D2001BDDB6 /* Frameworks */,
@@ -905,14 +982,32 @@
 			productReference = 3C10C8F1230AE7D2001BDDB6 /* GarageFinderFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		6C70BD73238588CD00E1FC72 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C70BD7C238588CD00E1FC72 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				9B33AA329F715572B6426555 /* [CP] Check Pods Manifest.lock */,
+				6C70BD70238588CD00E1FC72 /* Sources */,
+				6C70BD71238588CD00E1FC72 /* Frameworks */,
+				6C70BD72238588CD00E1FC72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = 6C70BD74238588CD00E1FC72 /* OneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3C10C8C7230AE450001BDDB6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "João Pedro Aragão";
 				TargetAttributes = {
 					3C10C8CE230AE450001BDDB6 = {
@@ -925,6 +1020,9 @@
 					};
 					3C10C8F0230AE7D2001BDDB6 = {
 						CreatedOnToolsVersion = 10.3;
+					};
+					6C70BD73238588CD00E1FC72 = {
+						CreatedOnToolsVersion = 11.2;
 					};
 				};
 			};
@@ -944,6 +1042,7 @@
 			targets = (
 				3C10C8CE230AE450001BDDB6 /* GarageFinder */,
 				3C10C8F0230AE7D2001BDDB6 /* GarageFinderFramework */,
+				6C70BD73238588CD00E1FC72 /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -966,9 +1065,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6C70BD72238588CD00E1FC72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		261746BDF5378F864EB9D1FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GarageFinderFramework-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6C81F6AF230D632D004A5850 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -986,6 +1114,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		9834F620D575BFA78F5EC214 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GarageFinder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B33AA329F715572B6426555 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1159,6 +1331,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6C70BD70238588CD00E1FC72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C70BD77238588CD00E1FC72 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1166,6 +1346,11 @@
 			isa = PBXTargetDependency;
 			target = 3C10C8F0230AE7D2001BDDB6 /* GarageFinderFramework */;
 			targetProxy = 3C10C8F6230AE7D2001BDDB6 /* PBXContainerItemProxy */;
+		};
+		6C70BD7A238588CD00E1FC72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C70BD73238588CD00E1FC72 /* OneSignalNotificationServiceExtension */;
+			targetProxy = 6C70BD79238588CD00E1FC72 /* PBXContainerItemProxy */;
 		};
 		6CD2A820231D3F9200A4782D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1307,8 +1492,11 @@
 		};
 		3C10C8E5230AE453001BDDB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2D80B2123205E783F6C39C7 /* Pods-GarageFinder.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GarageFinder/GarageFinder.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1331,8 +1519,11 @@
 		};
 		3C10C8E6230AE453001BDDB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FBF1C7D3989842A52666278 /* Pods-GarageFinder.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GarageFinder/GarageFinder.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1354,6 +1545,7 @@
 		};
 		3C10C8FB230AE7D2001BDDB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F296F1403758F2CCCAC56E95 /* Pods-GarageFinderFramework.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1384,6 +1576,7 @@
 		};
 		3C10C8FC230AE7D2001BDDB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CF1C3EB3F50C59DEB7F7468 /* Pods-GarageFinderFramework.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1409,6 +1602,50 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6C70BD7D238588CD00E1FC72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39A9AAFADD058130D3D0E55B /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.GarageFinder.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6C70BD7E238588CD00E1FC72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56826C9898DBDF6196E05955 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6H6ZL3JRAS;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.GarageFinder.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1438,6 +1675,15 @@
 			buildConfigurations = (
 				3C10C8FB230AE7D2001BDDB6 /* Debug */,
 				3C10C8FC230AE7D2001BDDB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C70BD7C238588CD00E1FC72 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C70BD7D238588CD00E1FC72 /* Debug */,
+				6C70BD7E238588CD00E1FC72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
