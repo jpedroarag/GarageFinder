@@ -73,13 +73,13 @@ class ToolboxView: UIView {
     
     private func remakeConstraints() {
         buttons.forEach { button in
-            button.anchor.deactivateAll(withLayoutAttributes: .bottom,
+            button.anchor.deactivateConstraints(withLayoutAttributes: .bottom,
                                                               .left,
                                                               .right,
                                                               .height)
         }
         separators.forEach { separator in
-            separator.anchor.deactivateAll(withLayoutAttributes: .top,
+            separator.anchor.deactivateConstraints(withLayoutAttributes: .top,
                                                                  .left,
                                                                  .right,
                                                                  .height)
