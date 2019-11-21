@@ -19,9 +19,10 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
-        let mapOption = UserDefaults.standard.string(forKey: "MapOption")
+        let mapOption = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String
+        let isOn = UserDefaults.standard.valueForLoggedUser(forKey: "TrafficOption") as? Bool
         view.mapType = (mapOption == "Satélite") ? .hybrid : .mutedStandard
-        view.showsTraffic = UserDefaults.standard.bool(forKey: "TrafficOption")
+        view.showsTraffic = isOn ?? false
         return view
     }()
     
@@ -136,12 +137,23 @@ class MapViewController: UIViewController {
     }
     
     @objc func updateMapType(_ sender: Notification) {
-        let mapOption = UserDefaults.standard.string(forKey: "MapOption")
+        let mapOption: String?
+        if UserDefaults.userIsLogged {
+            mapOption = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String
+        } else {
+            mapOption = sender.object as? String
+        }
         mapView.mapType = (mapOption == "Satélite") ? .hybrid : .mutedStandard
     }
     
     @objc func updateMapTraffic(_ sender: Notification) {
-        mapView.showsTraffic = UserDefaults.standard.bool(forKey: "TrafficOption")
+        let isOn: Bool?
+        if UserDefaults.userIsLogged {
+            isOn = UserDefaults.standard.valueForLoggedUser(forKey: "TrafficOption") as? Bool
+        } else {
+            isOn = sender.object as? Bool
+        }
+        mapView.showsTraffic = isOn ?? false
     }
     
     func setupObservers() {

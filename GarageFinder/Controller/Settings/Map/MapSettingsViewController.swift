@@ -22,6 +22,14 @@ class MapSettingsViewController: UIViewController {
     }()
     let settings = ["Trânsito"]
     
+    var optionSelectorHeight: CGFloat {
+        return 64.0
+    }
+    
+    var tableViewHeight: CGFloat {
+        return 48.0 * CGFloat(settings.count)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,15 +38,23 @@ class MapSettingsViewController: UIViewController {
         addChild(optionSelectorViewController)
         optionSelectorViewController.didMove(toParent: self)
         
-        for index in 0..<optionSelectorViewController.options.count {
-            if optionSelectorViewController.options[index] == UserDefaults.standard.string(forKey: "MapOption") {
-                optionSelectorViewController.collectionView.selectItem(at: [0, index], animated: true, scrollPosition: .left)
+        var indexPath = IndexPath(item: 0, section: 0)
+        if let option = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String {
+            for index in 0..<optionSelectorViewController.options.count {
+                if optionSelectorViewController.options[index] == option {
+                    indexPath = [0, index]
+                    break
+                }
             }
         }
         
+        optionSelectorViewController.collectionView.selectItem(at: indexPath,
+                                                               animated: true,
+                                                               scrollPosition: .left)
+
         optionSelectorViewController.optionSelected = { option in
-            UserDefaults.standard.set(option, forKey: "MapOption")
-            NotificationCenter.default.post(name: .mapOptionSettingDidChange, object: nil)
+            UserDefaults.standard.setValueForLoggedUser(option, forKey: "MapOption")
+            NotificationCenter.default.post(name: .mapOptionSettingDidChange, object: option)
         }
         
         view.addSubview(optionSelectorViewController.view)
@@ -51,22 +67,23 @@ class MapSettingsViewController: UIViewController {
             .top(view.topAnchor)
             .left(view.leftAnchor)
             .right(view.rightAnchor)
-            .height(constant: 64)
+            .height(constant: optionSelectorHeight)
         tableView.anchor
             .top(optionSelectorViewController.view.bottomAnchor)
             .left(view.leftAnchor)
             .right(view.rightAnchor)
-            .height(constant: 48 * CGFloat(settings.count))
+            .height(constant: tableViewHeight)
     }
     
     func remakeConstraints() {
         optionSelectorViewController.view.anchor.deactivateConstraints(withLayoutAttributes: .top, .left, .right, .height)
         tableView.anchor.deactivateConstraints(withLayoutAttributes: .top, .left, .right, .height)
+        setConstraints()
     }
     
     @objc func switched(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey: "TrafficOption")
-        NotificationCenter.default.post(name: .trafficSettingDidChange, object: nil)
+        UserDefaults.standard.setValueForLoggedUser(sender.isOn, forKey: "TrafficOption")
+        NotificationCenter.default.post(name: .trafficSettingDidChange, object: sender.isOn)
     }
     
 }
@@ -80,12 +97,22 @@ extension MapSettingsViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let switcher = UISwitch()
         switcher.tintColor = .customGreen
-        switcher.isOn = UserDefaults.standard.bool(forKey: "TrafficOption")
         switcher.addTarget(self, action: #selector(switched(_:)), for: .valueChanged)
+        
+        let isOn = UserDefaults.standard.valueForLoggedUser(forKey: "TrafficOption") as? Bool
+        switcher.isOn = isOn ?? false
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.selectionStyle = .none
         cell.accessoryView = switcher
         cell.textLabel?.text = settings[indexPath.row]
         return cell
     }
     
+}
+
+extension MapSettingsViewController: SettingSectionController {
+    var contentHeight: CGFloat {
+        return optionSelectorHeight + tableViewHeight
+    }
 }

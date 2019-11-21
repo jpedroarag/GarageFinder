@@ -104,6 +104,8 @@ extension MenuViewController: UITableViewDelegate {
             alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
                 self.logoutAccount()
+                NotificationCenter.default.post(name: .mapOptionSettingDidChange, object: "Mapa")
+                NotificationCenter.default.post(name: .trafficSettingDidChange, object: false)
             }))
                     
             present(alert, animated: true, completion: nil)

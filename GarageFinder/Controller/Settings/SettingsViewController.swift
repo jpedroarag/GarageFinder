@@ -26,11 +26,10 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         tableView.anchor.attatch(to: view)
-        mapSettingsController.view.frame.size.height = 64 + 48 * CGFloat(mapSettingsController.settings.count)
-        addChild(controller: mapSettingsController)
+        addSectionController(mapSettingsController)
     }
     
-    func addChild(controller: UIViewController) {
+    func addSectionController(_ controller: SettingSectionController) {
         settingsSectionViewControllers.append(controller)
         addChild(controller)
         controller.didMove(toParent: self)
@@ -61,6 +60,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath)
+            cell.selectionStyle = .none
             cell.addSubview(mapSettingsController.view)
             mapSettingsController.view.anchor.deactivateAll()
             mapSettingsController.view.anchor.attatch(to: cell)
@@ -72,7 +72,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return mapSettingsController.view.bounds.height
+            return mapSettingsController.contentHeight
         }
         return 0
     }

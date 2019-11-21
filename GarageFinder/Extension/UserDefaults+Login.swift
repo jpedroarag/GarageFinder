@@ -39,4 +39,16 @@ extension UserDefaults {
         set(nil, forKey: "Token")
         set(nil, forKey: "ExpToken")
     }
+    
+    func setValueForLoggedUser(_ value: Any?, forKey key: String) {
+        if let value = value {
+            let newKey = "\(key)/\(UserDefaults.loggedUserId)"
+            UserDefaults.standard.set(value, forKey: newKey)
+        }
+    }
+    
+    func valueForLoggedUser(forKey key: String) -> Any? {
+        let correctKey = "\(key)/\(UserDefaults.loggedUserId)"
+        return UserDefaults.standard.value(forKey: correctKey)
+    }
 }
