@@ -74,15 +74,15 @@ class ToolboxView: UIView {
     private func remakeConstraints() {
         buttons.forEach { button in
             button.anchor.deactivateConstraints(withLayoutAttributes: .bottom,
-                                                              .left,
-                                                              .right,
-                                                              .height)
+                                                                      .left,
+                                                                      .right,
+                                                                      .height)
         }
         separators.forEach { separator in
             separator.anchor.deactivateConstraints(withLayoutAttributes: .top,
-                                                                 .left,
-                                                                 .right,
-                                                                 .height)
+                                                                         .left,
+                                                                         .right,
+                                                                         .height)
         }
         setConstraints()
         insertSeparators(withColor: separatorColor ?? .black)

@@ -22,10 +22,8 @@ class MapView: MKMapView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsUserLocation = true
-        mapType = .standard
         showsScale = true
         showsCompass = false
-        showsTraffic = true
         tintColor = UIColor(rgb: 0x23D25B, alpha: 100)
     }
     
