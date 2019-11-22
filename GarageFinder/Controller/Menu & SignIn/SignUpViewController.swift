@@ -97,6 +97,7 @@ class SignUpViewController: UIViewController {
                             self.finishSignUpDelegate?.didFinishSignUp()
                             self.dismiss(animated: true) {
                                 let loginController = self.finishSignUpDelegate as? LoginViewController
+                                loginController?.updateMapSettings()
                                 loginController?.dismiss(animated: true)
                             }
                         }

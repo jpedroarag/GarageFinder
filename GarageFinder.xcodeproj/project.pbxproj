@@ -15,7 +15,6 @@
 		3C10C909231016DE001BDDB6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C908231016DE001BDDB6 /* MapView.swift */; };
 		3C10C944231579D2001BDDB6 /* IfceLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3C10C942231579D1001BDDB6 /* IfceLocation.gpx */; };
 		3C10C9482316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */; };
-		3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9492316A7BC001BDDB6 /* ViewController.swift */; };
 		3C10C95F2316A828001BDDB6 /* SmartConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C94C2316A826001BDDB6 /* SmartConstraints.swift */; };
 		3C10C9612316A828001BDDB6 /* URLSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9512316A828001BDDB6 /* URLSessionProvider.swift */; };
 		3C10C9622316A828001BDDB6 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C10C9532316A828001BDDB6 /* ParametersEncoding.swift */; };
@@ -74,6 +73,11 @@
 		3C8CB146236095BC00621BB3 /* Favorite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CB144236095BC00621BB3 /* Favorite+CoreDataClass.swift */; };
 		3C8CB14923609DEE00621BB3 /* GarageFinderModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CB14723609DEE00621BB3 /* GarageFinderModel.xcdatamodeld */; };
 		3C8CB14D2361C8CE00621BB3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CB14B2361C8CE00621BB3 /* CoreDataManager.swift */; };
+		3C9EE70B2386B17400B8B448 /* OptionSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9EE70A2386B17400B8B448 /* OptionSelectorViewController.swift */; };
+		3C9EE70D2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9EE70C2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift */; };
+		3C9EE7102386BA9E00B8B448 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9EE70F2386BA9E00B8B448 /* SettingsViewController.swift */; };
+		3C9EE7122386BBD200B8B448 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9EE7112386BBD200B8B448 /* MapSettingsViewController.swift */; };
+		3C9EE7152387430C00B8B448 /* SettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9EE7142387430C00B8B448 /* SettingSectionController.swift */; };
 		3CA20D0B231FE1DA004C9A86 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */; };
 		3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */; };
 		6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C266D233BA6C1003BCD92 /* UIViewController+Extension.swift */; };
@@ -216,7 +220,6 @@
 		3C10C908231016DE001BDDB6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		3C10C942231579D1001BDDB6 /* IfceLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IfceLocation.gpx; sourceTree = "<group>"; };
 		3C10C9472316A3AA001BDDB6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
-		3C10C9492316A7BC001BDDB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3C10C94C2316A826001BDDB6 /* SmartConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartConstraints.swift; sourceTree = "<group>"; };
 		3C10C94F2316A828001BDDB6 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3C10C9512316A828001BDDB6 /* URLSessionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionProvider.swift; sourceTree = "<group>"; };
@@ -277,6 +280,11 @@
 		3C8CB144236095BC00621BB3 /* Favorite+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3C8CB14823609DEE00621BB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		3C8CB14B2361C8CE00621BB3 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		3C9EE70A2386B17400B8B448 /* OptionSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelectorViewController.swift; sourceTree = "<group>"; };
+		3C9EE70C2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelectorCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C9EE70F2386BA9E00B8B448 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3C9EE7112386BBD200B8B448 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
+		3C9EE7142387430C00B8B448 /* SettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSectionController.swift; sourceTree = "<group>"; };
 		3CA20D0A231FE1DA004C9A86 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3CA20D0C232677A4004C9A86 /* GarageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarageDetailsViewController.swift; sourceTree = "<group>"; };
 		3CF6B9ED237AF07A002C8B24 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -442,13 +450,13 @@
 				6C13B39C237052E000F25A34 /* IntroViewController */,
 				6C5AD4E223157162001F14A0 /* SearchResultViewController.swift */,
 				3C10C8D4230AE450001BDDB6 /* MapViewController.swift */,
-				3C10C9492316A7BC001BDDB6 /* ViewController.swift */,
 				6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */,
 				3C20C391233AB76700182CB3 /* AbstractGarageViewController.swift */,
 				3C20C39D233BB79700182CB3 /* GarageDetailsViewController */,
 				3C20C39E233BB7A800182CB3 /* GarageRentingViewController */,
 				6CE3881D23477ECB002458FC /* RatingViewController */,
 				6CE30E3B2369D06C002C04D7 /* Menu & SignIn */,
+				3C9EE70E2386BA8600B8B448 /* Settings */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -474,6 +482,7 @@
 				6C8B9A012364F93500EA950C /* EditFieldView.swift */,
 				6C8B9A162365EB7A00EA950C /* MenuView */,
 				6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */,
+				3C9EE70C2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -653,6 +662,24 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		3C9EE70E2386BA8600B8B448 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3C9EE7132386BC9400B8B448 /* Map */,
+				3C9EE70F2386BA9E00B8B448 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3C9EE7132386BC9400B8B448 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				3C9EE70A2386B17400B8B448 /* OptionSelectorViewController.swift */,
+				3C9EE7112386BBD200B8B448 /* MapSettingsViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		6C13B39523704E2600F25A34 /* IntroView */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +747,7 @@
 				3C20C38D233AAC4900182CB3 /* RentingGarageDelegate.swift */,
 				3C59AE2123688582006EC36E /* GarageActionsDelegate.swift */,
 				3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */,
+				3C9EE7142387430C00B8B448 /* SettingSectionController.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1013,6 +1041,7 @@
 				6C8B9A042364FA5700EA950C /* EditFieldViewController.swift in Sources */,
 				6CFFC7C423649059005D8D2F /* ChainLimitation.swift in Sources */,
 				3C8CB145236095BC00621BB3 /* Favorite+CoreDataProperties.swift in Sources */,
+				3C9EE7102386BA9E00B8B448 /* SettingsViewController.swift in Sources */,
 				3C8CB146236095BC00621BB3 /* Favorite+CoreDataClass.swift in Sources */,
 				6C8F0EBF233A661A006153E4 /* NotificationName+Extension.swift in Sources */,
 				6CCB1547232A6C74002B42A1 /* FavAddressTableViewCell.swift in Sources */,
@@ -1020,17 +1049,19 @@
 				3C20C39A233BAD4100182CB3 /* RentingDetailsViewController.swift in Sources */,
 				3C811E4B2327BE840075AD49 /* GFTableViewComponent.swift in Sources */,
 				3C38307D23478BDF0034F315 /* AdjustsButton.swift in Sources */,
+				3C9EE70D2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift in Sources */,
 				3CA20D0D232677A4004C9A86 /* GarageDetailsViewController.swift in Sources */,
 				3C811E512327EB970075AD49 /* Double+Extension.swift in Sources */,
 				3C811E57232930AE0075AD49 /* GalleryCollectionViewCell.swift in Sources */,
 				6CFFC7A52363114E005D8D2F /* TextFieldsTableView.swift in Sources */,
+				3C9EE7152387430C00B8B448 /* SettingSectionController.swift in Sources */,
+				3C9EE7122386BBD200B8B448 /* MapSettingsViewController.swift in Sources */,
 				3C811E59232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift in Sources */,
 				3C811E5323290F680075AD49 /* UILabel+Extension.swift in Sources */,
 				6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */,
 				6CE30E332369ACC6002C04D7 /* CharactersLimitValidationStrategy.swift in Sources */,
 				6C339B272327CEEF00A376ED /* UIView+Extension.swift in Sources */,
 				6C24E18023461FFF007EE981 /* RatingViewController.swift in Sources */,
-				3C10C94A2316A7BC001BDDB6 /* ViewController.swift in Sources */,
 				6CFFC7BF23649059005D8D2F /* AnyChain.swift in Sources */,
 				6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */,
 				6C52C1332330087600233617 /* PlaceCategory.swift in Sources */,
@@ -1083,6 +1114,7 @@
 				3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */,
 				6CE30E3A2369ACC6002C04D7 /* CPFValidatorStrategy.swift in Sources */,
 				3C3830AD2350C1680034F315 /* User.swift in Sources */,
+				3C9EE70B2386B17400B8B448 /* OptionSelectorViewController.swift in Sources */,
 				6CBE730A235DDDAA0048A1DC /* LoginView.swift in Sources */,
 				6C8B9A0F2365DC5A00EA950C /* MenuView.swift in Sources */,
 				6CE30E372369ACC6002C04D7 /* ValidationStrategy.swift in Sources */,

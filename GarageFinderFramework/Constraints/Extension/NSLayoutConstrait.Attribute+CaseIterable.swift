@@ -9,7 +9,6 @@
 import Foundation
 
 extension NSLayoutConstraint.Attribute: CaseIterable {
-    public typealias AllCases = [NSLayoutConstraint.Attribute]
     public static var allCases: [NSLayoutConstraint.Attribute] {
         return [.top,
                 .left,

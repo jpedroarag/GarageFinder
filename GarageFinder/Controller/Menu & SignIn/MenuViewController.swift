@@ -96,12 +96,16 @@ extension MenuViewController: UITableViewDelegate {
 //           navigationController?.pushViewController(GarageHistoryViewController(), animated: true)
         case 2:
            print("Settings")
+           showTitleView(show: false)
+           navigationController?.pushViewController(SettingsViewController(), animated: true)
         case 3:
             let alert = UIAlertController(title: "", message: "Você deseja sair da conta?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
                 self.logoutAccount()
+                NotificationCenter.default.post(name: .mapOptionSettingDidChange, object: "Mapa")
+                NotificationCenter.default.post(name: .trafficSettingDidChange, object: false)
             }))
                     
             present(alert, animated: true, completion: nil)

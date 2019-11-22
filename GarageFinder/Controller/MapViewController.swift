@@ -19,6 +19,10 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let view = MapView(frame: .zero)
+        let mapOption = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String
+        let isOn = UserDefaults.standard.valueForLoggedUser(forKey: "TrafficOption") as? Bool
+        view.mapType = (mapOption == "Satélite") ? .hybrid : .mutedStandard
+        view.showsTraffic = isOn ?? false
         return view
     }()
     
@@ -56,7 +60,7 @@ class MapViewController: UIViewController {
         startUsingDeviceLocation()
         
         setConstraints()
-        setupObserver()
+        setupObservers()
 
         if !UserDefaults.tokenIsValid {
             UserDefaults.standard.logoutUser()
@@ -131,8 +135,31 @@ class MapViewController: UIViewController {
             }
         }
     }
-    func setupObserver() {
+    
+    @objc func updateMapType(_ sender: Notification) {
+        let mapOption: String?
+        if UserDefaults.userIsLogged {
+            mapOption = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String
+        } else {
+            mapOption = sender.object as? String
+        }
+        mapView.mapType = (mapOption == "Satélite") ? .hybrid : .mutedStandard
+    }
+    
+    @objc func updateMapTraffic(_ sender: Notification) {
+        let isOn: Bool?
+        if UserDefaults.userIsLogged {
+            isOn = UserDefaults.standard.valueForLoggedUser(forKey: "TrafficOption") as? Bool
+        } else {
+            isOn = sender.object as? Bool
+        }
+        mapView.showsTraffic = isOn ?? false
+    }
+    
+    func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(finishSearch(_:)), name: .finishSearch, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMapType(_:)), name: .mapOptionSettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMapTraffic(_:)), name: .trafficSettingDidChange, object: nil)
     }
     
     func addFloatingVC() {
