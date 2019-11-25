@@ -14,23 +14,25 @@ public struct Parking: CustomCodable {
     public var id: Int?
     public let garageOwnerId: Int?
     public let driverId: Int?
-    public let licensePlate: String
-    public let vehicleId: Int
-    public let garageId: Int
+    public let licensePlate: String?
+    public let vehicleId: Int?
+    public let garageId: Int?
     
-    public var price: Float
+    public var price: Float?
     public var pricePerHour: Float?
     public var permanenceDuration: Int? // In minutes
-    public let start: Date
+    public let start: Date?
     public var end: Date?
-    
+    public var status: Bool?
+
     public init(id: Int? = nil,
-                garageOwnerId: Int?,
-                driverId: Int?,
-                licensePlate: String = "XXXX-000",
-                vehicleId: Int = 0,
-                garageId: Int,
-                pricePerHour: Float = 0) {
+                garageOwnerId: Int? = nil,
+                driverId: Int? = nil,
+                licensePlate: String? = "XXXX-000",
+                vehicleId: Int? = 0,
+                garageId: Int? = nil,
+                pricePerHour: Float? = nil,
+                status: Bool? = nil) {
         self.id = id
         self.garageOwnerId = garageOwnerId
         self.driverId = driverId
@@ -42,11 +44,16 @@ public struct Parking: CustomCodable {
         self.permanenceDuration = nil
         self.start = Date()
         self.end = nil
+        self.status = status
+    }
+    
+    public init() {
+        self.init(garageOwnerId: 4, driverId: UserDefaults.loggedUserId, licensePlate: "OCB-2913", vehicleId: 1, garageId: 5)
     }
     
     mutating func updatePermanenceDuration() {
         let referenceDate = end ?? Date()
-        let permanenceDuration = referenceDate.timeIntervalSince(start)/60
+        let permanenceDuration = referenceDate.timeIntervalSince(start ?? Date())/60
         self.permanenceDuration = Int(permanenceDuration.rounded())
     }
     
@@ -68,7 +75,7 @@ public struct Parking: CustomCodable {
     }
     
     public func priceString() -> String {
-        return NumberFormatter.getPriceString(currencySymbol: "", value: Double(price))
+        return NumberFormatter.getPriceString(currencySymbol: "", value: Double(price ?? 0.0))
     }
     
     public func permanenceDurationString() -> String {
@@ -91,7 +98,7 @@ public struct Parking: CustomCodable {
     private func formattedDate(_ dateToFormat: Date?) -> String {
         guard let date = dateToFormat else { return "--:--" }
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "hh:mm"
         return formatter.string(from: date)
     }
 }
