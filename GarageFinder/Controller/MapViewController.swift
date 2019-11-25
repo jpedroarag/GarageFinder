@@ -294,7 +294,7 @@ extension MapViewController: ParkingStatusDelegate {
         isUserParking { result in
             if let parking = result {
                 self.isUserParking = true
-                self.requestCurrentParkingGarage(id: parking.garageId) { result in
+                self.requestCurrentParkingGarage(id: parking.garageId ?? 0) { result in
                     if let garage = result {
                         DispatchQueue.main.async {
                             self.popupCurrentRentingGaragePin(garage)

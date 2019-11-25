@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(userAuth.token, forKey: "Token")
                         UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
                         UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
-                        
+                        self.getCurrentUser(playerId: UserDefaults.playerId)
                         DispatchQueue.main.async {
                             self.updateMapSettings()
                             self.parkingStatusDelegate.loadData(fromLogin: true)
@@ -52,6 +52,37 @@ class LoginViewController: UIViewController {
                     print("Error on login: \(error)")
                     self.showErrorAlert()
                 }
+            }
+        }
+    }
+    func getCurrentUser(playerId: String) {
+        if UserDefaults.userIsLogged {
+            URLSessionProvider().request(.get(User.self, id: UserDefaults.loggedUserId)) { result in
+                switch result {
+                case .success(let response):
+                    if let user = response.result {
+                        if user.playerId != playerId {
+                            print("Are different!")
+                            self.updateUser(playerId: playerId)
+                        } else {
+                            print("Are Equals!")
+                        }
+                    }
+                case .failure(let error):
+                    print("Error on get user: \(error)")
+                }
+            }
+        }
+    }
+    
+    func updateUser(playerId: String) {
+        let user = User(id: UserDefaults.loggedUserId, playerId: playerId)
+        URLSessionProvider().request(.update(user)) { result in
+            switch result {
+            case .success(let response):
+                print("Sucess update user playerID: \(response)")
+            case .failure(let error):
+                print("Error on get user: \(error)")
             }
         }
     }

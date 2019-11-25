@@ -21,11 +21,12 @@ public struct User: CustomCodable {
     public var garages: [Garage]?
     public var role: String?
     public var avatar: String?
-    
+    public var playerId: String?
+
     init(id: Int? = nil, name: String? = nil, email: String? = nil,
          documentType: DocumentType? = nil, documentNumber: String? = nil,
          password: String? = nil, addresses: [Address]? = nil, garages: [Garage]? = nil,
-         role: String? = nil, avatar: String? = nil) {
+         role: String? = nil, avatar: String? = nil, playerId: String? = nil) {
         self.id = id
         self.name = name
         self.email = email
@@ -36,5 +37,6 @@ public struct User: CustomCodable {
         self.garages = garages
         self.role = role
         self.avatar = avatar
+        self.playerId = playerId
     }
 }

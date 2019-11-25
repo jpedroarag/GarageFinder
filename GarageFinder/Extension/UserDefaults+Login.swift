@@ -25,6 +25,10 @@ extension UserDefaults {
         return loggedUserId != 0 && token != "" ? true : false
     }
     
+    static var playerId: String {
+        return UserDefaults.standard.string(forKey: "GT_PLAYER_ID") ?? ""
+    }
+    
     static var tokenIsValid: Bool {
         if let expDate = UserDefaults.standard.object(forKey: "ExpToken") as? Date {
             if expDate - Date() > 0.0 {
