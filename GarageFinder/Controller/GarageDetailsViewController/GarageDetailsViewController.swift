@@ -121,16 +121,7 @@ class GarageDetailsViewController: AbstractGarageViewController {
         alert.addAction(UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
             // TODO: Metrify here
             if UserDefaults.userIsLogged && UserDefaults.tokenIsValid {
-                let waitAlert = UIAlertController(title: "Garagem esperando", message: "Confirme quando você chegar na garagem", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default) { action in
-                    sender.action = nil
-                    self.removeAdditionalSections(animated: true) {
-                        sender.setTitle("Concluir", for: .normal)
-                        self.startRenting()
-                    }
-                }
-                waitAlert.addAction(action)
-                self.present(waitAlert, animated: true, completion: nil)
+                self.fireRenting()
             } else {
                 let loginAlert = UIAlertController(title: "Error", message: "Você deve estar logado para estacionar", preferredStyle: .alert)
                 loginAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -179,17 +170,57 @@ class GarageDetailsViewController: AbstractGarageViewController {
         }
     }
     
-    func startRenting() {
+    func fireRenting() {
+        let parking = Parking(garageOwnerId: presentedGarage.userId,
+                              driverId: UserDefaults.loggedUserId,
+                              garageId: presentedGarage.id)
+        URLSessionProvider().request(.post(parking)) { result in
+            switch result {
+            case .success(let response):
+                if let parkingResponse = response.result {
+                    DispatchQueue.main.async {
+                        let waitAlert = UIAlertController(title: "Garagem esperando...",
+                                                          message: "Confirme quando você chegar na garagem. Não se preocupe, nada será cobrado antes de você chegar lá ;)",
+                                                          preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Cheguei", style: .default) { action in
+                            self.garageInfoView.button.action = nil
+                            self.removeAdditionalSections(animated: true) {
+                                self.startRenting(parkingResponse)
+                            }
+                        }
+                        waitAlert.addAction(action)
+                        self.present(waitAlert, animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                print("Error posting parking: \(error)")
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: "Algo deu errado. Tente novamente.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
+    
+    func startRenting(_ parkingResponse: Parking) {
+        var parking = parkingResponse
+        garageInfoView.button.setTitle("Concluir", for: .normal)
+        
         let rentingCounterView = RentingCounterView(frame: .zero)
         rentingCounterView.alpha = 0
+        
         self.garageInfoView.addSupplementaryView(rentingCounterView) {
             UIView.animate(withDuration: 0.7, animations: {
                 rentingCounterView.alpha = 1
             }, completion: { _ in
-                let parking = Parking(garageOwnerId: self.presentedGarage.userId, driverId: UserDefaults.loggedUserId, garageId: self.presentedGarage.id)
-                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage, parking: parking, createdNow: true)
+                parking.fire()
+                self.rentingGarageDelegate?.startedRenting(garage: self.presentedGarage,
+                                                           parking: parking,
+                                                           createdNow: true)
             })
         }
+        
         self.garageInfoView.component.isCollapsed = true
     }
     

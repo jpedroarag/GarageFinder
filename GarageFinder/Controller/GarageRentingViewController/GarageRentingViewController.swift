@@ -84,7 +84,6 @@ class GarageRentingViewController: AbstractGarageViewController {
                 UIView.animate(withDuration: 0.175, animations: {
                     button.alpha = 1
                 })
-                
                 button.action = self.pay(_:)
             })
             self.exit()
@@ -125,6 +124,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         garageInfoView.component.isCollapsed = true
         
     }
+    
     private func removeLastSection() {
         numberOfSections -= 1
         tableView.deleteSections([numberOfSections], with: .fade)
@@ -133,25 +133,8 @@ class GarageRentingViewController: AbstractGarageViewController {
     func fire() {
         update()
         if createdNow {
-            uploadParking(withMethod: .post(parkingObject),
-                          successCallback: start,
-                          failureCallback: failedToStart(error:))
+            updateRemoteParking()
         }
-    }
-    
-    func failedToStart(error: Error) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: "Unable to park", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { _ in
-                self.dismissFromParent()
-                self.garageRentingDelegate?.stoppedRenting()
-            }
-            alert.addAction(action)
-            self.present(alert, animated: true)
-        }
-    }
-    
-    func start() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isParking {
                 DispatchQueue.main.async { self.update() }
@@ -169,31 +152,19 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func exit() {
-        self.isParking = false
-        self.parkingObject.conclude()
-        self.update()
-        self.uploadParking(withMethod: .update(self.parkingObject), failureCallback: { _ in
-//            guard let end = self.parkingObject.end else { return }
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//            UserDefaults.standard.set(formatter.string(from: self.parkingObject.start), forKey: "LastParkingStartDate")
-//            UserDefaults.standard.set(formatter.string(from: end), forKey: "LastParkingExitDate")
-        })
+        isParking = false
+        parkingObject.conclude()
+        update()
+        updateRemoteParking()
     }
     
-    func uploadParking(withMethod method: NetworkService<Parking>,
-                       successCallback: (() -> Void)? = nil,
-                       failureCallback: ((Error) -> Void)? = nil) {
-        URLSessionProvider().request(method) { result in
+    func updateRemoteParking() {
+        URLSessionProvider().request(.update(parkingObject)) { result in
             switch result {
             case .success(let response):
-                successCallback?()
-                if let parking = response.result {
-                    self.parkingObject.id = parking.id
-                }
+                print("PATCH: Success posting parking: \(response.result?.id ?? -1)")
             case .failure(let error):
-                failureCallback?(error)
-                print("Error posting parking: \(error)")
+                print("PATCH: Error posting parking: \(error)")
             }
         }
     }
