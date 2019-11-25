@@ -140,12 +140,15 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func failedToStart(error: Error) {
-        let alert = UIAlertController(title: "Error", message: "Unable to park", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { action in
-            self.dismissFromParent()
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "Unable to park", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                self.dismissFromParent()
+                self.garageRentingDelegate?.stoppedRenting()
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true)
         }
-        alert.addAction(action)
-        present(alert, animated: true)
     }
     
     func start() {
@@ -169,7 +172,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         self.isParking = false
         self.parkingObject.conclude()
         self.update()
-        self.uploadParking(withMethod: .update(self.parkingObject), failureCallback: { error in
+        self.uploadParking(withMethod: .update(self.parkingObject), failureCallback: { _ in
 //            guard let end = self.parkingObject.end else { return }
 //            let formatter = DateFormatter()
 //            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
