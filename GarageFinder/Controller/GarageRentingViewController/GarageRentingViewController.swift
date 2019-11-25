@@ -33,7 +33,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         } else {
             let view = GarageInfoView(collapsed: true, buttonTitle: "Concluir")
             view.loadData(rentedGarage)
-            view.button.action = concludeAction(_:)
+            view.button.action = conclude(_:)
             view.addSupplementaryView(rentingCounterView, animated: false, nil)
             self.mutableGarageInfoView = view
             return view
@@ -60,7 +60,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         sectionSeparatorsStartAppearIndex = 1
         closeButton.isHidden = true
         super.viewDidLoad()
-        fireRenting()
+        fire()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +70,7 @@ class GarageRentingViewController: AbstractGarageViewController {
         }
     }
     
-    func concludeAction(_ button: GFButton) {
+    func conclude(_ button: GFButton) {
         let alert = UIAlertController(title: "Concluir", message: "Você deseja concluir o estacionamento?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
@@ -85,20 +85,16 @@ class GarageRentingViewController: AbstractGarageViewController {
                     button.alpha = 1
                 })
                 
-                button.action = self.paymentAction(_:)
+                button.action = self.pay(_:)
             })
-            self.isParking = false
-            self.parkingObject.conclude()
-            self.update()
-            print("PATCH: ")
-            self.uploadParking(withMethod: .update(self.parkingObject))
+            self.exit()
         }))
                 
         present(alert, animated: true, completion: nil)
         
     }
 
-    func paymentAction(_ button: GFButton) {
+    func pay(_ button: GFButton) {
         UIView.animate(withDuration: 0.3) {
             self.garageInfoView.paymentMethodView?.alpha = 0
         }
@@ -134,14 +130,28 @@ class GarageRentingViewController: AbstractGarageViewController {
         tableView.deleteSections([numberOfSections], with: .fade)
     }
     
-    func fireRenting() {
+    func fire() {
         update()
         if createdNow {
-            uploadParking(withMethod: .post(parkingObject))
+            uploadParking(withMethod: .post(parkingObject),
+                          successCallback: start,
+                          failureCallback: failedToStart(error:))
         }
+    }
+    
+    func failedToStart(error: Error) {
+        let alert = UIAlertController(title: "Error", message: "Unable to park", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { action in
+            self.dismissFromParent()
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
+    func start() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if self.isParking {
-                self.update()
+                DispatchQueue.main.async { self.update() }
             } else {
                 timer.invalidate()
             }
@@ -155,14 +165,31 @@ class GarageRentingViewController: AbstractGarageViewController {
         rentingCounterView.priceLabel.text = parkingObject.priceString()
     }
     
-    func uploadParking(withMethod method: NetworkService<Parking>) {
+    func exit() {
+        self.isParking = false
+        self.parkingObject.conclude()
+        self.update()
+        self.uploadParking(withMethod: .update(self.parkingObject), failureCallback: { error in
+//            guard let end = self.parkingObject.end else { return }
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//            UserDefaults.standard.set(formatter.string(from: self.parkingObject.start), forKey: "LastParkingStartDate")
+//            UserDefaults.standard.set(formatter.string(from: end), forKey: "LastParkingExitDate")
+        })
+    }
+    
+    func uploadParking(withMethod method: NetworkService<Parking>,
+                       successCallback: (() -> Void)? = nil,
+                       failureCallback: ((Error) -> Void)? = nil) {
         URLSessionProvider().request(method) { result in
             switch result {
             case .success(let response):
+                successCallback?()
                 if let parking = response.result {
                     self.parkingObject.id = parking.id
                 }
             case .failure(let error):
+                failureCallback?(error)
                 print("Error posting parking: \(error)")
             }
         }
