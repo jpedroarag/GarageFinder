@@ -21,7 +21,7 @@ public struct Parking: CustomCodable {
     public var price: Float
     public var pricePerHour: Float?
     public var permanenceDuration: Int? // In minutes
-    public let start: Date
+    public var start: Date
     public var end: Date?
     
     public init(id: Int? = nil,

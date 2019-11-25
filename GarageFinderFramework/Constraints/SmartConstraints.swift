@@ -69,7 +69,7 @@ public class SmartConstraint {
 
 }
 
-public extension UIView {
+public extension UIView { 
     var anchor: SmartConstraint {
         return SmartConstraint(view: self)
     }
