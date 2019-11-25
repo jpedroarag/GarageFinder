@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
-            print("Received Notification: \(notification!.payload.notificationID)")
+            print("Received Notification: \(notification?.payload.notificationID ?? "nil")")
             print("launchURL = \(notification?.payload.launchURL ?? "None")")
             print("content_available = \(notification?.payload.contentAvailable ?? false)")
         }
@@ -32,12 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // This block gets called when the user reacts to a notification received
             let payload: OSNotificationPayload? = result?.notification.payload
             
-            print("Message = \(payload!.body)")
+            print("Message = \(payload?.body ?? "nil")")
             print("badge number = \(payload?.badge ?? 0)")
             print("notification sound = \(payload?.sound ?? "None")")
             
-            
-            if let additionalData = result!.notification.payload!.additionalData {
+            if let additionalData = result?.notification.payload?.additionalData {
                 print("additionalData = \(additionalData)")
                 
                 if let actionSelected = payload?.actionButtons {
@@ -46,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // DEEP LINK from action buttons
                 if let actionID = result?.action.actionID {
-                    
+                    print("ActionID: \(actionID)")
                 }
             }
         }
         
-        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: true, ]
+        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: true]
 
         // Replace 'YOUR_APP_ID' with your OneSignal App ID.
         OneSignal.initWithLaunchOptions(launchOptions,
@@ -60,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleNotificationAction: notificationOpenedBlock,
         settings: onesignalInitSettings)
 
-        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification;
+        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
 
         // Recommend moving the below line to prompt for push after informing the user about
         //   how your app will use them.

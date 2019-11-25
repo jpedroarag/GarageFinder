@@ -50,14 +50,14 @@ public class SmartConstraint {
     }
     
     public func deactivateAll() {
-        deactivateAll(withLayoutAttributes: NSLayoutConstraint.Attribute.allCases)
+        deactivateConstraints(withLayoutAttributes: NSLayoutConstraint.Attribute.allCases)
     }
     
-    public func deactivateAll(withLayoutAttributes attributes: NSLayoutConstraint.Attribute...) {
-        deactivateAll(withLayoutAttributes: attributes)
+    public func deactivateConstraints(withLayoutAttributes attributes: NSLayoutConstraint.Attribute...) {
+        deactivateConstraints(withLayoutAttributes: attributes)
     }
     
-    public func deactivateAll(withLayoutAttributes attributes: [NSLayoutConstraint.Attribute]) {
+    public func deactivateConstraints(withLayoutAttributes attributes: [NSLayoutConstraint.Attribute]) {
         attributes.forEach { attribute in
             if let view = self.view as? UIView {
                 view.findConstraint(layoutAttribute: attribute)?.isActive = false

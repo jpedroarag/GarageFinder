@@ -43,6 +43,7 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
                         
                         DispatchQueue.main.async {
+                            self.updateMapSettings()
                             self.parkingStatusDelegate.loadData(fromLogin: true)
                             self.dismiss(animated: true, completion: nil)
                         }
@@ -73,6 +74,11 @@ class LoginViewController: UIViewController {
     
     func closeAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func updateMapSettings() {
+        NotificationCenter.default.post(name: .mapOptionSettingDidChange, object: nil)
+        NotificationCenter.default.post(name: .trafficSettingDidChange, object: nil)
     }
 
 }
