@@ -48,6 +48,7 @@
 		3C3830AC2350C1680034F315 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A52350BE750034F315 /* Address.swift */; };
 		3C3830AD2350C1680034F315 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A32350BE4F0034F315 /* User.swift */; };
 		3C3830AE2350C1680034F315 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3830A92350C0540034F315 /* DocumentType.swift */; };
+		3C3EB810238D4C3100D4849B /* ParkingWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3EB80F238D4C3100D4849B /* ParkingWaitingView.swift */; };
 		3C54CDED2385795700EFF918 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54CDEC2385795700EFF918 /* UIView+Extension.swift */; };
 		3C54CDEF2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54CDEE2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift */; };
 		3C55F214236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */; };
@@ -278,6 +279,7 @@
 		3C3830A52350BE750034F315 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3C3830A72350BEAB0034F315 /* Garage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Garage.swift; sourceTree = "<group>"; };
 		3C3830A92350C0540034F315 /* DocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = ../../GarageFinderFramework/Models/DocumentType.swift; sourceTree = "<group>"; };
+		3C3EB80F238D4C3100D4849B /* ParkingWaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingWaitingView.swift; sourceTree = "<group>"; };
 		3C54CDEC2385795700EFF918 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3C54CDEE2385798F00EFF918 /* NSLayoutConstrait.Attribute+CaseIterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstrait.Attribute+CaseIterable.swift"; sourceTree = "<group>"; };
 		3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingStatusDelegate.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				6C8B9A162365EB7A00EA950C /* MenuView */,
 				6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */,
 				3C9EE70C2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift */,
+				3C3EB80F238D4C3100D4849B /* ParkingWaitingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -710,19 +713,6 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
-		481A5785CE82F21CB0DAF509 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C2D80B2123205E783F6C39C7 /* Pods-GarageFinder.debug.xcconfig */,
-				3FBF1C7D3989842A52666278 /* Pods-GarageFinder.release.xcconfig */,
-				F296F1403758F2CCCAC56E95 /* Pods-GarageFinderFramework.debug.xcconfig */,
-				9CF1C3EB3F50C59DEB7F7468 /* Pods-GarageFinderFramework.release.xcconfig */,
-				39A9AAFADD058130D3D0E55B /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				56826C9898DBDF6196E05955 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
-			);
-			path = Pods;
-            sourceTree = "<group>";
-        };
 		3C9EE70E2386BA8600B8B448 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +729,19 @@
 				3C9EE7112386BBD200B8B448 /* MapSettingsViewController.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		481A5785CE82F21CB0DAF509 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2D80B2123205E783F6C39C7 /* Pods-GarageFinder.debug.xcconfig */,
+				3FBF1C7D3989842A52666278 /* Pods-GarageFinder.release.xcconfig */,
+				F296F1403758F2CCCAC56E95 /* Pods-GarageFinderFramework.debug.xcconfig */,
+				9CF1C3EB3F50C59DEB7F7468 /* Pods-GarageFinderFramework.release.xcconfig */,
+				39A9AAFADD058130D3D0E55B /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				56826C9898DBDF6196E05955 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		6C13B39523704E2600F25A34 /* IntroView */ = {
@@ -1237,6 +1240,7 @@
 				6CFFC7BF23649059005D8D2F /* AnyChain.swift in Sources */,
 				6C0C266E233BA6C1003BCD92 /* UIViewController+Extension.swift in Sources */,
 				6C52C1332330087600233617 /* PlaceCategory.swift in Sources */,
+				3C3EB810238D4C3100D4849B /* ParkingWaitingView.swift in Sources */,
 				6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */,
 				6CE30E362369ACC6002C04D7 /* EmptyValidationStrategy.swift in Sources */,
 				6C45CA3723607F61000BDB7D /* SignUpViewController.swift in Sources */,
