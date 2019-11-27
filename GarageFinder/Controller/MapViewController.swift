@@ -292,15 +292,17 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: ParkingStatusDelegate {
     func loadData(fromLogin: Bool = false) {
         isUserParking { result in
-            if let parking = result {
-                self.isUserParking = true
-                self.requestCurrentParkingGarage(id: parking.garageId ?? 0) { result in
-                    if let garage = result {
-                        DispatchQueue.main.async {
-                            self.popupCurrentRentingGaragePin(garage)
-                            self.floatingViewController.startedRenting(garage: garage,
-                                                                       parking: parking,
-                                                                       createdNow: false)
+            if let parking = result, let ownerAccepted = parking.status {
+                if ownerAccepted {
+                    self.isUserParking = true
+                    self.requestCurrentParkingGarage(id: parking.garageId ?? 0) { result in
+                        if let garage = result {
+                            DispatchQueue.main.async {
+                                self.popupCurrentRentingGaragePin(garage)
+                                self.floatingViewController.startedRenting(garage: garage,
+                                                                           parking: parking,
+                                                                           createdNow: false)
+                            }
                         }
                     }
                 }
