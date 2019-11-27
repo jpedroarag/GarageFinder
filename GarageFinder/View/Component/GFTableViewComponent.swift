@@ -19,13 +19,9 @@ class GFTableViewComponent: UIView {
     var isCollapsed = false {
         didSet {
             resetConstraints()
-            ratingLabel.alpha = 0
             UIView.animate(withDuration: 0.7) {
-                self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
+                self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 24, weight: .semibold)
                 self.layoutSubviews()
-                UIView.animate(withDuration: 0.35) {
-                    self.ratingLabel.alpha = 1
-                }
             }
         }
     }
@@ -57,7 +53,8 @@ class GFTableViewComponent: UIView {
     lazy var ratingLabel: UILabel = {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
+        label.font = .systemFont(ofSize: self.isCollapsed ? 15 : 24, weight: .semibold)
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor(rgb: 0xFFCE00, alpha: 100)
         return label
     }()
@@ -68,19 +65,6 @@ class GFTableViewComponent: UIView {
         view.image = UIImage(named: "rate")
         return view
     }()
-    
-    var leftImageViewLeftConstraint: NSLayoutConstraint!
-    var leftImageViewWidthConstraint: NSLayoutConstraint!
-    var titleLabelLeftConstraint: NSLayoutConstraint!
-    var titleLabelWidthConstraint: NSLayoutConstraint!
-    var ratingLabelCenterYConstraint: NSLayoutConstraint!
-    var ratingLabelTopConstraint: NSLayoutConstraint!
-    var ratingLabelRightConstraint: NSLayoutConstraint!
-    var ratingLabelLeftConstraint: NSLayoutConstraint!
-    var rightImageViewTopConstraint: NSLayoutConstraint!
-    var rightImageViewRightConstraint: NSLayoutConstraint!
-    var rightImageViewCenterYConstraint: NSLayoutConstraint!
-    var rightImageViewLeftConstraint: NSLayoutConstraint!
     
     init(type: ComponentType) {
         super.init(frame: .zero)
@@ -93,20 +77,6 @@ class GFTableViewComponent: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         leftImageView.rounded(cornerRadius: leftImageView.bounds.width/2)
-        let leftImageViewInsets: (left: CGFloat, right: CGFloat) = !isCollapsed ? (16, 16) : (0, 8)
-        let ratingsSectionInsets: (left: CGFloat, right: CGFloat) = !isCollapsed ? (8, 8) : (4, 4)
-        let filledSpace = leftImageViewInsets.left
-                        + leftImageViewInsets.right
-                        + ratingsSectionInsets.left
-                        + ratingsSectionInsets.right
-                        + leftImageView.bounds.width
-                        + ratingLabel.bounds.width
-                        + rightImageView.bounds.width
-        titleLabelWidthConstraint.constant = -filledSpace
-        titleLabelWidthConstraint.isActive = !isCollapsed
-        if isCollapsed {
-            leftImageViewWidthConstraint.constant = -leftImageView.bounds.height
-        }
     }
     
     private func addSubviews() {
@@ -117,142 +87,67 @@ class GFTableViewComponent: UIView {
         addSubview(rightImageView)
     }
     
-    private func setUnmutableConstraints() {
-        leftImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        leftImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        leftImageView.heightAnchor.constraint(equalToConstant: (type == .rating) ? 50 : 75).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: leftImageView.centerYAnchor).isActive = true
-        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
-        subtitleLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor).isActive = true
-        subtitleLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor).isActive = true
-    }
-    
     private func setConstraints() {
-        setUnmutableConstraints()
-        titleLabelWidthConstraint = titleLabel.widthAnchor.constraint(equalTo: widthAnchor)
+        NSLayoutConstraint.deactivate(leftImageView.constraints)
+        leftImageView.anchor
+            .centerY(centerYAnchor)
+            .left(leftAnchor, padding: isCollapsed ? 0 : (type == .rating ? 16 : 0))
+            .height(constant: (type == .rating ? 48 : 64))
+            .width(constant: isCollapsed ? 0 : (type == .rating ? 48 : 64))
+        
+        titleLabel.anchor
+            .left(leftImageView.rightAnchor, padding: isCollapsed ? 0 : 8)
+            .bottom(leftImageView.centerYAnchor)
+        
         if !isCollapsed {
-            leftImageViewLeftConstraint = leftImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: (type == .rating) ? 16 : 0) //
-            leftImageViewLeftConstraint.isActive = true
-            
-            leftImageViewWidthConstraint = leftImageView.widthAnchor.constraint(equalTo: leftImageView.heightAnchor) //
-            leftImageViewWidthConstraint.isActive = true
-            
-            titleLabelLeftConstraint = titleLabel.leftAnchor.constraint(equalTo: leftImageView.rightAnchor, constant: (type == .rating) ? 16 : 8) //
-            titleLabelLeftConstraint.isActive = true
-            
-            ratingLabelCenterYConstraint = ratingLabel.centerYAnchor.constraint(equalTo: leftImageView.centerYAnchor) ///
-            ratingLabelCenterYConstraint.isActive = true
-            
-            ratingLabelRightConstraint = ratingLabel.rightAnchor.constraint(equalTo: rightImageView.leftAnchor, constant: -4) ///
-            ratingLabelRightConstraint.isActive = true
-            
-            rightImageViewTopConstraint = rightImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8) //
-            rightImageViewTopConstraint.isActive = true
-            
-            rightImageViewRightConstraint = rightImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8) ///
-            rightImageViewRightConstraint.isActive = true
-            
-            rightImageViewCenterYConstraint = rightImageView.centerYAnchor.constraint(equalTo: leftImageView.centerYAnchor) ///
-            rightImageViewCenterYConstraint.isActive = true
-        } else {
-            ratingLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor).isActive = true
-            ratingLabel.leftAnchor.constraint(equalTo: rightImageView.rightAnchor, constant: 4).isActive = true
-            rightImageView.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 4).isActive = true
+            titleLabel.anchor.right(ratingLabel.leftAnchor,
+                                    padding: 16,
+                                    relation: .lessThanOrEqual)
         }
-    }
-    
-    private func replaceConstraintsWhenExpanding() {
-        if !isCollapsed {
-            rightImageViewTopConstraint.isActive = false
-            rightImageViewTopConstraint = rightImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8)
-            rightImageViewTopConstraint.isActive = true
-            
-            if let constraint = ratingLabelLeftConstraint { constraint.isActive = false }
-            if let constraint = ratingLabelTopConstraint { constraint.isActive = false }
-            if let constraint = rightImageViewLeftConstraint { constraint.isActive = false }
-            
-            if let constraint = ratingLabelCenterYConstraint {
-                constraint.isActive = true
-            } else {
-                ratingLabelCenterYConstraint = ratingLabel.centerYAnchor.constraint(equalTo: leftImageView.centerYAnchor)
-                ratingLabelLeftConstraint.isActive = true
-            }
-            
-            if let constraint = ratingLabelRightConstraint {
-                constraint.isActive = true
-            } else {
-                ratingLabelRightConstraint = ratingLabel.rightAnchor.constraint(equalTo: rightImageView.leftAnchor, constant: -4)
-                ratingLabelLeftConstraint.isActive = true
-            }
-            
-            if let constraint = rightImageViewRightConstraint {
-                constraint.isActive = true
-            } else {
-                rightImageViewRightConstraint = rightImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
-                ratingLabelLeftConstraint.isActive = true
-            }
-            
-            if let constraint = rightImageViewCenterYConstraint {
-                constraint.isActive = true
-            } else {
-                rightImageViewCenterYConstraint = rightImageView.centerYAnchor.constraint(equalTo: leftImageView.centerYAnchor)
-                ratingLabelLeftConstraint.isActive = true
-            }
-        }
-    }
-    
-    private func replaceConstraintsWhenCollapsing() {
+        
+        subtitleLabel.anchor
+            .top(titleLabel.bottomAnchor, padding: 4)
+            .left(titleLabel.leftAnchor)
+            .right(isCollapsed ? rightAnchor : ratingLabel.leftAnchor,
+                   padding: isCollapsed ? 0 : 16,
+                   relation: .lessThanOrEqual)
+        
         if isCollapsed {
-            rightImageViewTopConstraint.isActive = false
-            rightImageViewTopConstraint = rightImageView.topAnchor.constraint(equalTo: titleLabel.topAnchor)
-            rightImageViewTopConstraint.isActive = true
-            
-            if let constraint = ratingLabelCenterYConstraint { constraint.isActive = false }
-            if let constraint = ratingLabelRightConstraint { constraint.isActive = false }
-            
-            if let constraint = ratingLabelLeftConstraint {
-                constraint.isActive = true
-            } else {
-                ratingLabelLeftConstraint = ratingLabel.leftAnchor.constraint(equalTo: rightImageView.rightAnchor, constant: 4)
-                ratingLabelLeftConstraint.isActive = true
-            }
-            
-            if let constraint = ratingLabelTopConstraint {
-                constraint.isActive = true
-            } else {
-                ratingLabelTopConstraint = ratingLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor)
-                ratingLabelTopConstraint.isActive = true
-            }
-            
-            if let constraint = rightImageViewRightConstraint { constraint.isActive = false }
-            if let constraint = rightImageViewCenterYConstraint { constraint.isActive = false }
-            
-            if let constraint = rightImageViewLeftConstraint {
-                constraint.isActive = true
-            } else {
-                rightImageViewLeftConstraint = rightImageView.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 4)
-                rightImageViewLeftConstraint.isActive = true
+            ratingLabel.anchor
+                .left(rightImageView.rightAnchor, padding: 4)
+                .top(titleLabel.topAnchor)
+        } else {
+            ratingLabel.anchor
+                .centerY(leftImageView.centerYAnchor)
+                .right(rightImageView.leftAnchor, padding: 4)
+            if type == .rating {
+                ratingLabel.anchor.width(constant: 32)
             }
         }
+        
+        if isCollapsed {
+            rightImageView.anchor
+                .left(titleLabel.rightAnchor, padding: 4)
+        } else {
+            rightImageView.anchor
+                .right(rightAnchor, padding: 8)
+                .centerY(leftImageView.centerYAnchor)
+        }
+        
+        rightImageView.anchor
+            .top(isCollapsed ? titleLabel.topAnchor : topAnchor,
+                 padding: isCollapsed ? 0 : 8)
+            .width(constant: 12)
+        
     }
-    
+       
     private func resetConstraints() {
-        if !isCollapsed { // Collapsed -> Expanded
-            leftImageViewLeftConstraint.constant = (type == .rating) ? 16 : 0
-            leftImageViewWidthConstraint.constant = 0
-            titleLabelLeftConstraint.constant = (type == .rating) ? 16 : 8
-            replaceConstraintsWhenExpanding()
-        } else { // Expanded -> Collapsed
-            leftImageViewLeftConstraint.constant = 0
-            leftImageViewWidthConstraint.constant = -leftImageView.bounds.height
-            titleLabelLeftConstraint.constant = 0
-            replaceConstraintsWhenCollapsing()
-        }
+        leftImageView.anchor.deactivateAll()
+        titleLabel.anchor.deactivateAll()
+        subtitleLabel.anchor.deactivateAll()
+        rightImageView.anchor.deactivateAll()
+        ratingLabel.anchor.deactivateAll()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) { return nil }
