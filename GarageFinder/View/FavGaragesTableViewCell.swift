@@ -12,57 +12,20 @@ class FavGaragesTableViewCell: UITableViewCell {
 
     lazy var boxView = UIView()
     
-//    lazy var component = GFTableViewComponent(type: .rating)
-    
-    lazy var garageOwnerImage: CircleImageView = {
-        let image = CircleImageView()
-        let shadowImage = CircleView()
-        shadowImage.shadowed()
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    
-    lazy var garageTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .medium)
-        return label
-    }()
-    
-    lazy var addressLabel: UILabel = {
-        let label = UILabel()
-        label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: 10, weight: .light)
-        label.textColor = .darkGray
-        return label
-    }()
-    
-    lazy var ratingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "4.3"
-        label.font = .systemFont(ofSize: 36, weight: .semibold)
-        label.textColor = .customYellow
-        return label
-    }()
-    
-    lazy var starImage = UIImageView(image: UIImage(named: "star"))
-    
+    lazy var component = GFTableViewComponent(type: .favorite)
     var favoriteGarage: Favorite?
+    
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(garageOwnerImage)
-        addSubview(boxView)
-        boxView.addSubview(garageTitleLabel)
-        boxView.addSubview(addressLabel)
-        addSubview(ratingLabel)
-        addSubview(starImage)
+        addSubview(component)
         setConstraints()
         
         // add shadow on cell and make rounded
         backgroundColor = .clear
         shadowed()
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 5
         selectionStyle = .none
     }
     
@@ -71,64 +34,44 @@ class FavGaragesTableViewCell: UITableViewCell {
     }
     
     func loadData(titleLabel: String?, address: String?, ownerImage: UIImage? = nil) {
-        garageTitleLabel.text = titleLabel
-        addressLabel.text = address
-        garageOwnerImage.image = ownerImage
+        component.titleLabel.text = titleLabel
+        component.subtitleLabel.text = address
+        component.leftImageView.image = ownerImage
     }
+    
     func loadData(_ favoriteGarage: Favorite) {
         self.favoriteGarage = favoriteGarage
-        garageTitleLabel.text = favoriteGarage.name
-        addressLabel.text = favoriteGarage.address
+        component.titleLabel.text = favoriteGarage.name
+        component.subtitleLabel.text = favoriteGarage.address
         
         if let image = favoriteGarage.imageBase64?.base64Convert() {
-            garageOwnerImage.image = image
-            garageOwnerImage.contentMode = .scaleAspectFill
+            component.leftImageView.image = image
+            component.leftImageView.contentMode = .scaleAspectFill
         } else {
-            garageOwnerImage.image = UIImage(named: "profile")
-            garageOwnerImage.contentMode = .scaleAspectFit
+            component.leftImageView.image = UIImage(named: "profile")
+            component.leftImageView.contentMode = .scaleAspectFit
         }
         
         let average = favoriteGarage.average.rounded(toPlaces: 2)
         if average != 0 {
-            ratingLabel.text = "\(average)"
+            component.ratingLabel.text = "\(average)"
             return
         }
-        ratingLabel.text = "S/A"
+        component.ratingLabel.text = "S/A"
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8))
     }
         
     func setConstraints() {
-        garageOwnerImage.anchor
+        component.anchor
             .top(topAnchor, padding: 8)
             .bottom(bottomAnchor, padding: 8, priority: 999)
             .left(leftAnchor, padding: 16)
             .width(constant: 50)
             .height(constant: 50)
-        
-        boxView.anchor
-            .top(topAnchor, padding: 16)
-            .left(garageOwnerImage.rightAnchor, padding: 16)
-            .right(ratingLabel.leftAnchor, padding: 16)
-            .bottom(bottomAnchor, padding: 16)
-        
-        garageTitleLabel.anchor
-            .top(boxView.topAnchor)
-            .left(boxView.leftAnchor)
-            .right(ratingLabel.leftAnchor, padding: 8)
-        
-        addressLabel.anchor
-            .left(boxView.leftAnchor)
-            .top(garageTitleLabel.bottomAnchor)
-
-        ratingLabel.anchor
-            .right(starImage.leftAnchor, padding: 4)
-            .centerY(garageOwnerImage.centerYAnchor)
-        
-        starImage.anchor
-            .centerY(centerYAnchor)
             .right(rightAnchor, padding: 16)
     }
 
