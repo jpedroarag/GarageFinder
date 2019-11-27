@@ -244,11 +244,15 @@ extension GarageDetailsViewController {
         }
     }
     
-    func parkingRequestWasAccepted() {
-        garageInfoView.button.backgroundColor = .customGreen
-        garageInfoView.button.setTitle("Cheguei!", for: .normal)
-        garageInfoView.button.action = startRenting(_:)
-        waitingView.stopWaiting(withNewMessage: "Confirme quando você chegar na garagem. Não se preocupe, nada será cobrado antes de você chegar lá 😉")
+    func parkingRequest(wasAccepted accepted: Bool) {
+        if accepted {
+            garageInfoView.button.backgroundColor = .customGreen
+            garageInfoView.button.setTitle("Cheguei!", for: .normal)
+            garageInfoView.button.action = startRenting(_:)
+            waitingView.stopWaiting(withNewMessage: "Confirme quando você chegar na garagem. Não se preocupe, nada será cobrado antes de você chegar lá 😉")
+        } else {
+            cancelParkingRequest(garageInfoView.button)
+        }
     }
     
     func fireRenting() {
