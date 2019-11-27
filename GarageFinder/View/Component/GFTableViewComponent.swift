@@ -13,6 +13,7 @@ class GFTableViewComponent: UIView {
     enum ComponentType {
         case garageInfo
         case rating
+        case favorite
     }
     
     var type: ComponentType!
@@ -88,29 +89,32 @@ class GFTableViewComponent: UIView {
     }
     
     private func setConstraints() {
-        NSLayoutConstraint.deactivate(leftImageView.constraints)
+        
+        var leftPadding: CGFloat = 0
+        switch type {
+        case .rating: leftPadding = 16
+        case .favorite: leftPadding = 8
+        default: leftPadding = 0
+        }
+        
         leftImageView.anchor
             .centerY(centerYAnchor)
-            .left(leftAnchor, padding: isCollapsed ? 0 : (type == .rating ? 16 : 0))
-            .height(constant: (type == .rating ? 48 : 64))
-            .width(constant: isCollapsed ? 0 : (type == .rating ? 48 : 64))
+            .left(leftAnchor, padding: isCollapsed ? 0 : leftPadding)
+            .height(constant: (type == .garageInfo ? 64 : 48))
+            .width(constant: isCollapsed ? 0 : (type == .garageInfo ? 64 : 48))
         
         titleLabel.anchor
             .left(leftImageView.rightAnchor, padding: isCollapsed ? 0 : 8)
             .bottom(leftImageView.centerYAnchor)
         
         if !isCollapsed {
-            titleLabel.anchor.right(ratingLabel.leftAnchor,
-                                    padding: 16,
-                                    relation: .lessThanOrEqual)
+            titleLabel.anchor.right(ratingLabel.leftAnchor, padding: 16, relation: .lessThanOrEqual)
         }
         
         subtitleLabel.anchor
             .top(titleLabel.bottomAnchor, padding: 4)
             .left(titleLabel.leftAnchor)
-            .right(isCollapsed ? rightAnchor : ratingLabel.leftAnchor,
-                   padding: isCollapsed ? 0 : 16,
-                   relation: .lessThanOrEqual)
+            .right(isCollapsed ? rightAnchor : ratingLabel.leftAnchor, padding: isCollapsed ? 0 : 16, relation: .lessThanOrEqual)
         
         if isCollapsed {
             ratingLabel.anchor
@@ -120,7 +124,7 @@ class GFTableViewComponent: UIView {
             ratingLabel.anchor
                 .centerY(leftImageView.centerYAnchor)
                 .right(rightImageView.leftAnchor, padding: 4)
-            if type == .rating {
+            if type != .garageInfo {
                 ratingLabel.anchor.width(constant: 32)
             }
         }
@@ -147,6 +151,7 @@ class GFTableViewComponent: UIView {
         subtitleLabel.anchor.deactivateAll()
         rightImageView.anchor.deactivateAll()
         ratingLabel.anchor.deactivateAll()
+        NSLayoutConstraint.deactivate(leftImageView.constraints)
         setConstraints()
     }
 
