@@ -14,14 +14,13 @@ import OneSignal
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var rootVC = MapViewController()
+    weak var updateParkingStatusDelegate: UpdateParkingStatusDelegate?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let mapViewController = MapViewController()
-        window?.rootViewController = mapViewController
-        window?.makeKeyAndVisible()
-        
+        updateParkingStatusDelegate = rootVC.floatingViewController
         let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
             print("Received Notification: \(notification?.payload.notificationID ?? "nil")")
             print("launchURL = \(notification?.payload.launchURL ?? "None")")
@@ -43,12 +42,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("actionSelected = \(actionSelected)")
                 }
                 
+                if let statusStr = additionalData["status"] as? String,
+                    let status = Bool(statusStr) {
+                    
+                    self.updateParkingStatusDelegate?.didUpdateParkingStatus(status: status)
+                    self.window?.rootViewController = self.rootVC
+                    self.window?.makeKeyAndVisible()
+                    
+                }
+                
                 // DEEP LINK from action buttons
                 if let actionID = result?.action.actionID {
                     print("ActionID: \(actionID)")
                 }
             }
         }
+        
+        window?.rootViewController = rootVC
+        window?.makeKeyAndVisible()
         
         let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: true]
 
@@ -67,7 +78,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("User accepted notifications: \(accepted)")
         })
         
+        
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        updateParkingStatusDelegate?.didUpdateParkingStatus(status: true)
+        print("USER INFO: \(userInfo)")
     }
 
     func setupActionButtons() {

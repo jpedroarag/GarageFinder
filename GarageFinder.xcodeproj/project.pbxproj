@@ -156,6 +156,7 @@
 		6CE30E3D2369D104002C04D7 /* UpdateFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE30E3C2369D104002C04D7 /* UpdateFieldDelegate.swift */; };
 		6CE31B062330FBF9002AFF85 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE31B052330FBF9002AFF85 /* SearchResultView.swift */; };
 		6CE3881F23477FAF002458FC /* GarageRatingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */; };
+		6CF013D0238E9E13005C6AD0 /* UpdateParkingStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF013CF238E9E13005C6AD0 /* UpdateParkingStatusDelegate.swift */; };
 		6CF85EFA2318072A009FEFB5 /* FloatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */; };
 		6CFCC00B236C59060096033D /* FinishSignUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFCC00A236C59060096033D /* FinishSignUpDelegate.swift */; };
 		6CFFC7A223624E67005D8D2F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFC7A123624E67005D8D2F /* LoadingView.swift */; };
@@ -389,6 +390,7 @@
 		6CE30E3C2369D104002C04D7 /* UpdateFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFieldDelegate.swift; sourceTree = "<group>"; };
 		6CE31B052330FBF9002AFF85 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		6CE3881E23477FAF002458FC /* GarageRatingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageRatingDelegate.swift; sourceTree = "<group>"; };
+		6CF013CF238E9E13005C6AD0 /* UpdateParkingStatusDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateParkingStatusDelegate.swift; sourceTree = "<group>"; };
 		6CF43F20231FE1A800206150 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		6CF85EF92318072A009FEFB5 /* FloatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewController.swift; sourceTree = "<group>"; };
 		6CFCC00A236C59060096033D /* FinishSignUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishSignUpDelegate.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				3C59AE2123688582006EC36E /* GarageActionsDelegate.swift */,
 				3C55F213236C6FAA00CBFDB9 /* ParkingStatusDelegate.swift */,
 				3C9EE7142387430C00B8B448 /* SettingSectionController.swift */,
+				6CF013CF238E9E13005C6AD0 /* UpdateParkingStatusDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1301,6 +1304,7 @@
 				3C811E61232F025E0075AD49 /* FloatingViewPositioningDelegate.swift in Sources */,
 				3C10C96D23180028001BDDB6 /* RangeLocation.swift in Sources */,
 				6C8B9A0B2365CFFC00EA950C /* ImagePickerTool+UIImagePickerControllerDelegate.swift in Sources */,
+				6CF013D0238E9E13005C6AD0 /* UpdateParkingStatusDelegate.swift in Sources */,
 				3C811E492327BE5B0075AD49 /* GarageGalleryView.swift in Sources */,
 				6C13B39E237052F900F25A34 /* PagesIntroViewController.swift in Sources */,
 				6CFFC7A223624E67005D8D2F /* LoadingView.swift in Sources */,

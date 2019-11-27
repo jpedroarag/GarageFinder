@@ -279,6 +279,7 @@ extension FloatingViewController: GarageRatingDelegate {
     func willStartRating() {
         floatingView.animTo(positionY: floatingView.fullView)
     }
+
     func didStartRating(_ garage: Garage) {
         let garageRating = RatingViewController()
         if canShowGarageVC(garageRating) {
@@ -306,5 +307,11 @@ extension FloatingViewController: FloatingViewPositioningDelegate {
         if position != .full {
             cancellSearch()
         }
+    }
+}
+
+extension FloatingViewController: UpdateParkingStatusDelegate {
+    func didUpdateParkingStatus(status: Bool) {
+        print("RECEIVE UPDATE PARKING WITH STATUS: \(status)")
     }
 }
