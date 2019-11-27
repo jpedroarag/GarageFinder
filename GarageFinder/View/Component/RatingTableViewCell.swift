@@ -33,6 +33,7 @@ class RatingTableViewCell: UITableViewCell {
     }
     
     func loadData(_ comment: Comment) {
+        component.isCollapsed = false
         component.leftImageView.contentMode = .scaleAspectFit
         component.leftImageView.image = UIImage(named: "profile")
         component.titleLabel.text = comment.title

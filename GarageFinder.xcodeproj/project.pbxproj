@@ -679,7 +679,6 @@
 				3C811E442327BE130075AD49 /* GarageInfoView.swift */,
 				3C811E482327BE5B0075AD49 /* GarageGalleryView.swift */,
 				3C811E56232930AE0075AD49 /* GalleryCollectionViewCell.swift */,
-				3C811E58232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift */,
 				3C55F21D23730A6200CBFDB9 /* PaddedLabel.swift */,
 				3C811E5A232A75C90075AD49 /* CircularButton.swift */,
 				3C811E5C232A80460075AD49 /* GarageActionsView.swift */,
@@ -795,6 +794,7 @@
 		6C58990C2333C539000DA4C2 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				3C811E58232A71520075AD49 /* GarageGalleryDataSourceDelegate.swift */,
 				6C58990D2333C598000DA4C2 /* FavAddressColectionDataSource.swift */,
 				6C58990F2333C92D000DA4C2 /* FloatingTableViewDataSource.swift */,
 				6CFFC7AF23631DCB005D8D2F /* TextFieldsTableViewDataSource.swift */,
