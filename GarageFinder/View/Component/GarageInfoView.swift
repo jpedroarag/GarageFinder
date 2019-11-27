@@ -54,13 +54,17 @@ class GarageInfoView: UIView {
             .bottom(bottomAnchor, priority: 250)
     }
     
-    private func setConstraintsForSupplementaryView() {
+    private func setConstraintsForSupplementaryView(_ height: CGFloat? = nil) {
         guard let supplementary = supplementaryView else { return }
 
         supplementary.anchor
             .top(component.bottomAnchor, padding: 24)
             .centerX(centerXAnchor)
             .width(widthAnchor)
+        
+        if let heightValue = height {
+            supplementary.anchor.height(constant: heightValue)
+        }
         
         button.anchor
             .top(supplementary.bottomAnchor, padding: 24, priority: 700)
@@ -84,12 +88,12 @@ class GarageInfoView: UIView {
         supplementaryView?.frame = CGRect(origin: position, size: size)
     }
     
-    func addSupplementaryView(_ view: UIView, animated: Bool = true, _ completion: (() -> Void)? = nil) {
+    func addSupplementaryView(_ view: UIView, withHeight height: CGFloat? = nil, animated: Bool = true, _ completion: (() -> Void)? = nil) {
         supplementaryView?.removeFromSuperview()
         supplementaryView = view
         setFrameForSupplementaryView()
         addSubview(view)
-        setConstraintsForSupplementaryView()
+        setConstraintsForSupplementaryView(height)
         if animated {
             UIView.animate(withDuration: 0.3, animations: {
                 self.layoutSubviews()
@@ -98,6 +102,31 @@ class GarageInfoView: UIView {
             })
         } else {
             layoutSubviews()
+            completion?()
+        }
+        
+    }
+    
+    func removeSupplementaryView(animated: Bool = true, _ completion: (() -> Void)? = nil) {
+        supplementaryView?.anchor.deactivateConstraints(withLayoutAttributes: .height, .top, .bottom)
+        supplementaryView?.anchor
+            .height(constant: 24)
+            .top(component.bottomAnchor, padding: 0)
+            .bottom(button.topAnchor)
+        
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.layoutSubviews()
+                self.supplementaryView?.alpha = 0
+            }, completion: { _ in
+                self.supplementaryView?.removeFromSuperview()
+                self.supplementaryView = nil
+                completion?()
+            })
+        } else {
+            layoutSubviews()
+            supplementaryView?.removeFromSuperview()
+            supplementaryView = nil
             completion?()
         }
         

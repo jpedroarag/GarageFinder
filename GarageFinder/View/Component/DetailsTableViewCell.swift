@@ -34,6 +34,8 @@ class DetailsTableViewCell: UITableViewCell {
             .right(rightAnchor, padding: 20)
     }
     
+    typealias Paddings = (top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat, height: CGFloat?)
+    
     func addContentView(_ view: UIView) {
         content = view
         addSubview(view)
@@ -44,6 +46,20 @@ class DetailsTableViewCell: UITableViewCell {
         } else {
             anchor = sectionHeaderLabel.bottomAnchor
         }
+        
+        let paddingValues = paddings(forView: view)
+        view.anchor
+            .top(anchor, padding: paddingValues.top)
+            .left(leftAnchor, padding: paddingValues.left)
+            .right(rightAnchor, padding: paddingValues.right)
+            .bottom(bottomAnchor, padding: paddingValues.bottom)
+
+        if let height = paddingValues.height {
+            view.anchor.height(constant: height)
+        }
+    }
+    
+    private func paddings(forView view: UIView) -> Paddings {
         
         var topPadding: CGFloat
         var bottomPadding: CGFloat
@@ -78,15 +94,8 @@ class DetailsTableViewCell: UITableViewCell {
             }
         }
         
-        view.anchor
-            .top(anchor, padding: topPadding)
-            .left(leftAnchor)
-            .right(rightAnchor)
-            .bottom(bottomAnchor, padding: bottomPadding)
-
-        if let height = fixedHeight {
-            view.anchor.height(constant: height)
-        }
+        return (topPadding, 0, bottomPadding, 0, fixedHeight)
+        
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
