@@ -18,7 +18,7 @@ public enum NetworkService<T: CustomCodable>: Service {
     case update(T)
     
     public var baseURL: URL {
-        let url = "http://10.45.48.39:3000"
+        let url = "https://garagefinderapi.herokuapp.com"
         return URL(string: url) ?? URL(fileURLWithPath: "")
     }
 

@@ -19,12 +19,9 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
             favoriteGarages = favorites
             return
         }
-        // TODO: Remove the code below later (using for testing core data)
-//        favoriteGarages = getFavorites()
-//        CoreDataManager.shared.saveChanges()
     }
     
-    func getFavorites() -> [Favorite] {
+    func getFavorites() -> [Favorite] { // Data for testing
         return [Favorite(name: "Garagem de Marcus", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1001, average: 4.3),
                 Favorite(name: "Garagem de Vitor", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1002, average: 4.6),
                 Favorite(name: "Garagem de Pedro", category: .other, latitude: -3.754398, longitude: -38.522078, type: .garage, objectId: 1003, average: 4),

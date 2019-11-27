@@ -40,11 +40,9 @@ class MapSettingsViewController: UIViewController {
         
         var indexPath = IndexPath(item: 0, section: 0)
         if let option = UserDefaults.standard.valueForLoggedUser(forKey: "MapOption") as? String {
-            for index in 0..<optionSelectorViewController.options.count {
-                if optionSelectorViewController.options[index] == option {
-                    indexPath = [0, index]
-                    break
-                }
+            for index in 0..<optionSelectorViewController.options.count
+                      where optionSelectorViewController.options[index] == option {
+                indexPath = [0, index]
             }
         }
         

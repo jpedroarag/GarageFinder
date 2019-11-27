@@ -52,7 +52,6 @@ class FloatingViewController: UIViewController {
     }
     
     @objc func finishSearch(_ notification: Notification) {
-        // TODO: Metrify here
         floatingView.animTo(positionY: floatingView.partialView)
         cancellSearch()
     }
@@ -63,7 +62,6 @@ class FloatingViewController: UIViewController {
 //        presentVC = UserDefaults.userIsLogged ? SignUpViewController(isEditingProfile: true) : LoginViewController()
 //        present(presentVC, animated: true, completion: nil)
         
-        // TODO: Metrify here
         let presentVC: UIViewController!
         if UserDefaults.userIsLogged {
             let controller = MenuViewController()
@@ -123,7 +121,6 @@ extension FloatingViewController: UITableViewDelegate {
 //            }
 //        }
         
-        // TODO: Metrify here
         if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
             let filteredPins = self.mapView?.pins.filter {
                 $0.coordinate == CLLocationCoordinate2D(latitude: garage.latitude, longitude: garage.longitude)

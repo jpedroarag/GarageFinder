@@ -9,9 +9,9 @@
 import CoreData
 
 protocol PersistableObject: NSManagedObject {
-    associatedtype IdentifierType: Comparable & CVarArg
-    static var entityName: String { get }
-    static var idStringSymbol: String { get }
+    associatedtype IdentifierType: Comparable & CVarArg // Int String ...
+    static var entityName: String { get } // "Favorite"
+    static var idStringSymbol: String { get } // "%d" "%s"
     var id: IdentifierType { get set }
 }
 

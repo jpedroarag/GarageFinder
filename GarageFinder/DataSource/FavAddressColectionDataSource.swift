@@ -12,19 +12,14 @@ class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
     
     override init() {
         super.init()
-        let favoriteTypeInt16 = NSNumber(value: FavoriteType.address.rawValue)
-        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
-        let favorites = CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
+        let favorites = loadFavorites()
         if !favorites.isEmpty {
             items = favorites
             return
         }
-        // TODO: Remove the code below later (using for testing core data)
-        items = getFavorites()
-        CoreDataManager.shared.saveChanges()
     }
     
-    func getFavorites() -> [Favorite] {
+    func getFavorites() -> [Favorite] { // Data for testing
         return [Favorite(name: "Add", category: .add, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3001),
                 Favorite(name: "Home", category: .home, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3002),
                 Favorite(name: "Academia do Pedro", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3003),
@@ -34,6 +29,12 @@ class FavAddressColectionDataSource: NSObject, UICollectionViewDataSource {
                 Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3007),
                 Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3008),
                 Favorite(name: "Academia José de Alencar", category: .gym, latitude: -3.743993, longitude: -38.535000, type: .address, objectId: 3009)]
+    }
+    
+    func loadFavorites() -> [Favorite] {
+        let favoriteTypeInt16 = NSNumber(value: FavoriteType.address.rawValue)
+        let predicate = NSPredicate(format: "(type == %@)", favoriteTypeInt16)
+        return CoreDataManager.shared.fetch(Favorite.self, predicate: predicate)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
