@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
     }()
     
     var floatingView: UIView!
-    var floatingViewController: FloatingViewController!
+    var floatingViewController = FloatingViewController()
     
     weak var selectGarageDelegate: SelectGarageDelegate?
     let provider = URLSessionProvider()
@@ -163,7 +163,6 @@ class MapViewController: UIViewController {
     }
     
     func addFloatingVC() {
-        floatingViewController = FloatingViewController()
         floatingViewController.mapView = mapView
         self.floatingView = floatingViewController.view
         selectGarageDelegate = floatingViewController

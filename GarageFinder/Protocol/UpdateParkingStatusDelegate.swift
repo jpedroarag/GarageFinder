@@ -9,5 +9,5 @@
 import Foundation
 
 protocol UpdateParkingStatusDelegate: class {
-    func didUpdateParkingStatus(status: Bool)
+    func didUpdateParkingStatus(status: Bool, parkingId: Int)
 }

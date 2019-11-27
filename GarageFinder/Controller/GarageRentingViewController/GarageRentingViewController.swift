@@ -159,7 +159,9 @@ class GarageRentingViewController: AbstractGarageViewController {
     }
     
     func updateRemoteParking() {
-        URLSessionProvider().request(.update(parkingObject)) { result in
+        var parking = Parking(id: parkingObject.id)
+        parking.end = parkingObject.end
+        URLSessionProvider().request(.update(parking)) { result in
             switch result {
             case .success(let response):
                 print("PATCH: Success posting parking: \(response.result?.id ?? -1)")

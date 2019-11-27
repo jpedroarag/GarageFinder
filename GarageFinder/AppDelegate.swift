@@ -43,9 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
                 if let statusStr = additionalData["status"] as? String,
-                    let status = Bool(statusStr) {
+                    let status = Bool(statusStr), let parkingIdStr = additionalData["parkingId"] as? String,
+                    let parkingId = Int(parkingIdStr) {
                     
-                    self.updateParkingStatusDelegate?.didUpdateParkingStatus(status: status)
+                    //self.updateParkingStatusDelegate?.didUpdateParkingStatus(status: status, parkingId: parkingId)
                     self.window?.rootViewController = self.rootVC
                     self.window?.makeKeyAndVisible()
                     
@@ -78,14 +79,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("User accepted notifications: \(accepted)")
         })
         
-        
-        
         return true
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        updateParkingStatusDelegate?.didUpdateParkingStatus(status: true)
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("USER INFO: \(userInfo)")
+
+        if let custom = userInfo["custom"] as? [AnyHashable: Any],
+            let content = custom["a"] as? [AnyHashable: Any],
+            let parkingIdStr = content["parkingId"] as? String, let parkingId = Int(parkingIdStr),
+            let status = content["status"] as? Bool {
+            
+            self.updateParkingStatusDelegate?.didUpdateParkingStatus(status: status, parkingId: parkingId)
+        }
     }
 
     func setupActionButtons() {

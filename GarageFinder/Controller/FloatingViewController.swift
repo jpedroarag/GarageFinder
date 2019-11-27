@@ -311,7 +311,39 @@ extension FloatingViewController: FloatingViewPositioningDelegate {
 }
 
 extension FloatingViewController: UpdateParkingStatusDelegate {
-    func didUpdateParkingStatus(status: Bool) {
-        print("RECEIVE UPDATE PARKING WITH STATUS: \(status)")
+    
+    var detailsController: GarageDetailsViewController? {
+        return (children.filter { $0 is GarageDetailsViewController }).first as? GarageDetailsViewController
+    }
+    
+    func didUpdateParkingStatus(status: Bool, parkingId: Int) {
+
+        detailsController?.parkingRequest(wasAccepted: status)
+        return
+        
+        if !status {return}
+        let provider = URLSessionProvider()
+        provider.request(.get(Parking.self, id: parkingId)) { result in
+            switch result {
+            case .success(let response):
+                if let parking = response.result {
+                    provider.request(.get(Garage.self, id: parking.garageId)) { result in
+                        switch result {
+                        case .success(let response):
+                            if let garage = response.result {
+                                DispatchQueue.main.async {
+                                    //self.didSelectGarage(garage)
+                                    self.startedRenting(garage: garage, parking: parking, createdNow: true)
+                                }
+                            }
+                        case .failure(let error):
+                            print("Error on get garage: \(error)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Error on get parking: \(error)")
+            }
+        }
     }
 }
