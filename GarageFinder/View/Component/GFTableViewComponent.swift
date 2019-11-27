@@ -21,7 +21,7 @@ class GFTableViewComponent: UIView {
         didSet {
             resetConstraints()
             UIView.animate(withDuration: 0.7) {
-                self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 24, weight: .semibold)
+                self.ratingLabel.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
                 self.layoutSubviews()
             }
         }
@@ -54,7 +54,7 @@ class GFTableViewComponent: UIView {
     lazy var ratingLabel: UILabel = {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: self.isCollapsed ? 15 : 24, weight: .semibold)
+        label.font = .systemFont(ofSize: self.isCollapsed ? 15 : 36, weight: .semibold)
         label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor(rgb: 0xFFCE00, alpha: 100)
         return label
@@ -125,7 +125,7 @@ class GFTableViewComponent: UIView {
                 .centerY(leftImageView.centerYAnchor)
                 .right(rightImageView.leftAnchor, padding: 4)
             if type != .garageInfo {
-                ratingLabel.anchor.width(constant: 32)
+                ratingLabel.anchor.width(constant: 48)
             }
         }
         
