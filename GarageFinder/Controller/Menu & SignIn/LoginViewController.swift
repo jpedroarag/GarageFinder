@@ -62,7 +62,6 @@ class LoginViewController: UIViewController {
                 case .success(let response):
                     if let user = response.result {
                         if user.playerId != playerId {
-                            print("Are different!")
                             self.updateUser(playerId: playerId)
                         } else {
                             print("Are Equals!")
