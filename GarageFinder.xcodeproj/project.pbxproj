@@ -535,7 +535,6 @@
 				6C8B9A162365EB7A00EA950C /* MenuView */,
 				6C371EE623674A2800EF9BE7 /* GarageHistoryView.swift */,
 				3C9EE70C2386B3A300B8B448 /* OptionSelectorCollectionViewCell.swift */,
-				3C3EB80F238D4C3100D4849B /* ParkingWaitingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -690,6 +689,7 @@
 				6CFFC7A123624E67005D8D2F /* LoadingView.swift */,
 				6CFFC7B3236489AA005D8D2F /* SignupHeader.swift */,
 				6C81DF59237C430300EA3373 /* PayMethodView.swift */,
+				3C3EB80F238D4C3100D4849B /* ParkingWaitingView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";

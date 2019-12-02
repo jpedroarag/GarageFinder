@@ -71,3 +71,61 @@ extension Array where Element: Hashable {
         return Set(self).count == 1
     }
 }
+
+struct DriverLicenseValidationStrategy: ValidationStrategy {
+    var subStrategies: [ValidationStrategy] = [EmptyStrategy(), NumericDigititsLimitValidationStrategy(limit: 11)]
+    
+    func validate(value: String) -> ValidationResult {
+        let numbers = value.compactMap { char -> Int? in
+            char.wholeNumberValue
+        }
+        
+        if numbers.count != 11 {
+            return .wrong(Self.self)
+        }
+        
+        var index = 0
+        var s1 = 0
+        var s2 = 0
+        var reversedIndex = 9
+        
+        while index < 9 {
+            s1 += numbers[index] * reversedIndex
+            s2 += numbers[index] * (10 - reversedIndex)
+            index += 1
+            reversedIndex -= 1
+        }
+        
+        let digitVerifier1 = s1 % 11
+        
+        if numbers[9] != (digitVerifier1 > 9 ? 0 : digitVerifier1) {
+            return .wrong(Self.self)
+        }
+        
+        let digitVerifier2 = s2 % 11 - (digitVerifier1 > 9 ? 2 : 0)
+        let check = digitVerifier2 < 0 ? digitVerifier2 + 11 : (digitVerifier2 > 9 ? 0 : digitVerifier2)
+        
+        if numbers[10] != check {
+            return .wrong(Self.self)
+        }
+        
+        return .ok
+    }
+    
+}
+
+struct LicensePlateValidationStrategy: ValidationStrategy {
+    var subStrategies: [ValidationStrategy] = [EmptyStrategy()]
+    
+    func validate(value: String) -> ValidationResult {
+        let regex = "([A-Z]{3})-([0-9]{4})"
+        
+        guard let acceptantRange = value.range(of: regex, options: .regularExpression),
+              value[acceptantRange] == value else {
+                return .wrong(Self.self)
+        }
+        
+        return .ok
+    }
+    
+}

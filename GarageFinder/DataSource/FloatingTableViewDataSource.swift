@@ -81,4 +81,17 @@ class FloatingTableViewDataSource: NSObject, UITableViewDataSource {
         
         return cell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let favorite = favoriteGarages.remove(at: indexPath.row)
+            CoreDataManager.shared.delete(object: favorite)
+            tableView.reloadData()
+        }
+    }
+    
 }

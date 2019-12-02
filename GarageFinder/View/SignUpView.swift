@@ -44,7 +44,7 @@ class SignUpView: UIView {
     }()
     
     lazy var textFieldsTableView: TextFieldsTableView = {
-        let table = TextFieldsTableView(frame: .zero, style: .plain)
+        let table = TextFieldsTableView(style: .grouped)
         table.dataSource = dataSource
         return table
     }()
@@ -65,10 +65,14 @@ class SignUpView: UIView {
     var keyScroller: KeyScroller?
     
     init(isEditingProfile: Bool = false) {
-        var userTypes: [TextFieldType] = [.name, .email, .cpf, .password]
+        var userData: [TextFieldType] = [.name, .email, .cpf, .driverLicense, .password]
+        let driverData: [TextFieldType] = [.model, .year, .chassi, .licensePlate]
+        
         if !isEditingProfile {
-            userTypes.append(.confirmPassword)
+            userData.append(.confirmPassword)
         }
+        
+        let userTypes: [[TextFieldType]] = [userData, driverData]
         
         self.dataSource = TextFieldsTableDataSource(userTypes: userTypes, isEditing: isEditingProfile)
         super.init(frame: .zero)

@@ -20,7 +20,9 @@ class ValidationTipAssistant {
         tipAssistant.addTip(forType: NumericDigititsLimitValidationStrategy.self, tip: "* Numero de Caracters Errado.")
         tipAssistant.addTip(forType: EmptyStrategy.self, tip: "* Campo não pode ser vazio.")
         tipAssistant.addTip(forType: NewPasswordValidationStrategy.self, tip: "* A senha está diferente.")
-        tipAssistant.addTip(forType: PasswordCharLimitValidationStrategy.self, tip: "* A senha deve ter no mínimo 8 caracteres")
+        tipAssistant.addTip(forType: PasswordCharLimitValidationStrategy.self, tip: "* A senha deve ter no mínimo 8 caracteres.")
+        tipAssistant.addTip(forType: DriverLicenseValidationStrategy.self, tip: "* CNH Com Formato Inválido.")
+        tipAssistant.addTip(forType: LicensePlateValidationStrategy.self, tip: "* Placa Com Formato Inválido.")
 
         return tipAssistant
     }()
