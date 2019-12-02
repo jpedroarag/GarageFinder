@@ -66,6 +66,9 @@ class GFTextField: UITextMaskField {
             maskString = "NNNN"
         case .licensePlate:
             maskString = "CCC-NNNN"
+        case .driverLicense:
+            maskString = "NNNNNNNNNNN"
+            keyboardType = .numberPad
         default:
             return
         }

@@ -31,26 +31,11 @@ class LoginViewController: UIViewController {
         let hasNoWarning = isEmailRight && isNoEmpty
         
         if hasNoWarning {
-            let userAuth = UserAuth(email: email, password: password)
-            let provider = URLSessionProvider()
-            provider.request(.post(userAuth)) { result in
-                switch result {
-                case .success(let response):
-                    if let userAuth = response.result {
-                        print("TOKEN: \(userAuth.token ?? "")")
-                        UserDefaults.standard.set(userAuth.token, forKey: "Token")
-                        UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
-                        UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
-                        self.getCurrentUser(playerId: UserDefaults.playerId)
-                        DispatchQueue.main.async {
-                            self.updateMapSettings()
-                            self.parkingStatusDelegate.loadData(fromLogin: true)
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                case .failure(let error):
-                    print("Error on login: \(error)")
-                    self.showErrorAlert()
+            login(userAuth: UserAuth(email: email, password: password)) { _ in
+                DispatchQueue.main.async {
+                    self.updateMapSettings()
+                    self.parkingStatusDelegate.loadData(fromLogin: true)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }
@@ -104,6 +89,32 @@ class LoginViewController: UIViewController {
     
     func closeAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    typealias TokenValues = (token: String?, expiration: Date?, userId: Int?)
+    
+    func login(userAuth: UserAuth, _ completion: ((TokenValues) -> Void)? = nil) {
+        URLSessionProvider().request(.post(userAuth)) { result in
+            switch result {
+            case .success(let response):
+                if let userAuth = response.result {
+                    print("TOKEN: \(userAuth.token ?? "")")
+                    let tokenValues = self.setToken(forUser: userAuth)
+                    self.getCurrentUser(playerId: UserDefaults.playerId)
+                    completion?(tokenValues)
+                }
+            case .failure(let error):
+                print("Error on login: \(error)")
+                self.showErrorAlert()
+            }
+        }
+    }
+    
+    func setToken(forUser userAuth: UserAuth) -> TokenValues {
+        UserDefaults.standard.set(userAuth.token, forKey: "Token")
+        UserDefaults.standard.set(userAuth.exp, forKey: "ExpToken")
+        UserDefaults.standard.set(userAuth.userId, forKey: "LoggedUserId")
+        return (userAuth.token, userAuth.exp, userAuth.userId)
     }
     
     func updateMapSettings() {

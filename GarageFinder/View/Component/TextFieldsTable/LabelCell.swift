@@ -59,7 +59,7 @@ class LabelCell: UITableViewCell {
         switch type {
         case .password:
             label.isSecureTextEntry = true
-        case .email:
+        case .email, .driverLicense, .model, .year, .chassi, .licensePlate:
             label.textColor = .lightGray
         default: break
         }

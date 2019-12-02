@@ -17,5 +17,7 @@ enum TextFieldType: String {
     case color = "Cor"
     case year = "Ano"
     case licensePlate = "Placa"
+    case chassi = "Chassi"
+    case driverLicense = "CNH"
     case none = ""
 }

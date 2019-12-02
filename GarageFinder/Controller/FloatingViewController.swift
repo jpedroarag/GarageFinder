@@ -106,14 +106,14 @@ extension FloatingViewController: UITableViewDelegate {
         return headerView
     }
     
-    /// MARK: Set the collection view delegate of Addresses
+    // MARK: Set the collection view delegate of Addresses
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        if let favAddressTableViewCell = cell as? FavAddressTableViewCell {
 //            favAddressTableViewCell.setCollectionViewDelegate(self)
 //        }
     }
     
-    /// MARK: Select a garage
+    // MARK: Select a garage
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if indexPath.section != 0 { //if the current section is not the address cell
 //            if let cell = tableView.cellForRow(at: indexPath) as? FavGaragesTableViewCell, let garage = cell.favoriteGarage {
@@ -151,6 +151,11 @@ extension FloatingViewController: UITableViewDelegate {
             }
         }
     }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
 }
 
 extension FloatingViewController: UICollectionViewDelegate {

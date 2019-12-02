@@ -9,20 +9,28 @@
 import UIKit
 
 class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
-    let userTypes: [TextFieldType]
+    let userTypes: [[TextFieldType]]
     let isEditing: Bool
     
-    required init(userTypes: [TextFieldType], isEditing: Bool = false) {
-        
+    required init(userTypes: [[TextFieldType]], isEditing: Bool = false) {
         self.userTypes = userTypes
         self.isEditing = isEditing
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0: return "Dados pessoais"
+        case 1: return "Dados do veículo"
+        default: return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userTypes.count
+        return userTypes[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +44,7 @@ class TextFieldsTableDataSource: NSObject, UITableViewDataSource {
             textFieldCell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TextFieldCell
         }
 
-        let userType = userTypes[indexPath.row]
+        let userType = userTypes[indexPath.section][indexPath.row]
         textFieldCell?.textField.setUpType(type: userType)
         labelCell?.setType(userType)
 
